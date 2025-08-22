@@ -1,0 +1,55 @@
+# ==================================================
+# Complex Nested Log File - Sample Version
+# Date: 2025-05-08
+# Description: Shortened version for analysis and formatting purposes.
+# ==================================================
+
+[2025-05-08 09:00:00] INFO: Entry 001: Configuration loaded successfully.
+# End of Entry 001
+
+[2025-05-08 09:00:03] ERROR: Entry 002: Application crash detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 101;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 32 },
+        { FUNCTION: "func_8", LINE: 58 },
+    ];
+END_CRASH_REPORT
+
+[2025-05-08 09:00:06] WARN: Entry 003: Low disk space detected.
+
+[2025-05-08 09:00:10] DEBUG: Entry 004: User login successful.
+
+[2025-05-08 09:00:15] INFO: Entry 005: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "18ms" };
+    CHECK: "audio" -> { result: "fail", latency: "23ms" };
+END_DIAGNOSTIC
+# End of Entry 005
+
+[2025-05-08 09:00:20] WARN: Entry 006: Service restarted.
+
+[2025-05-08 09:00:23] DEBUG: Entry 007: System boot initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+# End of Entry 007
+
+
+[2025-05-08 09:00:27] INFO: Entry 008: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_008.bin";
+    DESTINATION: "/backup/backup_008.bin";
+    FILE_LIST: [
+        "file_0_17.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:00:30";
+        PROGRESS: 50;
+        DETAILS: "Update 4";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 008

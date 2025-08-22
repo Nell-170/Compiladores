@@ -1,0 +1,5220 @@
+# ==================================================
+# Complex Nested Log File with 1000 Entries for Lexical and Syntactic Analysis
+# Date: 2025-02-15
+# Description: This log file contains 1000 varied log entries with nested structures,
+# arrays, and key-value pairs to challenge analyzers.
+# ==================================================
+
+[2025-02-15 08:00:00] INFO: Entry 001: Configuration loaded successfully.
+# End of Entry 001
+
+[2025-02-15 08:00:03] WARN: Entry 002: Service restarted.
+
+[2025-02-15 08:00:08] DEBUG: Entry 003: User logout recorded.
+
+[2025-02-15 08:00:13] INFO: Entry 004: Application crash detected.
+
+[2025-02-15 08:00:17] INFO: Entry 005: Low disk space detected.
+
+[2025-02-15 08:00:20] ERROR: Entry 006: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "28ms" };
+    CHECK: "storage" -> { result: "pass", latency: "22ms" };
+    CHECK: "network" -> { result: "fail", latency: "19ms" };
+    CHECK: "audio" -> { result: "pass", latency: "6ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:00:23] WARN: Entry 007: Partial boot detected.
+
+[2025-02-15 08:00:24] DEBUG: Entry 008: Scheduled backup initiated.
+
+[2025-02-15 08:00:25] INFO: Entry 009: Driver installed successfully.
+
+[2025-02-15 08:00:27] DEBUG: Entry 010: User logout recorded.
+
+[2025-02-15 08:00:29] WARN: Entry 011: Driver installed successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:00:34] WARN: Entry 012: Partial boot detected.
+
+[2025-02-15 08:00:35] ERROR: Entry 013: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:00:40] DEBUG: Entry 014: Application crash detected.
+
+[2025-02-15 08:00:44] WARN: Entry 015: Configuration loaded successfully.
+
+[2025-02-15 08:00:46] WARN: Entry 016: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "15ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:00:50] ERROR: Entry 017: Network services running.
+
+[2025-02-15 08:00:54] WARN: Entry 018: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "37ms" };
+    CHECK: "storage" -> { result: "pass", latency: "47ms" };
+    CHECK: "audio" -> { result: "fail", latency: "15ms" };
+    CHECK: "network" -> { result: "fail", latency: "19ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:00:55] INFO: Entry 019: User login successful.
+
+[2025-02-15 08:00:57] ERROR: Entry 020: Configuration loaded successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "17ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:01:01] DEBUG: Entry 021: Application crash detected.
+
+[2025-02-15 08:01:03] INFO: Entry 022: Module error encountered.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:01:08] DEBUG: Entry 023: Driver installed successfully.
+
+[2025-02-15 08:01:13] WARN: Entry 024: Service restarted.
+
+[2025-02-15 08:01:17] ERROR: Entry 025: Service restarted.
+
+[2025-02-15 08:01:21] ERROR: Entry 026: User logout recorded.
+
+[2025-02-15 08:01:23] ERROR: Entry 027: Network services running.
+
+[2025-02-15 08:01:26] INFO: Entry 028: Module error encountered.
+
+[2025-02-15 08:01:31] DEBUG: Entry 029: Service restarted.
+
+[2025-02-15 08:01:32] WARN: Entry 030: Network services running.
+BEGIN_BACKUP
+    SOURCE: "/data/source_30.bin";
+    DESTINATION: "/backup/backup_30.bin";
+    FILE_LIST: [
+        "file_0_30.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:19:28";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:09:32";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:01:35] INFO: Entry 031: Network services running.
+# End of Entry 031
+
+[2025-02-15 08:01:37] DEBUG: Entry 032: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_32.bin";
+    DESTINATION: "/backup/backup_32.bin";
+    FILE_LIST: [
+        "file_0_32.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:11:07";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:31:14";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:01:38] WARN: Entry 033: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "31ms" };
+    CHECK: "storage" -> { result: "pass", latency: "35ms" };
+    CHECK: "audio" -> { result: "fail", latency: "11ms" };
+    CHECK: "video" -> { result: "pass", latency: "37ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:01:40] INFO: Entry 034: Service restarted.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+# End of Entry 034
+
+[2025-02-15 08:01:45] ERROR: Entry 035: Configuration loaded successfully.
+
+[2025-02-15 08:01:46] WARN: Entry 036: Loading configuration.
+# End of Entry 036
+
+[2025-02-15 08:01:47] WARN: Entry 037: Configuration loaded successfully.
+
+[2025-02-15 08:01:50] INFO: Entry 038: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_38.bin";
+    DESTINATION: "/backup/backup_38.bin";
+    FILE_LIST: [
+        "file_0_38.dat",
+        "file_1_38.dat",
+        "file_2_38.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:49:56";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:01:53] ERROR: Entry 039: Network services running.
+
+[2025-02-15 08:01:55] DEBUG: Entry 040: Partial boot detected.
+
+[2025-02-15 08:01:56] DEBUG: Entry 041: Driver installed successfully.
+
+[2025-02-15 08:01:57] ERROR: Entry 042: Module error encountered.
+
+[2025-02-15 08:01:58] ERROR: Entry 043: Low disk space detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 462;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 28 },
+        { FUNCTION: "func_1", LINE: 44 },
+        { FUNCTION: "func_2", LINE: 25 },
+        { FUNCTION: "func_3", LINE: 64 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:02:03] DEBUG: Entry 044: Application crash detected.
+
+[2025-02-15 08:02:04] ERROR: Entry 045: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:02:06] INFO: Entry 046: Network services running.
+
+[2025-02-15 08:02:09] ERROR: Entry 047: Service restarted.
+
+[2025-02-15 08:02:11] INFO: Entry 048: Application crash detected.
+
+[2025-02-15 08:02:14] ERROR: Entry 049: Network services running.
+
+[2025-02-15 08:02:17] INFO: Entry 050: System boot initiated.
+
+[2025-02-15 08:02:21] INFO: Entry 051: Diagnostic completed.
+BEGIN_BACKUP
+    SOURCE: "/data/source_51.bin";
+    DESTINATION: "/backup/backup_51.bin";
+    FILE_LIST: [
+        "file_0_51.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:40:18";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:59:23";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:02:26] DEBUG: Entry 052: Service restarted.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "38ms" };
+    CHECK: "storage" -> { result: "fail", latency: "26ms" };
+    CHECK: "audio" -> { result: "pass", latency: "6ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:02:27] INFO: Entry 053: Network services running.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 261;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 98 },
+        { FUNCTION: "func_1", LINE: 67 },
+        { FUNCTION: "func_2", LINE: 91 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:02:30] INFO: Entry 054: Configuration loaded successfully.
+
+[2025-02-15 08:02:35] ERROR: Entry 055: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 373;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 51 },
+        { FUNCTION: "func_1", LINE: 104 },
+        { FUNCTION: "func_2", LINE: 79 },
+        { FUNCTION: "func_3", LINE: 130 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:02:38] INFO: Entry 056: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+# End of Entry 056
+
+[2025-02-15 08:02:42] DEBUG: Entry 057: Network services running.
+BEGIN_BACKUP
+    SOURCE: "/data/source_57.bin";
+    DESTINATION: "/backup/backup_57.bin";
+    FILE_LIST: [
+        "file_0_57.dat",
+        "file_1_57.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:56:01";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:02:44] DEBUG: Entry 058: Driver installed successfully.
+# End of Entry 058
+
+[2025-02-15 08:02:46] DEBUG: Entry 059: Loading configuration.
+
+[2025-02-15 08:02:47] INFO: Entry 060: Application crash detected.
+
+[2025-02-15 08:02:51] ERROR: Entry 061: Configuration loaded successfully.
+# End of Entry 061
+
+[2025-02-15 08:02:56] ERROR: Entry 062: Application crash detected.
+
+[2025-02-15 08:03:01] INFO: Entry 063: Service restarted.
+# End of Entry 063
+
+[2025-02-15 08:03:02] DEBUG: Entry 064: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:03:04] ERROR: Entry 065: System boot initiated.
+# End of Entry 065
+
+[2025-02-15 08:03:05] DEBUG: Entry 066: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "25ms" };
+    CHECK: "video" -> { result: "pass", latency: "13ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:03:09] WARN: Entry 067: Driver installed successfully.
+# End of Entry 067
+
+[2025-02-15 08:03:11] ERROR: Entry 068: Loading configuration.
+# End of Entry 068
+
+[2025-02-15 08:03:12] INFO: Entry 069: Application crash detected.
+
+[2025-02-15 08:03:14] ERROR: Entry 070: Network services running.
+
+[2025-02-15 08:03:18] DEBUG: Entry 071: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_71.bin";
+    DESTINATION: "/backup/backup_71.bin";
+    FILE_LIST: [
+        "file_0_71.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:14:35";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:03:22] ERROR: Entry 072: Partial boot detected.
+
+[2025-02-15 08:03:27] ERROR: Entry 073: Loading configuration.
+
+[2025-02-15 08:03:32] DEBUG: Entry 074: Scheduled backup initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:03:35] INFO: Entry 075: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "fail", latency: "44ms" };
+    CHECK: "network" -> { result: "fail", latency: "12ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:03:38] WARN: Entry 076: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_76.bin";
+    DESTINATION: "/backup/backup_76.bin";
+    FILE_LIST: [
+        "file_0_76.dat",
+        "file_1_76.dat",
+        "file_2_76.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:52:34";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:14:19";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 076
+
+[2025-02-15 08:03:40] WARN: Entry 077: Low disk space detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 495;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 36 },
+        { FUNCTION: "func_1", LINE: 110 },
+        { FUNCTION: "func_2", LINE: 28 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:03:42] INFO: Entry 078: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "25ms" };
+    CHECK: "video" -> { result: "pass", latency: "35ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:03:43] ERROR: Entry 079: Scheduled backup initiated.
+# End of Entry 079
+
+[2025-02-15 08:03:47] WARN: Entry 080: Loading configuration.
+
+[2025-02-15 08:03:48] DEBUG: Entry 081: Application crash detected.
+# End of Entry 081
+
+[2025-02-15 08:03:53] DEBUG: Entry 082: Module error encountered.
+
+[2025-02-15 08:03:56] INFO: Entry 083: Partial boot detected.
+
+[2025-02-15 08:04:00] WARN: Entry 084: Loading configuration.
+
+[2025-02-15 08:04:04] DEBUG: Entry 085: Partial boot detected.
+# End of Entry 085
+
+[2025-02-15 08:04:09] INFO: Entry 086: Configuration loaded successfully.
+
+[2025-02-15 08:04:13] ERROR: Entry 087: Partial boot detected.
+
+[2025-02-15 08:04:17] ERROR: Entry 088: Scheduled backup initiated.
+
+[2025-02-15 08:04:19] INFO: Entry 089: User login successful.
+# End of Entry 089
+
+[2025-02-15 08:04:23] WARN: Entry 090: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+# End of Entry 090
+
+[2025-02-15 08:04:26] ERROR: Entry 091: Configuration loaded successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:04:30] INFO: Entry 092: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:04:33] WARN: Entry 093: User logout recorded.
+
+[2025-02-15 08:04:35] ERROR: Entry 094: Network services running.
+
+[2025-02-15 08:04:40] DEBUG: Entry 095: System boot initiated.
+# End of Entry 095
+
+[2025-02-15 08:04:44] ERROR: Entry 096: Driver installed successfully.
+# End of Entry 096
+
+[2025-02-15 08:04:47] WARN: Entry 097: Partial boot detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_97.bin";
+    DESTINATION: "/backup/backup_97.bin";
+    FILE_LIST: [
+        "file_0_97.dat",
+        "file_1_97.dat",
+        "file_2_97.dat",
+        "file_3_97.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:41:48";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:57:51";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:04:48] DEBUG: Entry 098: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "43ms" };
+    CHECK: "video" -> { result: "pass", latency: "47ms" };
+END_DIAGNOSTIC
+# End of Entry 098
+
+[2025-02-15 08:04:53] ERROR: Entry 099: Diagnostic completed.
+
+[2025-02-15 08:04:58] ERROR: Entry 100: System boot initiated.
+# End of Entry 100
+
+[2025-02-15 08:04:59] WARN: Entry 101: User login successful.
+
+[2025-02-15 08:05:02] DEBUG: Entry 102: Configuration loaded successfully.
+
+[2025-02-15 08:05:05] ERROR: Entry 103: Loading configuration.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 328;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 82 },
+        { FUNCTION: "func_1", LINE: 90 },
+        { FUNCTION: "func_2", LINE: 58 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:05:10] DEBUG: Entry 104: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "44ms" };
+    CHECK: "audio" -> { result: "fail", latency: "45ms" };
+    CHECK: "storage" -> { result: "fail", latency: "24ms" };
+END_DIAGNOSTIC
+# End of Entry 104
+
+[2025-02-15 08:05:15] INFO: Entry 105: Application crash detected.
+# End of Entry 105
+
+[2025-02-15 08:05:18] INFO: Entry 106: User logout recorded.
+
+[2025-02-15 08:05:22] INFO: Entry 107: Network services running.
+
+[2025-02-15 08:05:26] INFO: Entry 108: Service restarted.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "27ms" };
+    CHECK: "storage" -> { result: "pass", latency: "17ms" };
+    CHECK: "audio" -> { result: "pass", latency: "23ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:05:27] WARN: Entry 109: Module error encountered.
+
+[2025-02-15 08:05:29] DEBUG: Entry 110: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_110.bin";
+    DESTINATION: "/backup/backup_110.bin";
+    FILE_LIST: [
+        "file_0_110.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:57:37";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:07:25";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:28:37";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:05:31] DEBUG: Entry 111: Network services running.
+
+[2025-02-15 08:05:33] WARN: Entry 112: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "34ms" };
+    CHECK: "network" -> { result: "fail", latency: "19ms" };
+    CHECK: "audio" -> { result: "fail", latency: "28ms" };
+END_DIAGNOSTIC
+# End of Entry 112
+
+[2025-02-15 08:05:36] DEBUG: Entry 113: Service restarted.
+
+[2025-02-15 08:05:40] DEBUG: Entry 114: Loading configuration.
+# End of Entry 114
+
+[2025-02-15 08:05:45] ERROR: Entry 115: Diagnostic completed.
+
+[2025-02-15 08:05:47] DEBUG: Entry 116: Application crash detected.
+
+[2025-02-15 08:05:52] DEBUG: Entry 117: Driver installed successfully.
+
+[2025-02-15 08:05:57] ERROR: Entry 118: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_118.bin";
+    DESTINATION: "/backup/backup_118.bin";
+    FILE_LIST: [
+        "file_0_118.dat",
+        "file_1_118.dat",
+        "file_2_118.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:43:20";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:38:27";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:06:01] DEBUG: Entry 119: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "17ms" };
+    CHECK: "audio" -> { result: "fail", latency: "8ms" };
+    CHECK: "storage" -> { result: "fail", latency: "12ms" };
+    CHECK: "video" -> { result: "pass", latency: "19ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:06:02] ERROR: Entry 120: System boot initiated.
+
+[2025-02-15 08:06:07] INFO: Entry 121: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "13ms" };
+    CHECK: "video" -> { result: "fail", latency: "42ms" };
+    CHECK: "storage" -> { result: "fail", latency: "28ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:06:12] INFO: Entry 122: Service restarted.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+# End of Entry 122
+
+[2025-02-15 08:06:13] DEBUG: Entry 123: System boot initiated.
+# End of Entry 123
+
+[2025-02-15 08:06:15] INFO: Entry 124: Service restarted.
+
+[2025-02-15 08:06:16] INFO: Entry 125: Loading configuration.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "22ms" };
+    CHECK: "video" -> { result: "fail", latency: "40ms" };
+    CHECK: "storage" -> { result: "pass", latency: "44ms" };
+    CHECK: "audio" -> { result: "fail", latency: "38ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:06:21] DEBUG: Entry 126: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:06:26] WARN: Entry 127: Module error encountered.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "22ms" };
+    CHECK: "video" -> { result: "fail", latency: "44ms" };
+    CHECK: "storage" -> { result: "fail", latency: "37ms" };
+END_DIAGNOSTIC
+# End of Entry 127
+
+[2025-02-15 08:06:29] INFO: Entry 128: Module error encountered.
+
+[2025-02-15 08:06:32] DEBUG: Entry 129: Configuration loaded successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:06:36] ERROR: Entry 130: Module error encountered.
+
+[2025-02-15 08:06:41] WARN: Entry 131: Partial boot detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_131.bin";
+    DESTINATION: "/backup/backup_131.bin";
+    FILE_LIST: [
+        "file_0_131.dat",
+        "file_1_131.dat",
+        "file_2_131.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:52:34";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:35:11";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:06:46] ERROR: Entry 132: Module error encountered.
+
+[2025-02-15 08:06:48] ERROR: Entry 133: User logout recorded.
+
+[2025-02-15 08:06:51] ERROR: Entry 134: Configuration loaded successfully.
+
+[2025-02-15 08:06:55] DEBUG: Entry 135: Application crash detected.
+# End of Entry 135
+
+[2025-02-15 08:06:57] INFO: Entry 136: System boot initiated.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 270;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 33 },
+        { FUNCTION: "func_1", LINE: 63 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:06:59] DEBUG: Entry 137: Network services running.
+
+[2025-02-15 08:07:03] DEBUG: Entry 138: Configuration loaded successfully.
+
+[2025-02-15 08:07:04] DEBUG: Entry 139: Network services running.
+
+[2025-02-15 08:07:07] INFO: Entry 140: Configuration loaded successfully.
+
+[2025-02-15 08:07:08] INFO: Entry 141: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "fail", latency: "29ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:07:12] ERROR: Entry 142: User login successful.
+
+[2025-02-15 08:07:15] INFO: Entry 143: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_143.bin";
+    DESTINATION: "/backup/backup_143.bin";
+    FILE_LIST: [
+        "file_0_143.dat",
+        "file_1_143.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:23:06";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:45:51";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:40:00";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:07:16] ERROR: Entry 144: Service restarted.
+
+[2025-02-15 08:07:18] ERROR: Entry 145: Low disk space detected.
+
+[2025-02-15 08:07:20] WARN: Entry 146: Driver installed successfully.
+
+[2025-02-15 08:07:25] DEBUG: Entry 147: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "18ms" };
+    CHECK: "video" -> { result: "fail", latency: "10ms" };
+    CHECK: "audio" -> { result: "pass", latency: "5ms" };
+    CHECK: "network" -> { result: "pass", latency: "18ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:07:30] ERROR: Entry 148: Loading configuration.
+
+[2025-02-15 08:07:35] DEBUG: Entry 149: User logout recorded.
+
+[2025-02-15 08:07:38] INFO: Entry 150: Module error encountered.
+BEGIN_BACKUP
+    SOURCE: "/data/source_150.bin";
+    DESTINATION: "/backup/backup_150.bin";
+    FILE_LIST: [
+        "file_0_150.dat",
+        "file_1_150.dat",
+        "file_2_150.dat",
+        "file_3_150.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:32:46";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:40:02";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:07:40] INFO: Entry 151: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_151.bin";
+    DESTINATION: "/backup/backup_151.bin";
+    FILE_LIST: [
+        "file_0_151.dat",
+        "file_1_151.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:11:27";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:07:45] ERROR: Entry 152: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_152.bin";
+    DESTINATION: "/backup/backup_152.bin";
+    FILE_LIST: [
+        "file_0_152.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:29:09";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:40:23";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:07:49] DEBUG: Entry 153: Service restarted.
+
+[2025-02-15 08:07:50] WARN: Entry 154: Application crash detected.
+
+[2025-02-15 08:07:55] ERROR: Entry 155: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_155.bin";
+    DESTINATION: "/backup/backup_155.bin";
+    FILE_LIST: [
+        "file_0_155.dat",
+        "file_1_155.dat",
+        "file_2_155.dat",
+        "file_3_155.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:24:53";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:08:00] ERROR: Entry 156: System boot initiated.
+
+[2025-02-15 08:08:05] ERROR: Entry 157: User logout recorded.
+
+[2025-02-15 08:08:09] INFO: Entry 158: Module error encountered.
+# End of Entry 158
+
+[2025-02-15 08:08:13] ERROR: Entry 159: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "37ms" };
+    CHECK: "storage" -> { result: "fail", latency: "44ms" };
+    CHECK: "video" -> { result: "fail", latency: "15ms" };
+END_DIAGNOSTIC
+# End of Entry 159
+
+[2025-02-15 08:08:18] INFO: Entry 160: Driver installed successfully.
+
+[2025-02-15 08:08:19] INFO: Entry 161: Network services running.
+
+[2025-02-15 08:08:23] DEBUG: Entry 162: Driver installed successfully.
+# End of Entry 162
+
+[2025-02-15 08:08:28] WARN: Entry 163: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:08:31] ERROR: Entry 164: Configuration loaded successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "19ms" };
+    CHECK: "video" -> { result: "fail", latency: "31ms" };
+    CHECK: "storage" -> { result: "pass", latency: "46ms" };
+    CHECK: "audio" -> { result: "pass", latency: "46ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:08:34] DEBUG: Entry 165: Driver installed successfully.
+
+[2025-02-15 08:08:35] WARN: Entry 166: Module error encountered.
+BEGIN_BACKUP
+    SOURCE: "/data/source_166.bin";
+    DESTINATION: "/backup/backup_166.bin";
+    FILE_LIST: [
+        "file_0_166.dat",
+        "file_1_166.dat",
+        "file_2_166.dat",
+        "file_3_166.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:16:12";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:00:20";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:24:19";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:08:37] ERROR: Entry 167: Diagnostic completed.
+
+[2025-02-15 08:08:38] WARN: Entry 168: System boot initiated.
+
+[2025-02-15 08:08:39] DEBUG: Entry 169: User login successful.
+# End of Entry 169
+
+[2025-02-15 08:08:42] WARN: Entry 170: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_170.bin";
+    DESTINATION: "/backup/backup_170.bin";
+    FILE_LIST: [
+        "file_0_170.dat",
+        "file_1_170.dat",
+        "file_2_170.dat",
+        "file_3_170.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:44:02";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:33:56";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:46:35";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:08:44] ERROR: Entry 171: Loading configuration.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 380;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 34 },
+        { FUNCTION: "func_1", LINE: 142 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:08:49] WARN: Entry 172: Scheduled backup initiated.
+
+[2025-02-15 08:08:51] WARN: Entry 173: Low disk space detected.
+
+[2025-02-15 08:08:52] DEBUG: Entry 174: Network services running.
+
+[2025-02-15 08:08:57] INFO: Entry 175: Module error encountered.
+
+[2025-02-15 08:09:00] INFO: Entry 176: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:09:05] ERROR: Entry 177: System boot initiated.
+
+[2025-02-15 08:09:09] WARN: Entry 178: Service restarted.
+
+[2025-02-15 08:09:12] ERROR: Entry 179: Low disk space detected.
+
+[2025-02-15 08:09:15] DEBUG: Entry 180: Application crash detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:09:18] WARN: Entry 181: Low disk space detected.
+
+[2025-02-15 08:09:23] INFO: Entry 182: Scheduled backup initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "20ms" };
+    CHECK: "storage" -> { result: "fail", latency: "43ms" };
+    CHECK: "audio" -> { result: "fail", latency: "25ms" };
+    CHECK: "network" -> { result: "pass", latency: "43ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:09:28] WARN: Entry 183: Configuration loaded successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "fail", latency: "35ms" };
+    CHECK: "network" -> { result: "pass", latency: "24ms" };
+    CHECK: "audio" -> { result: "pass", latency: "25ms" };
+    CHECK: "video" -> { result: "pass", latency: "18ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:09:33] DEBUG: Entry 184: Application crash detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:09:35] WARN: Entry 185: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_185.bin";
+    DESTINATION: "/backup/backup_185.bin";
+    FILE_LIST: [
+        "file_0_185.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:30:52";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:23:25";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:07:36";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:09:39] ERROR: Entry 186: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 448;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 148 },
+        { FUNCTION: "func_1", LINE: 85 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:09:43] WARN: Entry 187: Partial boot detected.
+
+[2025-02-15 08:09:46] WARN: Entry 188: Configuration loaded successfully.
+
+[2025-02-15 08:09:47] INFO: Entry 189: User logout recorded.
+
+[2025-02-15 08:09:50] DEBUG: Entry 190: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+# End of Entry 190
+
+[2025-02-15 08:09:54] DEBUG: Entry 191: Module error encountered.
+BEGIN_BACKUP
+    SOURCE: "/data/source_191.bin";
+    DESTINATION: "/backup/backup_191.bin";
+    FILE_LIST: [
+        "file_0_191.dat",
+        "file_1_191.dat",
+        "file_2_191.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:24:09";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:40:15";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:22:56";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:09:59] ERROR: Entry 192: Application crash detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "36ms" };
+    CHECK: "video" -> { result: "pass", latency: "34ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:10:00] ERROR: Entry 193: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:10:01] DEBUG: Entry 194: Configuration loaded successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "22ms" };
+    CHECK: "video" -> { result: "pass", latency: "26ms" };
+END_DIAGNOSTIC
+# End of Entry 194
+
+[2025-02-15 08:10:03] DEBUG: Entry 195: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_195.bin";
+    DESTINATION: "/backup/backup_195.bin";
+    FILE_LIST: [
+        "file_0_195.dat",
+        "file_1_195.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:07:41";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:17:46";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:43:26";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:10:06] DEBUG: Entry 196: Driver installed successfully.
+# End of Entry 196
+
+[2025-02-15 08:10:07] DEBUG: Entry 197: Partial boot detected.
+
+[2025-02-15 08:10:11] DEBUG: Entry 198: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_198.bin";
+    DESTINATION: "/backup/backup_198.bin";
+    FILE_LIST: [
+        "file_0_198.dat",
+        "file_1_198.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:28:18";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:07:14";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:10:15] INFO: Entry 199: System boot initiated.
+
+[2025-02-15 08:10:18] WARN: Entry 200: Partial boot detected.
+
+[2025-02-15 08:10:19] DEBUG: Entry 201: Loading configuration.
+
+[2025-02-15 08:10:24] DEBUG: Entry 202: System boot initiated.
+
+[2025-02-15 08:10:25] WARN: Entry 203: User logout recorded.
+
+[2025-02-15 08:10:30] ERROR: Entry 204: System boot initiated.
+
+[2025-02-15 08:10:31] DEBUG: Entry 205: User login successful.
+
+[2025-02-15 08:10:33] WARN: Entry 206: Service restarted.
+# End of Entry 206
+
+[2025-02-15 08:10:38] ERROR: Entry 207: Configuration loaded successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_207.bin";
+    DESTINATION: "/backup/backup_207.bin";
+    FILE_LIST: [
+        "file_0_207.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:59:22";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:44:30";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:49:35";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:10:40] WARN: Entry 208: Module error encountered.
+BEGIN_BACKUP
+    SOURCE: "/data/source_208.bin";
+    DESTINATION: "/backup/backup_208.bin";
+    FILE_LIST: [
+        "file_0_208.dat",
+        "file_1_208.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:29:53";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:10:45] DEBUG: Entry 209: Scheduled backup initiated.
+
+[2025-02-15 08:10:49] ERROR: Entry 210: Service restarted.
+
+[2025-02-15 08:10:54] INFO: Entry 211: Partial boot detected.
+# End of Entry 211
+
+[2025-02-15 08:10:55] WARN: Entry 212: User logout recorded.
+
+[2025-02-15 08:11:00] ERROR: Entry 213: User login successful.
+
+[2025-02-15 08:11:04] ERROR: Entry 214: Diagnostic completed.
+
+[2025-02-15 08:11:07] INFO: Entry 215: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "45ms" };
+    CHECK: "storage" -> { result: "pass", latency: "10ms" };
+    CHECK: "audio" -> { result: "pass", latency: "26ms" };
+    CHECK: "network" -> { result: "pass", latency: "17ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:11:09] ERROR: Entry 216: Loading configuration.
+
+[2025-02-15 08:11:13] DEBUG: Entry 217: Configuration loaded successfully.
+
+[2025-02-15 08:11:16] WARN: Entry 218: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_218.bin";
+    DESTINATION: "/backup/backup_218.bin";
+    FILE_LIST: [
+        "file_0_218.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:11:42";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:11:17] ERROR: Entry 219: Application crash detected.
+
+[2025-02-15 08:11:19] DEBUG: Entry 220: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:11:21] WARN: Entry 221: User login successful.
+# End of Entry 221
+
+[2025-02-15 08:11:23] INFO: Entry 222: Partial boot detected.
+
+[2025-02-15 08:11:28] DEBUG: Entry 223: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 544;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 95 },
+        { FUNCTION: "func_1", LINE: 84 },
+    ];
+END_CRASH_REPORT
+# End of Entry 223
+
+[2025-02-15 08:11:33] DEBUG: Entry 224: Driver installed successfully.
+
+[2025-02-15 08:11:36] INFO: Entry 225: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:11:40] ERROR: Entry 226: Configuration loaded successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_226.bin";
+    DESTINATION: "/backup/backup_226.bin";
+    FILE_LIST: [
+        "file_0_226.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:53:34";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:13:39";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:03:34";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:11:43] INFO: Entry 227: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:11:45] WARN: Entry 228: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "29ms" };
+    CHECK: "audio" -> { result: "fail", latency: "19ms" };
+END_DIAGNOSTIC
+# End of Entry 228
+
+[2025-02-15 08:11:49] INFO: Entry 229: Service restarted.
+
+[2025-02-15 08:11:50] DEBUG: Entry 230: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "26ms" };
+    CHECK: "audio" -> { result: "fail", latency: "8ms" };
+    CHECK: "storage" -> { result: "pass", latency: "18ms" };
+END_DIAGNOSTIC
+# End of Entry 230
+
+[2025-02-15 08:11:52] WARN: Entry 231: Application crash detected.
+
+[2025-02-15 08:11:55] ERROR: Entry 232: Network services running.
+
+[2025-02-15 08:11:58] INFO: Entry 233: Scheduled backup initiated.
+
+[2025-02-15 08:12:00] INFO: Entry 234: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "fail", latency: "35ms" };
+    CHECK: "video" -> { result: "pass", latency: "14ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:12:04] DEBUG: Entry 235: Application crash detected.
+# End of Entry 235
+
+[2025-02-15 08:12:08] DEBUG: Entry 236: Network services running.
+
+[2025-02-15 08:12:12] INFO: Entry 237: Loading configuration.
+
+[2025-02-15 08:12:16] INFO: Entry 238: Low disk space detected.
+
+[2025-02-15 08:12:17] WARN: Entry 239: User logout recorded.
+
+[2025-02-15 08:12:21] INFO: Entry 240: Application crash detected.
+# End of Entry 240
+
+[2025-02-15 08:12:24] DEBUG: Entry 241: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "20ms" };
+    CHECK: "network" -> { result: "fail", latency: "25ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:12:27] ERROR: Entry 242: Service restarted.
+# End of Entry 242
+
+[2025-02-15 08:12:30] DEBUG: Entry 243: Low disk space detected.
+
+[2025-02-15 08:12:32] ERROR: Entry 244: Configuration loaded successfully.
+
+[2025-02-15 08:12:37] INFO: Entry 245: Low disk space detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_245.bin";
+    DESTINATION: "/backup/backup_245.bin";
+    FILE_LIST: [
+        "file_0_245.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:47:36";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:52:45";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:03:03";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:12:41] DEBUG: Entry 246: Scheduled backup initiated.
+
+[2025-02-15 08:12:46] WARN: Entry 247: Network services running.
+# End of Entry 247
+
+[2025-02-15 08:12:51] WARN: Entry 248: System boot initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_248.bin";
+    DESTINATION: "/backup/backup_248.bin";
+    FILE_LIST: [
+        "file_0_248.dat",
+        "file_1_248.dat",
+        "file_2_248.dat",
+        "file_3_248.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:10:38";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 248
+
+[2025-02-15 08:12:56] WARN: Entry 249: User login successful.
+
+[2025-02-15 08:12:57] INFO: Entry 250: Partial boot detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_250.bin";
+    DESTINATION: "/backup/backup_250.bin";
+    FILE_LIST: [
+        "file_0_250.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:32:17";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:19:44";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:59:26";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:13:00] ERROR: Entry 251: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_251.bin";
+    DESTINATION: "/backup/backup_251.bin";
+    FILE_LIST: [
+        "file_0_251.dat",
+        "file_1_251.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:54:01";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:13:02] WARN: Entry 252: Diagnostic completed.
+
+[2025-02-15 08:13:03] INFO: Entry 253: Service restarted.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 493;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 30 },
+        { FUNCTION: "func_1", LINE: 103 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:13:05] INFO: Entry 254: Service restarted.
+
+[2025-02-15 08:13:06] WARN: Entry 255: Network services running.
+
+[2025-02-15 08:13:07] INFO: Entry 256: Driver installed successfully.
+# End of Entry 256
+
+[2025-02-15 08:13:10] WARN: Entry 257: Loading configuration.
+
+[2025-02-15 08:13:15] DEBUG: Entry 258: System boot initiated.
+
+[2025-02-15 08:13:18] INFO: Entry 259: Diagnostic completed.
+
+[2025-02-15 08:13:20] DEBUG: Entry 260: Configuration loaded successfully.
+
+[2025-02-15 08:13:24] WARN: Entry 261: Diagnostic completed.
+
+[2025-02-15 08:13:26] ERROR: Entry 262: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 243;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 142 },
+        { FUNCTION: "func_1", LINE: 32 },
+        { FUNCTION: "func_2", LINE: 146 },
+    ];
+END_CRASH_REPORT
+# End of Entry 262
+
+[2025-02-15 08:13:27] DEBUG: Entry 263: Network services running.
+
+[2025-02-15 08:13:30] WARN: Entry 264: Service restarted.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 333;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 138 },
+        { FUNCTION: "func_1", LINE: 150 },
+        { FUNCTION: "func_2", LINE: 49 },
+        { FUNCTION: "func_3", LINE: 73 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:13:35] INFO: Entry 265: Scheduled backup initiated.
+
+[2025-02-15 08:13:37] DEBUG: Entry 266: Low disk space detected.
+
+[2025-02-15 08:13:40] ERROR: Entry 267: Scheduled backup initiated.
+# End of Entry 267
+
+[2025-02-15 08:13:44] ERROR: Entry 268: Service restarted.
+
+[2025-02-15 08:13:45] ERROR: Entry 269: Partial boot detected.
+# End of Entry 269
+
+[2025-02-15 08:13:49] WARN: Entry 270: Loading configuration.
+
+[2025-02-15 08:13:54] DEBUG: Entry 271: System boot initiated.
+
+[2025-02-15 08:13:55] INFO: Entry 272: Partial boot detected.
+
+[2025-02-15 08:13:57] ERROR: Entry 273: User logout recorded.
+# End of Entry 273
+
+[2025-02-15 08:13:59] WARN: Entry 274: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_274.bin";
+    DESTINATION: "/backup/backup_274.bin";
+    FILE_LIST: [
+        "file_0_274.dat",
+        "file_1_274.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:07:00";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:14:00] ERROR: Entry 275: Module error encountered.
+# End of Entry 275
+
+[2025-02-15 08:14:01] ERROR: Entry 276: Module error encountered.
+
+[2025-02-15 08:14:06] ERROR: Entry 277: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_277.bin";
+    DESTINATION: "/backup/backup_277.bin";
+    FILE_LIST: [
+        "file_0_277.dat",
+        "file_1_277.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:22:34";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 277
+
+[2025-02-15 08:14:11] DEBUG: Entry 278: Partial boot detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 140;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 120 },
+        { FUNCTION: "func_1", LINE: 56 },
+        { FUNCTION: "func_2", LINE: 17 },
+        { FUNCTION: "func_3", LINE: 22 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:14:12] WARN: Entry 279: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_279.bin";
+    DESTINATION: "/backup/backup_279.bin";
+    FILE_LIST: [
+        "file_0_279.dat",
+        "file_1_279.dat",
+        "file_2_279.dat",
+        "file_3_279.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:58:46";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:05:07";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:14:14] WARN: Entry 280: Application crash detected.
+
+[2025-02-15 08:14:16] INFO: Entry 281: Low disk space detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_281.bin";
+    DESTINATION: "/backup/backup_281.bin";
+    FILE_LIST: [
+        "file_0_281.dat",
+        "file_1_281.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:51:25";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 281
+
+[2025-02-15 08:14:21] DEBUG: Entry 282: User login successful.
+
+[2025-02-15 08:14:22] DEBUG: Entry 283: User login successful.
+
+[2025-02-15 08:14:23] DEBUG: Entry 284: Network services running.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 166;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 125 },
+        { FUNCTION: "func_1", LINE: 43 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:14:25] DEBUG: Entry 285: Scheduled backup initiated.
+
+[2025-02-15 08:14:28] ERROR: Entry 286: Partial boot detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 388;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 60 },
+        { FUNCTION: "func_1", LINE: 141 },
+        { FUNCTION: "func_2", LINE: 146 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:14:30] INFO: Entry 287: User login successful.
+
+[2025-02-15 08:14:33] INFO: Entry 288: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 537;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 145 },
+        { FUNCTION: "func_1", LINE: 120 },
+        { FUNCTION: "func_2", LINE: 145 },
+    ];
+END_CRASH_REPORT
+# End of Entry 288
+
+[2025-02-15 08:14:38] INFO: Entry 289: Loading configuration.
+
+[2025-02-15 08:14:39] DEBUG: Entry 290: Loading configuration.
+BEGIN_BACKUP
+    SOURCE: "/data/source_290.bin";
+    DESTINATION: "/backup/backup_290.bin";
+    FILE_LIST: [
+        "file_0_290.dat",
+        "file_1_290.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:37:57";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:27:23";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 290
+
+[2025-02-15 08:14:40] DEBUG: Entry 291: Application crash detected.
+
+[2025-02-15 08:14:41] WARN: Entry 292: Network services running.
+
+[2025-02-15 08:14:45] INFO: Entry 293: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 480;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 125 },
+        { FUNCTION: "func_1", LINE: 134 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:14:50] ERROR: Entry 294: Network services running.
+# End of Entry 294
+
+[2025-02-15 08:14:53] WARN: Entry 295: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "14ms" };
+    CHECK: "network" -> { result: "fail", latency: "19ms" };
+    CHECK: "storage" -> { result: "pass", latency: "47ms" };
+    CHECK: "video" -> { result: "fail", latency: "39ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:14:54] DEBUG: Entry 296: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 541;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 84 },
+        { FUNCTION: "func_1", LINE: 112 },
+    ];
+END_CRASH_REPORT
+# End of Entry 296
+
+[2025-02-15 08:14:55] INFO: Entry 297: System boot initiated.
+
+[2025-02-15 08:14:58] DEBUG: Entry 298: Service restarted.
+
+[2025-02-15 08:14:59] DEBUG: Entry 299: Configuration loaded successfully.
+
+[2025-02-15 08:15:00] WARN: Entry 300: Application crash detected.
+
+[2025-02-15 08:15:04] DEBUG: Entry 301: Loading configuration.
+# End of Entry 301
+
+[2025-02-15 08:15:05] WARN: Entry 302: Driver installed successfully.
+
+[2025-02-15 08:15:10] ERROR: Entry 303: Driver installed successfully.
+
+[2025-02-15 08:15:15] WARN: Entry 304: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:15:17] DEBUG: Entry 305: Service restarted.
+
+[2025-02-15 08:15:20] WARN: Entry 306: User logout recorded.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 116;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 83 },
+        { FUNCTION: "func_1", LINE: 104 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:15:23] INFO: Entry 307: System boot initiated.
+
+[2025-02-15 08:15:26] DEBUG: Entry 308: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "8ms" };
+    CHECK: "video" -> { result: "fail", latency: "13ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:15:30] DEBUG: Entry 309: Network services running.
+
+[2025-02-15 08:15:34] WARN: Entry 310: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_310.bin";
+    DESTINATION: "/backup/backup_310.bin";
+    FILE_LIST: [
+        "file_0_310.dat",
+        "file_1_310.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:30:18";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:15:37] ERROR: Entry 311: Network services running.
+
+[2025-02-15 08:15:41] WARN: Entry 312: Module error encountered.
+# End of Entry 312
+
+[2025-02-15 08:15:42] ERROR: Entry 313: Driver installed successfully.
+
+[2025-02-15 08:15:46] INFO: Entry 314: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:15:47] WARN: Entry 315: Module error encountered.
+# End of Entry 315
+
+[2025-02-15 08:15:48] ERROR: Entry 316: Network services running.
+BEGIN_BACKUP
+    SOURCE: "/data/source_316.bin";
+    DESTINATION: "/backup/backup_316.bin";
+    FILE_LIST: [
+        "file_0_316.dat",
+        "file_1_316.dat",
+        "file_2_316.dat",
+        "file_3_316.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:31:28";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:15:51] INFO: Entry 317: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "26ms" };
+    CHECK: "audio" -> { result: "pass", latency: "15ms" };
+    CHECK: "video" -> { result: "pass", latency: "34ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:15:56] ERROR: Entry 318: User login successful.
+
+[2025-02-15 08:15:57] ERROR: Entry 319: Application crash detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:15:58] ERROR: Entry 320: User login successful.
+
+[2025-02-15 08:16:01] INFO: Entry 321: Module error encountered.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "27ms" };
+END_DIAGNOSTIC
+# End of Entry 321
+
+[2025-02-15 08:16:05] INFO: Entry 322: Application crash detected.
+
+[2025-02-15 08:16:09] INFO: Entry 323: System boot initiated.
+
+[2025-02-15 08:16:12] WARN: Entry 324: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:16:14] ERROR: Entry 325: System boot initiated.
+
+[2025-02-15 08:16:17] ERROR: Entry 326: Service restarted.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 215;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 24 },
+        { FUNCTION: "func_1", LINE: 68 },
+        { FUNCTION: "func_2", LINE: 39 },
+        { FUNCTION: "func_3", LINE: 143 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:16:22] DEBUG: Entry 327: Partial boot detected.
+
+[2025-02-15 08:16:24] DEBUG: Entry 328: User login successful.
+
+[2025-02-15 08:16:29] WARN: Entry 329: Diagnostic completed.
+# End of Entry 329
+
+[2025-02-15 08:16:32] INFO: Entry 330: User login successful.
+
+[2025-02-15 08:16:34] DEBUG: Entry 331: Module error encountered.
+# End of Entry 331
+
+[2025-02-15 08:16:38] WARN: Entry 332: Scheduled backup initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "9ms" };
+    CHECK: "network" -> { result: "fail", latency: "28ms" };
+    CHECK: "audio" -> { result: "pass", latency: "48ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:16:42] ERROR: Entry 333: Configuration loaded successfully.
+
+[2025-02-15 08:16:46] DEBUG: Entry 334: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:16:50] WARN: Entry 335: Partial boot detected.
+
+[2025-02-15 08:16:55] WARN: Entry 336: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:16:56] ERROR: Entry 337: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:16:58] WARN: Entry 338: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "fail", latency: "24ms" };
+    CHECK: "network" -> { result: "fail", latency: "5ms" };
+    CHECK: "video" -> { result: "pass", latency: "42ms" };
+    CHECK: "audio" -> { result: "fail", latency: "16ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:16:59] DEBUG: Entry 339: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "43ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:17:01] INFO: Entry 340: User login successful.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:17:02] INFO: Entry 341: Application crash detected.
+
+[2025-02-15 08:17:05] DEBUG: Entry 342: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_342.bin";
+    DESTINATION: "/backup/backup_342.bin";
+    FILE_LIST: [
+        "file_0_342.dat",
+        "file_1_342.dat",
+        "file_2_342.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:10:56";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:25:16";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:17:06] WARN: Entry 343: Diagnostic completed.
+# End of Entry 343
+
+[2025-02-15 08:17:10] WARN: Entry 344: Module error encountered.
+
+[2025-02-15 08:17:11] WARN: Entry 345: Network services running.
+
+[2025-02-15 08:17:16] WARN: Entry 346: User logout recorded.
+
+[2025-02-15 08:17:19] ERROR: Entry 347: Partial boot detected.
+
+[2025-02-15 08:17:22] WARN: Entry 348: Diagnostic completed.
+# End of Entry 348
+
+[2025-02-15 08:17:27] WARN: Entry 349: Loading configuration.
+
+[2025-02-15 08:17:32] WARN: Entry 350: Application crash detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:17:33] DEBUG: Entry 351: Application crash detected.
+
+[2025-02-15 08:17:35] ERROR: Entry 352: Loading configuration.
+
+[2025-02-15 08:17:36] DEBUG: Entry 353: Scheduled backup initiated.
+
+[2025-02-15 08:17:40] WARN: Entry 354: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_354.bin";
+    DESTINATION: "/backup/backup_354.bin";
+    FILE_LIST: [
+        "file_0_354.dat",
+        "file_1_354.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:01:24";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:00:44";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:17:41] ERROR: Entry 355: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "33ms" };
+    CHECK: "network" -> { result: "pass", latency: "22ms" };
+    CHECK: "video" -> { result: "fail", latency: "31ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:17:45] WARN: Entry 356: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 371;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 105 },
+        { FUNCTION: "func_1", LINE: 36 },
+        { FUNCTION: "func_2", LINE: 52 },
+        { FUNCTION: "func_3", LINE: 20 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:17:49] INFO: Entry 357: Diagnostic completed.
+
+[2025-02-15 08:17:50] ERROR: Entry 358: Diagnostic completed.
+
+[2025-02-15 08:17:51] WARN: Entry 359: Service restarted.
+
+[2025-02-15 08:17:54] INFO: Entry 360: Diagnostic completed.
+
+[2025-02-15 08:17:59] ERROR: Entry 361: Low disk space detected.
+
+[2025-02-15 08:18:03] WARN: Entry 362: Loading configuration.
+
+[2025-02-15 08:18:06] WARN: Entry 363: Loading configuration.
+
+[2025-02-15 08:18:08] WARN: Entry 364: Module error encountered.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:18:13] DEBUG: Entry 365: Driver installed successfully.
+# End of Entry 365
+
+[2025-02-15 08:18:17] ERROR: Entry 366: Configuration loaded successfully.
+
+[2025-02-15 08:18:21] DEBUG: Entry 367: Network services running.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 460;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 52 },
+        { FUNCTION: "func_1", LINE: 29 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:18:26] WARN: Entry 368: Driver installed successfully.
+
+[2025-02-15 08:18:31] DEBUG: Entry 369: User login successful.
+
+[2025-02-15 08:18:33] ERROR: Entry 370: Module error encountered.
+
+[2025-02-15 08:18:34] ERROR: Entry 371: User logout recorded.
+# End of Entry 371
+
+[2025-02-15 08:18:39] WARN: Entry 372: Driver installed successfully.
+
+[2025-02-15 08:18:40] WARN: Entry 373: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "fail", latency: "22ms" };
+    CHECK: "network" -> { result: "pass", latency: "48ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:18:44] INFO: Entry 374: Application crash detected.
+
+[2025-02-15 08:18:47] WARN: Entry 375: Network services running.
+# End of Entry 375
+
+[2025-02-15 08:18:49] ERROR: Entry 376: Module error encountered.
+# End of Entry 376
+
+[2025-02-15 08:18:53] INFO: Entry 377: Application crash detected.
+
+[2025-02-15 08:18:57] WARN: Entry 378: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_378.bin";
+    DESTINATION: "/backup/backup_378.bin";
+    FILE_LIST: [
+        "file_0_378.dat",
+        "file_1_378.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:43:21";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:19:01] INFO: Entry 379: Diagnostic completed.
+# End of Entry 379
+
+[2025-02-15 08:19:02] ERROR: Entry 380: User logout recorded.
+
+[2025-02-15 08:19:04] INFO: Entry 381: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 431;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 47 },
+        { FUNCTION: "func_1", LINE: 70 },
+        { FUNCTION: "func_2", LINE: 139 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:19:08] DEBUG: Entry 382: Scheduled backup initiated.
+
+[2025-02-15 08:19:12] DEBUG: Entry 383: Configuration loaded successfully.
+
+[2025-02-15 08:19:13] WARN: Entry 384: Configuration loaded successfully.
+
+[2025-02-15 08:19:17] INFO: Entry 385: Scheduled backup initiated.
+# End of Entry 385
+
+[2025-02-15 08:19:21] WARN: Entry 386: Scheduled backup initiated.
+# End of Entry 386
+
+[2025-02-15 08:19:22] DEBUG: Entry 387: Diagnostic completed.
+
+[2025-02-15 08:19:27] WARN: Entry 388: Service restarted.
+
+[2025-02-15 08:19:31] INFO: Entry 389: System boot initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+# End of Entry 389
+
+[2025-02-15 08:19:35] DEBUG: Entry 390: Partial boot detected.
+# End of Entry 390
+
+[2025-02-15 08:19:38] WARN: Entry 391: System boot initiated.
+# End of Entry 391
+
+[2025-02-15 08:19:41] WARN: Entry 392: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "48ms" };
+    CHECK: "storage" -> { result: "pass", latency: "17ms" };
+    CHECK: "audio" -> { result: "fail", latency: "24ms" };
+    CHECK: "video" -> { result: "fail", latency: "36ms" };
+END_DIAGNOSTIC
+# End of Entry 392
+
+[2025-02-15 08:19:42] DEBUG: Entry 393: Network services running.
+
+[2025-02-15 08:19:45] INFO: Entry 394: Module error encountered.
+
+[2025-02-15 08:19:49] WARN: Entry 395: Network services running.
+# End of Entry 395
+
+[2025-02-15 08:19:51] ERROR: Entry 396: Configuration loaded successfully.
+
+[2025-02-15 08:19:55] DEBUG: Entry 397: Scheduled backup initiated.
+# End of Entry 397
+
+[2025-02-15 08:20:00] DEBUG: Entry 398: Scheduled backup initiated.
+
+[2025-02-15 08:20:05] ERROR: Entry 399: Low disk space detected.
+
+[2025-02-15 08:20:09] DEBUG: Entry 400: Module error encountered.
+
+[2025-02-15 08:20:12] INFO: Entry 401: Low disk space detected.
+
+[2025-02-15 08:20:13] WARN: Entry 402: Application crash detected.
+
+[2025-02-15 08:20:18] INFO: Entry 403: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:20:23] ERROR: Entry 404: Partial boot detected.
+# End of Entry 404
+
+[2025-02-15 08:20:26] WARN: Entry 405: Scheduled backup initiated.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 180;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 23 },
+        { FUNCTION: "func_1", LINE: 99 },
+        { FUNCTION: "func_2", LINE: 80 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:20:31] INFO: Entry 406: Service restarted.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 584;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 22 },
+        { FUNCTION: "func_1", LINE: 59 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:20:36] ERROR: Entry 407: Driver installed successfully.
+
+[2025-02-15 08:20:39] DEBUG: Entry 408: Loading configuration.
+
+[2025-02-15 08:20:44] DEBUG: Entry 409: Diagnostic completed.
+BEGIN_BACKUP
+    SOURCE: "/data/source_409.bin";
+    DESTINATION: "/backup/backup_409.bin";
+    FILE_LIST: [
+        "file_0_409.dat",
+        "file_1_409.dat",
+        "file_2_409.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:36:14";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:20:47] INFO: Entry 410: Configuration loaded successfully.
+# End of Entry 410
+
+[2025-02-15 08:20:51] DEBUG: Entry 411: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_411.bin";
+    DESTINATION: "/backup/backup_411.bin";
+    FILE_LIST: [
+        "file_0_411.dat",
+        "file_1_411.dat",
+        "file_2_411.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:52:07";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:59:43";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:16:27";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:20:55] ERROR: Entry 412: Network services running.
+# End of Entry 412
+
+[2025-02-15 08:20:57] WARN: Entry 413: Configuration loaded successfully.
+# End of Entry 413
+
+[2025-02-15 08:20:59] ERROR: Entry 414: Loading configuration.
+
+[2025-02-15 08:21:02] INFO: Entry 415: Network services running.
+
+[2025-02-15 08:21:06] ERROR: Entry 416: Network services running.
+# End of Entry 416
+
+[2025-02-15 08:21:08] ERROR: Entry 417: Scheduled backup initiated.
+
+[2025-02-15 08:21:11] INFO: Entry 418: Service restarted.
+
+[2025-02-15 08:21:15] ERROR: Entry 419: User logout recorded.
+
+[2025-02-15 08:21:18] ERROR: Entry 420: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 397;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 83 },
+        { FUNCTION: "func_1", LINE: 38 },
+        { FUNCTION: "func_2", LINE: 14 },
+        { FUNCTION: "func_3", LINE: 24 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:21:19] DEBUG: Entry 421: Service restarted.
+
+[2025-02-15 08:21:20] WARN: Entry 422: Driver installed successfully.
+
+[2025-02-15 08:21:23] INFO: Entry 423: Network services running.
+
+[2025-02-15 08:21:25] ERROR: Entry 424: System boot initiated.
+
+[2025-02-15 08:21:30] INFO: Entry 425: Application crash detected.
+
+[2025-02-15 08:21:31] INFO: Entry 426: Loading configuration.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "14ms" };
+    CHECK: "video" -> { result: "pass", latency: "19ms" };
+    CHECK: "network" -> { result: "pass", latency: "26ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:21:34] ERROR: Entry 427: Driver installed successfully.
+
+[2025-02-15 08:21:37] DEBUG: Entry 428: Diagnostic completed.
+# End of Entry 428
+
+[2025-02-15 08:21:42] DEBUG: Entry 429: Driver installed successfully.
+
+[2025-02-15 08:21:44] WARN: Entry 430: Service restarted.
+
+[2025-02-15 08:21:49] DEBUG: Entry 431: Loading configuration.
+
+[2025-02-15 08:21:52] ERROR: Entry 432: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:21:53] ERROR: Entry 433: Loading configuration.
+
+[2025-02-15 08:21:58] ERROR: Entry 434: System boot initiated.
+
+[2025-02-15 08:22:01] WARN: Entry 435: Scheduled backup initiated.
+
+[2025-02-15 08:22:02] DEBUG: Entry 436: User logout recorded.
+# End of Entry 436
+
+[2025-02-15 08:22:03] DEBUG: Entry 437: Diagnostic completed.
+
+[2025-02-15 08:22:07] ERROR: Entry 438: Configuration loaded successfully.
+
+[2025-02-15 08:22:10] ERROR: Entry 439: Module error encountered.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 366;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 20 },
+        { FUNCTION: "func_1", LINE: 141 },
+        { FUNCTION: "func_2", LINE: 77 },
+        { FUNCTION: "func_3", LINE: 46 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:22:15] WARN: Entry 440: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "5ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:22:16] WARN: Entry 441: System boot initiated.
+
+[2025-02-15 08:22:20] ERROR: Entry 442: Driver installed successfully.
+
+[2025-02-15 08:22:25] INFO: Entry 443: Loading configuration.
+
+[2025-02-15 08:22:30] INFO: Entry 444: User login successful.
+
+[2025-02-15 08:22:32] DEBUG: Entry 445: Configuration loaded successfully.
+# End of Entry 445
+
+[2025-02-15 08:22:37] DEBUG: Entry 446: Application crash detected.
+
+[2025-02-15 08:22:40] WARN: Entry 447: User logout recorded.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 245;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 81 },
+        { FUNCTION: "func_1", LINE: 142 },
+        { FUNCTION: "func_2", LINE: 143 },
+        { FUNCTION: "func_3", LINE: 80 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:22:44] WARN: Entry 448: Configuration loaded successfully.
+
+[2025-02-15 08:22:46] ERROR: Entry 449: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "17ms" };
+    CHECK: "audio" -> { result: "fail", latency: "17ms" };
+    CHECK: "storage" -> { result: "pass", latency: "47ms" };
+END_DIAGNOSTIC
+# End of Entry 449
+
+[2025-02-15 08:22:51] DEBUG: Entry 450: Diagnostic completed.
+
+[2025-02-15 08:22:52] ERROR: Entry 451: Scheduled backup initiated.
+# End of Entry 451
+
+[2025-02-15 08:22:56] WARN: Entry 452: Low disk space detected.
+
+[2025-02-15 08:23:01] DEBUG: Entry 453: System boot initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_453.bin";
+    DESTINATION: "/backup/backup_453.bin";
+    FILE_LIST: [
+        "file_0_453.dat",
+        "file_1_453.dat",
+        "file_2_453.dat",
+        "file_3_453.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:33:32";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:22:16";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 453
+
+[2025-02-15 08:23:04] DEBUG: Entry 454: Partial boot detected.
+
+[2025-02-15 08:23:08] INFO: Entry 455: Configuration loaded successfully.
+# End of Entry 455
+
+[2025-02-15 08:23:13] DEBUG: Entry 456: Application crash detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 159;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 46 },
+        { FUNCTION: "func_1", LINE: 142 },
+        { FUNCTION: "func_2", LINE: 10 },
+    ];
+END_CRASH_REPORT
+# End of Entry 456
+
+[2025-02-15 08:23:16] ERROR: Entry 457: Network services running.
+
+[2025-02-15 08:23:17] ERROR: Entry 458: Low disk space detected.
+
+[2025-02-15 08:23:21] WARN: Entry 459: Low disk space detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_459.bin";
+    DESTINATION: "/backup/backup_459.bin";
+    FILE_LIST: [
+        "file_0_459.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:39:05";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:54:41";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:57:14";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:23:25] WARN: Entry 460: Loading configuration.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 497;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 84 },
+        { FUNCTION: "func_1", LINE: 46 },
+        { FUNCTION: "func_2", LINE: 76 },
+        { FUNCTION: "func_3", LINE: 71 },
+    ];
+END_CRASH_REPORT
+# End of Entry 460
+
+[2025-02-15 08:23:29] DEBUG: Entry 461: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_461.bin";
+    DESTINATION: "/backup/backup_461.bin";
+    FILE_LIST: [
+        "file_0_461.dat",
+        "file_1_461.dat",
+        "file_2_461.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:49:20";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:01:49";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:23:31] DEBUG: Entry 462: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "45ms" };
+    CHECK: "storage" -> { result: "pass", latency: "10ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:23:33] ERROR: Entry 463: Scheduled backup initiated.
+
+[2025-02-15 08:23:36] WARN: Entry 464: User login successful.
+
+[2025-02-15 08:23:39] DEBUG: Entry 465: Configuration loaded successfully.
+
+[2025-02-15 08:23:40] INFO: Entry 466: Module error encountered.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:23:45] WARN: Entry 467: Loading configuration.
+BEGIN_BACKUP
+    SOURCE: "/data/source_467.bin";
+    DESTINATION: "/backup/backup_467.bin";
+    FILE_LIST: [
+        "file_0_467.dat",
+        "file_1_467.dat",
+        "file_2_467.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:11:33";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:52:41";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:50:42";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:23:50] DEBUG: Entry 468: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "35ms" };
+    CHECK: "storage" -> { result: "fail", latency: "22ms" };
+    CHECK: "audio" -> { result: "fail", latency: "29ms" };
+    CHECK: "video" -> { result: "pass", latency: "35ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:23:51] ERROR: Entry 469: Loading configuration.
+
+[2025-02-15 08:23:56] DEBUG: Entry 470: Loading configuration.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "31ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:24:01] INFO: Entry 471: Scheduled backup initiated.
+
+[2025-02-15 08:24:02] WARN: Entry 472: User login successful.
+
+[2025-02-15 08:24:04] DEBUG: Entry 473: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+# End of Entry 473
+
+[2025-02-15 08:24:09] WARN: Entry 474: Service restarted.
+# End of Entry 474
+
+[2025-02-15 08:24:10] DEBUG: Entry 475: Loading configuration.
+
+[2025-02-15 08:24:14] WARN: Entry 476: Partial boot detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 163;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 139 },
+        { FUNCTION: "func_1", LINE: 28 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:24:17] INFO: Entry 477: Loading configuration.
+
+[2025-02-15 08:24:21] ERROR: Entry 478: Diagnostic completed.
+# End of Entry 478
+
+[2025-02-15 08:24:26] INFO: Entry 479: Low disk space detected.
+
+[2025-02-15 08:24:30] DEBUG: Entry 480: Scheduled backup initiated.
+# End of Entry 480
+
+[2025-02-15 08:24:33] WARN: Entry 481: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_481.bin";
+    DESTINATION: "/backup/backup_481.bin";
+    FILE_LIST: [
+        "file_0_481.dat",
+        "file_1_481.dat",
+        "file_2_481.dat",
+        "file_3_481.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:27:47";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:46:14";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:12:30";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 481
+
+[2025-02-15 08:24:38] WARN: Entry 482: Low disk space detected.
+
+[2025-02-15 08:24:41] ERROR: Entry 483: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:24:42] INFO: Entry 484: Network services running.
+
+[2025-02-15 08:24:46] WARN: Entry 485: Diagnostic completed.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 285;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 47 },
+        { FUNCTION: "func_1", LINE: 27 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:24:51] WARN: Entry 486: Configuration loaded successfully.
+
+[2025-02-15 08:24:55] WARN: Entry 487: Loading configuration.
+BEGIN_BACKUP
+    SOURCE: "/data/source_487.bin";
+    DESTINATION: "/backup/backup_487.bin";
+    FILE_LIST: [
+        "file_0_487.dat",
+        "file_1_487.dat",
+        "file_2_487.dat",
+        "file_3_487.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:17:39";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:31:56";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:06:58";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:24:56] DEBUG: Entry 488: Module error encountered.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 514;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 118 },
+        { FUNCTION: "func_1", LINE: 72 },
+        { FUNCTION: "func_2", LINE: 57 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:24:58] WARN: Entry 489: System boot initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:25:01] ERROR: Entry 490: User login successful.
+# End of Entry 490
+
+[2025-02-15 08:25:02] ERROR: Entry 491: Module error encountered.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "6ms" };
+    CHECK: "video" -> { result: "fail", latency: "17ms" };
+    CHECK: "storage" -> { result: "pass", latency: "6ms" };
+    CHECK: "network" -> { result: "fail", latency: "16ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:25:06] DEBUG: Entry 492: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_492.bin";
+    DESTINATION: "/backup/backup_492.bin";
+    FILE_LIST: [
+        "file_0_492.dat",
+        "file_1_492.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:00:42";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:33:57";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:37:05";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:25:08] ERROR: Entry 493: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+# End of Entry 493
+
+[2025-02-15 08:25:12] ERROR: Entry 494: Application crash detected.
+
+[2025-02-15 08:25:14] ERROR: Entry 495: Configuration loaded successfully.
+
+[2025-02-15 08:25:18] DEBUG: Entry 496: Module error encountered.
+
+[2025-02-15 08:25:20] ERROR: Entry 497: Diagnostic completed.
+
+[2025-02-15 08:25:23] DEBUG: Entry 498: Low disk space detected.
+
+[2025-02-15 08:25:24] ERROR: Entry 499: Application crash detected.
+
+[2025-02-15 08:25:25] WARN: Entry 500: Configuration loaded successfully.
+# End of Entry 500
+
+[2025-02-15 08:25:30] WARN: Entry 501: Application crash detected.
+
+[2025-02-15 08:25:34] WARN: Entry 502: Module error encountered.
+
+[2025-02-15 08:25:36] INFO: Entry 503: Scheduled backup initiated.
+
+[2025-02-15 08:25:41] DEBUG: Entry 504: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:25:42] INFO: Entry 505: Module error encountered.
+
+[2025-02-15 08:25:45] ERROR: Entry 506: Low disk space detected.
+# End of Entry 506
+
+[2025-02-15 08:25:48] ERROR: Entry 507: Low disk space detected.
+
+[2025-02-15 08:25:53] DEBUG: Entry 508: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "34ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:25:58] DEBUG: Entry 509: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:25:59] ERROR: Entry 510: Loading configuration.
+BEGIN_BACKUP
+    SOURCE: "/data/source_510.bin";
+    DESTINATION: "/backup/backup_510.bin";
+    FILE_LIST: [
+        "file_0_510.dat",
+        "file_1_510.dat",
+        "file_2_510.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:53:12";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:48:55";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:26:01] ERROR: Entry 511: User login successful.
+
+[2025-02-15 08:26:05] ERROR: Entry 512: User logout recorded.
+
+[2025-02-15 08:26:09] DEBUG: Entry 513: Service restarted.
+
+[2025-02-15 08:26:13] WARN: Entry 514: Service restarted.
+
+[2025-02-15 08:26:17] DEBUG: Entry 515: Module error encountered.
+
+[2025-02-15 08:26:19] ERROR: Entry 516: Scheduled backup initiated.
+# End of Entry 516
+
+[2025-02-15 08:26:23] DEBUG: Entry 517: Application crash detected.
+# End of Entry 517
+
+[2025-02-15 08:26:25] WARN: Entry 518: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "7ms" };
+    CHECK: "video" -> { result: "pass", latency: "8ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:26:28] WARN: Entry 519: Scheduled backup initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "28ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:26:31] WARN: Entry 520: Low disk space detected.
+
+[2025-02-15 08:26:34] WARN: Entry 521: Service restarted.
+
+[2025-02-15 08:26:38] ERROR: Entry 522: Low disk space detected.
+# End of Entry 522
+
+[2025-02-15 08:26:41] WARN: Entry 523: Diagnostic completed.
+# End of Entry 523
+
+[2025-02-15 08:26:45] INFO: Entry 524: Low disk space detected.
+
+[2025-02-15 08:26:50] ERROR: Entry 525: Module error encountered.
+BEGIN_BACKUP
+    SOURCE: "/data/source_525.bin";
+    DESTINATION: "/backup/backup_525.bin";
+    FILE_LIST: [
+        "file_0_525.dat",
+        "file_1_525.dat",
+        "file_2_525.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:39:51";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 525
+
+[2025-02-15 08:26:51] DEBUG: Entry 526: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_526.bin";
+    DESTINATION: "/backup/backup_526.bin";
+    FILE_LIST: [
+        "file_0_526.dat",
+        "file_1_526.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:56:21";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:13:14";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 526
+
+[2025-02-15 08:26:56] ERROR: Entry 527: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "5ms" };
+    CHECK: "network" -> { result: "fail", latency: "35ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:27:01] INFO: Entry 528: User logout recorded.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 212;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 23 },
+        { FUNCTION: "func_1", LINE: 74 },
+        { FUNCTION: "func_2", LINE: 126 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:27:05] WARN: Entry 529: Partial boot detected.
+
+[2025-02-15 08:27:09] WARN: Entry 530: Application crash detected.
+
+[2025-02-15 08:27:14] ERROR: Entry 531: Service restarted.
+
+[2025-02-15 08:27:18] ERROR: Entry 532: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "9ms" };
+    CHECK: "storage" -> { result: "pass", latency: "6ms" };
+    CHECK: "network" -> { result: "pass", latency: "32ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:27:21] INFO: Entry 533: Configuration loaded successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:27:25] INFO: Entry 534: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_534.bin";
+    DESTINATION: "/backup/backup_534.bin";
+    FILE_LIST: [
+        "file_0_534.dat",
+        "file_1_534.dat",
+        "file_2_534.dat",
+        "file_3_534.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:08:14";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:17:04";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:27:30] DEBUG: Entry 535: Diagnostic completed.
+BEGIN_BACKUP
+    SOURCE: "/data/source_535.bin";
+    DESTINATION: "/backup/backup_535.bin";
+    FILE_LIST: [
+        "file_0_535.dat",
+        "file_1_535.dat",
+        "file_2_535.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:53:29";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:55:49";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:09:49";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:27:33] WARN: Entry 536: Configuration loaded successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_536.bin";
+    DESTINATION: "/backup/backup_536.bin";
+    FILE_LIST: [
+        "file_0_536.dat",
+        "file_1_536.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:43:58";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:27:37] DEBUG: Entry 537: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "16ms" };
+    CHECK: "network" -> { result: "fail", latency: "21ms" };
+    CHECK: "video" -> { result: "pass", latency: "8ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:27:39] DEBUG: Entry 538: Network services running.
+
+[2025-02-15 08:27:40] ERROR: Entry 539: Loading configuration.
+
+[2025-02-15 08:27:45] DEBUG: Entry 540: Network services running.
+
+[2025-02-15 08:27:50] DEBUG: Entry 541: Diagnostic completed.
+
+[2025-02-15 08:27:55] WARN: Entry 542: Low disk space detected.
+
+[2025-02-15 08:27:58] WARN: Entry 543: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "40ms" };
+    CHECK: "audio" -> { result: "fail", latency: "27ms" };
+    CHECK: "storage" -> { result: "pass", latency: "7ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:28:01] INFO: Entry 544: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_544.bin";
+    DESTINATION: "/backup/backup_544.bin";
+    FILE_LIST: [
+        "file_0_544.dat",
+        "file_1_544.dat",
+        "file_2_544.dat",
+        "file_3_544.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:11:17";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:29:18";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:28:06] DEBUG: Entry 545: Configuration loaded successfully.
+
+[2025-02-15 08:28:07] DEBUG: Entry 546: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "44ms" };
+    CHECK: "network" -> { result: "pass", latency: "38ms" };
+    CHECK: "storage" -> { result: "pass", latency: "23ms" };
+    CHECK: "audio" -> { result: "pass", latency: "13ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:28:10] ERROR: Entry 547: Network services running.
+# End of Entry 547
+
+[2025-02-15 08:28:11] DEBUG: Entry 548: User logout recorded.
+
+[2025-02-15 08:28:16] WARN: Entry 549: System boot initiated.
+
+[2025-02-15 08:28:17] INFO: Entry 550: Configuration loaded successfully.
+
+[2025-02-15 08:28:20] ERROR: Entry 551: Low disk space detected.
+
+[2025-02-15 08:28:25] INFO: Entry 552: Service restarted.
+
+[2025-02-15 08:28:27] DEBUG: Entry 553: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "18ms" };
+    CHECK: "video" -> { result: "pass", latency: "16ms" };
+    CHECK: "audio" -> { result: "fail", latency: "48ms" };
+    CHECK: "storage" -> { result: "fail", latency: "11ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:28:29] INFO: Entry 554: Module error encountered.
+
+[2025-02-15 08:28:31] ERROR: Entry 555: User login successful.
+
+[2025-02-15 08:28:32] DEBUG: Entry 556: Partial boot detected.
+
+[2025-02-15 08:28:36] ERROR: Entry 557: Partial boot detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 276;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 26 },
+        { FUNCTION: "func_1", LINE: 146 },
+        { FUNCTION: "func_2", LINE: 14 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:28:40] WARN: Entry 558: Diagnostic completed.
+
+[2025-02-15 08:28:43] WARN: Entry 559: Driver installed successfully.
+
+[2025-02-15 08:28:45] DEBUG: Entry 560: Loading configuration.
+# End of Entry 560
+
+[2025-02-15 08:28:46] DEBUG: Entry 561: Low disk space detected.
+
+[2025-02-15 08:28:51] WARN: Entry 562: Partial boot detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 564;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 40 },
+        { FUNCTION: "func_1", LINE: 131 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:28:53] INFO: Entry 563: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "45ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:28:54] INFO: Entry 564: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_564.bin";
+    DESTINATION: "/backup/backup_564.bin";
+    FILE_LIST: [
+        "file_0_564.dat",
+        "file_1_564.dat",
+        "file_2_564.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:51:25";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:18:05";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:17:36";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:28:55] DEBUG: Entry 565: Low disk space detected.
+
+[2025-02-15 08:28:59] ERROR: Entry 566: Partial boot detected.
+
+[2025-02-15 08:29:02] WARN: Entry 567: User login successful.
+
+[2025-02-15 08:29:05] INFO: Entry 568: Diagnostic completed.
+# End of Entry 568
+
+[2025-02-15 08:29:10] ERROR: Entry 569: Module error encountered.
+# End of Entry 569
+
+[2025-02-15 08:29:11] ERROR: Entry 570: Module error encountered.
+
+[2025-02-15 08:29:16] INFO: Entry 571: Configuration loaded successfully.
+# End of Entry 571
+
+[2025-02-15 08:29:19] ERROR: Entry 572: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "36ms" };
+    CHECK: "network" -> { result: "pass", latency: "43ms" };
+    CHECK: "storage" -> { result: "pass", latency: "10ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:29:22] DEBUG: Entry 573: Module error encountered.
+
+[2025-02-15 08:29:25] DEBUG: Entry 574: Partial boot detected.
+
+[2025-02-15 08:29:29] WARN: Entry 575: System boot initiated.
+
+[2025-02-15 08:29:31] WARN: Entry 576: Service restarted.
+
+[2025-02-15 08:29:34] DEBUG: Entry 577: Configuration loaded successfully.
+
+[2025-02-15 08:29:35] INFO: Entry 578: Diagnostic completed.
+# End of Entry 578
+
+[2025-02-15 08:29:36] ERROR: Entry 579: Module error encountered.
+
+[2025-02-15 08:29:39] DEBUG: Entry 580: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "28ms" };
+    CHECK: "video" -> { result: "pass", latency: "13ms" };
+    CHECK: "audio" -> { result: "pass", latency: "18ms" };
+END_DIAGNOSTIC
+# End of Entry 580
+
+[2025-02-15 08:29:43] INFO: Entry 581: Configuration loaded successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 277;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 35 },
+        { FUNCTION: "func_1", LINE: 71 },
+    ];
+END_CRASH_REPORT
+# End of Entry 581
+
+[2025-02-15 08:29:48] ERROR: Entry 582: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:29:51] ERROR: Entry 583: Driver installed successfully.
+
+[2025-02-15 08:29:56] DEBUG: Entry 584: Configuration loaded successfully.
+
+[2025-02-15 08:29:57] DEBUG: Entry 585: Partial boot detected.
+
+[2025-02-15 08:29:58] ERROR: Entry 586: Partial boot detected.
+# End of Entry 586
+
+[2025-02-15 08:30:00] INFO: Entry 587: Scheduled backup initiated.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 545;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 90 },
+        { FUNCTION: "func_1", LINE: 87 },
+        { FUNCTION: "func_2", LINE: 106 },
+        { FUNCTION: "func_3", LINE: 21 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:30:03] INFO: Entry 588: Configuration loaded successfully.
+
+[2025-02-15 08:30:04] DEBUG: Entry 589: User logout recorded.
+
+[2025-02-15 08:30:09] INFO: Entry 590: User logout recorded.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 394;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 30 },
+        { FUNCTION: "func_1", LINE: 33 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:30:10] INFO: Entry 591: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "40ms" };
+    CHECK: "video" -> { result: "pass", latency: "19ms" };
+    CHECK: "audio" -> { result: "fail", latency: "8ms" };
+    CHECK: "network" -> { result: "fail", latency: "31ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:30:11] DEBUG: Entry 592: Module error encountered.
+
+[2025-02-15 08:30:15] WARN: Entry 593: Scheduled backup initiated.
+# End of Entry 593
+
+[2025-02-15 08:30:17] WARN: Entry 594: Low disk space detected.
+
+[2025-02-15 08:30:19] INFO: Entry 595: System boot initiated.
+# End of Entry 595
+
+[2025-02-15 08:30:23] DEBUG: Entry 596: System boot initiated.
+# End of Entry 596
+
+[2025-02-15 08:30:25] DEBUG: Entry 597: Service restarted.
+# End of Entry 597
+
+[2025-02-15 08:30:28] WARN: Entry 598: Module error encountered.
+
+[2025-02-15 08:30:32] INFO: Entry 599: User login successful.
+
+[2025-02-15 08:30:37] INFO: Entry 600: Loading configuration.
+
+[2025-02-15 08:30:38] ERROR: Entry 601: Configuration loaded successfully.
+# End of Entry 601
+
+[2025-02-15 08:30:41] INFO: Entry 602: Low disk space detected.
+
+[2025-02-15 08:30:42] ERROR: Entry 603: Network services running.
+
+[2025-02-15 08:30:43] DEBUG: Entry 604: Loading configuration.
+
+[2025-02-15 08:30:48] WARN: Entry 605: Partial boot detected.
+
+[2025-02-15 08:30:50] WARN: Entry 606: Partial boot detected.
+
+[2025-02-15 08:30:55] INFO: Entry 607: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_607.bin";
+    DESTINATION: "/backup/backup_607.bin";
+    FILE_LIST: [
+        "file_0_607.dat",
+        "file_1_607.dat",
+        "file_2_607.dat",
+        "file_3_607.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:47:30";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:24:42";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:30:58] WARN: Entry 608: User login successful.
+# End of Entry 608
+
+[2025-02-15 08:31:03] INFO: Entry 609: Application crash detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "9ms" };
+    CHECK: "storage" -> { result: "fail", latency: "9ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:31:05] ERROR: Entry 610: Driver installed successfully.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "36ms" };
+    CHECK: "storage" -> { result: "fail", latency: "27ms" };
+END_DIAGNOSTIC
+# End of Entry 610
+
+[2025-02-15 08:31:06] INFO: Entry 611: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 234;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 74 },
+        { FUNCTION: "func_1", LINE: 45 },
+        { FUNCTION: "func_2", LINE: 111 },
+    ];
+END_CRASH_REPORT
+# End of Entry 611
+
+[2025-02-15 08:31:10] ERROR: Entry 612: Service restarted.
+
+[2025-02-15 08:31:12] WARN: Entry 613: Network services running.
+# End of Entry 613
+
+[2025-02-15 08:31:13] WARN: Entry 614: Driver installed successfully.
+
+[2025-02-15 08:31:14] WARN: Entry 615: User login successful.
+
+[2025-02-15 08:31:17] ERROR: Entry 616: System boot initiated.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 561;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 29 },
+        { FUNCTION: "func_1", LINE: 128 },
+        { FUNCTION: "func_2", LINE: 51 },
+        { FUNCTION: "func_3", LINE: 32 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:31:20] WARN: Entry 617: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "10ms" };
+    CHECK: "video" -> { result: "fail", latency: "46ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:31:21] INFO: Entry 618: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:31:22] INFO: Entry 619: Partial boot detected.
+# End of Entry 619
+
+[2025-02-15 08:31:25] ERROR: Entry 620: Partial boot detected.
+
+[2025-02-15 08:31:26] WARN: Entry 621: Scheduled backup initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:31:30] WARN: Entry 622: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_622.bin";
+    DESTINATION: "/backup/backup_622.bin";
+    FILE_LIST: [
+        "file_0_622.dat",
+        "file_1_622.dat",
+        "file_2_622.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:38:36";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:15:35";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:35:09";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:31:35] ERROR: Entry 623: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "25ms" };
+    CHECK: "video" -> { result: "fail", latency: "49ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:31:39] INFO: Entry 624: Partial boot detected.
+
+[2025-02-15 08:31:44] INFO: Entry 625: Service restarted.
+
+[2025-02-15 08:31:47] ERROR: Entry 626: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_626.bin";
+    DESTINATION: "/backup/backup_626.bin";
+    FILE_LIST: [
+        "file_0_626.dat",
+        "file_1_626.dat",
+        "file_2_626.dat",
+        "file_3_626.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:51:44";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:57:11";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:49:32";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 626
+
+[2025-02-15 08:31:50] ERROR: Entry 627: Diagnostic completed.
+
+[2025-02-15 08:31:54] ERROR: Entry 628: Network services running.
+# End of Entry 628
+
+[2025-02-15 08:31:55] DEBUG: Entry 629: User login successful.
+
+[2025-02-15 08:31:58] WARN: Entry 630: Module error encountered.
+
+[2025-02-15 08:32:02] ERROR: Entry 631: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:32:03] DEBUG: Entry 632: Service restarted.
+
+[2025-02-15 08:32:07] WARN: Entry 633: System boot initiated.
+
+[2025-02-15 08:32:11] DEBUG: Entry 634: User logout recorded.
+
+[2025-02-15 08:32:12] DEBUG: Entry 635: Network services running.
+
+[2025-02-15 08:32:13] DEBUG: Entry 636: User login successful.
+
+[2025-02-15 08:32:15] ERROR: Entry 637: Low disk space detected.
+
+[2025-02-15 08:32:18] INFO: Entry 638: User login successful.
+# End of Entry 638
+
+[2025-02-15 08:32:20] ERROR: Entry 639: Partial boot detected.
+
+[2025-02-15 08:32:25] DEBUG: Entry 640: Scheduled backup initiated.
+
+[2025-02-15 08:32:27] ERROR: Entry 641: Configuration loaded successfully.
+# End of Entry 641
+
+[2025-02-15 08:32:30] INFO: Entry 642: Network services running.
+
+[2025-02-15 08:32:33] ERROR: Entry 643: User logout recorded.
+
+[2025-02-15 08:32:36] DEBUG: Entry 644: Driver installed successfully.
+
+[2025-02-15 08:32:37] DEBUG: Entry 645: Driver installed successfully.
+
+[2025-02-15 08:32:39] INFO: Entry 646: Driver installed successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+# End of Entry 646
+
+[2025-02-15 08:32:42] WARN: Entry 647: Module error encountered.
+BEGIN_BACKUP
+    SOURCE: "/data/source_647.bin";
+    DESTINATION: "/backup/backup_647.bin";
+    FILE_LIST: [
+        "file_0_647.dat",
+        "file_1_647.dat",
+        "file_2_647.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:01:48";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:32:47] INFO: Entry 648: Scheduled backup initiated.
+
+[2025-02-15 08:32:52] ERROR: Entry 649: Network services running.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 277;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 56 },
+        { FUNCTION: "func_1", LINE: 110 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:32:56] INFO: Entry 650: Network services running.
+
+[2025-02-15 08:32:58] DEBUG: Entry 651: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:32:59] DEBUG: Entry 652: Module error encountered.
+
+[2025-02-15 08:33:01] INFO: Entry 653: Loading configuration.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "30ms" };
+    CHECK: "video" -> { result: "pass", latency: "6ms" };
+    CHECK: "storage" -> { result: "fail", latency: "48ms" };
+    CHECK: "network" -> { result: "fail", latency: "28ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:33:04] INFO: Entry 654: Configuration loaded successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 218;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 59 },
+        { FUNCTION: "func_1", LINE: 29 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:33:08] INFO: Entry 655: System boot initiated.
+
+[2025-02-15 08:33:11] WARN: Entry 656: Low disk space detected.
+
+[2025-02-15 08:33:13] WARN: Entry 657: Diagnostic completed.
+# End of Entry 657
+
+[2025-02-15 08:33:14] DEBUG: Entry 658: Application crash detected.
+
+[2025-02-15 08:33:19] WARN: Entry 659: Loading configuration.
+
+[2025-02-15 08:33:22] WARN: Entry 660: Configuration loaded successfully.
+
+[2025-02-15 08:33:23] DEBUG: Entry 661: Driver installed successfully.
+
+[2025-02-15 08:33:28] ERROR: Entry 662: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_662.bin";
+    DESTINATION: "/backup/backup_662.bin";
+    FILE_LIST: [
+        "file_0_662.dat",
+        "file_1_662.dat",
+        "file_2_662.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:22:46";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:09:54";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 662
+
+[2025-02-15 08:33:30] INFO: Entry 663: Diagnostic completed.
+
+[2025-02-15 08:33:32] WARN: Entry 664: Diagnostic completed.
+
+[2025-02-15 08:33:33] ERROR: Entry 665: Network services running.
+
+[2025-02-15 08:33:37] DEBUG: Entry 666: Driver installed successfully.
+# End of Entry 666
+
+[2025-02-15 08:33:41] INFO: Entry 667: System boot initiated.
+
+[2025-02-15 08:33:43] INFO: Entry 668: Scheduled backup initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:33:47] WARN: Entry 669: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "10ms" };
+    CHECK: "video" -> { result: "fail", latency: "8ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:33:48] DEBUG: Entry 670: Driver installed successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:33:49] INFO: Entry 671: Application crash detected.
+# End of Entry 671
+
+[2025-02-15 08:33:51] DEBUG: Entry 672: Network services running.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "43ms" };
+    CHECK: "network" -> { result: "fail", latency: "22ms" };
+END_DIAGNOSTIC
+# End of Entry 672
+
+[2025-02-15 08:33:55] DEBUG: Entry 673: Partial boot detected.
+# End of Entry 673
+
+[2025-02-15 08:33:58] WARN: Entry 674: User login successful.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 586;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 116 },
+        { FUNCTION: "func_1", LINE: 121 },
+    ];
+END_CRASH_REPORT
+# End of Entry 674
+
+[2025-02-15 08:34:01] ERROR: Entry 675: Module error encountered.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 254;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 76 },
+        { FUNCTION: "func_1", LINE: 91 },
+        { FUNCTION: "func_2", LINE: 75 },
+        { FUNCTION: "func_3", LINE: 87 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:34:04] DEBUG: Entry 676: Partial boot detected.
+
+[2025-02-15 08:34:07] WARN: Entry 677: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "42ms" };
+    CHECK: "network" -> { result: "fail", latency: "27ms" };
+    CHECK: "storage" -> { result: "pass", latency: "18ms" };
+    CHECK: "video" -> { result: "fail", latency: "25ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:34:10] WARN: Entry 678: User logout recorded.
+
+[2025-02-15 08:34:15] INFO: Entry 679: Loading configuration.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 367;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 36 },
+        { FUNCTION: "func_1", LINE: 76 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:34:16] INFO: Entry 680: User login successful.
+
+[2025-02-15 08:34:19] ERROR: Entry 681: Configuration loaded successfully.
+
+[2025-02-15 08:34:20] WARN: Entry 682: Driver installed successfully.
+
+[2025-02-15 08:34:23] ERROR: Entry 683: Scheduled backup initiated.
+
+[2025-02-15 08:34:28] ERROR: Entry 684: Loading configuration.
+
+[2025-02-15 08:34:33] INFO: Entry 685: Module error encountered.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:34:37] ERROR: Entry 686: Driver installed successfully.
+# End of Entry 686
+
+[2025-02-15 08:34:38] INFO: Entry 687: Scheduled backup initiated.
+
+[2025-02-15 08:34:39] ERROR: Entry 688: Scheduled backup initiated.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 525;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 135 },
+        { FUNCTION: "func_1", LINE: 92 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:34:42] DEBUG: Entry 689: Configuration loaded successfully.
+
+[2025-02-15 08:34:43] ERROR: Entry 690: Service restarted.
+
+[2025-02-15 08:34:44] ERROR: Entry 691: Service restarted.
+# End of Entry 691
+
+[2025-02-15 08:34:49] DEBUG: Entry 692: Partial boot detected.
+
+[2025-02-15 08:34:51] DEBUG: Entry 693: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "25ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:34:52] DEBUG: Entry 694: Configuration loaded successfully.
+
+[2025-02-15 08:34:55] INFO: Entry 695: System boot initiated.
+
+[2025-02-15 08:34:57] INFO: Entry 696: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "18ms" };
+    CHECK: "audio" -> { result: "pass", latency: "26ms" };
+    CHECK: "storage" -> { result: "pass", latency: "35ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:34:58] ERROR: Entry 697: Low disk space detected.
+
+[2025-02-15 08:34:59] INFO: Entry 698: User logout recorded.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:35:01] DEBUG: Entry 699: System boot initiated.
+
+[2025-02-15 08:35:02] DEBUG: Entry 700: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "39ms" };
+    CHECK: "video" -> { result: "fail", latency: "41ms" };
+    CHECK: "storage" -> { result: "fail", latency: "26ms" };
+    CHECK: "network" -> { result: "pass", latency: "29ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:35:04] WARN: Entry 701: Module error encountered.
+
+[2025-02-15 08:35:09] DEBUG: Entry 702: Service restarted.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "38ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:35:12] WARN: Entry 703: Driver installed successfully.
+
+[2025-02-15 08:35:13] ERROR: Entry 704: Partial boot detected.
+
+[2025-02-15 08:35:18] INFO: Entry 705: Configuration loaded successfully.
+# End of Entry 705
+
+[2025-02-15 08:35:19] DEBUG: Entry 706: Driver installed successfully.
+
+[2025-02-15 08:35:24] DEBUG: Entry 707: Low disk space detected.
+
+[2025-02-15 08:35:28] INFO: Entry 708: Service restarted.
+# End of Entry 708
+
+[2025-02-15 08:35:30] WARN: Entry 709: Service restarted.
+# End of Entry 709
+
+[2025-02-15 08:35:32] ERROR: Entry 710: Driver installed successfully.
+
+[2025-02-15 08:35:35] INFO: Entry 711: Driver installed successfully.
+
+[2025-02-15 08:35:38] DEBUG: Entry 712: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_712.bin";
+    DESTINATION: "/backup/backup_712.bin";
+    FILE_LIST: [
+        "file_0_712.dat",
+        "file_1_712.dat",
+        "file_2_712.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:36:07";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:35:43] ERROR: Entry 713: Partial boot detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 320;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 42 },
+        { FUNCTION: "func_1", LINE: 130 },
+        { FUNCTION: "func_2", LINE: 62 },
+        { FUNCTION: "func_3", LINE: 73 },
+    ];
+END_CRASH_REPORT
+# End of Entry 713
+
+[2025-02-15 08:35:48] DEBUG: Entry 714: Partial boot detected.
+
+[2025-02-15 08:35:49] DEBUG: Entry 715: Service restarted.
+
+[2025-02-15 08:35:51] WARN: Entry 716: User logout recorded.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "10ms" };
+    CHECK: "network" -> { result: "fail", latency: "19ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:35:54] ERROR: Entry 717: Low disk space detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 214;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 86 },
+        { FUNCTION: "func_1", LINE: 23 },
+        { FUNCTION: "func_2", LINE: 37 },
+        { FUNCTION: "func_3", LINE: 121 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:35:56] ERROR: Entry 718: Diagnostic completed.
+
+[2025-02-15 08:35:59] ERROR: Entry 719: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_719.bin";
+    DESTINATION: "/backup/backup_719.bin";
+    FILE_LIST: [
+        "file_0_719.dat",
+        "file_1_719.dat",
+        "file_2_719.dat",
+        "file_3_719.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:32:40";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:35:02";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:50:30";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:36:04] ERROR: Entry 720: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_720.bin";
+    DESTINATION: "/backup/backup_720.bin";
+    FILE_LIST: [
+        "file_0_720.dat",
+        "file_1_720.dat",
+        "file_2_720.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:32:49";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:01:02";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:36:09] ERROR: Entry 721: Module error encountered.
+
+[2025-02-15 08:36:13] INFO: Entry 722: Module error encountered.
+
+[2025-02-15 08:36:14] INFO: Entry 723: Application crash detected.
+
+[2025-02-15 08:36:19] DEBUG: Entry 724: Configuration loaded successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 421;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 25 },
+        { FUNCTION: "func_1", LINE: 115 },
+        { FUNCTION: "func_2", LINE: 111 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:36:20] DEBUG: Entry 725: Diagnostic completed.
+
+[2025-02-15 08:36:24] INFO: Entry 726: User login successful.
+
+[2025-02-15 08:36:25] DEBUG: Entry 727: Diagnostic completed.
+
+[2025-02-15 08:36:28] WARN: Entry 728: Module error encountered.
+
+[2025-02-15 08:36:32] ERROR: Entry 729: Configuration loaded successfully.
+
+[2025-02-15 08:36:33] DEBUG: Entry 730: System boot initiated.
+# End of Entry 730
+
+[2025-02-15 08:36:34] WARN: Entry 731: Partial boot detected.
+
+[2025-02-15 08:36:37] DEBUG: Entry 732: Network services running.
+
+[2025-02-15 08:36:39] DEBUG: Entry 733: Application crash detected.
+
+[2025-02-15 08:36:43] WARN: Entry 734: Module error encountered.
+
+[2025-02-15 08:36:47] DEBUG: Entry 735: Driver installed successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_735.bin";
+    DESTINATION: "/backup/backup_735.bin";
+    FILE_LIST: [
+        "file_0_735.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:07:37";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:36:52] INFO: Entry 736: Driver installed successfully.
+
+[2025-02-15 08:36:55] ERROR: Entry 737: Low disk space detected.
+
+[2025-02-15 08:36:57] INFO: Entry 738: User logout recorded.
+
+[2025-02-15 08:36:59] INFO: Entry 739: Driver installed successfully.
+
+[2025-02-15 08:37:03] WARN: Entry 740: Service restarted.
+
+[2025-02-15 08:37:08] WARN: Entry 741: Scheduled backup initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "43ms" };
+    CHECK: "video" -> { result: "fail", latency: "23ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:37:09] ERROR: Entry 742: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+# End of Entry 742
+
+[2025-02-15 08:37:11] DEBUG: Entry 743: Driver installed successfully.
+# End of Entry 743
+
+[2025-02-15 08:37:14] ERROR: Entry 744: System boot initiated.
+
+[2025-02-15 08:37:17] ERROR: Entry 745: Driver installed successfully.
+
+[2025-02-15 08:37:18] ERROR: Entry 746: Application crash detected.
+
+[2025-02-15 08:37:23] INFO: Entry 747: Network services running.
+
+[2025-02-15 08:37:24] DEBUG: Entry 748: Loading configuration.
+BEGIN_BACKUP
+    SOURCE: "/data/source_748.bin";
+    DESTINATION: "/backup/backup_748.bin";
+    FILE_LIST: [
+        "file_0_748.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:40:01";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:14:01";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:37:28] ERROR: Entry 749: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 510;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 13 },
+        { FUNCTION: "func_1", LINE: 28 },
+        { FUNCTION: "func_2", LINE: 134 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:37:31] ERROR: Entry 750: Configuration loaded successfully.
+
+[2025-02-15 08:37:32] INFO: Entry 751: Driver installed successfully.
+
+[2025-02-15 08:37:34] DEBUG: Entry 752: Network services running.
+# End of Entry 752
+
+[2025-02-15 08:37:35] INFO: Entry 753: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:37:40] WARN: Entry 754: Loading configuration.
+
+[2025-02-15 08:37:41] DEBUG: Entry 755: Diagnostic completed.
+
+[2025-02-15 08:37:45] WARN: Entry 756: Low disk space detected.
+
+[2025-02-15 08:37:49] INFO: Entry 757: Loading configuration.
+BEGIN_BACKUP
+    SOURCE: "/data/source_757.bin";
+    DESTINATION: "/backup/backup_757.bin";
+    FILE_LIST: [
+        "file_0_757.dat",
+        "file_1_757.dat",
+        "file_2_757.dat",
+        "file_3_757.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:38:38";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:23:40";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:37:54] ERROR: Entry 758: Network services running.
+
+[2025-02-15 08:37:55] DEBUG: Entry 759: System boot initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:37:56] WARN: Entry 760: Scheduled backup initiated.
+
+[2025-02-15 08:37:59] ERROR: Entry 761: Network services running.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 295;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 49 },
+        { FUNCTION: "func_1", LINE: 59 },
+    ];
+END_CRASH_REPORT
+# End of Entry 761
+
+[2025-02-15 08:38:02] DEBUG: Entry 762: Diagnostic completed.
+
+[2025-02-15 08:38:04] WARN: Entry 763: Diagnostic completed.
+
+[2025-02-15 08:38:09] WARN: Entry 764: Low disk space detected.
+
+[2025-02-15 08:38:13] INFO: Entry 765: Scheduled backup initiated.
+# End of Entry 765
+
+[2025-02-15 08:38:18] DEBUG: Entry 766: Diagnostic completed.
+# End of Entry 766
+
+[2025-02-15 08:38:22] DEBUG: Entry 767: System boot initiated.
+
+[2025-02-15 08:38:26] DEBUG: Entry 768: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:38:28] WARN: Entry 769: User logout recorded.
+
+[2025-02-15 08:38:29] DEBUG: Entry 770: User login successful.
+
+[2025-02-15 08:38:34] DEBUG: Entry 771: Network services running.
+
+[2025-02-15 08:38:36] WARN: Entry 772: Configuration loaded successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 223;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 45 },
+        { FUNCTION: "func_1", LINE: 51 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:38:37] WARN: Entry 773: Diagnostic completed.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 218;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 59 },
+        { FUNCTION: "func_1", LINE: 121 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:38:38] ERROR: Entry 774: User login successful.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:38:40] WARN: Entry 775: User login successful.
+
+[2025-02-15 08:38:42] INFO: Entry 776: Low disk space detected.
+
+[2025-02-15 08:38:47] WARN: Entry 777: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_777.bin";
+    DESTINATION: "/backup/backup_777.bin";
+    FILE_LIST: [
+        "file_0_777.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:24:48";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:38:49] WARN: Entry 778: Module error encountered.
+
+[2025-02-15 08:38:50] INFO: Entry 779: Low disk space detected.
+
+[2025-02-15 08:38:53] DEBUG: Entry 780: Low disk space detected.
+
+[2025-02-15 08:38:55] WARN: Entry 781: Network services running.
+BEGIN_BACKUP
+    SOURCE: "/data/source_781.bin";
+    DESTINATION: "/backup/backup_781.bin";
+    FILE_LIST: [
+        "file_0_781.dat",
+        "file_1_781.dat",
+        "file_2_781.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:10:58";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:38:57] INFO: Entry 782: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "storage" -> { result: "pass", latency: "27ms" };
+    CHECK: "network" -> { result: "fail", latency: "50ms" };
+    CHECK: "video" -> { result: "pass", latency: "38ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:39:00] INFO: Entry 783: Partial boot detected.
+
+[2025-02-15 08:39:05] DEBUG: Entry 784: Configuration loaded successfully.
+
+[2025-02-15 08:39:07] ERROR: Entry 785: Loading configuration.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "35ms" };
+    CHECK: "network" -> { result: "pass", latency: "47ms" };
+    CHECK: "video" -> { result: "fail", latency: "14ms" };
+    CHECK: "storage" -> { result: "fail", latency: "9ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:39:08] WARN: Entry 786: Application crash detected.
+
+[2025-02-15 08:39:09] ERROR: Entry 787: Partial boot detected.
+# End of Entry 787
+
+[2025-02-15 08:39:12] INFO: Entry 788: System boot initiated.
+
+[2025-02-15 08:39:17] ERROR: Entry 789: Application crash detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "10ms" };
+    CHECK: "audio" -> { result: "fail", latency: "36ms" };
+    CHECK: "video" -> { result: "fail", latency: "26ms" };
+    CHECK: "storage" -> { result: "fail", latency: "30ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:39:22] INFO: Entry 790: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:39:23] INFO: Entry 791: Loading configuration.
+
+[2025-02-15 08:39:25] INFO: Entry 792: Configuration loaded successfully.
+
+[2025-02-15 08:39:27] INFO: Entry 793: Network services running.
+
+[2025-02-15 08:39:31] ERROR: Entry 794: Partial boot detected.
+
+[2025-02-15 08:39:36] DEBUG: Entry 795: Application crash detected.
+
+[2025-02-15 08:39:40] ERROR: Entry 796: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "21ms" };
+END_DIAGNOSTIC
+# End of Entry 796
+
+[2025-02-15 08:39:42] WARN: Entry 797: Module error encountered.
+
+[2025-02-15 08:39:44] ERROR: Entry 798: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "24ms" };
+    CHECK: "network" -> { result: "pass", latency: "12ms" };
+    CHECK: "audio" -> { result: "fail", latency: "41ms" };
+    CHECK: "storage" -> { result: "pass", latency: "14ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:39:47] INFO: Entry 799: Diagnostic completed.
+
+[2025-02-15 08:39:52] DEBUG: Entry 800: Configuration loaded successfully.
+# End of Entry 800
+
+[2025-02-15 08:39:54] ERROR: Entry 801: Diagnostic completed.
+
+[2025-02-15 08:39:56] ERROR: Entry 802: Partial boot detected.
+# End of Entry 802
+
+[2025-02-15 08:40:01] WARN: Entry 803: Low disk space detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_803.bin";
+    DESTINATION: "/backup/backup_803.bin";
+    FILE_LIST: [
+        "file_0_803.dat",
+        "file_1_803.dat",
+        "file_2_803.dat",
+        "file_3_803.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:29:41";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:02:57";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:03:44";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 803
+
+[2025-02-15 08:40:03] INFO: Entry 804: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+# End of Entry 804
+
+[2025-02-15 08:40:07] INFO: Entry 805: System boot initiated.
+# End of Entry 805
+
+[2025-02-15 08:40:12] WARN: Entry 806: User login successful.
+
+[2025-02-15 08:40:14] WARN: Entry 807: User logout recorded.
+
+[2025-02-15 08:40:16] INFO: Entry 808: Module error encountered.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "33ms" };
+    CHECK: "storage" -> { result: "pass", latency: "44ms" };
+    CHECK: "video" -> { result: "fail", latency: "17ms" };
+    CHECK: "network" -> { result: "fail", latency: "5ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:40:17] INFO: Entry 809: System boot initiated.
+
+[2025-02-15 08:40:18] ERROR: Entry 810: Driver installed successfully.
+
+[2025-02-15 08:40:19] WARN: Entry 811: Application crash detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:40:20] INFO: Entry 812: Application crash detected.
+
+[2025-02-15 08:40:25] WARN: Entry 813: User login successful.
+
+[2025-02-15 08:40:30] DEBUG: Entry 814: Application crash detected.
+
+[2025-02-15 08:40:32] ERROR: Entry 815: Loading configuration.
+
+[2025-02-15 08:40:34] ERROR: Entry 816: Configuration loaded successfully.
+
+[2025-02-15 08:40:39] DEBUG: Entry 817: Application crash detected.
+
+[2025-02-15 08:40:40] ERROR: Entry 818: Scheduled backup initiated.
+
+[2025-02-15 08:40:42] DEBUG: Entry 819: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_819.bin";
+    DESTINATION: "/backup/backup_819.bin";
+    FILE_LIST: [
+        "file_0_819.dat",
+        "file_1_819.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:40:04";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:34:28";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:14:22";
+        PROGRESS: 50;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:40:44] WARN: Entry 820: Diagnostic completed.
+BEGIN_BACKUP
+    SOURCE: "/data/source_820.bin";
+    DESTINATION: "/backup/backup_820.bin";
+    FILE_LIST: [
+        "file_0_820.dat",
+        "file_1_820.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:08:13";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:40:45] DEBUG: Entry 821: Configuration loaded successfully.
+
+[2025-02-15 08:40:46] ERROR: Entry 822: Service restarted.
+
+[2025-02-15 08:40:51] WARN: Entry 823: Service restarted.
+
+[2025-02-15 08:40:55] DEBUG: Entry 824: Scheduled backup initiated.
+
+[2025-02-15 08:41:00] DEBUG: Entry 825: User logout recorded.
+
+[2025-02-15 08:41:04] WARN: Entry 826: Application crash detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 353;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 150 },
+        { FUNCTION: "func_1", LINE: 131 },
+        { FUNCTION: "func_2", LINE: 66 },
+        { FUNCTION: "func_3", LINE: 86 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:41:05] ERROR: Entry 827: Diagnostic completed.
+
+[2025-02-15 08:41:09] ERROR: Entry 828: System boot initiated.
+# End of Entry 828
+
+[2025-02-15 08:41:10] WARN: Entry 829: Application crash detected.
+
+[2025-02-15 08:41:13] ERROR: Entry 830: Low disk space detected.
+# End of Entry 830
+
+[2025-02-15 08:41:18] INFO: Entry 831: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_831.bin";
+    DESTINATION: "/backup/backup_831.bin";
+    FILE_LIST: [
+        "file_0_831.dat",
+        "file_1_831.dat",
+        "file_2_831.dat",
+        "file_3_831.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:40:56";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:52:05";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:41:22] WARN: Entry 832: Driver installed successfully.
+
+[2025-02-15 08:41:24] DEBUG: Entry 833: Service restarted.
+
+[2025-02-15 08:41:25] ERROR: Entry 834: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_834.bin";
+    DESTINATION: "/backup/backup_834.bin";
+    FILE_LIST: [
+        "file_0_834.dat",
+        "file_1_834.dat",
+        "file_2_834.dat",
+        "file_3_834.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:04:26";
+        PROGRESS: 75;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:13:41";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:41:28] INFO: Entry 835: Partial boot detected.
+# End of Entry 835
+
+[2025-02-15 08:41:29] WARN: Entry 836: Configuration loaded successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:41:34] WARN: Entry 837: User logout recorded.
+# End of Entry 837
+
+[2025-02-15 08:41:35] DEBUG: Entry 838: Network services running.
+
+[2025-02-15 08:41:40] WARN: Entry 839: Diagnostic completed.
+
+[2025-02-15 08:41:41] ERROR: Entry 840: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+# End of Entry 840
+
+[2025-02-15 08:41:44] INFO: Entry 841: Scheduled backup initiated.
+
+[2025-02-15 08:41:46] INFO: Entry 842: System boot initiated.
+
+[2025-02-15 08:41:50] WARN: Entry 843: Application crash detected.
+
+[2025-02-15 08:41:55] ERROR: Entry 844: Partial boot detected.
+
+[2025-02-15 08:41:58] ERROR: Entry 845: Partial boot detected.
+
+[2025-02-15 08:41:59] ERROR: Entry 846: Application crash detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:42:01] DEBUG: Entry 847: Network services running.
+
+[2025-02-15 08:42:03] WARN: Entry 848: Service restarted.
+
+[2025-02-15 08:42:06] ERROR: Entry 849: Configuration loaded successfully.
+
+[2025-02-15 08:42:11] ERROR: Entry 850: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:42:12] WARN: Entry 851: User logout recorded.
+BEGIN_BACKUP
+    SOURCE: "/data/source_851.bin";
+    DESTINATION: "/backup/backup_851.bin";
+    FILE_LIST: [
+        "file_0_851.dat",
+        "file_1_851.dat",
+        "file_2_851.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:53:49";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:52:56";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:21:54";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:42:14] WARN: Entry 852: Low disk space detected.
+# End of Entry 852
+
+[2025-02-15 08:42:18] ERROR: Entry 853: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:42:20] ERROR: Entry 854: Scheduled backup initiated.
+
+[2025-02-15 08:42:24] DEBUG: Entry 855: Loading configuration.
+# End of Entry 855
+
+[2025-02-15 08:42:28] DEBUG: Entry 856: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "19ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:42:31] DEBUG: Entry 857: Diagnostic completed.
+
+[2025-02-15 08:42:34] INFO: Entry 858: Configuration loaded successfully.
+
+[2025-02-15 08:42:39] DEBUG: Entry 859: Network services running.
+
+[2025-02-15 08:42:44] DEBUG: Entry 860: System boot initiated.
+
+[2025-02-15 08:42:45] WARN: Entry 861: Module error encountered.
+
+[2025-02-15 08:42:50] WARN: Entry 862: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "pass", latency: "35ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:42:51] WARN: Entry 863: Diagnostic completed.
+
+[2025-02-15 08:42:53] DEBUG: Entry 864: Diagnostic completed.
+# End of Entry 864
+
+[2025-02-15 08:42:56] WARN: Entry 865: Loading configuration.
+
+[2025-02-15 08:42:58] INFO: Entry 866: Scheduled backup initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "36ms" };
+    CHECK: "audio" -> { result: "pass", latency: "42ms" };
+    CHECK: "storage" -> { result: "pass", latency: "29ms" };
+    CHECK: "video" -> { result: "fail", latency: "20ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:43:03] WARN: Entry 867: Scheduled backup initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_867.bin";
+    DESTINATION: "/backup/backup_867.bin";
+    FILE_LIST: [
+        "file_0_867.dat",
+        "file_1_867.dat",
+        "file_2_867.dat",
+        "file_3_867.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:11:17";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:39:18";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:43:05] ERROR: Entry 868: System boot initiated.
+
+[2025-02-15 08:43:09] DEBUG: Entry 869: User logout recorded.
+
+[2025-02-15 08:43:13] ERROR: Entry 870: Loading configuration.
+
+[2025-02-15 08:43:15] INFO: Entry 871: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:43:19] DEBUG: Entry 872: User logout recorded.
+
+[2025-02-15 08:43:24] ERROR: Entry 873: Service restarted.
+
+[2025-02-15 08:43:25] INFO: Entry 874: Application crash detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_874.bin";
+    DESTINATION: "/backup/backup_874.bin";
+    FILE_LIST: [
+        "file_0_874.dat",
+        "file_1_874.dat",
+        "file_2_874.dat",
+        "file_3_874.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:15:16";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:59:24";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:36:39";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:43:27] WARN: Entry 875: User login successful.
+BEGIN_DIAGNOSTIC
+    CHECK: "video" -> { result: "fail", latency: "40ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:43:31] WARN: Entry 876: Driver installed successfully.
+
+[2025-02-15 08:43:36] WARN: Entry 877: System boot initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_877.bin";
+    DESTINATION: "/backup/backup_877.bin";
+    FILE_LIST: [
+        "file_0_877.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:00:35";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:58:28";
+        PROGRESS: 50;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:00:32";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:43:38] INFO: Entry 878: Service restarted.
+
+[2025-02-15 08:43:43] ERROR: Entry 879: Module error encountered.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 184;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 14 },
+        { FUNCTION: "func_1", LINE: 125 },
+        { FUNCTION: "func_2", LINE: 112 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:43:48] WARN: Entry 880: Low disk space detected.
+
+[2025-02-15 08:43:49] DEBUG: Entry 881: Service restarted.
+
+[2025-02-15 08:43:52] DEBUG: Entry 882: Low disk space detected.
+
+[2025-02-15 08:43:56] INFO: Entry 883: Application crash detected.
+# End of Entry 883
+
+[2025-02-15 08:44:00] DEBUG: Entry 884: Diagnostic completed.
+
+[2025-02-15 08:44:03] INFO: Entry 885: User logout recorded.
+
+[2025-02-15 08:44:08] ERROR: Entry 886: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:44:10] WARN: Entry 887: Driver installed successfully.
+
+[2025-02-15 08:44:15] ERROR: Entry 888: System boot initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "26ms" };
+    CHECK: "video" -> { result: "fail", latency: "46ms" };
+    CHECK: "network" -> { result: "fail", latency: "30ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:44:20] INFO: Entry 889: System boot initiated.
+
+[2025-02-15 08:44:22] ERROR: Entry 890: Service restarted.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+# End of Entry 890
+
+[2025-02-15 08:44:24] WARN: Entry 891: Loading configuration.
+
+[2025-02-15 08:44:27] WARN: Entry 892: Configuration loaded successfully.
+
+[2025-02-15 08:44:30] INFO: Entry 893: Partial boot detected.
+
+[2025-02-15 08:44:31] WARN: Entry 894: Low disk space detected.
+
+[2025-02-15 08:44:32] INFO: Entry 895: Low disk space detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:44:33] DEBUG: Entry 896: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:44:36] INFO: Entry 897: User logout recorded.
+
+[2025-02-15 08:44:39] INFO: Entry 898: Diagnostic completed.
+
+[2025-02-15 08:44:43] WARN: Entry 899: User login successful.
+BEGIN_BACKUP
+    SOURCE: "/data/source_899.bin";
+    DESTINATION: "/backup/backup_899.bin";
+    FILE_LIST: [
+        "file_0_899.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:11:48";
+        PROGRESS: 25;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:44:44] ERROR: Entry 900: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:44:46] INFO: Entry 901: Scheduled backup initiated.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+# End of Entry 901
+
+[2025-02-15 08:44:49] WARN: Entry 902: Diagnostic completed.
+# End of Entry 902
+
+[2025-02-15 08:44:51] ERROR: Entry 903: Network services running.
+# End of Entry 903
+
+[2025-02-15 08:44:55] DEBUG: Entry 904: Configuration loaded successfully.
+
+[2025-02-15 08:44:58] DEBUG: Entry 905: System boot initiated.
+BEGIN_BACKUP
+    SOURCE: "/data/source_905.bin";
+    DESTINATION: "/backup/backup_905.bin";
+    FILE_LIST: [
+        "file_0_905.dat",
+        "file_1_905.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:49:55";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:32:22";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:32:53";
+        PROGRESS: 25;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:45:00] ERROR: Entry 906: Configuration loaded successfully.
+
+[2025-02-15 08:45:01] ERROR: Entry 907: Service restarted.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 530;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 38 },
+        { FUNCTION: "func_1", LINE: 135 },
+        { FUNCTION: "func_2", LINE: 41 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:45:02] INFO: Entry 908: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "25ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:45:06] DEBUG: Entry 909: Scheduled backup initiated.
+
+[2025-02-15 08:45:11] WARN: Entry 910: Configuration loaded successfully.
+
+[2025-02-15 08:45:13] DEBUG: Entry 911: Low disk space detected.
+
+[2025-02-15 08:45:16] WARN: Entry 912: Partial boot detected.
+
+[2025-02-15 08:45:17] WARN: Entry 913: Partial boot detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "fail", latency: "32ms" };
+    CHECK: "audio" -> { result: "pass", latency: "35ms" };
+    CHECK: "storage" -> { result: "pass", latency: "45ms" };
+    CHECK: "video" -> { result: "pass", latency: "44ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:45:19] INFO: Entry 914: Configuration loaded successfully.
+
+[2025-02-15 08:45:22] ERROR: Entry 915: Module error encountered.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 240;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 110 },
+        { FUNCTION: "func_1", LINE: 84 },
+        { FUNCTION: "func_2", LINE: 87 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:45:25] DEBUG: Entry 916: Module error encountered.
+
+[2025-02-15 08:45:26] INFO: Entry 917: Loading configuration.
+
+[2025-02-15 08:45:31] ERROR: Entry 918: Scheduled backup initiated.
+
+[2025-02-15 08:45:33] DEBUG: Entry 919: User login successful.
+
+[2025-02-15 08:45:38] DEBUG: Entry 920: Diagnostic completed.
+
+[2025-02-15 08:45:40] WARN: Entry 921: System boot initiated.
+
+[2025-02-15 08:45:41] INFO: Entry 922: Loading configuration.
+
+[2025-02-15 08:45:42] INFO: Entry 923: Configuration loaded successfully.
+BEGIN_BACKUP
+    SOURCE: "/data/source_923.bin";
+    DESTINATION: "/backup/backup_923.bin";
+    FILE_LIST: [
+        "file_0_923.dat",
+        "file_1_923.dat",
+        "file_2_923.dat",
+        "file_3_923.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:36:40";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:31:15";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:45:46] ERROR: Entry 924: Service restarted.
+# End of Entry 924
+
+[2025-02-15 08:45:51] WARN: Entry 925: Driver installed successfully.
+
+[2025-02-15 08:45:52] WARN: Entry 926: Scheduled backup initiated.
+
+[2025-02-15 08:45:57] WARN: Entry 927: User login successful.
+
+[2025-02-15 08:45:59] ERROR: Entry 928: Application crash detected.
+
+[2025-02-15 08:46:01] WARN: Entry 929: User logout recorded.
+
+[2025-02-15 08:46:02] DEBUG: Entry 930: Partial boot detected.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:46:05] ERROR: Entry 931: Driver installed successfully.
+
+[2025-02-15 08:46:07] DEBUG: Entry 932: Application crash detected.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 338;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 113 },
+        { FUNCTION: "func_1", LINE: 118 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:46:09] INFO: Entry 933: Low disk space detected.
+
+[2025-02-15 08:46:10] INFO: Entry 934: Service restarted.
+
+[2025-02-15 08:46:12] DEBUG: Entry 935: Network services running.
+
+[2025-02-15 08:46:16] DEBUG: Entry 936: Partial boot detected.
+# End of Entry 936
+
+[2025-02-15 08:46:19] WARN: Entry 937: User login successful.
+
+[2025-02-15 08:46:22] WARN: Entry 938: Network services running.
+
+[2025-02-15 08:46:23] ERROR: Entry 939: Service restarted.
+
+[2025-02-15 08:46:25] DEBUG: Entry 940: Service restarted.
+
+[2025-02-15 08:46:26] WARN: Entry 941: Scheduled backup initiated.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 156;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 147 },
+        { FUNCTION: "func_1", LINE: 42 },
+        { FUNCTION: "func_2", LINE: 63 },
+        { FUNCTION: "func_3", LINE: 78 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:46:30] WARN: Entry 942: Module error encountered.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:46:33] INFO: Entry 943: User logout recorded.
+# End of Entry 943
+
+[2025-02-15 08:46:38] ERROR: Entry 944: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+    STEP: "Start services";
+    STEP: "Finalize boot";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:46:40] INFO: Entry 945: Partial boot detected.
+
+[2025-02-15 08:46:42] ERROR: Entry 946: Module error encountered.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "7ms" };
+    CHECK: "storage" -> { result: "fail", latency: "50ms" };
+    CHECK: "video" -> { result: "fail", latency: "28ms" };
+    CHECK: "network" -> { result: "fail", latency: "21ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:46:43] WARN: Entry 947: System boot initiated.
+# End of Entry 947
+
+[2025-02-15 08:46:46] WARN: Entry 948: Module error encountered.
+
+[2025-02-15 08:46:49] WARN: Entry 949: Diagnostic completed.
+# End of Entry 949
+
+[2025-02-15 08:46:51] WARN: Entry 950: Service restarted.
+
+[2025-02-15 08:46:56] ERROR: Entry 951: User logout recorded.
+
+[2025-02-15 08:47:01] WARN: Entry 952: User logout recorded.
+
+[2025-02-15 08:47:04] ERROR: Entry 953: Diagnostic completed.
+BEGIN_BACKUP
+    SOURCE: "/data/source_953.bin";
+    DESTINATION: "/backup/backup_953.bin";
+    FILE_LIST: [
+        "file_0_953.dat",
+        "file_1_953.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:30:18";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:37:24";
+        PROGRESS: 100;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:43:21";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:47:08] ERROR: Entry 954: Service restarted.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:47:13] DEBUG: Entry 955: User logout recorded.
+# End of Entry 955
+
+[2025-02-15 08:47:14] DEBUG: Entry 956: Partial boot detected.
+
+[2025-02-15 08:47:18] WARN: Entry 957: Service restarted.
+
+[2025-02-15 08:47:22] ERROR: Entry 958: Scheduled backup initiated.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "fail", latency: "44ms" };
+    CHECK: "network" -> { result: "pass", latency: "21ms" };
+    CHECK: "storage" -> { result: "pass", latency: "34ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:47:24] INFO: Entry 959: Driver installed successfully.
+
+[2025-02-15 08:47:29] DEBUG: Entry 960: Loading configuration.
+
+[2025-02-15 08:47:34] INFO: Entry 961: Network services running.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:47:36] DEBUG: Entry 962: Driver installed successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 326;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 141 },
+        { FUNCTION: "func_1", LINE: 33 },
+        { FUNCTION: "func_2", LINE: 35 },
+        { FUNCTION: "func_3", LINE: 85 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:47:38] ERROR: Entry 963: User login successful.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:47:40] DEBUG: Entry 964: Configuration loaded successfully.
+
+[2025-02-15 08:47:43] ERROR: Entry 965: Configuration loaded successfully.
+# End of Entry 965
+
+[2025-02-15 08:47:47] ERROR: Entry 966: Partial boot detected.
+
+[2025-02-15 08:47:52] DEBUG: Entry 967: Network services running.
+# End of Entry 967
+
+[2025-02-15 08:47:53] DEBUG: Entry 968: Application crash detected.
+
+[2025-02-15 08:47:56] ERROR: Entry 969: Diagnostic completed.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Finalize boot";
+    STEP: "Start services";
+    STEP: "Load drivers";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:47:59] WARN: Entry 970: Partial boot detected.
+BEGIN_BACKUP
+    SOURCE: "/data/source_970.bin";
+    DESTINATION: "/backup/backup_970.bin";
+    FILE_LIST: [
+        "file_0_970.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:23:41";
+        PROGRESS: 100;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:45:56";
+        PROGRESS: 25;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:38:03";
+        PROGRESS: 75;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+
+[2025-02-15 08:48:02] ERROR: Entry 971: User login successful.
+
+[2025-02-15 08:48:03] INFO: Entry 972: User login successful.
+
+[2025-02-15 08:48:05] INFO: Entry 973: Driver installed successfully.
+# End of Entry 973
+
+[2025-02-15 08:48:07] INFO: Entry 974: User logout recorded.
+
+[2025-02-15 08:48:10] ERROR: Entry 975: User login successful.
+
+[2025-02-15 08:48:14] ERROR: Entry 976: Driver installed successfully.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Initialize hardware";
+    STEP: "Load drivers";
+    STEP: "Finalize boot";
+    STEP: "Start services";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:48:15] DEBUG: Entry 977: Partial boot detected.
+
+[2025-02-15 08:48:17] INFO: Entry 978: System boot initiated.
+
+[2025-02-15 08:48:19] WARN: Entry 979: Driver installed successfully.
+
+[2025-02-15 08:48:23] DEBUG: Entry 980: Configuration loaded successfully.
+
+[2025-02-15 08:48:25] WARN: Entry 981: Scheduled backup initiated.
+
+[2025-02-15 08:48:29] ERROR: Entry 982: User logout recorded.
+
+[2025-02-15 08:48:34] INFO: Entry 983: Configuration loaded successfully.
+
+[2025-02-15 08:48:37] DEBUG: Entry 984: Service restarted.
+BEGIN_BACKUP
+    SOURCE: "/data/source_984.bin";
+    DESTINATION: "/backup/backup_984.bin";
+    FILE_LIST: [
+        "file_0_984.dat",
+        "file_1_984.dat",
+        "file_2_984.dat",
+    ];
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:04:53";
+        PROGRESS: 50;
+        DETAILS: "Update 1";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "8:37:51";
+        PROGRESS: 75;
+        DETAILS: "Update 2";
+    END_BACKUP_UPDATE
+    BEGIN_BACKUP_UPDATE
+        TIMESTAMP: "9:21:05";
+        PROGRESS: 100;
+        DETAILS: "Update 3";
+    END_BACKUP_UPDATE
+END_BACKUP
+# End of Entry 984
+
+[2025-02-15 08:48:38] ERROR: Entry 985: Application crash detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "audio" -> { result: "pass", latency: "8ms" };
+    CHECK: "storage" -> { result: "fail", latency: "49ms" };
+    CHECK: "network" -> { result: "pass", latency: "14ms" };
+    CHECK: "video" -> { result: "pass", latency: "20ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:48:39] DEBUG: Entry 986: Configuration loaded successfully.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 543;
+    MESSAGE: "Crash in module B";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 75 },
+        { FUNCTION: "func_1", LINE: 149 },
+        { FUNCTION: "func_2", LINE: 22 },
+        { FUNCTION: "func_3", LINE: 119 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:48:40] DEBUG: Entry 987: Service restarted.
+
+[2025-02-15 08:48:42] ERROR: Entry 988: User login successful.
+
+[2025-02-15 08:48:46] INFO: Entry 989: Partial boot detected.
+
+[2025-02-15 08:48:47] DEBUG: Entry 990: Diagnostic completed.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "32ms" };
+    CHECK: "audio" -> { result: "fail", latency: "25ms" };
+    CHECK: "video" -> { result: "pass", latency: "27ms" };
+    CHECK: "storage" -> { result: "pass", latency: "17ms" };
+END_DIAGNOSTIC
+# End of Entry 990
+
+[2025-02-15 08:48:50] INFO: Entry 991: Loading configuration.
+
+[2025-02-15 08:48:53] DEBUG: Entry 992: Loading configuration.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:48:58] INFO: Entry 993: Low disk space detected.
+BEGIN_DIAGNOSTIC
+    CHECK: "network" -> { result: "pass", latency: "38ms" };
+    CHECK: "audio" -> { result: "pass", latency: "15ms" };
+END_DIAGNOSTIC
+
+[2025-02-15 08:49:00] INFO: Entry 994: Service restarted.
+
+[2025-02-15 08:49:01] DEBUG: Entry 995: Module error encountered.
+# End of Entry 995
+
+[2025-02-15 08:49:04] DEBUG: Entry 996: Diagnostic completed.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 306;
+    MESSAGE: "Crash in module C";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 114 },
+        { FUNCTION: "func_1", LINE: 138 },
+        { FUNCTION: "func_2", LINE: 29 },
+        { FUNCTION: "func_3", LINE: 94 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:49:07] ERROR: Entry 997: User logout recorded.
+# End of Entry 997
+
+[2025-02-15 08:49:11] WARN: Entry 998: Module error encountered.
+BEGIN_CRASH_REPORT
+    ERROR_CODE: 586;
+    MESSAGE: "Crash in module A";
+    STACK_TRACE: [
+        { FUNCTION: "func_0", LINE: 17 },
+        { FUNCTION: "func_1", LINE: 79 },
+        { FUNCTION: "func_2", LINE: 17 },
+    ];
+END_CRASH_REPORT
+
+[2025-02-15 08:49:16] DEBUG: Entry 999: Service restarted.
+BEGIN_BOOT_SEQUENCE
+    STEP: "Finalize boot";
+    STEP: "Load drivers";
+    STEP: "Start services";
+    STEP: "Initialize hardware";
+END_BOOT_SEQUENCE
+
+[2025-02-15 08:49:19] WARN: Entry 1000: Low disk space detected.
+
