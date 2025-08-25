@@ -1,7 +1,7 @@
 import ply.lex as lex
 
-from src.utils import Error
-from src.symbol_table import SymbolTable
+from utils import Error
+from symbol_table import SymbolTable
 
 
 class Lexer:
