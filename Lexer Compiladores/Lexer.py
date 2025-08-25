@@ -1,4 +1,5 @@
 import ply.lex as lex
+import sys
 
 from utils import Error
 from symbol_table import SymbolTable
@@ -95,3 +96,14 @@ class Lexer:
 
     def build(self, ):
         self.lex = lex.lex(module=self)
+
+errors = []
+lexer = Lexer(errors, debug=True)
+lexer.build()
+
+with open("prueba.py", "r", encoding="utf-8") as f:
+    data = f.read()
+
+lexer.lex.input(data)
+for tok in lexer.lex:
+    print(tok)
