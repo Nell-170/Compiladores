@@ -97,13 +97,39 @@ class Lexer:
     def build(self, ):
         self.lex = lex.lex(module=self)
 
+
+def lexer_tester(path, lexer_instance):
+    # Guardamos stdout original
+    stdout_original = sys.stdout
+
+    # Abrimos el archivo fuente
+    with open(path, 'r', encoding='utf-8') as f:
+        # Abrimos archivo de reporte
+        with open("Lexer_report.txt", "w", encoding="utf-8") as archivoLexer:
+            sys.stdout = archivoLexer  # redirigimos stdout al archivo
+
+            lexer_instance.build()  # construimos el lexer de PLY
+            lexer_instance.data = f.read()
+            lexer_instance.lex.input(lexer_instance.data)
+
+            # Iteramos sobre los tokens
+            while True:
+                tok = lexer_instance.lex.token()
+                if not tok:
+                    break
+                print(tok)
+
+    # Restauramos stdout
+    sys.stdout = stdout_original
+
+
+# PRUEBA 
+
 errors = []
 lexer = Lexer(errors, debug=True)
-lexer.build()
 
-with open("prueba.py", "r", encoding="utf-8") as f:
-    data = f.read()
+# Archivo que quieras probar
+path = "prueba.py"
+lexer_tester(path, lexer)
 
-lexer.lex.input(data)
-for tok in lexer.lex:
-    print(tok)
+print("Errores detectados:", errors)

@@ -1,0 +1,682 @@
+ERROR(LEXER): Illegal character '#' at line 1, column 0. On:
+### PRUEBAS
+^
+ERROR(LEXER): Illegal character '#' at line 1, column 1. On:
+### PRUEBAS
+^
+ERROR(LEXER): Illegal character '#' at line 1, column 2. On:
+### PRUEBAS
+ ^
+DEBUG(LEXER): PRUEBAS on line 1, position 4
+LexToken(ID,'PRUEBAS',1,4)
+DEBUG(LEXER): DEF on line 2, position 12
+LexToken(ID,'def',2,12)
+DEBUG(LEXER): RANDOM_OPERATION on line 2, position 16
+LexToken(ID,'random_operation',2,16)
+LexToken(LPAREN,'(',2,32)
+DEBUG(LEXER): A on line 2, position 33
+LexToken(ID,'a',2,33)
+LexToken(COMMA,',',2,34)
+DEBUG(LEXER): B on line 2, position 36
+LexToken(ID,'b',2,36)
+LexToken(RPAREN,')',2,37)
+LexToken(COLON,':',2,38)
+DEBUG(LEXER): C on line 3, position 44
+LexToken(ID,'c',3,44)
+LexToken(EQUAL,'=',3,46)
+DEBUG(LEXER): A on line 3, position 48
+LexToken(ID,'a',3,48)
+LexToken(PLUS,'+',3,50)
+DEBUG(LEXER): B on line 3, position 52
+LexToken(ID,'b',3,52)
+ERROR(LEXER): Illegal character '#' at line 4, column 58. On:
+# Hi I'm a comment!
+^
+DEBUG(LEXER): HI on line 4, position 60
+LexToken(ID,'Hi',4,60)
+DEBUG(LEXER): I on line 4, position 63
+LexToken(ID,'I',4,63)
+ERROR(LEXER): Illegal character ''' at line 4, column 64. On:
+# Hi I'm a comment!
+      ^
+DEBUG(LEXER): M on line 4, position 65
+LexToken(ID,'m',4,65)
+DEBUG(LEXER): A on line 4, position 67
+LexToken(ID,'a',4,67)
+DEBUG(LEXER): COMMENT on line 4, position 69
+LexToken(ID,'comment',4,69)
+ERROR(LEXER): Illegal character '!' at line 4, column 76. On:
+# Hi I'm a comment!
+                  ^
+DEBUG(LEXER): RETURN on line 5, position 82
+LexToken(ID,'return',5,82)
+DEBUG(LEXER): C on line 5, position 89
+LexToken(ID,'c',5,89)
+LexToken(PLUS,'+',5,91)
+DEBUG(LEXER): A on line 5, position 93
+LexToken(ID,'a',5,93)
+LexToken(MULTI,'*',5,95)
+DEBUG(LEXER): B on line 5, position 97
+LexToken(ID,'b',5,97)
+LexToken(PLUS,'+',5,99)
+LexToken(NUMBER,2,5,101)
+LexToken(DOT,'.',5,102)
+LexToken(NUMBER,6548,5,103)
+DEBUG(LEXER): DEF on line 8, position 110
+LexToken(ID,'def',8,110)
+DEBUG(LEXER): FIBONACCI on line 8, position 114
+LexToken(ID,'fibonacci',8,114)
+LexToken(LPAREN,'(',8,123)
+DEBUG(LEXER): N on line 8, position 124
+LexToken(ID,'n',8,124)
+LexToken(RPAREN,')',8,125)
+LexToken(COLON,':',8,126)
+DEBUG(LEXER): IF on line 9, position 132
+LexToken(IF,'if',9,132)
+DEBUG(LEXER): N on line 9, position 135
+LexToken(ID,'n',9,135)
+LexToken(EQUAL,'=',9,137)
+LexToken(EQUAL,'=',9,138)
+LexToken(NUMBER,1,9,140)
+DEBUG(LEXER): OR on line 9, position 142
+LexToken(OR,'or',9,142)
+DEBUG(LEXER): N on line 9, position 145
+LexToken(ID,'n',9,145)
+LexToken(EQUAL,'=',9,147)
+LexToken(EQUAL,'=',9,148)
+LexToken(NUMBER,2,9,150)
+LexToken(COLON,':',9,151)
+DEBUG(LEXER): RETURN on line 10, position 161
+LexToken(ID,'return',10,161)
+LexToken(NUMBER,1,10,168)
+DEBUG(LEXER): ELIF on line 11, position 174
+LexToken(ID,'elif',11,174)
+DEBUG(LEXER): N on line 11, position 179
+LexToken(ID,'n',11,179)
+LexToken(EQUAL,'=',11,181)
+LexToken(EQUAL,'=',11,182)
+LexToken(NUMBER,0,11,184)
+LexToken(COLON,':',11,185)
+DEBUG(LEXER): RETURN on line 12, position 195
+LexToken(ID,'return',12,195)
+DEBUG(LEXER): N on line 12, position 202
+LexToken(ID,'n',12,202)
+LexToken(DIVIDE,'/',12,204)
+LexToken(NUMBER,0,12,206)
+DEBUG(LEXER): ELSE on line 13, position 212
+LexToken(ELSE,'else',13,212)
+LexToken(COLON,':',13,216)
+DEBUG(LEXER): RETURN on line 14, position 226
+LexToken(ID,'return',14,226)
+DEBUG(LEXER): FIBONACCI on line 14, position 233
+LexToken(ID,'fibonacci',14,233)
+LexToken(LPAREN,'(',14,242)
+DEBUG(LEXER): N on line 14, position 243
+LexToken(ID,'n',14,243)
+LexToken(MINUS,'-',14,245)
+LexToken(NUMBER,1,14,247)
+LexToken(RPAREN,')',14,248)
+LexToken(PLUS,'+',14,250)
+DEBUG(LEXER): FIBONACCI on line 14, position 252
+LexToken(ID,'fibonacci',14,252)
+LexToken(LPAREN,'(',14,261)
+DEBUG(LEXER): N on line 14, position 262
+LexToken(ID,'n',14,262)
+LexToken(MINUS,'-',14,264)
+LexToken(NUMBER,2,14,266)
+LexToken(RPAREN,')',14,267)
+DEBUG(LEXER): DEF on line 17, position 271
+LexToken(ID,'def',17,271)
+DEBUG(LEXER): FIBONACCI_D on line 17, position 275
+LexToken(ID,'fibonacci_d',17,275)
+LexToken(LPAREN,'(',17,286)
+DEBUG(LEXER): N on line 17, position 287
+LexToken(ID,'n',17,287)
+LexToken(RPAREN,')',17,288)
+LexToken(COLON,':',17,289)
+DEBUG(LEXER): N_1 on line 18, position 295
+LexToken(ID,'n_1',18,295)
+LexToken(EQUAL,'=',18,299)
+LexToken(NUMBER,1,18,301)
+DEBUG(LEXER): N_2 on line 19, position 307
+LexToken(ID,'n_2',19,307)
+LexToken(EQUAL,'=',19,311)
+LexToken(NUMBER,1,19,313)
+DEBUG(LEXER): WHILE on line 21, position 320
+LexToken(WHILE,'while',21,320)
+DEBUG(LEXER): N_1 on line 21, position 326
+LexToken(ID,'n_1',21,326)
+LexToken(LESS,'<',21,330)
+DEBUG(LEXER): N on line 21, position 332
+LexToken(ID,'n',21,332)
+LexToken(COLON,':',21,333)
+DEBUG(LEXER): NEW on line 22, position 343
+LexToken(ID,'new',22,343)
+LexToken(EQUAL,'=',22,347)
+DEBUG(LEXER): N_1 on line 22, position 349
+LexToken(ID,'n_1',22,349)
+LexToken(PLUS,'+',22,353)
+DEBUG(LEXER): N_2 on line 22, position 355
+LexToken(ID,'n_2',22,355)
+DEBUG(LEXER): N_2 on line 23, position 367
+LexToken(ID,'n_2',23,367)
+LexToken(EQUAL,'=',23,371)
+DEBUG(LEXER): N_1 on line 23, position 373
+LexToken(ID,'n_1',23,373)
+DEBUG(LEXER): N_1 on line 24, position 385
+LexToken(ID,'n_1',24,385)
+LexToken(EQUAL,'=',24,389)
+DEBUG(LEXER): NEW on line 24, position 391
+LexToken(ID,'new',24,391)
+DEBUG(LEXER): RETURN on line 25, position 399
+LexToken(ID,'return',25,399)
+DEBUG(LEXER): N_1 on line 25, position 406
+LexToken(ID,'n_1',25,406)
+DEBUG(LEXER): DEF on line 28, position 412
+LexToken(ID,'def',28,412)
+DEBUG(LEXER): ITER_EXAMPLE on line 28, position 416
+LexToken(ID,'iter_example',28,416)
+LexToken(LPAREN,'(',28,428)
+LexToken(RPAREN,')',28,429)
+LexToken(COLON,':',28,430)
+DEBUG(LEXER): L on line 29, position 436
+LexToken(ID,'l',29,436)
+LexToken(EQUAL,'=',29,438)
+ERROR(LEXER): Illegal character '[' at line 29, column 440. On:
+l = [1, 2.5, 3, "hola", 5, "mundo"]
+    ^
+LexToken(NUMBER,1,29,441)
+LexToken(COMMA,',',29,442)
+LexToken(NUMBER,2,29,444)
+LexToken(DOT,'.',29,445)
+LexToken(NUMBER,5,29,446)
+LexToken(COMMA,',',29,447)
+LexToken(NUMBER,3,29,449)
+LexToken(COMMA,',',29,450)
+LexToken(SCONST,'"hola"',29,452)
+LexToken(COMMA,',',29,458)
+LexToken(NUMBER,5,29,460)
+LexToken(COMMA,',',29,461)
+LexToken(SCONST,'"mundo"',29,463)
+ERROR(LEXER): Illegal character ']' at line 29, column 470. On:
+l = [1, 2.5, 3, "hola", 5, "mundo"]
+                                  ^
+DEBUG(LEXER): IT on line 30, position 476
+LexToken(ID,'it',30,476)
+LexToken(EQUAL,'=',30,479)
+DEBUG(LEXER): ITER on line 30, position 481
+LexToken(ID,'iter',30,481)
+LexToken(LPAREN,'(',30,485)
+DEBUG(LEXER): L on line 30, position 486
+LexToken(ID,'l',30,486)
+LexToken(RPAREN,')',30,487)
+DEBUG(LEXER): FOR on line 31, position 493
+LexToken(FOR,'for',31,493)
+DEBUG(LEXER): I on line 31, position 497
+LexToken(ID,'i',31,497)
+DEBUG(LEXER): IN on line 31, position 499
+LexToken(ID,'in',31,499)
+DEBUG(LEXER): L on line 31, position 502
+LexToken(ID,'l',31,502)
+LexToken(COLON,':',31,503)
+DEBUG(LEXER): PRINT on line 32, position 513
+LexToken(ID,'print',32,513)
+LexToken(LPAREN,'(',32,518)
+DEBUG(LEXER): NEXT on line 32, position 519
+LexToken(ID,'next',32,519)
+LexToken(LPAREN,'(',32,523)
+DEBUG(LEXER): IT on line 32, position 524
+LexToken(ID,'it',32,524)
+LexToken(RPAREN,')',32,526)
+LexToken(RPAREN,')',32,527)
+DEBUG(LEXER): RETURN on line 33, position 533
+LexToken(ID,'return',33,533)
+DEBUG(LEXER): TRUE on line 33, position 540
+LexToken(ID,'True',33,540)
+DEBUG(LEXER): DEF on line 36, position 547
+LexToken(ID,'def',36,547)
+DEBUG(LEXER): MAP_EX on line 36, position 551
+LexToken(ID,'map_ex',36,551)
+LexToken(LPAREN,'(',36,557)
+LexToken(RPAREN,')',36,558)
+LexToken(COLON,':',36,559)
+DEBUG(LEXER): D on line 37, position 565
+LexToken(ID,'d',37,565)
+LexToken(EQUAL,'=',37,567)
+ERROR(LEXER): Illegal character '{' at line 37, column 569. On:
+d = {
+    ^
+LexToken(SCONST,'"hola"',38,579)
+LexToken(COLON,':',38,585)
+LexToken(SCONST,'"mundo"',38,587)
+LexToken(COMMA,',',38,594)
+LexToken(NUMBER,1,39,604)
+LexToken(COLON,':',39,605)
+ERROR(LEXER): Illegal character '[' at line 39, column 607. On:
+1: [1, 2, 3, 4, 5],
+   ^
+LexToken(NUMBER,1,39,608)
+LexToken(COMMA,',',39,609)
+LexToken(NUMBER,2,39,611)
+LexToken(COMMA,',',39,612)
+LexToken(NUMBER,3,39,614)
+LexToken(COMMA,',',39,615)
+LexToken(NUMBER,4,39,617)
+LexToken(COMMA,',',39,618)
+LexToken(NUMBER,5,39,620)
+ERROR(LEXER): Illegal character ']' at line 39, column 621. On:
+1: [1, 2, 3, 4, 5],
+                 ^
+LexToken(COMMA,',',39,622)
+LexToken(SCONST,'"dict"',40,632)
+LexToken(COLON,':',40,638)
+ERROR(LEXER): Illegal character '{' at line 40, column 640. On:
+"dict": {'adios': ':D'}
+        ^
+ERROR(LEXER): Illegal character ''' at line 40, column 641. On:
+"dict": {'adios': ':D'}
+         ^
+DEBUG(LEXER): ADIOS on line 40, position 642
+LexToken(ID,'adios',40,642)
+ERROR(LEXER): Illegal character ''' at line 40, column 647. On:
+"dict": {'adios': ':D'}
+               ^
+LexToken(COLON,':',40,648)
+ERROR(LEXER): Illegal character ''' at line 40, column 650. On:
+"dict": {'adios': ':D'}
+                  ^
+LexToken(COLON,':',40,651)
+DEBUG(LEXER): D on line 40, position 652
+LexToken(ID,'D',40,652)
+ERROR(LEXER): Illegal character ''' at line 40, column 653. On:
+"dict": {'adios': ':D'}
+                     ^
+ERROR(LEXER): Illegal character '}' at line 40, column 654. On:
+"dict": {'adios': ':D'}
+                      ^
+ERROR(LEXER): Illegal character '}' at line 41, column 660. On:
+}
+^
+DEBUG(LEXER): FOR on line 42, position 666
+LexToken(FOR,'for',42,666)
+DEBUG(LEXER): K on line 42, position 670
+LexToken(ID,'k',42,670)
+DEBUG(LEXER): IN on line 42, position 672
+LexToken(ID,'in',42,672)
+DEBUG(LEXER): D on line 42, position 675
+LexToken(ID,'d',42,675)
+LexToken(DOT,'.',42,676)
+DEBUG(LEXER): KEYS on line 42, position 677
+LexToken(ID,'keys',42,677)
+LexToken(LPAREN,'(',42,681)
+LexToken(RPAREN,')',42,682)
+LexToken(COLON,':',42,683)
+DEBUG(LEXER): PRINT on line 43, position 693
+LexToken(ID,'print',43,693)
+LexToken(LPAREN,'(',43,698)
+DEBUG(LEXER): D on line 43, position 699
+LexToken(ID,'d',43,699)
+ERROR(LEXER): Illegal character '[' at line 43, column 700. On:
+print(d[k])
+       ^
+DEBUG(LEXER): K on line 43, position 701
+LexToken(ID,'k',43,701)
+ERROR(LEXER): Illegal character ']' at line 43, column 702. On:
+print(d[k])
+         ^
+LexToken(RPAREN,')',43,703)
+DEBUG(LEXER): RETURN on line 44, position 709
+LexToken(ID,'return',44,709)
+LexToken(SCONST,'"hola"',44,716)
+LexToken(PLUS,'+',44,723)
+LexToken(SCONST,'"mundo"',44,725)
+DEBUG(LEXER): DEF on line 47, position 735
+LexToken(ID,'def',47,735)
+DEBUG(LEXER): DEFAULT_EX on line 47, position 739
+LexToken(ID,'default_ex',47,739)
+LexToken(LPAREN,'(',47,749)
+DEBUG(LEXER): A on line 47, position 750
+LexToken(ID,'a',47,750)
+LexToken(EQUAL,'=',47,751)
+ERROR(LEXER): Illegal character ''' at line 47, column 752. On:
+def default_ex(a='hola'):
+                 ^
+DEBUG(LEXER): HOLA on line 47, position 753
+LexToken(ID,'hola',47,753)
+ERROR(LEXER): Illegal character ''' at line 47, column 757. On:
+def default_ex(a='hola'):
+                      ^
+LexToken(RPAREN,')',47,758)
+LexToken(COLON,':',47,759)
+DEBUG(LEXER): RETURN on line 48, position 765
+LexToken(ID,'return',48,765)
+DEBUG(LEXER): A on line 48, position 772
+LexToken(ID,'a',48,772)
+DEBUG(LEXER): DEF on line 51, position 776
+LexToken(ID,'def',51,776)
+DEBUG(LEXER): SET_EX on line 51, position 780
+LexToken(ID,'set_ex',51,780)
+LexToken(LPAREN,'(',51,786)
+LexToken(RPAREN,')',51,787)
+LexToken(COLON,':',51,788)
+DEBUG(LEXER): A on line 52, position 794
+LexToken(ID,'a',52,794)
+LexToken(EQUAL,'=',52,796)
+ERROR(LEXER): Illegal character '{' at line 52, column 798. On:
+a = {1, 2, "hola", 4, 5}
+    ^
+LexToken(NUMBER,1,52,799)
+LexToken(COMMA,',',52,800)
+LexToken(NUMBER,2,52,802)
+LexToken(COMMA,',',52,803)
+LexToken(SCONST,'"hola"',52,805)
+LexToken(COMMA,',',52,811)
+LexToken(NUMBER,4,52,813)
+LexToken(COMMA,',',52,814)
+LexToken(NUMBER,5,52,816)
+ERROR(LEXER): Illegal character '}' at line 52, column 817. On:
+a = {1, 2, "hola", 4, 5}
+                       ^
+DEBUG(LEXER): RETURN on line 53, position 823
+LexToken(ID,'return',53,823)
+LexToken(NUMBER,2,53,830)
+DEBUG(LEXER): IN on line 53, position 832
+LexToken(ID,'in',53,832)
+DEBUG(LEXER): A on line 53, position 835
+LexToken(ID,'a',53,835)
+DEBUG(LEXER): DEF on line 56, position 839
+LexToken(ID,'def',56,839)
+DEBUG(LEXER): TUPLE_EX on line 56, position 843
+LexToken(ID,'tuple_ex',56,843)
+LexToken(LPAREN,'(',56,851)
+LexToken(RPAREN,')',56,852)
+LexToken(COLON,':',56,853)
+DEBUG(LEXER): A on line 57, position 859
+LexToken(ID,'a',57,859)
+LexToken(EQUAL,'=',57,861)
+LexToken(LPAREN,'(',57,863)
+LexToken(NUMBER,5,57,864)
+LexToken(COMMA,',',57,865)
+LexToken(NUMBER,6,57,867)
+LexToken(COMMA,',',57,868)
+ERROR(LEXER): Illegal character ''' at line 57, column 870. On:
+a = (5, 6, 'joseph')
+           ^
+DEBUG(LEXER): JOSEPH on line 57, position 871
+LexToken(ID,'joseph',57,871)
+ERROR(LEXER): Illegal character ''' at line 57, column 877. On:
+a = (5, 6, 'joseph')
+                  ^
+LexToken(RPAREN,')',57,878)
+DEBUG(LEXER): B on line 58, position 884
+LexToken(ID,'b',58,884)
+LexToken(EQUAL,'=',58,886)
+LexToken(LPAREN,'(',58,888)
+LexToken(NUMBER,1,58,889)
+LexToken(COMMA,',',58,890)
+LexToken(NUMBER,2,58,892)
+LexToken(COMMA,',',58,893)
+ERROR(LEXER): Illegal character ''' at line 58, column 895. On:
+b = (1, 2, 'valverde')
+           ^
+DEBUG(LEXER): VALVERDE on line 58, position 896
+LexToken(ID,'valverde',58,896)
+ERROR(LEXER): Illegal character ''' at line 58, column 904. On:
+b = (1, 2, 'valverde')
+                    ^
+LexToken(RPAREN,')',58,905)
+DEBUG(LEXER): RETURN on line 59, position 911
+LexToken(ID,'return',59,911)
+DEBUG(LEXER): A on line 59, position 918
+LexToken(ID,'a',59,918)
+LexToken(PLUS,'+',59,920)
+DEBUG(LEXER): B on line 59, position 922
+LexToken(ID,'b',59,922)
+DEBUG(LEXER): DEF on line 62, position 926
+LexToken(ID,'def',62,926)
+DEBUG(LEXER): SLICES_EX on line 62, position 930
+LexToken(ID,'slices_ex',62,930)
+LexToken(LPAREN,'(',62,939)
+LexToken(RPAREN,')',62,940)
+LexToken(COLON,':',62,941)
+DEBUG(LEXER): L on line 63, position 947
+LexToken(ID,'l',63,947)
+LexToken(EQUAL,'=',63,949)
+ERROR(LEXER): Illegal character '[' at line 63, column 951. On:
+l = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9]
+    ^
+LexToken(NUMBER,1,63,952)
+LexToken(COMMA,',',63,953)
+LexToken(NUMBER,2,63,955)
+LexToken(COMMA,',',63,956)
+LexToken(NUMBER,3,63,958)
+LexToken(COMMA,',',63,959)
+LexToken(NUMBER,4,63,961)
+LexToken(COMMA,',',63,962)
+LexToken(NUMBER,5,63,964)
+LexToken(COMMA,',',63,965)
+LexToken(NUMBER,6,63,967)
+LexToken(COMMA,',',63,968)
+LexToken(NUMBER,7,63,970)
+LexToken(COMMA,',',63,971)
+LexToken(NUMBER,7,63,973)
+LexToken(COMMA,',',63,974)
+LexToken(NUMBER,8,63,976)
+LexToken(COMMA,',',63,977)
+LexToken(NUMBER,9,63,979)
+ERROR(LEXER): Illegal character ']' at line 63, column 980. On:
+l = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9]
+                                 ^
+DEBUG(LEXER): PRINT on line 64, position 986
+LexToken(ID,'print',64,986)
+LexToken(LPAREN,'(',64,991)
+DEBUG(LEXER): L on line 64, position 992
+LexToken(ID,'l',64,992)
+ERROR(LEXER): Illegal character '[' at line 64, column 993. On:
+print(l[-2])
+       ^
+LexToken(MINUS,'-',64,994)
+LexToken(NUMBER,2,64,995)
+ERROR(LEXER): Illegal character ']' at line 64, column 996. On:
+print(l[-2])
+          ^
+LexToken(RPAREN,')',64,997)
+DEBUG(LEXER): PRINT on line 65, position 1003
+LexToken(ID,'print',65,1003)
+LexToken(LPAREN,'(',65,1008)
+DEBUG(LEXER): L on line 65, position 1009
+LexToken(ID,'l',65,1009)
+ERROR(LEXER): Illegal character '[' at line 65, column 1010. On:
+print(l[1:-2])
+       ^
+LexToken(NUMBER,1,65,1011)
+LexToken(COLON,':',65,1012)
+LexToken(MINUS,'-',65,1013)
+LexToken(NUMBER,2,65,1014)
+ERROR(LEXER): Illegal character ']' at line 65, column 1015. On:
+print(l[1:-2])
+            ^
+LexToken(RPAREN,')',65,1016)
+DEBUG(LEXER): K on line 66, position 1022
+LexToken(ID,'k',66,1022)
+LexToken(EQUAL,'=',66,1024)
+DEBUG(LEXER): L on line 66, position 1026
+LexToken(ID,'l',66,1026)
+ERROR(LEXER): Illegal character '[' at line 66, column 1027. On:
+k = l[1:2] + l[-3:-4]
+     ^
+LexToken(NUMBER,1,66,1028)
+LexToken(COLON,':',66,1029)
+LexToken(NUMBER,2,66,1030)
+ERROR(LEXER): Illegal character ']' at line 66, column 1031. On:
+k = l[1:2] + l[-3:-4]
+         ^
+LexToken(PLUS,'+',66,1033)
+DEBUG(LEXER): L on line 66, position 1035
+LexToken(ID,'l',66,1035)
+ERROR(LEXER): Illegal character '[' at line 66, column 1036. On:
+k = l[1:2] + l[-3:-4]
+              ^
+LexToken(MINUS,'-',66,1037)
+LexToken(NUMBER,3,66,1038)
+LexToken(COLON,':',66,1039)
+LexToken(MINUS,'-',66,1040)
+LexToken(NUMBER,4,66,1041)
+ERROR(LEXER): Illegal character ']' at line 66, column 1042. On:
+k = l[1:2] + l[-3:-4]
+                    ^
+DEBUG(LEXER): RETURN on line 67, position 1048
+LexToken(ID,'return',67,1048)
+DEBUG(LEXER): K on line 67, position 1055
+LexToken(ID,'k',67,1055)
+DEBUG(LEXER): DEF on line 70, position 1059
+LexToken(ID,'def',70,1059)
+DEBUG(LEXER): STRING_EX on line 70, position 1063
+LexToken(ID,'string_ex',70,1063)
+LexToken(LPAREN,'(',70,1072)
+LexToken(RPAREN,')',70,1073)
+LexToken(COLON,':',70,1074)
+DEBUG(LEXER): PRINT on line 71, position 1080
+LexToken(ID,'print',71,1080)
+LexToken(LPAREN,'(',71,1085)
+LexToken(SCONST,'"profe"',71,1086)
+ERROR(LEXER): Illegal character '[' at line 71, column 1093. On:
+print("profe"[2:4])
+             ^
+LexToken(NUMBER,2,71,1094)
+LexToken(COLON,':',71,1095)
+LexToken(NUMBER,4,71,1096)
+ERROR(LEXER): Illegal character ']' at line 71, column 1097. On:
+print("profe"[2:4])
+                 ^
+LexToken(RPAREN,')',71,1098)
+DEBUG(LEXER): PRINT on line 72, position 1104
+LexToken(ID,'print',72,1104)
+LexToken(LPAREN,'(',72,1109)
+LexToken(SCONST,'"profe"',72,1110)
+ERROR(LEXER): Illegal character '[' at line 72, column 1117. On:
+print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+             ^
+LexToken(NUMBER,2,72,1118)
+LexToken(COLON,':',72,1119)
+LexToken(NUMBER,4,72,1120)
+ERROR(LEXER): Illegal character ']' at line 72, column 1121. On:
+print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+                 ^
+LexToken(PLUS,'+',72,1123)
+LexToken(SCONST,'"profe"',72,1125)
+ERROR(LEXER): Illegal character '[' at line 72, column 1132. On:
+print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+                            ^
+LexToken(NUMBER,0,72,1133)
+LexToken(COLON,':',72,1134)
+LexToken(NUMBER,2,72,1135)
+ERROR(LEXER): Illegal character ']' at line 72, column 1136. On:
+print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+                                ^
+LexToken(PLUS,'+',72,1138)
+LexToken(SCONST,'"profe"',72,1140)
+ERROR(LEXER): Illegal character '[' at line 72, column 1147. On:
+print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+                                           ^
+LexToken(MINUS,'-',72,1148)
+LexToken(NUMBER,1,72,1149)
+ERROR(LEXER): Illegal character ']' at line 72, column 1150. On:
+print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+                                              ^
+LexToken(RPAREN,')',72,1151)
+ERROR(LEXER): Illegal character '#' at line 75, column 1155. On:
+# EJECUCIÓN DE PRUEBAS
+^
+DEBUG(LEXER): EJECUCI on line 75, position 1157
+LexToken(ID,'EJECUCI',75,1157)
+ERROR(LEXER): Illegal character 'Ó' at line 75, column 1164. On:
+# EJECUCIÓN DE PRUEBAS
+         ^
+DEBUG(LEXER): N on line 75, position 1165
+LexToken(ID,'N',75,1165)
+DEBUG(LEXER): DE on line 75, position 1167
+LexToken(ID,'DE',75,1167)
+DEBUG(LEXER): PRUEBAS on line 75, position 1170
+LexToken(ID,'PRUEBAS',75,1170)
+DEBUG(LEXER): PRINT on line 76, position 1178
+LexToken(ID,'print',76,1178)
+LexToken(LPAREN,'(',76,1183)
+DEBUG(LEXER): RANDOM_OPERATION on line 76, position 1184
+LexToken(ID,'random_operation',76,1184)
+LexToken(LPAREN,'(',76,1200)
+LexToken(NUMBER,5,76,1201)
+LexToken(COMMA,',',76,1202)
+LexToken(NUMBER,6,76,1204)
+LexToken(RPAREN,')',76,1205)
+LexToken(RPAREN,')',76,1206)
+DEBUG(LEXER): PRINT on line 77, position 1208
+LexToken(ID,'print',77,1208)
+LexToken(LPAREN,'(',77,1213)
+DEBUG(LEXER): FIBONACCI on line 77, position 1214
+LexToken(ID,'fibonacci',77,1214)
+LexToken(LPAREN,'(',77,1223)
+LexToken(NUMBER,4,77,1224)
+LexToken(RPAREN,')',77,1225)
+LexToken(RPAREN,')',77,1226)
+DEBUG(LEXER): PRINT on line 78, position 1228
+LexToken(ID,'print',78,1228)
+LexToken(LPAREN,'(',78,1233)
+DEBUG(LEXER): FIBONACCI_D on line 78, position 1234
+LexToken(ID,'fibonacci_d',78,1234)
+LexToken(LPAREN,'(',78,1245)
+LexToken(NUMBER,4,78,1246)
+LexToken(RPAREN,')',78,1247)
+LexToken(RPAREN,')',78,1248)
+DEBUG(LEXER): PRINT on line 79, position 1250
+LexToken(ID,'print',79,1250)
+LexToken(LPAREN,'(',79,1255)
+DEBUG(LEXER): ITER_EXAMPLE on line 79, position 1256
+LexToken(ID,'iter_example',79,1256)
+LexToken(LPAREN,'(',79,1268)
+LexToken(RPAREN,')',79,1269)
+LexToken(RPAREN,')',79,1270)
+DEBUG(LEXER): PRINT on line 80, position 1272
+LexToken(ID,'print',80,1272)
+LexToken(LPAREN,'(',80,1277)
+DEBUG(LEXER): MAP_EX on line 80, position 1278
+LexToken(ID,'map_ex',80,1278)
+LexToken(LPAREN,'(',80,1284)
+LexToken(RPAREN,')',80,1285)
+LexToken(RPAREN,')',80,1286)
+DEBUG(LEXER): PRINT on line 81, position 1288
+LexToken(ID,'print',81,1288)
+LexToken(LPAREN,'(',81,1293)
+DEBUG(LEXER): DEFAULT_EX on line 81, position 1294
+LexToken(ID,'default_ex',81,1294)
+LexToken(LPAREN,'(',81,1304)
+LexToken(RPAREN,')',81,1305)
+LexToken(RPAREN,')',81,1306)
+DEBUG(LEXER): PRINT on line 82, position 1308
+LexToken(ID,'print',82,1308)
+LexToken(LPAREN,'(',82,1313)
+DEBUG(LEXER): TUPLE_EX on line 82, position 1314
+LexToken(ID,'tuple_ex',82,1314)
+LexToken(LPAREN,'(',82,1322)
+LexToken(RPAREN,')',82,1323)
+LexToken(RPAREN,')',82,1324)
+DEBUG(LEXER): PRINT on line 83, position 1326
+LexToken(ID,'print',83,1326)
+LexToken(LPAREN,'(',83,1331)
+DEBUG(LEXER): SET_EX on line 83, position 1332
+LexToken(ID,'set_ex',83,1332)
+LexToken(LPAREN,'(',83,1338)
+LexToken(RPAREN,')',83,1339)
+LexToken(RPAREN,')',83,1340)
+DEBUG(LEXER): PRINT on line 84, position 1342
+LexToken(ID,'print',84,1342)
+LexToken(LPAREN,'(',84,1347)
+DEBUG(LEXER): SLICES_EX on line 84, position 1348
+LexToken(ID,'slices_ex',84,1348)
+LexToken(LPAREN,'(',84,1357)
+LexToken(RPAREN,')',84,1358)
+LexToken(RPAREN,')',84,1359)
+DEBUG(LEXER): STRING_EX on line 85, position 1361
+LexToken(ID,'string_ex',85,1361)
+LexToken(LPAREN,'(',85,1370)
+LexToken(RPAREN,')',85,1371)
