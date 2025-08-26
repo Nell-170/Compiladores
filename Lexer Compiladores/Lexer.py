@@ -28,7 +28,10 @@ class Lexer:
         # Operators (+,-,*,/,%,<,>,<=,>=,==,!=,&&,||,!,=)
         'PLUS', 'MINUS', 'MULTI', 'DIVIDE', 'LPAREN', 'RPAREN', 'COMMA', 'SEMICOLON', 'COLON', 'EQUAL', 'LESS',
         'LESSEQUAL', 'GREATER', 'GREATEREQUAL', 'ASSIGN', 'DOT', 'DOUBLEGREATER', 'DOUBLELESS', 'TRIPLELESS',
-        'TRIPLEGREATER', 'LESSGREATER', 'TERNAL', 'LITERAL'
+        'TRIPLEGREATER', 'LESSGREATER', 'TERNAL', 'LITERAL',
+
+        # new tokens
+        'COMMENT',
     )
 
     # Regular expression rules for simple tokens
@@ -75,7 +78,11 @@ class Lexer:
     def t_DECIMAL(self, t):
         r"""\d+\.\d+"""
         t.value = float(t.value)
-        return t
+        return t 
+
+    def t_COMMENT(self, t):
+        r"""\#.+"""
+        pass
 
     def t_LITERAL(self, t):
         r"""\"[^"]*\\"""
@@ -84,10 +91,6 @@ class Lexer:
     def t_NEWLINE(self, t):
         r"""\n+"""
         t.lexer.lineno += len(t.value)
-
-    def t_COMMENT(self, t):
-        r"""\%.*"""
-        pass
 
     def t_error(self, t):
         self.errors.append(Error("Illegal character '%s'" % t.value[0], t.lineno, t.lexpos, 'lexer', self.data))
@@ -129,7 +132,7 @@ errors = []
 lexer = Lexer(errors, debug=True)
 
 # Archivo que quieras probar
-path = "prueba.py"
+path = "test.py"
 lexer_tester(path, lexer)
 
 print("Errores detectados:", errors)
