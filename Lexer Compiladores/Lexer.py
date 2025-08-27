@@ -83,6 +83,8 @@ class Lexer:
     t_ASSIGN_COLON = r':='
 
 
+    # String literal (to identify strings inside double quotes "..." | '...')
+    t_SCONST = r'(["\'])([^\\\n]|(\\.))*?(["\'])'
 
     t_ignore = ' \t'
 
