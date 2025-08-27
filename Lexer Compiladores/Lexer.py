@@ -17,6 +17,8 @@ class Lexer:
             self.reserved_map[r.lower()] = r
 
     reserved = (
+        'IF', 'ELSE', 'ELIF', 'WHILE', 'FOR', 'BREAK', 'CONTINUE', 'PASS', 'DEF', 'RETURN', 'CLASS', 
+        'TRUE', 'FALSE', 'AND', 'OR', 'NOT',
     )
 
     tokens = reserved + (
