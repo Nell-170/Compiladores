@@ -17,8 +17,6 @@ class Lexer:
             self.reserved_map[r.lower()] = r
 
     reserved = (
-        'IF', 'ELSE', 'THEN', 'WHILE', 'FOR', 'DO', 'TO', 'READ', 'WRITE', 'PROGRAM', 'DECLARE', 'INTEGER', 'DECIMAL',
-        'BEGIN', 'END', 'AND', 'OR', 'NOT', 'MOD',
     )
 
     tokens = reserved + (
@@ -37,32 +35,56 @@ class Lexer:
     # Regular expression rules for simple tokens
 
     # Operators
+
+    # Triple-character operators
+    t_TRIPLEGREATER = r'>>>'
+    t_TRIPLELESS = r'<<<'
+
+    # Double-character operators
+    t_DOUBLEGREATER = r'>>'
+    t_DOUBLELESS = r'<<'
+    t_LESSGREATER = r'<>'
+    t_EQ = r'=='
+    t_NEQ = r'!='
+    t_LESSEQ = r'<='
+    t_GREATEREQ = r'>='
+    t_DOUBLEDIVIDE = r'//'
+    t_POW = r'\*\*'
+
+    # Assignment operators (double-character)
+    t_PLUS_ASSIGN = r'\+='
+    t_MINUS_ASSIGN = r'-='
+    t_MULTI_ASSIGN = r'\*='
+    t_DIVIDE_ASSIGN = r'/='
+    t_MOD_ASSIGN = r'%='
+    t_DOUBLEDIVIDE_ASSIGN = r'//='
+    t_POW_ASSIGN = r'\*\*='
+
+    # Single-character operators
     t_PLUS = r'\+'
     t_MINUS = r'-'
     t_MULTI = r'\*'
     t_DIVIDE = r'/'
+    t_MOD = r'%'
+    t_ASSIGN = r'='
+    t_LESS = r'<'
+    t_GREATER = r'>'
+    t_TERNAL = r'\?'
+
+    # Others
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
     t_COMMA = r','
     t_SEMICOLON = r';'
     t_COLON = r':'
-    t_EQUAL = r'='
-    t_LESS = r'<'
-    t_GREATER = r'>'
-    t_ASSIGN = r':='
     t_DOT = r'\.'
-    t_DOUBLEGREATER = r'>>'
-    t_DOUBLELESS = r'<<'
-    t_TRIPLELESS = r'<<<'
-    t_TRIPLEGREATER = r'>>>'
-    t_LESSGREATER = r'<>'
-    t_TERNAL = r'\?'
+    t_ASSIGN_COLON = r':='
 
-    # String literal
-    t_SCONST = r'\"([^\\\n]|(\\.))*?\"'
+
 
     t_ignore = ' \t'
 
+    # Identifiers (names of variables, functions, and classes) and reserved words
     def t_ID(self, t):
         r"""[a-zA-Z][a-zA-Z0-9_]*"""
         if self.debug:
@@ -70,6 +92,7 @@ class Lexer:
         t.type = self.reserved_map.get(t.value, 'ID')
         return t
 
+    # Number literal (integer and decimal)
     def t_NUMBER(self, t):
         r"""\d+"""
         t.value = int(t.value)
