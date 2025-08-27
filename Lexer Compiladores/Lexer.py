@@ -22,13 +22,22 @@ class Lexer:
     )
 
     tokens = reserved + (
-        # Literals (identifier, integer constant, float constant, string constant, char const)'ID',
+        # Literals
         'ID', 'NUMBER', 'SCONST',
 
-        # Operators (+,-,*,/,%,<,>,<=,>=,==,!=,&&,||,!,=)
-        'PLUS', 'MINUS', 'MULTI', 'DIVIDE', 'LPAREN', 'RPAREN', 'COMMA', 'SEMICOLON', 'COLON', 'EQUAL', 'LESS',
-        'LESSEQUAL', 'GREATER', 'GREATEREQUAL', 'ASSIGN', 'DOT', 'DOUBLEGREATER', 'DOUBLELESS', 'TRIPLELESS',
-        'TRIPLEGREATER', 'LESSGREATER', 'TERNAL', 'LITERAL',
+        # Operators
+        'PLUS', 'MINUS', 'MULTI', 'DIVIDE', 'MOD',
+        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE',
+        'COMMA', 'SEMICOLON', 'COLON', 'DOT',
+        'ASSIGN', 'EQ', 'NEQ', 'LESS', 'LESSEQ', 'GREATER', 'GREATEREQ',
+        'DOUBLEGREATER', 'DOUBLELESS', 'TRIPLELESS', 'TRIPLEGREATER',
+        'LESSGREATER', 'TERNAL',
+        'DOUBLEDIVIDE', 'POW',
+
+        # Assignment operators
+        'PLUS_ASSIGN', 'MINUS_ASSIGN', 'MULTI_ASSIGN', 'DIVIDE_ASSIGN',
+        'MOD_ASSIGN', 'DOUBLEDIVIDE_ASSIGN', 'POW_ASSIGN',
+        'ASSIGN_COLON',
 
         # new tokens
         'COMMENT',
@@ -76,6 +85,10 @@ class Lexer:
     # Others
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
+    t_LBRACKET = r'\['
+    t_RBRACKET = r'\]'
+    t_LBRACE = r'\{'
+    t_RBRACE = r'\}'
     t_COMMA = r','
     t_SEMICOLON = r';'
     t_COLON = r':'
