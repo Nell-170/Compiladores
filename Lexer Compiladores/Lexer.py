@@ -43,7 +43,7 @@ class Lexer:
         'ASSIGN_COLON', 'TERNAL',
 
         # Delimitation symbols
-        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE',
+        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'LKEY', 'RKEY',
         'COMMA', 'SEMICOLON', 'COLON', 'DOT',
 
         'COMMENT',
@@ -64,7 +64,7 @@ class Lexer:
 
     # Traces how many '\s' are in a leading whitespace
     # tabstop defaults to 8 per UNIX convention 
-    def _tab_expand_col(str, tabstop = 8):
+    def _tab_expand_col(self, str, tabstop = 8):
         col = 0
         for chr in str:
             # Deal with tabs
@@ -78,7 +78,7 @@ class Lexer:
 
     # Need to manufacture tokens since these are separate from reserved keywords
     # Since its context-sensitive
-    def _emit(toktype, value = None, lineno = None, lexpos = None):
+    def _emit(self, toktype, value = None, lineno = None, lexpos = None):
         t = lex.LexToken()      # make an empty PLY token
         # token name the grammar uses. must match something in tokens = (...)
         t.type = toktype
@@ -139,12 +139,12 @@ class Lexer:
     t_TERNAL = r'\?'
 
     # Delimitation symbol
-    t_LPAREN = r'\('
-    t_RPAREN = r'\)'
-    t_LBRACKET = r'\['
-    t_RBRACKET = r'\]'
-    t_LBRACE = r'\{'
-    t_RBRACE = r'\}'
+    # t_LPAREN = r'\('
+    # t_RPAREN = r'\)'
+    # t_LBRACKET = r'\['
+    # t_RBRACKET = r'\]'
+    # t_LKEY = r'\{'
+    # t_RKEY = r'\}'
     t_COMMA = r','
     t_SEMICOLON = r';'
     t_COLON = r':'
@@ -152,11 +152,111 @@ class Lexer:
 
     # String literal (to identify strings inside double quotes "..." | '...')
     # t_SCONST = r'(["\'])([^\\\n]|(\\.))*?(["\'])'
-    # ^ doesnt ensure that the same style of opening is used to close
+    # ^ doesn't ensure that the same style of opening is used to close
     t_SCONST = r'(["\'])(?:\\.|(?!\n|\1).)*\1'
 
     # Skip spaces and tabs outside of a new line calculation
     t_ignore = ' \t'
+
+    def t_LPAREN(self, t):
+        r'\('
+        global paren_level
+        paren_level += 1
+        t.type = 'LPAREN'
+        return t
+
+    def t_LBRACKET(self, t):
+        r'\['
+        global paren_level
+        paren_level += 1
+        t.type = 'LBRACKET'
+        return t
+
+    def t_LKEY(self, t):
+        r'\{'
+        global paren_level
+        paren_level += 1
+        t.type = 'LKEY'
+
+    def t_RPAREN(self, t):
+        r'\)'
+        global paren_level
+        paren_level = max(0, paren_level - 1)
+        t.type = 'RPAREN'
+        return t
+
+    def t_RBRACKET(self, t):
+        r'\]'
+        global paren_level
+        paren_level = max(0, paren_level - 1)
+        t.type = 'RBRACKET'
+        return t
+
+    def t_RKEY(self, t):
+        r'\}'
+        global paren_level
+        paren_level = max(0, paren_level - 1)
+        t.type = 'RKEY'
+        return t
+
+    # Explicit line continuation (e.g. "\
+    # " or "\\n")
+    def t_backslash_cont(t):
+        r'\\\n'
+        t.lexer.lineno += 1
+        global backslash_cont
+        backslash_cont = True
+        # suppress NEWLINE token
+        pass
+
+    # Newlines + indentation handling
+    def t_newline(self, t):
+        r'\n[ \t]*'
+        t.lexer.lineno += 1
+        text = t.value
+
+        # is it implicit or explicit continuation? Then ignore NEWLINE.
+        if paren_level > 0 or backslash_cont:
+            # reset explicit continuation only after consuming following indentation
+            # so pass this newline
+            global backslash_cont
+            backslash_cont = False
+            return
+
+        # Measure indentation
+        # Slice to keep only indentation after the newline
+        indent_text = text[1:]
+
+        # emit NEWLINE for non-empty logical lines and
+        # ignore for blank/comment-only lines.
+        lexer.lexpos0 = lexer.lexpos  # mark position; peek at next char
+        nxt = lexer.lexdata[lexer.lexpos:lexer.lexpos+1]
+        if nxt == '' or nxt == '\n' or nxt == '#':
+            # blank or comment-only line -> no NEWLINE, no INDENT/DEDENT
+            at_line_start = True
+            return
+
+        # calculate how many spaces the indent is
+        col = self._tab_expand_col(indent_text)
+
+        # get top of stack (no pop) --> level of indentation
+        top = self.indent_stack[-1] 
+        if col == top:
+            # Same indent: just a NEWLINE token
+            self.pending.append(self._emit('NEWLINE'))
+        elif col > top:
+            # Code indented further
+            self.indent_stack.append(col)
+            self.pending.append(self._emit('NEWLINE'))
+            self.pending.append(self._emit('INDENT'))
+        else:
+            # Dedent possibly multiple levels
+            self.pending.append(self._emit('NEWLINE'))
+            while self.indent_stack and self.indent_stack[-1] > col:
+                self.indent_stack.pop()
+                self.pending.append(self._emit('DEDENT'))
+            if self.indent_stack[-1] != col:
+                raise IndentationError("inconsistent dedent")
 
     # Identifiers (names of variables, functions, and classes) and reserved words
     def t_ID(self, t):
@@ -193,6 +293,18 @@ class Lexer:
         self.errors.append(Error("Illegal character '%s'" % t.value[0], t.lineno, t.lexpos, 'lexer', self.data))
         print(self.errors[-1])
         t.lexer.skip(1)
+
+    # Hook: deliver synthetic tokens first
+    def token(self):
+        if self.pending:
+            # serve pending tokens first
+            return self.pending.pop(0)
+        tok = lex.token()
+        return tok
+
+    # Override default lexer behaviour:
+    # expose wrapper with pending queue behavior
+    lex.token = token
 
     def build(self, ):
         self.lex = lex.lex(module=self)
