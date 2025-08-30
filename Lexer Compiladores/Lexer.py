@@ -49,19 +49,6 @@ class Lexer:
         'COMMENT',
     )
 
-    # Index structures
-    # last seen indent widths; should be multiples of 4; 0 means no indent
-    indent_stack = [0]
-    # queue of tokens we've created 
-    pending = []
-    # need to keep track of if we're inside a (), [], {} ; if not, then we suppress INDENT/DEDENT
-    paren_level = 0
-    # if newline was suppressed
-    backslash_cont = False
-
-    # Index helpers
-    INDENT_STEP = 4
-
     # Traces how many '\s' are in a leading whitespace
     # tabstop defaults to 8 per UNIX convention 
     def _tab_expand_col(self, str, tabstop = 8):
@@ -155,57 +142,58 @@ class Lexer:
     # ^ doesn't ensure that the same style of opening is used to close
     t_SCONST = r'(["\'])(?:\\.|(?!\n|\1).)*\1'
 
+    ## PROBLEMA CON t_SCONST
+
     # Skip spaces and tabs outside of a new line calculation
     t_ignore = ' \t'
 
     def t_LPAREN(self, t):
         r'\('
-        global paren_level
-        paren_level += 1
+        
+        self.paren_level += 1
         t.type = 'LPAREN'
         return t
 
     def t_LBRACKET(self, t):
         r'\['
-        global paren_level
-        paren_level += 1
+        
+        self.paren_level += 1
         t.type = 'LBRACKET'
         return t
 
     def t_LKEY(self, t):
         r'\{'
-        global paren_level
-        paren_level += 1
+        
+        self.paren_level += 1
         t.type = 'LKEY'
 
     def t_RPAREN(self, t):
         r'\)'
-        global paren_level
-        paren_level = max(0, paren_level - 1)
+        
+        self.paren_level = max(0, self.paren_level - 1)
         t.type = 'RPAREN'
         return t
 
     def t_RBRACKET(self, t):
         r'\]'
-        global paren_level
-        paren_level = max(0, paren_level - 1)
+        
+        self.paren_level = max(0, self.paren_level - 1)
         t.type = 'RBRACKET'
         return t
 
     def t_RKEY(self, t):
         r'\}'
-        global paren_level
-        paren_level = max(0, paren_level - 1)
+        
+        self.paren_level = max(0, self.paren_level - 1)
         t.type = 'RKEY'
         return t
 
     # Explicit line continuation (e.g. "\
     # " or "\\n")
-    def t_backslash_cont(t):
+    def t_backslash_cont(self, t):
         r'\\\n'
         t.lexer.lineno += 1
-        global backslash_cont
-        backslash_cont = True
+        self.backslash_cont =  True
         # suppress NEWLINE token
         pass
 
@@ -216,11 +204,11 @@ class Lexer:
         text = t.value
 
         # is it implicit or explicit continuation? Then ignore NEWLINE.
-        if paren_level > 0 or backslash_cont:
+        if self.paren_level > 0 or self.backslash_cont:
             # reset explicit continuation only after consuming following indentation
             # so pass this newline
-            global backslash_cont
-            backslash_cont = False
+            
+            self.backslash_cont =  False
             return
 
         # Measure indentation
@@ -233,11 +221,12 @@ class Lexer:
         nxt = lexer.lexdata[lexer.lexpos:lexer.lexpos+1]
         if nxt == '' or nxt == '\n' or nxt == '#':
             # blank or comment-only line -> no NEWLINE, no INDENT/DEDENT
-            at_line_start = True
             return
 
         # calculate how many spaces the indent is
         col = self._tab_expand_col(indent_text)
+        if col % self.INDENT_STEP != 0:
+            raise IndentationError("Indentation must be a multiple of 4 spaces")
 
         # get top of stack (no pop) --> level of indentation
         top = self.indent_stack[-1] 
@@ -326,6 +315,19 @@ class Lexer:
         # Override default lexer behaviour:
         # expose wrapper with pending queue behavior
         lex.token = self.hooked_token
+
+        # Index structures
+        # last seen indent widths; should be multiples of 4; 0 means no indent
+        self.indent_stack = [0]
+        # queue of tokens we've created 
+        self.pending = []
+        # need to keep track of if we're inside a (), [], {} ; if not, then we suppress INDENT/DEDENT
+        self.paren_level = 0
+        # if newline was suppressed
+        self.backslash_cont =  False
+
+        # Index helpers
+        self.INDENT_STEP = 4
 
 
 def lexer_tester(path, lexer_instance):
