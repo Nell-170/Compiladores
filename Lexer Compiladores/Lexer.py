@@ -17,29 +17,35 @@ class Lexer:
             self.reserved_map[r.lower()] = r
 
     reserved = (
-        'IF', 'ELSE', 'ELIF', 'WHILE', 'FOR', 'BREAK', 'CONTINUE', 'PASS', 'DEF', 'RETURN', 'CLASS', 
-        'TRUE', 'FALSE', 'AND', 'OR', 'NOT',
+        # Control de flujo
+        'IF', 'ELSE', 'ELIF', 'WHILE', 'FOR', 'BREAK', 'CONTINUE', 'PASS', 
+        # Definiciones
+        'DEF', 'RETURN', 'CLASS', 
+        # Tipos booleanos
+        'TRUE', 'FALSE',
+        # Operadores lógicos
+        'AND', 'OR', 'NOT',
     )
 
     tokens = reserved + (
         # Literals
-        'ID', 'NUMBER', 'SCONST',
+        'ID', 'NUMBER', 'SCONST', # Qué es SCONST?
 
         # Operators
-        'PLUS', 'MINUS', 'MULTI', 'DIVIDE', 'MOD',
-        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE',
-        'COMMA', 'SEMICOLON', 'COLON', 'DOT',
-        'ASSIGN', 'EQ', 'NEQ', 'LESS', 'LESSEQ', 'GREATER', 'GREATEREQ',
-        'DOUBLEGREATER', 'DOUBLELESS', 'TRIPLELESS', 'TRIPLEGREATER',
-        'LESSGREATER', 'TERNAL',
-        'DOUBLEDIVIDE', 'POW',
+        'PLUS', 'MINUS', 'MULTI', 'DIVIDE', 'MOD', 'POW', 'FLOORDIV',
+        
+        'EQ', 'NEQ', 'LESS', 'GREATER', 'LESSEQ', 'GREATEREQ',
+        'DOUBLEGREATER', 'DOUBLELESS', 'TRIPLELESS', 'TRIPLEGREATER', 
+        'LESSGREATER', 
 
         # Assignment operators
-        'PLUS_ASSIGN', 'MINUS_ASSIGN', 'MULTI_ASSIGN', 'DIVIDE_ASSIGN',
-        'MOD_ASSIGN', 'DOUBLEDIVIDE_ASSIGN', 'POW_ASSIGN',
-        'ASSIGN_COLON',
+        'ASSIGN','PLUS_ASSIGN', 'MINUS_ASSIGN', 'MULTI_ASSIGN', 'DIVIDE_ASSIGN', 'MOD_ASSIGN', 'FLOORDIV_ASSIGN', 'POW_ASSIGN',
+        'ASSIGN_COLON', 'TERNAL',
 
-        # new tokens
+        # Delimitation symbols
+        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE',
+        'COMMA', 'SEMICOLON', 'COLON', 'DOT',
+
         'COMMENT',
     )
 
@@ -51,8 +57,7 @@ class Lexer:
     # need to keep track of if we're inside a (), [], {} ; if not, then we suppress INDENT/DEDENT
     paren_level = 0
     # if newline was suppressed
-    backslah_cont = False
-
+    backslash_cont = False
 
     # Index helpers
     INDENT_STEP = 4
@@ -88,48 +93,52 @@ class Lexer:
         # character offset in the input string (defaults to current position of scanner)
         # useful for error finding
         t.lexpos = lexpos if lexpos is not None else lexer.lexpos
-
+        return t
 
     # Regular expression rules for simple tokens
 
     # Operators
-
-    # Triple-character operators
-    t_TRIPLEGREATER = r'>>>'
-    t_TRIPLELESS = r'<<<'
-
-    # Double-character operators
-    t_DOUBLEGREATER = r'>>'
-    t_DOUBLELESS = r'<<'
-    t_LESSGREATER = r'<>'
-    t_EQ = r'=='
-    t_NEQ = r'!='
-    t_LESSEQ = r'<='
-    t_GREATEREQ = r'>='
-    t_DOUBLEDIVIDE = r'//'
-    t_POW = r'\*\*'
-
-    # Assignment operators (double-character)
-    t_PLUS_ASSIGN = r'\+='
-    t_MINUS_ASSIGN = r'-='
-    t_MULTI_ASSIGN = r'\*='
-    t_DIVIDE_ASSIGN = r'/='
-    t_MOD_ASSIGN = r'%='
-    t_DOUBLEDIVIDE_ASSIGN = r'//='
-    t_POW_ASSIGN = r'\*\*='
-
     # Single-character operators
     t_PLUS = r'\+'
     t_MINUS = r'-'
     t_MULTI = r'\*'
     t_DIVIDE = r'/'
     t_MOD = r'%'
-    t_ASSIGN = r'='
+    t_POW = r'\*\*'
+    t_FLOORDIV = r'//'
+
+    # Relation operators
+    t_EQ = r'=='
+    t_NEQ = r'!='
     t_LESS = r'<'
     t_GREATER = r'>'
+    t_LESSEQ = r'<='
+    t_GREATEREQ = r'>='
+    
+    # Double-character operators
+    t_DOUBLEGREATER = r'>>'
+    t_DOUBLELESS = r'<<'
+    
+    # Triple-character operators
+    t_TRIPLEGREATER = r'>>>'
+    t_TRIPLELESS = r'<<<'
+    
+    t_LESSGREATER = r'<>'
+
+    # Assignment operators
+    t_ASSIGN = r'='
+    t_PLUS_ASSIGN = r'\+='
+    t_MINUS_ASSIGN = r'-='
+    t_MULTI_ASSIGN = r'\*='
+    t_DIVIDE_ASSIGN = r'/='
+    t_MOD_ASSIGN = r'%='
+    t_FLOORDIV_ASSIGN = r'//='
+    t_POW_ASSIGN = r'\*\*='
+
+    t_ASSIGN_COLON = r':='
     t_TERNAL = r'\?'
 
-    # Others
+    # Delimitation symbol
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
     t_LBRACKET = r'\['
@@ -140,7 +149,7 @@ class Lexer:
     t_SEMICOLON = r';'
     t_COLON = r':'
     t_DOT = r'\.'
-    t_ASSIGN_COLON = r':='
+
 
 
     # String literal (to identify strings inside double quotes "..." | '...')
