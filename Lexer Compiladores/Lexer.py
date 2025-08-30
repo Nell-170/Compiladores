@@ -150,17 +150,17 @@ class Lexer:
     t_COLON = r':'
     t_DOT = r'\.'
 
-
-
     # String literal (to identify strings inside double quotes "..." | '...')
-    t_SCONST = r'(["\'])([^\\\n]|(\\.))*?(["\'])'
+    # t_SCONST = r'(["\'])([^\\\n]|(\\.))*?(["\'])'
+    # ^ doesnt ensure that the same style of opening is used to close
+    t_SCONST = r'(["\'])(?:\\.|(?!\n|\1).)*\1'
 
     # Skip spaces and tabs outside of a new line calculation
     t_ignore = ' \t'
 
     # Identifiers (names of variables, functions, and classes) and reserved words
     def t_ID(self, t):
-        r"""[a-zA-Z][a-zA-Z0-9_]*"""
+        r"""[a-z_A-Z][a-zA-Z0-9_]*"""
         if self.debug:
             print(f'DEBUG(LEXER): {t.value.upper()} on line {t.lineno}, position {t.lexpos}')
         t.type = self.reserved_map.get(t.value, 'ID')
