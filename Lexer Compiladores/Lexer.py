@@ -43,6 +43,53 @@ class Lexer:
         'COMMENT',
     )
 
+    # Index structures
+    # last seen indent widths; should be multiples of 4; 0 means no indent
+    indent_stack = [0]
+    # queue of tokens we've created 
+    pending = []
+    # need to keep track of if we're inside a (), [], {} ; if not, then we suppress INDENT/DEDENT
+    paren_level = 0
+    # if newline was suppressed
+    backslah_cont = False
+
+
+    # Index helpers
+    INDENT_STEP = 4
+
+    # Traces how many '\s' are in a leading whitespace
+    # tabstop defaults to 8 per UNIX convention 
+    def _tab_expand_col(str, tabstop = 8):
+        col = 0
+        for chr in str:
+            # Deal with tabs
+            if chr == '\t':
+                # Jumps to the next multiple of tabstop
+                col = (col // tabstop + 1) * tabstop
+            # Deal with spaces
+            else:
+                col += 1
+        return col
+
+    # Need to manufacture tokens since these are separate from reserved keywords
+    # Since its context-sensitive
+    def _emit(toktype, value = None, lineno = None, lexpos = None):
+        t = lex.LexToken()      # make an empty PLY token
+        # token name the grammar uses. must match something in tokens = (...)
+        t.type = toktype
+
+        # payload for the token
+        # useful for data tokens (STRING, NUMBER...)
+        t.value = value if value is not None else toktype
+
+        # line number the token belongs to
+        t.lineno = lineno if lineno is not None else lexer.lineno
+
+        # character offset in the input string (defaults to current position of scanner)
+        # useful for error finding
+        t.lexpos = lexpos if lexpos is not None else lexer.lexpos
+
+
     # Regular expression rules for simple tokens
 
     # Operators
@@ -99,6 +146,7 @@ class Lexer:
     # String literal (to identify strings inside double quotes "..." | '...')
     t_SCONST = r'(["\'])([^\\\n]|(\\.))*?(["\'])'
 
+    # Skip spaces and tabs outside of a new line calculation
     t_ignore = ' \t'
 
     # Identifiers (names of variables, functions, and classes) and reserved words
@@ -121,7 +169,7 @@ class Lexer:
         return t 
 
     def t_COMMENT(self, t):
-        r"""\#.+"""
+        r"""\#.*"""
         pass
 
     def t_LITERAL(self, t):
