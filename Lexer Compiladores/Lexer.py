@@ -295,19 +295,37 @@ class Lexer:
         t.lexer.skip(1)
 
     # Hook: deliver synthetic tokens first
-    def token(self):
+    def hooked_token(self):
+        # serve any synthetic token first
         if self.pending:
-            # serve pending tokens first
             return self.pending.pop(0)
-        tok = lex.token()
-        return tok
+
+        # otherwise, ask for original regex-based lexer
+        tok = self.orig_token
+        if tok is not None:
+            return tok
+
+        # EOF: flush any trailing DEDENTs
+        if len(self.indent_stack) > 1:
+            while len(self.indent_stack) > 1:
+                self.indent_stack.pop()
+                self.pending.append(self._emit('DEDENT', lineno=lexer.lineno, lexpos=lexer.lexpos))
+            return self.pending.pop(0)   # return first DEDENT now
+
+        # truly no more tokens
+        return None
+
 
     # Override default lexer behaviour:
     # expose wrapper with pending queue behavior
-    lex.token = token
+    # lex.token = hooked_token
 
     def build(self, ):
         self.lex = lex.lex(module=self)
+        self.orig_token = lex.token() # save original method
+        # Override default lexer behaviour:
+        # expose wrapper with pending queue behavior
+        lex.token = self.hooked_token
 
 
 def lexer_tester(path, lexer_instance):
