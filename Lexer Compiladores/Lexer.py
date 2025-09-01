@@ -19,6 +19,13 @@ class Lexer:
             self.reserved_map[r.lower()] = r
 
     reserved = (
+        # TODO(any): pass to format
+        """
+        if : "IF"
+        else: "ELSE"
+        ....
+        
+        """
         # Control flow
         "IF", "ELSE", "ELIF", "WHILE", "FOR", "IN", 
         "BREAK", "CONTINUE", "PASS",
