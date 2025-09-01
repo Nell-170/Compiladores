@@ -20,30 +20,16 @@ class Lexer:
 
     reserved = (
         # Control flow
-        "IF",
-        "ELSE",
-        "ELIF",
-        "WHILE",
-        "FOR",
-        "IN",
-        "BREAK",
-        "CONTINUE",
-        "PASS",
+        "IF", "ELSE", "ELIF", "WHILE", "FOR", "IN", 
+        "BREAK", "CONTINUE", "PASS",
         # Definitions
-        "DEF",
-        "RETURN",
-        "CLASS",
+        "DEF", "RETURN", "CLASS",
         # Boolean types
-        "TRUE",
-        "FALSE",
+        "TRUE", "FALSE",
         # Logical operators
-        "AND",
-        "OR",
-        "NOT",
+        "AND", "OR", "NOT",
         # Synthetic indentation and newline
-        "INDENT",
-        "DEDENT",
-        "NEWLINE",
+        "INDENT", "DEDENT", "NEWLINE",
     )
 
     tokens = reserved + (
@@ -168,11 +154,13 @@ class Lexer:
     # String literals: "..." or '...' (no newlines)
     def t_DQSTRING(self, t):
         r'"([^"\\\n]|\\.)*"'
+        # TODO(any): save string value to t.value
         t.type = 'SCONST'
         return t
 
     def t_SQSTRING(self, t):
         r"'([^'\\\n]|\\.)*'"
+        # TODO(any): save string value to t.value
         t.type = 'SCONST'
         return t
 
