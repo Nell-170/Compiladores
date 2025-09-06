@@ -4,9 +4,14 @@ def random_operation(a, b):
     # Hi I'm a comment!
     return c + a * b + 2.6548
 
-def f(): a = 0
-return a
 
+# Error de lexer o de parser? 
+def f(a, b): a + b 
+continue
+
+ 
+# Preguntar esto al profe, si es valido o no
+def f(): 0+1; return 0
 
 def fibonacci(n):
     if n == 1 or n == 2:
