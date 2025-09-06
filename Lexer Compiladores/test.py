@@ -4,6 +4,9 @@ def random_operation(a, b):
     # Hi I'm a comment!
     return c + a * b + 2.6548
 
+def f(): a = 0
+return a
+
 
 def fibonacci(n):
     if n == 1 or n == 2:
@@ -13,6 +16,7 @@ def fibonacci(n):
     else:
         return fibonacci(n - 1) + fibonacci(n - 2)
 
+def test(n): return n+1
 
 def fibonacci_d(n):
     n_1 = 1

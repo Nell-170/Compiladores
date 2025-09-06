@@ -212,7 +212,6 @@ class Lexer:
         # suppress the following logical NEWLINE
         pass
 
-    # Newline + Python-like indentation
     def t_newline(self, t):
         r'\n[ \t]*'
         t.lexer.lineno += 1
@@ -236,7 +235,15 @@ class Lexer:
         
         # Validate indentation
         if current_col > 0 and current_col % self.INDENT_STEP != 0:
-            raise IndentationError(f"Indentation must be a multiple of {self.INDENT_STEP} spaces")
+            self.errors.append(
+                Error(
+                    f"Indentation must be a multiple of {self.INDENT_STEP} spaces",
+                    t.lexer.lineno,
+                    t.lexpos,
+                    "lexer",
+                    self.data,
+                )
+            )
         
         # Always emit NEWLINE for lines with real content
         t.type = 'NEWLINE'
@@ -244,6 +251,23 @@ class Lexer:
         
         # Get current indentation level from stack
         prev_col = self.indent_stack[-1]
+        
+        # Check if we were expecting an indentation increase after a colon
+        if self.expect_indent and current_col <= prev_col:
+            self.errors.append(
+                Error(
+                    "Expected an indented block",
+                    t.lexer.lineno,
+                    t.lexpos,
+                    "lexer",
+                    self.data,
+                )
+            )
+            # Important: reset the flag even on error
+            self.expect_indent = False
+        elif self.expect_indent and current_col > prev_col:
+            # Good - we got the expected indent
+            self.expect_indent = False
         
         # Compare current vs previous indentation
         if current_col > prev_col:
@@ -259,7 +283,15 @@ class Lexer:
             
             # Verify indentation matches a previous level
             if self.indent_stack[-1] != current_col:
-                raise IndentationError("Inconsistent dedent")
+                self.errors.append(
+                    Error(
+                        "Inconsistent dedent",
+                        t.lexer.lineno,
+                        t.lexpos,
+                        "lexer",
+                        self.data,
+                    )
+                )
         
         # Reset flag after processing this newline
         self.saw_token_on_line = False
@@ -308,6 +340,34 @@ class Lexer:
         t.lexer.skip(1)
 
     # Hook: return synthetic tokens first
+    # def hooked_token(self):
+    #     # First deliver any pending indentation tokens
+    #     if self.pending:
+    #         return self.pending.pop(0)
+            
+    #     # Then get next token from lexer
+    #     tok = self.orig_token()
+        
+    #     # If we have a real token, mark that we've seen content
+    #     if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
+    #         self.saw_token_on_line = True
+            
+    #         # Si vemos un COLON, configuramos la bandera para esperar indentación
+    #         # en la siguiente línea (excepto si estamos dentro de paréntesis)
+    #         if tok.type == 'COLON' and self.paren_level == 0:
+    #             self.expect_indent = True
+            
+    #     # If end of input and still indented, unwind all remaining indentation
+    #     if tok is None and len(self.indent_stack) > 1:
+    #         # Pop all remaining indentation levels and emit DEDENTs
+    #         while len(self.indent_stack) > 1:
+    #             self.indent_stack.pop()
+    #             self.pending.append(self._emit('DEDENT'))
+    #         return self.pending.pop(0)
+            
+    #     return tok
+
+    # Hook: return synthetic tokens first
     def hooked_token(self):
         # First deliver any pending indentation tokens
         if self.pending:
@@ -320,13 +380,40 @@ class Lexer:
         if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
             self.saw_token_on_line = True
             
+            # If we see a COLON outside of parentheses
+            if tok.type == 'COLON' and self.paren_level == 0:
+                # We need to check what comes after the colon
+                # Store current position
+                saved_pos = self.lex.lexpos
+                
+                # Peek ahead to see if there's content on the same line
+                # Skip whitespace
+                i = saved_pos
+                while i < len(self.lex.lexdata) and self.lex.lexdata[i] in ' \t':
+                    i += 1
+                
+                # Check what comes after whitespace
+                if i < len(self.lex.lexdata):
+                    next_char = self.lex.lexdata[i]
+                    if next_char == '\n' or next_char == '#':
+                        # Newline or comment after colon - expect indent on next line
+                        self.expect_indent = True
+                    # else: there's content on the same line, so no indent expected
+        
+        # Handle parentheses/brackets for tracking nesting level
+        if tok:
+            if tok.type in ('LPAREN', 'LBRACKET', 'LBRACE'):
+                self.paren_level += 1
+            elif tok.type in ('RPAREN', 'RBRACKET', 'RBRACE'):
+                self.paren_level -= 1
+        
         # If end of input and still indented, unwind all remaining indentation
         if tok is None and len(self.indent_stack) > 1:
             # Pop all remaining indentation levels and emit DEDENTs
             while len(self.indent_stack) > 1:
                 self.indent_stack.pop()
                 self.pending.append(self._emit('DEDENT'))
-            return self.pending.pop(0)
+            return self.pending.pop(0) if self.pending else None
             
         return tok
 
@@ -344,6 +431,8 @@ class Lexer:
         self.INDENT_STEP = 4  # multiples of 4
         # Track whether any non-NEWLINE/INDENT/DEDENT token was seen on the current line
         self.saw_token_on_line = False
+        # Track if we're expecting an indentation after a colon
+        self.expect_indent = False
 
 
 def lexer_tester(path, lexer_instance):
