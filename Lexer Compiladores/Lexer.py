@@ -465,7 +465,7 @@ def pretty_print_errors(errors):
 
 # TEST
 errors = []
-lexer = Lexer(errors, debug=True)
+lexer = Lexer(errors, debug=False)
 
 # File to test
 path = "test.py"
