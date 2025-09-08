@@ -1,6 +1,3 @@
-
-El token previo es: <None>
-
 LexToken(NEWLINE,'NEWLINE',1,19)
 DEBUG(LEXER): def on line 2, position 20
 LexToken(DEF,'def',2,20)
@@ -14,9 +11,6 @@ DEBUG(LEXER): b on line 2, position 44
 LexToken(ID,'b',2,44)
 LexToken(RPAREN,')',2,45)
 LexToken(COLON,':',2,46)
-
-El token previo es: <:>
-
 LexToken(NEWLINE,'NEWLINE',2,47)
 LexToken(INDENT,'INDENT',3,52)
 DEBUG(LEXER): c on line 3, position 52
@@ -27,12 +21,6 @@ LexToken(ID,'a',3,56)
 LexToken(PLUS,'+',3,58)
 DEBUG(LEXER): b on line 3, position 60
 LexToken(ID,'b',3,60)
-
-El token previo es: <b>
-
-
-El token previo es: <b>
-
 LexToken(NEWLINE,'NEWLINE',4,85)
 DEBUG(LEXER): return on line 5, position 90
 LexToken(RETURN,'return',5,90)
@@ -46,18 +34,6 @@ DEBUG(LEXER): b on line 5, position 105
 LexToken(ID,'b',5,105)
 LexToken(PLUS,'+',5,107)
 LexToken(DECIMAL,2.6548,5,109)
-
-El token previo es: <2.6548>
-
-
-El token previo es: <2.6548>
-
-
-El token previo es: <2.6548>
-
-
-El token previo es: <2.6548>
-
 LexToken(NEWLINE,'NEWLINE',8,148)
 LexToken(DEDENT,'DEDENT',9,149)
 DEBUG(LEXER): def on line 9, position 149
@@ -77,870 +53,697 @@ LexToken(ID,'a',9,162)
 LexToken(PLUS,'+',9,164)
 DEBUG(LEXER): b on line 9, position 166
 LexToken(ID,'b',9,166)
-
-El token previo es: <b>
-
 LexToken(NEWLINE,'NEWLINE',9,168)
 DEBUG(LEXER): continue on line 10, position 169
 LexToken(CONTINUE,'continue',10,169)
-
-El token previo es: <continue>
-
-
-El token previo es: <continue>
-
-
-El token previo es: <continue>
-
-
-El token previo es: <continue>
-
-LexToken(NEWLINE,'NEWLINE',13,225)
-DEBUG(LEXER): def on line 14, position 226
-LexToken(DEF,'def',14,226)
-DEBUG(LEXER): f on line 14, position 230
-LexToken(ID,'f',14,230)
-LexToken(LPAREN,'(',14,231)
-LexToken(RPAREN,')',14,232)
-LexToken(COLON,':',14,233)
-LexToken(INTEGER,0,14,235)
-LexToken(PLUS,'+',14,236)
-LexToken(INTEGER,1,14,237)
-LexToken(SEMICOLON,';',14,238)
-DEBUG(LEXER): return on line 14, position 240
-LexToken(RETURN,'return',14,240)
-LexToken(INTEGER,0,14,247)
-
-El token previo es: <0>
-
-
-El token previo es: <0>
-
-LexToken(NEWLINE,'NEWLINE',15,249)
-DEBUG(LEXER): def on line 16, position 250
-LexToken(DEF,'def',16,250)
-DEBUG(LEXER): fibonacci on line 16, position 254
-LexToken(ID,'fibonacci',16,254)
-LexToken(LPAREN,'(',16,263)
-DEBUG(LEXER): n on line 16, position 264
-LexToken(ID,'n',16,264)
-LexToken(RPAREN,')',16,265)
-LexToken(COLON,':',16,266)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',16,267)
-LexToken(INDENT,'INDENT',17,272)
-DEBUG(LEXER): if on line 17, position 272
-LexToken(IF,'if',17,272)
-DEBUG(LEXER): n on line 17, position 275
-LexToken(ID,'n',17,275)
-LexToken(EQ,'==',17,277)
-LexToken(INTEGER,1,17,280)
-DEBUG(LEXER): or on line 17, position 282
-LexToken(OR,'or',17,282)
-DEBUG(LEXER): n on line 17, position 285
-LexToken(ID,'n',17,285)
-LexToken(EQ,'==',17,287)
-LexToken(INTEGER,2,17,290)
-LexToken(COLON,':',17,291)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',17,292)
-LexToken(INDENT,'INDENT',18,301)
-DEBUG(LEXER): return on line 18, position 301
-LexToken(RETURN,'return',18,301)
-LexToken(INTEGER,1,18,308)
-
-El token previo es: <1>
-
-LexToken(NEWLINE,'NEWLINE',18,309)
-LexToken(DEDENT,'DEDENT',19,314)
-DEBUG(LEXER): elif on line 19, position 314
-LexToken(ELIF,'elif',19,314)
-DEBUG(LEXER): n on line 19, position 319
-LexToken(ID,'n',19,319)
-LexToken(EQ,'==',19,321)
-LexToken(INTEGER,0,19,324)
-LexToken(COLON,':',19,325)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',19,326)
-LexToken(INDENT,'INDENT',20,335)
-DEBUG(LEXER): return on line 20, position 335
-LexToken(RETURN,'return',20,335)
-DEBUG(LEXER): n on line 20, position 342
-LexToken(ID,'n',20,342)
-LexToken(DIVIDE,'/',20,344)
-LexToken(INTEGER,0,20,346)
-
-El token previo es: <0>
-
-LexToken(NEWLINE,'NEWLINE',20,347)
-LexToken(DEDENT,'DEDENT',21,352)
-DEBUG(LEXER): else on line 21, position 352
-LexToken(ELSE,'else',21,352)
-LexToken(COLON,':',21,356)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',21,357)
-LexToken(INDENT,'INDENT',22,366)
-DEBUG(LEXER): return on line 22, position 366
-LexToken(RETURN,'return',22,366)
-DEBUG(LEXER): fibonacci on line 22, position 373
-LexToken(ID,'fibonacci',22,373)
-LexToken(LPAREN,'(',22,382)
-DEBUG(LEXER): n on line 22, position 383
-LexToken(ID,'n',22,383)
-LexToken(MINUS,'-',22,385)
-LexToken(INTEGER,1,22,387)
-LexToken(RPAREN,')',22,388)
-LexToken(PLUS,'+',22,390)
-DEBUG(LEXER): fibonacci on line 22, position 392
-LexToken(ID,'fibonacci',22,392)
-LexToken(LPAREN,'(',22,401)
-DEBUG(LEXER): n on line 22, position 402
-LexToken(ID,'n',22,402)
-LexToken(MINUS,'-',22,404)
-LexToken(INTEGER,2,22,406)
-LexToken(RPAREN,')',22,407)
-
-El token previo es: <)>
-
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',23,409)
-LexToken(DEDENT,'DEDENT',24,410)
-LexToken(DEDENT,'DEDENT',24,410)
-DEBUG(LEXER): def on line 24, position 410
-LexToken(DEF,'def',24,410)
-DEBUG(LEXER): test on line 24, position 414
-LexToken(ID,'test',24,414)
-LexToken(LPAREN,'(',24,418)
-DEBUG(LEXER): n on line 24, position 419
-LexToken(ID,'n',24,419)
-LexToken(RPAREN,')',24,420)
-LexToken(COLON,':',24,421)
-DEBUG(LEXER): return on line 24, position 423
-LexToken(RETURN,'return',24,423)
-DEBUG(LEXER): n on line 24, position 430
-LexToken(ID,'n',24,430)
-LexToken(PLUS,'+',24,431)
-LexToken(INTEGER,1,24,432)
-
-El token previo es: <1>
-
-
-El token previo es: <1>
-
-LexToken(NEWLINE,'NEWLINE',25,434)
-DEBUG(LEXER): def on line 26, position 435
-LexToken(DEF,'def',26,435)
-DEBUG(LEXER): fibonacci_d on line 26, position 439
-LexToken(ID,'fibonacci_d',26,439)
-LexToken(LPAREN,'(',26,450)
-DEBUG(LEXER): n on line 26, position 451
-LexToken(ID,'n',26,451)
-LexToken(RPAREN,')',26,452)
-LexToken(COLON,':',26,453)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',26,454)
-LexToken(INDENT,'INDENT',27,459)
-DEBUG(LEXER): n_1 on line 27, position 459
-LexToken(ID,'n_1',27,459)
-LexToken(ASSIGN,'=',27,463)
-LexToken(INTEGER,1,27,465)
-
-El token previo es: <1>
-
-LexToken(NEWLINE,'NEWLINE',27,466)
-DEBUG(LEXER): n_2 on line 28, position 471
-LexToken(ID,'n_2',28,471)
-LexToken(ASSIGN,'=',28,475)
-LexToken(INTEGER,1,28,477)
-
-El token previo es: <1>
-
-
-El token previo es: <1>
-
-LexToken(NEWLINE,'NEWLINE',29,479)
-DEBUG(LEXER): while on line 30, position 484
-LexToken(WHILE,'while',30,484)
-DEBUG(LEXER): n_1 on line 30, position 490
-LexToken(ID,'n_1',30,490)
-LexToken(LESS,'<',30,494)
-DEBUG(LEXER): n on line 30, position 496
-LexToken(ID,'n',30,496)
-LexToken(COLON,':',30,497)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',30,498)
-LexToken(INDENT,'INDENT',31,507)
-DEBUG(LEXER): new on line 31, position 507
-LexToken(ID,'new',31,507)
-LexToken(ASSIGN,'=',31,511)
-DEBUG(LEXER): n_1 on line 31, position 513
-LexToken(ID,'n_1',31,513)
-LexToken(PLUS,'+',31,517)
-DEBUG(LEXER): n_2 on line 31, position 519
-LexToken(ID,'n_2',31,519)
-
-El token previo es: <n_2>
-
-LexToken(NEWLINE,'NEWLINE',31,522)
-DEBUG(LEXER): n_2 on line 32, position 531
-LexToken(ID,'n_2',32,531)
-LexToken(ASSIGN,'=',32,535)
-DEBUG(LEXER): n_1 on line 32, position 537
-LexToken(ID,'n_1',32,537)
-
-El token previo es: <n_1>
-
-LexToken(NEWLINE,'NEWLINE',32,540)
-DEBUG(LEXER): n_1 on line 33, position 549
-LexToken(ID,'n_1',33,549)
-LexToken(ASSIGN,'=',33,553)
-DEBUG(LEXER): new on line 33, position 555
-LexToken(ID,'new',33,555)
-
-El token previo es: <new>
-
-LexToken(NEWLINE,'NEWLINE',33,558)
-LexToken(DEDENT,'DEDENT',34,563)
-DEBUG(LEXER): return on line 34, position 563
-LexToken(RETURN,'return',34,563)
-DEBUG(LEXER): n_1 on line 34, position 570
-LexToken(ID,'n_1',34,570)
-
-El token previo es: <n_1>
-
-
-El token previo es: <n_1>
-
-
-El token previo es: <n_1>
-
-LexToken(NEWLINE,'NEWLINE',36,575)
-LexToken(DEDENT,'DEDENT',37,576)
-DEBUG(LEXER): def on line 37, position 576
-LexToken(DEF,'def',37,576)
-DEBUG(LEXER): iter_example on line 37, position 580
-LexToken(ID,'iter_example',37,580)
-LexToken(LPAREN,'(',37,592)
-LexToken(RPAREN,')',37,593)
-LexToken(COLON,':',37,594)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',37,595)
-LexToken(INDENT,'INDENT',38,600)
-DEBUG(LEXER): l on line 38, position 600
-LexToken(ID,'l',38,600)
-LexToken(ASSIGN,'=',38,602)
-LexToken(LBRACKET,'[',38,604)
-LexToken(INTEGER,1,38,605)
-LexToken(COMMA,',',38,606)
-LexToken(DECIMAL,2.5,38,608)
-LexToken(COMMA,',',38,611)
-LexToken(INTEGER,3,38,613)
-LexToken(COMMA,',',38,614)
-LexToken(SCONST,'"hola"',38,616)
-LexToken(COMMA,',',38,622)
-LexToken(INTEGER,5,38,624)
-LexToken(COMMA,',',38,625)
-LexToken(SCONST,'"mundo"',38,627)
-LexToken(RBRACKET,']',38,634)
-
-El token previo es: <]>
-
-LexToken(NEWLINE,'NEWLINE',38,635)
-DEBUG(LEXER): it on line 39, position 640
-LexToken(ID,'it',39,640)
-LexToken(ASSIGN,'=',39,643)
-DEBUG(LEXER): iter on line 39, position 645
-LexToken(ID,'iter',39,645)
-LexToken(LPAREN,'(',39,649)
-DEBUG(LEXER): l on line 39, position 650
-LexToken(ID,'l',39,650)
-LexToken(RPAREN,')',39,651)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',39,652)
-DEBUG(LEXER): for on line 40, position 657
-LexToken(FOR,'for',40,657)
-DEBUG(LEXER): i on line 40, position 661
-LexToken(ID,'i',40,661)
-DEBUG(LEXER): in on line 40, position 663
-LexToken(IN,'in',40,663)
-DEBUG(LEXER): l on line 40, position 666
-LexToken(ID,'l',40,666)
-LexToken(COLON,':',40,667)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',40,668)
-LexToken(INDENT,'INDENT',41,677)
-DEBUG(LEXER): print on line 41, position 677
-LexToken(ID,'print',41,677)
-LexToken(LPAREN,'(',41,682)
-DEBUG(LEXER): next on line 41, position 683
-LexToken(ID,'next',41,683)
-LexToken(LPAREN,'(',41,687)
-DEBUG(LEXER): it on line 41, position 688
-LexToken(ID,'it',41,688)
-LexToken(RPAREN,')',41,690)
-LexToken(RPAREN,')',41,691)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',41,692)
-LexToken(DEDENT,'DEDENT',42,697)
-DEBUG(LEXER): return on line 42, position 697
-LexToken(RETURN,'return',42,697)
-DEBUG(LEXER): True on line 42, position 704
-LexToken(TRUE,'True',42,704)
-
-El token previo es: <True>
-
-
-El token previo es: <True>
-
-
-El token previo es: <True>
-
-LexToken(NEWLINE,'NEWLINE',44,710)
-LexToken(DEDENT,'DEDENT',45,711)
-DEBUG(LEXER): def on line 45, position 711
-LexToken(DEF,'def',45,711)
-DEBUG(LEXER): map_ex on line 45, position 715
-LexToken(ID,'map_ex',45,715)
-LexToken(LPAREN,'(',45,721)
-LexToken(RPAREN,')',45,722)
-LexToken(COLON,':',45,723)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',45,724)
-LexToken(INDENT,'INDENT',46,729)
-DEBUG(LEXER): d on line 46, position 729
-LexToken(ID,'d',46,729)
-LexToken(ASSIGN,'=',46,731)
-LexToken(LKEY,'{',46,733)
-LexToken(SCONST,'"hola"',47,743)
-LexToken(COLON,':',47,749)
-LexToken(SCONST,'"mundo"',47,751)
-LexToken(COMMA,',',47,758)
-LexToken(INTEGER,1,48,768)
-LexToken(COLON,':',48,769)
-LexToken(LBRACKET,'[',48,771)
-LexToken(INTEGER,1,48,772)
-LexToken(COMMA,',',48,773)
-LexToken(INTEGER,2,48,775)
-LexToken(COMMA,',',48,776)
-LexToken(INTEGER,3,48,778)
-LexToken(COMMA,',',48,779)
-LexToken(INTEGER,4,48,781)
-LexToken(COMMA,',',48,782)
-LexToken(INTEGER,5,48,784)
-LexToken(RBRACKET,']',48,785)
-LexToken(COMMA,',',48,786)
-LexToken(SCONST,'"dict"',49,796)
-LexToken(COLON,':',49,802)
-LexToken(LKEY,'{',49,804)
-LexToken(SCONST,"'adios'",49,805)
-LexToken(COLON,':',49,812)
-LexToken(SCONST,"':D'",49,814)
-LexToken(RKEY,'}',49,818)
-LexToken(RKEY,'}',50,824)
-
-El token previo es: <}>
-
-LexToken(NEWLINE,'NEWLINE',50,825)
-DEBUG(LEXER): for on line 51, position 830
-LexToken(FOR,'for',51,830)
-DEBUG(LEXER): k on line 51, position 834
-LexToken(ID,'k',51,834)
-DEBUG(LEXER): in on line 51, position 836
-LexToken(IN,'in',51,836)
-DEBUG(LEXER): d on line 51, position 839
-LexToken(ID,'d',51,839)
-LexToken(DOT,'.',51,840)
-DEBUG(LEXER): keys on line 51, position 841
-LexToken(ID,'keys',51,841)
-LexToken(LPAREN,'(',51,845)
-LexToken(RPAREN,')',51,846)
-LexToken(COLON,':',51,847)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',51,848)
-LexToken(INDENT,'INDENT',52,857)
-DEBUG(LEXER): print on line 52, position 857
-LexToken(ID,'print',52,857)
-LexToken(LPAREN,'(',52,862)
-DEBUG(LEXER): d on line 52, position 863
-LexToken(ID,'d',52,863)
-LexToken(LBRACKET,'[',52,864)
-DEBUG(LEXER): k on line 52, position 865
-LexToken(ID,'k',52,865)
-LexToken(RBRACKET,']',52,866)
-LexToken(RPAREN,')',52,867)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',52,868)
-LexToken(DEDENT,'DEDENT',53,873)
-DEBUG(LEXER): return on line 53, position 873
-LexToken(RETURN,'return',53,873)
-LexToken(SCONST,'"hola"',53,880)
-LexToken(PLUS,'+',53,887)
-LexToken(SCONST,'"mundo"',53,889)
-
-El token previo es: <"mundo">
-
-
-El token previo es: <"mundo">
-
-
-El token previo es: <"mundo">
-
-LexToken(NEWLINE,'NEWLINE',55,898)
-LexToken(DEDENT,'DEDENT',56,899)
-DEBUG(LEXER): def on line 56, position 899
-LexToken(DEF,'def',56,899)
-DEBUG(LEXER): default_ex on line 56, position 903
-LexToken(ID,'default_ex',56,903)
-LexToken(LPAREN,'(',56,913)
-DEBUG(LEXER): a on line 56, position 914
-LexToken(ID,'a',56,914)
-LexToken(ASSIGN,'=',56,915)
-LexToken(SCONST,"'hola'",56,916)
-LexToken(RPAREN,')',56,922)
-LexToken(COLON,':',56,923)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',56,924)
-LexToken(INDENT,'INDENT',57,929)
-DEBUG(LEXER): return on line 57, position 929
-LexToken(RETURN,'return',57,929)
-DEBUG(LEXER): a on line 57, position 936
-LexToken(ID,'a',57,936)
-
-El token previo es: <a>
-
-
-El token previo es: <a>
-
-
-El token previo es: <a>
-
-LexToken(NEWLINE,'NEWLINE',59,939)
-LexToken(DEDENT,'DEDENT',60,940)
-DEBUG(LEXER): def on line 60, position 940
-LexToken(DEF,'def',60,940)
-DEBUG(LEXER): set_ex on line 60, position 944
-LexToken(ID,'set_ex',60,944)
-LexToken(LPAREN,'(',60,950)
-LexToken(RPAREN,')',60,951)
-LexToken(COLON,':',60,952)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',60,953)
-LexToken(INDENT,'INDENT',61,958)
-DEBUG(LEXER): a on line 61, position 958
-LexToken(ID,'a',61,958)
-LexToken(ASSIGN,'=',61,960)
-LexToken(LKEY,'{',61,962)
-LexToken(INTEGER,1,61,963)
-LexToken(COMMA,',',61,964)
-LexToken(INTEGER,2,61,966)
-LexToken(COMMA,',',61,967)
-LexToken(SCONST,'"hola"',61,969)
-LexToken(COMMA,',',61,975)
-LexToken(INTEGER,4,61,977)
-LexToken(COMMA,',',61,978)
-LexToken(INTEGER,5,61,980)
-LexToken(RKEY,'}',61,981)
-
-El token previo es: <}>
-
-LexToken(NEWLINE,'NEWLINE',61,982)
-DEBUG(LEXER): return on line 62, position 987
-LexToken(RETURN,'return',62,987)
-LexToken(INTEGER,2,62,994)
-DEBUG(LEXER): in on line 62, position 996
-LexToken(IN,'in',62,996)
-DEBUG(LEXER): a on line 62, position 999
-LexToken(ID,'a',62,999)
-
-El token previo es: <a>
-
-
-El token previo es: <a>
-
-
-El token previo es: <a>
-
-LexToken(NEWLINE,'NEWLINE',64,1002)
-LexToken(DEDENT,'DEDENT',65,1003)
-DEBUG(LEXER): def on line 65, position 1003
-LexToken(DEF,'def',65,1003)
-DEBUG(LEXER): tuple_ex on line 65, position 1007
-LexToken(ID,'tuple_ex',65,1007)
-LexToken(LPAREN,'(',65,1015)
-LexToken(RPAREN,')',65,1016)
-LexToken(COLON,':',65,1017)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',65,1018)
-LexToken(INDENT,'INDENT',66,1023)
-DEBUG(LEXER): a on line 66, position 1023
-LexToken(ID,'a',66,1023)
-LexToken(ASSIGN,'=',66,1025)
-LexToken(LPAREN,'(',66,1027)
-LexToken(INTEGER,5,66,1028)
-LexToken(COMMA,',',66,1029)
-LexToken(INTEGER,6,66,1031)
-LexToken(COMMA,',',66,1032)
-LexToken(SCONST,"'joseph'",66,1034)
-LexToken(RPAREN,')',66,1042)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',66,1043)
-DEBUG(LEXER): b on line 67, position 1048
-LexToken(ID,'b',67,1048)
-LexToken(ASSIGN,'=',67,1050)
-LexToken(LPAREN,'(',67,1052)
-LexToken(INTEGER,1,67,1053)
-LexToken(COMMA,',',67,1054)
-LexToken(INTEGER,2,67,1056)
-LexToken(COMMA,',',67,1057)
-LexToken(SCONST,"'valverde'",67,1059)
-LexToken(RPAREN,')',67,1069)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',67,1070)
-DEBUG(LEXER): return on line 68, position 1075
-LexToken(RETURN,'return',68,1075)
-DEBUG(LEXER): a on line 68, position 1082
-LexToken(ID,'a',68,1082)
-LexToken(PLUS,'+',68,1084)
-DEBUG(LEXER): b on line 68, position 1086
-LexToken(ID,'b',68,1086)
-
-El token previo es: <b>
-
-
-El token previo es: <b>
-
-
-El token previo es: <b>
-
-LexToken(NEWLINE,'NEWLINE',70,1089)
-LexToken(DEDENT,'DEDENT',71,1090)
-DEBUG(LEXER): def on line 71, position 1090
-LexToken(DEF,'def',71,1090)
-DEBUG(LEXER): slices_ex on line 71, position 1094
-LexToken(ID,'slices_ex',71,1094)
-LexToken(LPAREN,'(',71,1103)
-LexToken(RPAREN,')',71,1104)
-LexToken(COLON,':',71,1105)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',71,1106)
-LexToken(INDENT,'INDENT',72,1111)
-DEBUG(LEXER): l on line 72, position 1111
-LexToken(ID,'l',72,1111)
-LexToken(ASSIGN,'=',72,1113)
-LexToken(LBRACKET,'[',72,1115)
-LexToken(INTEGER,1,72,1116)
-LexToken(COMMA,',',72,1117)
-LexToken(INTEGER,2,72,1119)
-LexToken(COMMA,',',72,1120)
-LexToken(INTEGER,3,72,1122)
-LexToken(COMMA,',',72,1123)
-LexToken(INTEGER,4,72,1125)
-LexToken(COMMA,',',72,1126)
-LexToken(INTEGER,5,72,1128)
-LexToken(COMMA,',',72,1129)
-LexToken(INTEGER,6,72,1131)
-LexToken(COMMA,',',72,1132)
-LexToken(INTEGER,7,72,1134)
-LexToken(COMMA,',',72,1135)
-LexToken(INTEGER,7,72,1137)
-LexToken(COMMA,',',72,1138)
-LexToken(INTEGER,8,72,1140)
-LexToken(COMMA,',',72,1141)
-LexToken(INTEGER,9,72,1143)
-LexToken(RBRACKET,']',72,1144)
-
-El token previo es: <]>
-
-LexToken(NEWLINE,'NEWLINE',72,1145)
-DEBUG(LEXER): print on line 73, position 1150
-LexToken(ID,'print',73,1150)
-LexToken(LPAREN,'(',73,1155)
-DEBUG(LEXER): l on line 73, position 1156
-LexToken(ID,'l',73,1156)
-LexToken(LBRACKET,'[',73,1157)
-LexToken(MINUS,'-',73,1158)
-LexToken(INTEGER,2,73,1159)
-LexToken(RBRACKET,']',73,1160)
-LexToken(RPAREN,')',73,1161)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',73,1162)
-DEBUG(LEXER): print on line 74, position 1167
-LexToken(ID,'print',74,1167)
-LexToken(LPAREN,'(',74,1172)
-DEBUG(LEXER): l on line 74, position 1173
-LexToken(ID,'l',74,1173)
-LexToken(LBRACKET,'[',74,1174)
-LexToken(INTEGER,1,74,1175)
-LexToken(COLON,':',74,1176)
-LexToken(MINUS,'-',74,1177)
-LexToken(INTEGER,2,74,1178)
-LexToken(RBRACKET,']',74,1179)
-LexToken(RPAREN,')',74,1180)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',74,1181)
-DEBUG(LEXER): k on line 75, position 1186
-LexToken(ID,'k',75,1186)
-LexToken(ASSIGN,'=',75,1188)
-DEBUG(LEXER): l on line 75, position 1190
-LexToken(ID,'l',75,1190)
-LexToken(LBRACKET,'[',75,1191)
-LexToken(INTEGER,1,75,1192)
-LexToken(COLON,':',75,1193)
-LexToken(INTEGER,2,75,1194)
-LexToken(RBRACKET,']',75,1195)
-LexToken(PLUS,'+',75,1197)
-DEBUG(LEXER): l on line 75, position 1199
-LexToken(ID,'l',75,1199)
-LexToken(LBRACKET,'[',75,1200)
-LexToken(MINUS,'-',75,1201)
-LexToken(INTEGER,3,75,1202)
-LexToken(COLON,':',75,1203)
-LexToken(MINUS,'-',75,1204)
-LexToken(INTEGER,4,75,1205)
-LexToken(RBRACKET,']',75,1206)
-
-El token previo es: <]>
-
-LexToken(NEWLINE,'NEWLINE',75,1207)
-DEBUG(LEXER): return on line 76, position 1212
-LexToken(RETURN,'return',76,1212)
-DEBUG(LEXER): k on line 76, position 1219
-LexToken(ID,'k',76,1219)
-
-El token previo es: <k>
-
-
-El token previo es: <k>
-
-
-El token previo es: <k>
-
-LexToken(NEWLINE,'NEWLINE',78,1222)
-LexToken(DEDENT,'DEDENT',79,1223)
-DEBUG(LEXER): def on line 79, position 1223
-LexToken(DEF,'def',79,1223)
-DEBUG(LEXER): string_ex on line 79, position 1227
-LexToken(ID,'string_ex',79,1227)
-LexToken(LPAREN,'(',79,1236)
-LexToken(RPAREN,')',79,1237)
-LexToken(COLON,':',79,1238)
-
-El token previo es: <:>
-
-LexToken(NEWLINE,'NEWLINE',79,1239)
-LexToken(INDENT,'INDENT',80,1244)
-DEBUG(LEXER): print on line 80, position 1244
-LexToken(ID,'print',80,1244)
-LexToken(LPAREN,'(',80,1249)
-LexToken(SCONST,'"profe"',80,1250)
-LexToken(LBRACKET,'[',80,1257)
-LexToken(INTEGER,2,80,1258)
-LexToken(COLON,':',80,1259)
-LexToken(INTEGER,4,80,1260)
-LexToken(RBRACKET,']',80,1261)
-LexToken(RPAREN,')',80,1262)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',80,1263)
-DEBUG(LEXER): print on line 81, position 1268
-LexToken(ID,'print',81,1268)
-LexToken(LPAREN,'(',81,1273)
-LexToken(SCONST,'"profe"',81,1274)
-LexToken(LBRACKET,'[',81,1281)
-LexToken(INTEGER,2,81,1282)
-LexToken(COLON,':',81,1283)
-LexToken(INTEGER,4,81,1284)
-LexToken(RBRACKET,']',81,1285)
-LexToken(PLUS,'+',81,1287)
-LexToken(SCONST,'"profe"',81,1289)
-LexToken(LBRACKET,'[',81,1296)
-LexToken(INTEGER,0,81,1297)
-LexToken(COLON,':',81,1298)
-LexToken(INTEGER,2,81,1299)
-LexToken(RBRACKET,']',81,1300)
-LexToken(PLUS,'+',81,1302)
-LexToken(SCONST,'"profe"',81,1304)
-LexToken(LBRACKET,'[',81,1311)
-LexToken(MINUS,'-',81,1312)
-LexToken(INTEGER,1,81,1313)
-LexToken(RBRACKET,']',81,1314)
-LexToken(RPAREN,')',81,1315)
-
-El token previo es: <)>
-
-
-El token previo es: <)>
-
-
-El token previo es: <)>
-
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',84,1341)
-LexToken(DEDENT,'DEDENT',85,1342)
-DEBUG(LEXER): print on line 85, position 1342
-LexToken(ID,'print',85,1342)
-LexToken(LPAREN,'(',85,1347)
-DEBUG(LEXER): random_operation on line 85, position 1348
-LexToken(ID,'random_operation',85,1348)
-LexToken(LPAREN,'(',85,1364)
-LexToken(INTEGER,5,85,1365)
-LexToken(COMMA,',',85,1366)
-LexToken(INTEGER,6,85,1368)
-LexToken(RPAREN,')',85,1369)
-LexToken(RPAREN,')',85,1370)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',85,1371)
-DEBUG(LEXER): print on line 86, position 1372
-LexToken(ID,'print',86,1372)
-LexToken(LPAREN,'(',86,1377)
-DEBUG(LEXER): fibonacci on line 86, position 1378
-LexToken(ID,'fibonacci',86,1378)
-LexToken(LPAREN,'(',86,1387)
-LexToken(INTEGER,4,86,1388)
-LexToken(RPAREN,')',86,1389)
-LexToken(RPAREN,')',86,1390)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',86,1391)
-DEBUG(LEXER): print on line 87, position 1392
-LexToken(ID,'print',87,1392)
-LexToken(LPAREN,'(',87,1397)
-DEBUG(LEXER): fibonacci_d on line 87, position 1398
-LexToken(ID,'fibonacci_d',87,1398)
-LexToken(LPAREN,'(',87,1409)
-LexToken(INTEGER,4,87,1410)
-LexToken(RPAREN,')',87,1411)
-LexToken(RPAREN,')',87,1412)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',87,1413)
-DEBUG(LEXER): print on line 88, position 1414
-LexToken(ID,'print',88,1414)
-LexToken(LPAREN,'(',88,1419)
-DEBUG(LEXER): iter_example on line 88, position 1420
-LexToken(ID,'iter_example',88,1420)
-LexToken(LPAREN,'(',88,1432)
-LexToken(RPAREN,')',88,1433)
-LexToken(RPAREN,')',88,1434)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',88,1435)
-DEBUG(LEXER): print on line 89, position 1436
-LexToken(ID,'print',89,1436)
-LexToken(LPAREN,'(',89,1441)
-DEBUG(LEXER): map_ex on line 89, position 1442
-LexToken(ID,'map_ex',89,1442)
-LexToken(LPAREN,'(',89,1448)
-LexToken(RPAREN,')',89,1449)
-LexToken(RPAREN,')',89,1450)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',89,1451)
-DEBUG(LEXER): print on line 90, position 1452
-LexToken(ID,'print',90,1452)
-LexToken(LPAREN,'(',90,1457)
-DEBUG(LEXER): default_ex on line 90, position 1458
-LexToken(ID,'default_ex',90,1458)
-LexToken(LPAREN,'(',90,1468)
-LexToken(RPAREN,')',90,1469)
-LexToken(RPAREN,')',90,1470)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',90,1471)
-DEBUG(LEXER): print on line 91, position 1472
-LexToken(ID,'print',91,1472)
-LexToken(LPAREN,'(',91,1477)
-DEBUG(LEXER): tuple_ex on line 91, position 1478
-LexToken(ID,'tuple_ex',91,1478)
-LexToken(LPAREN,'(',91,1486)
-LexToken(RPAREN,')',91,1487)
-LexToken(RPAREN,')',91,1488)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',91,1489)
-DEBUG(LEXER): print on line 92, position 1490
-LexToken(ID,'print',92,1490)
-LexToken(LPAREN,'(',92,1495)
-DEBUG(LEXER): set_ex on line 92, position 1496
-LexToken(ID,'set_ex',92,1496)
-LexToken(LPAREN,'(',92,1502)
-LexToken(RPAREN,')',92,1503)
-LexToken(RPAREN,')',92,1504)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',92,1505)
-DEBUG(LEXER): print on line 93, position 1506
-LexToken(ID,'print',93,1506)
-LexToken(LPAREN,'(',93,1511)
-DEBUG(LEXER): slices_ex on line 93, position 1512
-LexToken(ID,'slices_ex',93,1512)
-LexToken(LPAREN,'(',93,1521)
-LexToken(RPAREN,')',93,1522)
-LexToken(RPAREN,')',93,1523)
-
-El token previo es: <)>
-
-LexToken(NEWLINE,'NEWLINE',93,1524)
-DEBUG(LEXER): string_ex on line 94, position 1525
-LexToken(ID,'string_ex',94,1525)
-LexToken(LPAREN,'(',94,1534)
-LexToken(RPAREN,')',94,1535)
-
-El token previo es: <)>
-
+LexToken(NEWLINE,'NEWLINE',12,223)
+DEBUG(LEXER): def on line 13, position 224
+LexToken(DEF,'def',13,224)
+DEBUG(LEXER): f on line 13, position 228
+LexToken(ID,'f',13,228)
+LexToken(LPAREN,'(',13,229)
+LexToken(RPAREN,')',13,230)
+LexToken(COLON,':',13,231)
+LexToken(INTEGER,0,13,233)
+LexToken(PLUS,'+',13,234)
+LexToken(INTEGER,1,13,235)
+DEBUG(LEXER): return on line 13, position 238
+LexToken(RETURN,'return',13,238)
+LexToken(INTEGER,0,13,245)
+LexToken(NEWLINE,'NEWLINE',14,247)
+DEBUG(LEXER): def on line 15, position 248
+LexToken(DEF,'def',15,248)
+DEBUG(LEXER): f on line 15, position 252
+LexToken(ID,'f',15,252)
+LexToken(LPAREN,'(',15,253)
+LexToken(RPAREN,')',15,254)
+LexToken(COLON,':',15,255)
+DEBUG(LEXER): a on line 15, position 257
+LexToken(ID,'a',15,257)
+LexToken(ASSIGN,'=',15,259)
+LexToken(INTEGER,0,15,261)
+LexToken(NEWLINE,'NEWLINE',15,262)
+LexToken(INDENT,'INDENT',16,267)
+DEBUG(LEXER): return on line 16, position 267
+LexToken(RETURN,'return',16,267)
+DEBUG(LEXER): a on line 16, position 274
+LexToken(ID,'a',16,274)
+LexToken(NEWLINE,'NEWLINE',17,276)
+LexToken(DEDENT,'DEDENT',18,277)
+DEBUG(LEXER): def on line 18, position 277
+LexToken(DEF,'def',18,277)
+DEBUG(LEXER): f on line 18, position 281
+LexToken(ID,'f',18,281)
+LexToken(LPAREN,'(',18,282)
+LexToken(RPAREN,')',18,283)
+LexToken(COLON,':',18,284)
+DEBUG(LEXER): a on line 18, position 286
+LexToken(ID,'a',18,286)
+LexToken(ASSIGN,'=',18,288)
+LexToken(INTEGER,0,18,290)
+LexToken(NEWLINE,'NEWLINE',18,291)
+LexToken(INDENT,'INDENT',19,300)
+DEBUG(LEXER): return on line 19, position 300
+LexToken(RETURN,'return',19,300)
+DEBUG(LEXER): a on line 19, position 307
+LexToken(ID,'a',19,307)
+LexToken(NEWLINE,'NEWLINE',20,309)
+LexToken(DEDENT,'DEDENT',21,310)
+DEBUG(LEXER): def on line 21, position 310
+LexToken(DEF,'def',21,310)
+DEBUG(LEXER): func on line 21, position 314
+LexToken(ID,'func',21,314)
+LexToken(LPAREN,'(',21,318)
+LexToken(RPAREN,')',21,319)
+LexToken(COLON,':',21,320)
+LexToken(NEWLINE,'NEWLINE',21,321)
+DEBUG(LEXER): return on line 22, position 322
+LexToken(RETURN,'return',22,322)
+LexToken(INTEGER,0,22,329)
+LexToken(NEWLINE,'NEWLINE',23,331)
+DEBUG(LEXER): if on line 24, position 332
+LexToken(IF,'if',24,332)
+LexToken(INTEGER,6,24,335)
+LexToken(GREATER,'>',24,337)
+LexToken(INTEGER,7,24,339)
+LexToken(COLON,':',24,341)
+DEBUG(LEXER): return on line 24, position 343
+LexToken(RETURN,'return',24,343)
+LexToken(INTEGER,0,24,350)
+LexToken(NEWLINE,'NEWLINE',25,352)
+DEBUG(LEXER): def on line 26, position 353
+LexToken(DEF,'def',26,353)
+DEBUG(LEXER): func on line 26, position 357
+LexToken(ID,'func',26,357)
+LexToken(LPAREN,'(',26,361)
+LexToken(RPAREN,')',26,362)
+LexToken(COLON,':',26,363)
+LexToken(NEWLINE,'NEWLINE',26,364)
+LexToken(INDENT,'INDENT',27,369)
+DEBUG(LEXER): return on line 27, position 369
+LexToken(RETURN,'return',27,369)
+LexToken(INTEGER,0,27,376)
+LexToken(NEWLINE,'NEWLINE',28,378)
+LexToken(DEDENT,'DEDENT',29,379)
+DEBUG(LEXER): def on line 29, position 379
+LexToken(DEF,'def',29,379)
+DEBUG(LEXER): fibonacci on line 29, position 383
+LexToken(ID,'fibonacci',29,383)
+LexToken(LPAREN,'(',29,392)
+DEBUG(LEXER): n on line 29, position 393
+LexToken(ID,'n',29,393)
+LexToken(RPAREN,')',29,394)
+LexToken(COLON,':',29,395)
+LexToken(NEWLINE,'NEWLINE',29,396)
+LexToken(INDENT,'INDENT',30,401)
+DEBUG(LEXER): if on line 30, position 401
+LexToken(IF,'if',30,401)
+DEBUG(LEXER): n on line 30, position 404
+LexToken(ID,'n',30,404)
+LexToken(EQ,'==',30,406)
+LexToken(INTEGER,1,30,409)
+DEBUG(LEXER): or on line 30, position 411
+LexToken(OR,'or',30,411)
+DEBUG(LEXER): n on line 30, position 414
+LexToken(ID,'n',30,414)
+LexToken(EQ,'==',30,416)
+LexToken(INTEGER,2,30,419)
+LexToken(COLON,':',30,420)
+LexToken(NEWLINE,'NEWLINE',30,421)
+LexToken(INDENT,'INDENT',31,430)
+DEBUG(LEXER): return on line 31, position 430
+LexToken(RETURN,'return',31,430)
+LexToken(INTEGER,1,31,437)
+LexToken(NEWLINE,'NEWLINE',31,438)
+LexToken(DEDENT,'DEDENT',32,443)
+DEBUG(LEXER): elif on line 32, position 443
+LexToken(ELIF,'elif',32,443)
+DEBUG(LEXER): n on line 32, position 448
+LexToken(ID,'n',32,448)
+LexToken(EQ,'==',32,450)
+LexToken(INTEGER,0,32,453)
+LexToken(COLON,':',32,454)
+LexToken(NEWLINE,'NEWLINE',32,455)
+LexToken(INDENT,'INDENT',33,464)
+DEBUG(LEXER): return on line 33, position 464
+LexToken(RETURN,'return',33,464)
+DEBUG(LEXER): n on line 33, position 471
+LexToken(ID,'n',33,471)
+LexToken(DIVIDE,'/',33,473)
+LexToken(INTEGER,0,33,475)
+LexToken(NEWLINE,'NEWLINE',33,476)
+LexToken(DEDENT,'DEDENT',34,481)
+DEBUG(LEXER): else on line 34, position 481
+LexToken(ELSE,'else',34,481)
+LexToken(COLON,':',34,485)
+LexToken(NEWLINE,'NEWLINE',34,486)
+LexToken(INDENT,'INDENT',35,495)
+DEBUG(LEXER): return on line 35, position 495
+LexToken(RETURN,'return',35,495)
+DEBUG(LEXER): fibonacci on line 35, position 502
+LexToken(ID,'fibonacci',35,502)
+LexToken(LPAREN,'(',35,511)
+DEBUG(LEXER): n on line 35, position 512
+LexToken(ID,'n',35,512)
+LexToken(MINUS,'-',35,514)
+LexToken(INTEGER,1,35,516)
+LexToken(RPAREN,')',35,517)
+LexToken(PLUS,'+',35,519)
+DEBUG(LEXER): fibonacci on line 35, position 521
+LexToken(ID,'fibonacci',35,521)
+LexToken(LPAREN,'(',35,530)
+DEBUG(LEXER): n on line 35, position 531
+LexToken(ID,'n',35,531)
+LexToken(MINUS,'-',35,533)
+LexToken(INTEGER,2,35,535)
+LexToken(RPAREN,')',35,536)
+LexToken(NEWLINE,'NEWLINE',36,538)
+LexToken(DEDENT,'DEDENT',37,539)
+LexToken(DEDENT,'DEDENT',37,539)
+DEBUG(LEXER): def on line 37, position 539
+LexToken(DEF,'def',37,539)
+DEBUG(LEXER): test on line 37, position 543
+LexToken(ID,'test',37,543)
+LexToken(LPAREN,'(',37,547)
+DEBUG(LEXER): n on line 37, position 548
+LexToken(ID,'n',37,548)
+LexToken(RPAREN,')',37,549)
+LexToken(COLON,':',37,550)
+DEBUG(LEXER): return on line 37, position 552
+LexToken(RETURN,'return',37,552)
+DEBUG(LEXER): n on line 37, position 559
+LexToken(ID,'n',37,559)
+LexToken(PLUS,'+',37,560)
+LexToken(INTEGER,1,37,561)
+LexToken(NEWLINE,'NEWLINE',38,563)
+DEBUG(LEXER): def on line 39, position 564
+LexToken(DEF,'def',39,564)
+DEBUG(LEXER): fibonacci_d on line 39, position 568
+LexToken(ID,'fibonacci_d',39,568)
+LexToken(LPAREN,'(',39,579)
+DEBUG(LEXER): n on line 39, position 580
+LexToken(ID,'n',39,580)
+LexToken(RPAREN,')',39,581)
+LexToken(COLON,':',39,582)
+LexToken(NEWLINE,'NEWLINE',39,583)
+LexToken(INDENT,'INDENT',40,588)
+DEBUG(LEXER): n_1 on line 40, position 588
+LexToken(ID,'n_1',40,588)
+LexToken(ASSIGN,'=',40,592)
+LexToken(INTEGER,1,40,594)
+LexToken(NEWLINE,'NEWLINE',40,595)
+DEBUG(LEXER): n_2 on line 41, position 600
+LexToken(ID,'n_2',41,600)
+LexToken(ASSIGN,'=',41,604)
+LexToken(INTEGER,1,41,606)
+LexToken(NEWLINE,'NEWLINE',42,608)
+DEBUG(LEXER): while on line 43, position 613
+LexToken(WHILE,'while',43,613)
+DEBUG(LEXER): n_1 on line 43, position 619
+LexToken(ID,'n_1',43,619)
+LexToken(LESS,'<',43,623)
+DEBUG(LEXER): n on line 43, position 625
+LexToken(ID,'n',43,625)
+LexToken(COLON,':',43,626)
+LexToken(NEWLINE,'NEWLINE',43,627)
+LexToken(INDENT,'INDENT',44,636)
+DEBUG(LEXER): new on line 44, position 636
+LexToken(ID,'new',44,636)
+LexToken(ASSIGN,'=',44,640)
+DEBUG(LEXER): n_1 on line 44, position 642
+LexToken(ID,'n_1',44,642)
+LexToken(PLUS,'+',44,646)
+DEBUG(LEXER): n_2 on line 44, position 648
+LexToken(ID,'n_2',44,648)
+LexToken(NEWLINE,'NEWLINE',44,651)
+DEBUG(LEXER): n_2 on line 45, position 660
+LexToken(ID,'n_2',45,660)
+LexToken(ASSIGN,'=',45,664)
+DEBUG(LEXER): n_1 on line 45, position 666
+LexToken(ID,'n_1',45,666)
+LexToken(NEWLINE,'NEWLINE',45,669)
+DEBUG(LEXER): n_1 on line 46, position 678
+LexToken(ID,'n_1',46,678)
+LexToken(ASSIGN,'=',46,682)
+DEBUG(LEXER): new on line 46, position 684
+LexToken(ID,'new',46,684)
+LexToken(NEWLINE,'NEWLINE',46,687)
+LexToken(DEDENT,'DEDENT',47,692)
+DEBUG(LEXER): return on line 47, position 692
+LexToken(RETURN,'return',47,692)
+DEBUG(LEXER): n_1 on line 47, position 699
+LexToken(ID,'n_1',47,699)
+LexToken(NEWLINE,'NEWLINE',49,704)
+LexToken(DEDENT,'DEDENT',50,705)
+DEBUG(LEXER): def on line 50, position 705
+LexToken(DEF,'def',50,705)
+DEBUG(LEXER): iter_example on line 50, position 709
+LexToken(ID,'iter_example',50,709)
+LexToken(LPAREN,'(',50,721)
+LexToken(RPAREN,')',50,722)
+LexToken(COLON,':',50,723)
+LexToken(NEWLINE,'NEWLINE',50,724)
+LexToken(INDENT,'INDENT',51,729)
+DEBUG(LEXER): l on line 51, position 729
+LexToken(ID,'l',51,729)
+LexToken(ASSIGN,'=',51,731)
+LexToken(LBRACKET,'[',51,733)
+LexToken(INTEGER,1,51,734)
+LexToken(COMMA,',',51,735)
+LexToken(DECIMAL,2.5,51,737)
+LexToken(COMMA,',',51,740)
+LexToken(INTEGER,3,51,742)
+LexToken(COMMA,',',51,743)
+LexToken(SCONST,'"hola"',51,745)
+LexToken(COMMA,',',51,751)
+LexToken(INTEGER,5,51,753)
+LexToken(COMMA,',',51,754)
+LexToken(SCONST,'"mundo"',51,756)
+LexToken(RBRACKET,']',51,763)
+LexToken(NEWLINE,'NEWLINE',51,764)
+DEBUG(LEXER): it on line 52, position 769
+LexToken(ID,'it',52,769)
+LexToken(ASSIGN,'=',52,772)
+DEBUG(LEXER): iter on line 52, position 774
+LexToken(ID,'iter',52,774)
+LexToken(LPAREN,'(',52,778)
+DEBUG(LEXER): l on line 52, position 779
+LexToken(ID,'l',52,779)
+LexToken(RPAREN,')',52,780)
+LexToken(NEWLINE,'NEWLINE',52,781)
+DEBUG(LEXER): for on line 53, position 786
+LexToken(FOR,'for',53,786)
+DEBUG(LEXER): i on line 53, position 790
+LexToken(ID,'i',53,790)
+DEBUG(LEXER): in on line 53, position 792
+LexToken(IN,'in',53,792)
+DEBUG(LEXER): l on line 53, position 795
+LexToken(ID,'l',53,795)
+LexToken(COLON,':',53,796)
+LexToken(NEWLINE,'NEWLINE',53,797)
+LexToken(INDENT,'INDENT',54,806)
+DEBUG(LEXER): print on line 54, position 806
+LexToken(ID,'print',54,806)
+LexToken(LPAREN,'(',54,811)
+DEBUG(LEXER): next on line 54, position 812
+LexToken(ID,'next',54,812)
+LexToken(LPAREN,'(',54,816)
+DEBUG(LEXER): it on line 54, position 817
+LexToken(ID,'it',54,817)
+LexToken(RPAREN,')',54,819)
+LexToken(RPAREN,')',54,820)
+LexToken(NEWLINE,'NEWLINE',54,821)
+LexToken(DEDENT,'DEDENT',55,826)
+DEBUG(LEXER): return on line 55, position 826
+LexToken(RETURN,'return',55,826)
+DEBUG(LEXER): True on line 55, position 833
+LexToken(TRUE,'True',55,833)
+LexToken(NEWLINE,'NEWLINE',57,839)
+LexToken(DEDENT,'DEDENT',58,840)
+DEBUG(LEXER): def on line 58, position 840
+LexToken(DEF,'def',58,840)
+DEBUG(LEXER): map_ex on line 58, position 844
+LexToken(ID,'map_ex',58,844)
+LexToken(LPAREN,'(',58,850)
+LexToken(RPAREN,')',58,851)
+LexToken(COLON,':',58,852)
+LexToken(NEWLINE,'NEWLINE',58,853)
+LexToken(INDENT,'INDENT',59,858)
+DEBUG(LEXER): d on line 59, position 858
+LexToken(ID,'d',59,858)
+LexToken(ASSIGN,'=',59,860)
+LexToken(LKEY,'{',59,862)
+LexToken(SCONST,'"hola"',60,872)
+LexToken(COLON,':',60,878)
+LexToken(SCONST,'"mundo"',60,880)
+LexToken(COMMA,',',60,887)
+LexToken(INTEGER,1,61,897)
+LexToken(COLON,':',61,898)
+LexToken(LBRACKET,'[',61,900)
+LexToken(INTEGER,1,61,901)
+LexToken(COMMA,',',61,902)
+LexToken(INTEGER,2,61,904)
+LexToken(COMMA,',',61,905)
+LexToken(INTEGER,3,61,907)
+LexToken(COMMA,',',61,908)
+LexToken(INTEGER,4,61,910)
+LexToken(COMMA,',',61,911)
+LexToken(INTEGER,5,61,913)
+LexToken(RBRACKET,']',61,914)
+LexToken(COMMA,',',61,915)
+LexToken(SCONST,'"dict"',62,925)
+LexToken(COLON,':',62,931)
+LexToken(LKEY,'{',62,933)
+LexToken(SCONST,"'adios'",62,934)
+LexToken(COLON,':',62,941)
+LexToken(SCONST,"':D'",62,943)
+LexToken(RKEY,'}',62,947)
+LexToken(RKEY,'}',63,953)
+LexToken(NEWLINE,'NEWLINE',63,954)
+DEBUG(LEXER): for on line 64, position 959
+LexToken(FOR,'for',64,959)
+DEBUG(LEXER): k on line 64, position 963
+LexToken(ID,'k',64,963)
+DEBUG(LEXER): in on line 64, position 965
+LexToken(IN,'in',64,965)
+DEBUG(LEXER): d on line 64, position 968
+LexToken(ID,'d',64,968)
+LexToken(DOT,'.',64,969)
+DEBUG(LEXER): keys on line 64, position 970
+LexToken(ID,'keys',64,970)
+LexToken(LPAREN,'(',64,974)
+LexToken(RPAREN,')',64,975)
+LexToken(COLON,':',64,976)
+LexToken(NEWLINE,'NEWLINE',64,977)
+LexToken(INDENT,'INDENT',65,986)
+DEBUG(LEXER): print on line 65, position 986
+LexToken(ID,'print',65,986)
+LexToken(LPAREN,'(',65,991)
+DEBUG(LEXER): d on line 65, position 992
+LexToken(ID,'d',65,992)
+LexToken(LBRACKET,'[',65,993)
+DEBUG(LEXER): k on line 65, position 994
+LexToken(ID,'k',65,994)
+LexToken(RBRACKET,']',65,995)
+LexToken(RPAREN,')',65,996)
+LexToken(NEWLINE,'NEWLINE',65,997)
+LexToken(DEDENT,'DEDENT',66,1002)
+DEBUG(LEXER): return on line 66, position 1002
+LexToken(RETURN,'return',66,1002)
+LexToken(SCONST,'"hola"',66,1009)
+LexToken(PLUS,'+',66,1016)
+LexToken(SCONST,'"mundo"',66,1018)
+LexToken(NEWLINE,'NEWLINE',68,1027)
+LexToken(DEDENT,'DEDENT',69,1028)
+DEBUG(LEXER): def on line 69, position 1028
+LexToken(DEF,'def',69,1028)
+DEBUG(LEXER): default_ex on line 69, position 1032
+LexToken(ID,'default_ex',69,1032)
+LexToken(LPAREN,'(',69,1042)
+DEBUG(LEXER): a on line 69, position 1043
+LexToken(ID,'a',69,1043)
+LexToken(ASSIGN,'=',69,1044)
+LexToken(SCONST,"'hola'",69,1045)
+LexToken(RPAREN,')',69,1051)
+LexToken(COLON,':',69,1052)
+LexToken(NEWLINE,'NEWLINE',69,1053)
+LexToken(INDENT,'INDENT',70,1058)
+DEBUG(LEXER): return on line 70, position 1058
+LexToken(RETURN,'return',70,1058)
+DEBUG(LEXER): a on line 70, position 1065
+LexToken(ID,'a',70,1065)
+LexToken(NEWLINE,'NEWLINE',72,1068)
+LexToken(DEDENT,'DEDENT',73,1069)
+DEBUG(LEXER): def on line 73, position 1069
+LexToken(DEF,'def',73,1069)
+DEBUG(LEXER): set_ex on line 73, position 1073
+LexToken(ID,'set_ex',73,1073)
+LexToken(LPAREN,'(',73,1079)
+LexToken(RPAREN,')',73,1080)
+LexToken(COLON,':',73,1081)
+LexToken(NEWLINE,'NEWLINE',73,1082)
+LexToken(INDENT,'INDENT',74,1087)
+DEBUG(LEXER): a on line 74, position 1087
+LexToken(ID,'a',74,1087)
+LexToken(ASSIGN,'=',74,1089)
+LexToken(LKEY,'{',74,1091)
+LexToken(INTEGER,1,74,1092)
+LexToken(COMMA,',',74,1093)
+LexToken(INTEGER,2,74,1095)
+LexToken(COMMA,',',74,1096)
+LexToken(SCONST,'"hola"',74,1098)
+LexToken(COMMA,',',74,1104)
+LexToken(INTEGER,4,74,1106)
+LexToken(COMMA,',',74,1107)
+LexToken(INTEGER,5,74,1109)
+LexToken(RKEY,'}',74,1110)
+LexToken(NEWLINE,'NEWLINE',74,1111)
+DEBUG(LEXER): return on line 75, position 1116
+LexToken(RETURN,'return',75,1116)
+LexToken(INTEGER,2,75,1123)
+DEBUG(LEXER): in on line 75, position 1125
+LexToken(IN,'in',75,1125)
+DEBUG(LEXER): a on line 75, position 1128
+LexToken(ID,'a',75,1128)
+LexToken(NEWLINE,'NEWLINE',77,1131)
+LexToken(DEDENT,'DEDENT',78,1132)
+DEBUG(LEXER): def on line 78, position 1132
+LexToken(DEF,'def',78,1132)
+DEBUG(LEXER): tuple_ex on line 78, position 1136
+LexToken(ID,'tuple_ex',78,1136)
+LexToken(LPAREN,'(',78,1144)
+LexToken(RPAREN,')',78,1145)
+LexToken(COLON,':',78,1146)
+LexToken(NEWLINE,'NEWLINE',78,1147)
+LexToken(INDENT,'INDENT',79,1152)
+DEBUG(LEXER): a on line 79, position 1152
+LexToken(ID,'a',79,1152)
+LexToken(ASSIGN,'=',79,1154)
+LexToken(LPAREN,'(',79,1156)
+LexToken(INTEGER,5,79,1157)
+LexToken(COMMA,',',79,1158)
+LexToken(INTEGER,6,79,1160)
+LexToken(COMMA,',',79,1161)
+LexToken(SCONST,"'joseph'",79,1163)
+LexToken(RPAREN,')',79,1171)
+LexToken(NEWLINE,'NEWLINE',79,1172)
+DEBUG(LEXER): b on line 80, position 1177
+LexToken(ID,'b',80,1177)
+LexToken(ASSIGN,'=',80,1179)
+LexToken(LPAREN,'(',80,1181)
+LexToken(INTEGER,1,80,1182)
+LexToken(COMMA,',',80,1183)
+LexToken(INTEGER,2,80,1185)
+LexToken(COMMA,',',80,1186)
+LexToken(SCONST,"'valverde'",80,1188)
+LexToken(RPAREN,')',80,1198)
+LexToken(NEWLINE,'NEWLINE',80,1199)
+DEBUG(LEXER): return on line 81, position 1204
+LexToken(RETURN,'return',81,1204)
+DEBUG(LEXER): a on line 81, position 1211
+LexToken(ID,'a',81,1211)
+LexToken(PLUS,'+',81,1213)
+DEBUG(LEXER): b on line 81, position 1215
+LexToken(ID,'b',81,1215)
+LexToken(NEWLINE,'NEWLINE',83,1218)
+LexToken(DEDENT,'DEDENT',84,1219)
+DEBUG(LEXER): def on line 84, position 1219
+LexToken(DEF,'def',84,1219)
+DEBUG(LEXER): slices_ex on line 84, position 1223
+LexToken(ID,'slices_ex',84,1223)
+LexToken(LPAREN,'(',84,1232)
+LexToken(RPAREN,')',84,1233)
+LexToken(COLON,':',84,1234)
+LexToken(NEWLINE,'NEWLINE',84,1235)
+LexToken(INDENT,'INDENT',85,1240)
+DEBUG(LEXER): l on line 85, position 1240
+LexToken(ID,'l',85,1240)
+LexToken(ASSIGN,'=',85,1242)
+LexToken(LBRACKET,'[',85,1244)
+LexToken(INTEGER,1,85,1245)
+LexToken(COMMA,',',85,1246)
+LexToken(INTEGER,2,85,1248)
+LexToken(COMMA,',',85,1249)
+LexToken(INTEGER,3,85,1251)
+LexToken(COMMA,',',85,1252)
+LexToken(INTEGER,4,85,1254)
+LexToken(COMMA,',',85,1255)
+LexToken(INTEGER,5,85,1257)
+LexToken(COMMA,',',85,1258)
+LexToken(INTEGER,6,85,1260)
+LexToken(COMMA,',',85,1261)
+LexToken(INTEGER,7,85,1263)
+LexToken(COMMA,',',85,1264)
+LexToken(INTEGER,7,85,1266)
+LexToken(COMMA,',',85,1267)
+LexToken(INTEGER,8,85,1269)
+LexToken(COMMA,',',85,1270)
+LexToken(INTEGER,9,85,1272)
+LexToken(RBRACKET,']',85,1273)
+LexToken(NEWLINE,'NEWLINE',85,1274)
+DEBUG(LEXER): print on line 86, position 1279
+LexToken(ID,'print',86,1279)
+LexToken(LPAREN,'(',86,1284)
+DEBUG(LEXER): l on line 86, position 1285
+LexToken(ID,'l',86,1285)
+LexToken(LBRACKET,'[',86,1286)
+LexToken(MINUS,'-',86,1287)
+LexToken(INTEGER,2,86,1288)
+LexToken(RBRACKET,']',86,1289)
+LexToken(RPAREN,')',86,1290)
+LexToken(NEWLINE,'NEWLINE',86,1291)
+DEBUG(LEXER): print on line 87, position 1296
+LexToken(ID,'print',87,1296)
+LexToken(LPAREN,'(',87,1301)
+DEBUG(LEXER): l on line 87, position 1302
+LexToken(ID,'l',87,1302)
+LexToken(LBRACKET,'[',87,1303)
+LexToken(INTEGER,1,87,1304)
+LexToken(COLON,':',87,1305)
+LexToken(MINUS,'-',87,1306)
+LexToken(INTEGER,2,87,1307)
+LexToken(RBRACKET,']',87,1308)
+LexToken(RPAREN,')',87,1309)
+LexToken(NEWLINE,'NEWLINE',87,1310)
+DEBUG(LEXER): k on line 88, position 1315
+LexToken(ID,'k',88,1315)
+LexToken(ASSIGN,'=',88,1317)
+DEBUG(LEXER): l on line 88, position 1319
+LexToken(ID,'l',88,1319)
+LexToken(LBRACKET,'[',88,1320)
+LexToken(INTEGER,1,88,1321)
+LexToken(COLON,':',88,1322)
+LexToken(INTEGER,2,88,1323)
+LexToken(RBRACKET,']',88,1324)
+LexToken(PLUS,'+',88,1326)
+DEBUG(LEXER): l on line 88, position 1328
+LexToken(ID,'l',88,1328)
+LexToken(LBRACKET,'[',88,1329)
+LexToken(MINUS,'-',88,1330)
+LexToken(INTEGER,3,88,1331)
+LexToken(COLON,':',88,1332)
+LexToken(MINUS,'-',88,1333)
+LexToken(INTEGER,4,88,1334)
+LexToken(RBRACKET,']',88,1335)
+LexToken(NEWLINE,'NEWLINE',88,1336)
+DEBUG(LEXER): return on line 89, position 1341
+LexToken(RETURN,'return',89,1341)
+DEBUG(LEXER): k on line 89, position 1348
+LexToken(ID,'k',89,1348)
+LexToken(NEWLINE,'NEWLINE',91,1351)
+LexToken(DEDENT,'DEDENT',92,1352)
+DEBUG(LEXER): def on line 92, position 1352
+LexToken(DEF,'def',92,1352)
+DEBUG(LEXER): string_ex on line 92, position 1356
+LexToken(ID,'string_ex',92,1356)
+LexToken(LPAREN,'(',92,1365)
+LexToken(RPAREN,')',92,1366)
+LexToken(COLON,':',92,1367)
+LexToken(NEWLINE,'NEWLINE',92,1368)
+LexToken(INDENT,'INDENT',93,1373)
+DEBUG(LEXER): print on line 93, position 1373
+LexToken(ID,'print',93,1373)
+LexToken(LPAREN,'(',93,1378)
+LexToken(SCONST,'"profe"',93,1379)
+LexToken(LBRACKET,'[',93,1386)
+LexToken(INTEGER,2,93,1387)
+LexToken(COLON,':',93,1388)
+LexToken(INTEGER,4,93,1389)
+LexToken(RBRACKET,']',93,1390)
+LexToken(RPAREN,')',93,1391)
+LexToken(NEWLINE,'NEWLINE',93,1392)
+DEBUG(LEXER): print on line 94, position 1397
+LexToken(ID,'print',94,1397)
+LexToken(LPAREN,'(',94,1402)
+LexToken(SCONST,'"profe"',94,1403)
+LexToken(LBRACKET,'[',94,1410)
+LexToken(INTEGER,2,94,1411)
+LexToken(COLON,':',94,1412)
+LexToken(INTEGER,4,94,1413)
+LexToken(RBRACKET,']',94,1414)
+LexToken(PLUS,'+',94,1416)
+LexToken(SCONST,'"profe"',94,1418)
+LexToken(LBRACKET,'[',94,1425)
+LexToken(INTEGER,0,94,1426)
+LexToken(COLON,':',94,1427)
+LexToken(INTEGER,2,94,1428)
+LexToken(RBRACKET,']',94,1429)
+LexToken(PLUS,'+',94,1431)
+LexToken(SCONST,'"profe"',94,1433)
+LexToken(LBRACKET,'[',94,1440)
+LexToken(MINUS,'-',94,1441)
+LexToken(INTEGER,1,94,1442)
+LexToken(RBRACKET,']',94,1443)
+LexToken(RPAREN,')',94,1444)
+LexToken(NEWLINE,'NEWLINE',97,1470)
+LexToken(DEDENT,'DEDENT',98,1471)
+DEBUG(LEXER): print on line 98, position 1471
+LexToken(ID,'print',98,1471)
+LexToken(LPAREN,'(',98,1476)
+DEBUG(LEXER): random_operation on line 98, position 1477
+LexToken(ID,'random_operation',98,1477)
+LexToken(LPAREN,'(',98,1493)
+LexToken(INTEGER,5,98,1494)
+LexToken(COMMA,',',98,1495)
+LexToken(INTEGER,6,98,1497)
+LexToken(RPAREN,')',98,1498)
+LexToken(RPAREN,')',98,1499)
+LexToken(NEWLINE,'NEWLINE',98,1500)
+DEBUG(LEXER): print on line 99, position 1501
+LexToken(ID,'print',99,1501)
+LexToken(LPAREN,'(',99,1506)
+DEBUG(LEXER): fibonacci on line 99, position 1507
+LexToken(ID,'fibonacci',99,1507)
+LexToken(LPAREN,'(',99,1516)
+LexToken(INTEGER,4,99,1517)
+LexToken(RPAREN,')',99,1518)
+LexToken(RPAREN,')',99,1519)
+LexToken(NEWLINE,'NEWLINE',99,1520)
+DEBUG(LEXER): print on line 100, position 1521
+LexToken(ID,'print',100,1521)
+LexToken(LPAREN,'(',100,1526)
+DEBUG(LEXER): fibonacci_d on line 100, position 1527
+LexToken(ID,'fibonacci_d',100,1527)
+LexToken(LPAREN,'(',100,1538)
+LexToken(INTEGER,4,100,1539)
+LexToken(RPAREN,')',100,1540)
+LexToken(RPAREN,')',100,1541)
+LexToken(NEWLINE,'NEWLINE',100,1542)
+DEBUG(LEXER): print on line 101, position 1543
+LexToken(ID,'print',101,1543)
+LexToken(LPAREN,'(',101,1548)
+DEBUG(LEXER): iter_example on line 101, position 1549
+LexToken(ID,'iter_example',101,1549)
+LexToken(LPAREN,'(',101,1561)
+LexToken(RPAREN,')',101,1562)
+LexToken(RPAREN,')',101,1563)
+LexToken(NEWLINE,'NEWLINE',101,1564)
+DEBUG(LEXER): print on line 102, position 1565
+LexToken(ID,'print',102,1565)
+LexToken(LPAREN,'(',102,1570)
+DEBUG(LEXER): map_ex on line 102, position 1571
+LexToken(ID,'map_ex',102,1571)
+LexToken(LPAREN,'(',102,1577)
+LexToken(RPAREN,')',102,1578)
+LexToken(RPAREN,')',102,1579)
+LexToken(NEWLINE,'NEWLINE',102,1580)
+DEBUG(LEXER): print on line 103, position 1581
+LexToken(ID,'print',103,1581)
+LexToken(LPAREN,'(',103,1586)
+DEBUG(LEXER): default_ex on line 103, position 1587
+LexToken(ID,'default_ex',103,1587)
+LexToken(LPAREN,'(',103,1597)
+LexToken(RPAREN,')',103,1598)
+LexToken(RPAREN,')',103,1599)
+LexToken(NEWLINE,'NEWLINE',103,1600)
+DEBUG(LEXER): print on line 104, position 1601
+LexToken(ID,'print',104,1601)
+LexToken(LPAREN,'(',104,1606)
+DEBUG(LEXER): tuple_ex on line 104, position 1607
+LexToken(ID,'tuple_ex',104,1607)
+LexToken(LPAREN,'(',104,1615)
+LexToken(RPAREN,')',104,1616)
+LexToken(RPAREN,')',104,1617)
+LexToken(NEWLINE,'NEWLINE',104,1618)
+DEBUG(LEXER): print on line 105, position 1619
+LexToken(ID,'print',105,1619)
+LexToken(LPAREN,'(',105,1624)
+DEBUG(LEXER): set_ex on line 105, position 1625
+LexToken(ID,'set_ex',105,1625)
+LexToken(LPAREN,'(',105,1631)
+LexToken(RPAREN,')',105,1632)
+LexToken(RPAREN,')',105,1633)
+LexToken(NEWLINE,'NEWLINE',105,1634)
+DEBUG(LEXER): print on line 106, position 1635
+LexToken(ID,'print',106,1635)
+LexToken(LPAREN,'(',106,1640)
+DEBUG(LEXER): slices_ex on line 106, position 1641
+LexToken(ID,'slices_ex',106,1641)
+LexToken(LPAREN,'(',106,1650)
+LexToken(RPAREN,')',106,1651)
+LexToken(RPAREN,')',106,1652)
+LexToken(NEWLINE,'NEWLINE',106,1653)
+DEBUG(LEXER): string_ex on line 107, position 1654
+LexToken(ID,'string_ex',107,1654)
+LexToken(LPAREN,'(',107,1663)
+LexToken(RPAREN,')',107,1664)

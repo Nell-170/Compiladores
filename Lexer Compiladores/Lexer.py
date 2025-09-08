@@ -151,7 +151,7 @@ class Lexer:
     # Semicolon is not allowed as a line separator in our Python version
     def t_SEMICOLON(self, t):
         r";"
-        # Add error instead of returning token
+        # Record error and skip token
         self.errors.append(
             Error(
                 "The semicolon (;) is not allowed as a line separator in our Fangless Python.",
@@ -161,8 +161,8 @@ class Lexer:
                 self.data,
             )
         )
-        # Skip the semicolon character
-        return t
+        # swallow it so the parser can't use it as a separator
+        pass
         
     t_COLON = r":"
     t_DOT = r"\."
@@ -239,36 +239,16 @@ class Lexer:
         
         # Extract indentation text after newline
         indent_text = t.value[1:]
-        
         # Calculate current indentation level
         current_col = self._tab_expand_col(indent_text)
         
         # Check if next line is empty or comment
         nxt = self.lex.lexdata[self.lex.lexpos:self.lex.lexpos+1]
-        nextToken = self.lex.lexdata[self.lex.lexpos:self.lex.lexpos+7]
-
-        #if nextToken in ("return"):
-        print("\nEl token previo es: " + '<' + str(self.prev_token) + '>' + "\n")
-
-
         if nxt in ('', '\n', '#'):
             # Don't emit NEWLINE/INDENT/DEDENT for empty lines or comments
             return
-        elif str(self.prev_token) in (":") and self.indent_stack[-1] == 0:
-            if nextToken in ("return\n") or nextToken in ("return "):
-                self.errors.append(
-                    Error(
-                        "Line cannot start with 'return' at base indentation level",
-                        t.lexer.lineno,
-                        t.lexpos,
-                        "lexer",
-                        self.data,
-                    )
-                )
-            
-        
-        
-        # Validate indentation
+
+        # Enforce “multiples of INDENT_STEP”
         if current_col > 0 and current_col % self.INDENT_STEP != 0:
             self.errors.append(
                 Error(
@@ -279,8 +259,6 @@ class Lexer:
                     self.data,
                 )
             )
-
-        
         
         # Always emit NEWLINE for lines with real content
         t.type = 'NEWLINE'
@@ -288,8 +266,8 @@ class Lexer:
         
         # Get current indentation level from stack
         prev_col = self.indent_stack[-1]
-        
-        # Check if we were expecting an indentation increase after a colon
+
+        # Case A: last colon required an indented block
         if self.expect_indent and current_col <= prev_col:
             self.errors.append(
                 Error(
@@ -300,12 +278,26 @@ class Lexer:
                     self.data,
                 )
             )
-            # Important: reset the flag even on error
-            self.expect_indent = False
+            self.expect_indent = False  # reset even on error
         elif self.expect_indent and current_col > prev_col:
-            # Good - we got the expected indent
+            # If we did get the expected indent, clear the flag
             self.expect_indent = False
+
+        # Case B: last colon had an inline suite → forbid indent on next line
+        if self.forbid_indent_next and current_col > prev_col:
+            self.errors.append(
+                Error(
+                    "Unexpected indentation after one-line suite",
+                    t.lexer.lineno,
+                    t.lexpos,
+                    "lexer",
+                    self.data,
+                )
+            )
+        # Either way, clear the guard after we’ve examined this newline
+        self.forbid_indent_next = False
         
+        # Emit INDENT/DEDENT tokens
         # Compare current vs previous indentation
         if current_col > prev_col:
             # INDENT case - indent increased
@@ -377,34 +369,6 @@ class Lexer:
         t.lexer.skip(1)
 
     # Hook: return synthetic tokens first
-    # def hooked_token(self):
-    #     # First deliver any pending indentation tokens
-    #     if self.pending:
-    #         return self.pending.pop(0)
-            
-    #     # Then get next token from lexer
-    #     tok = self.orig_token()
-        
-    #     # If we have a real token, mark that we've seen content
-    #     if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
-    #         self.saw_token_on_line = True
-            
-    #         # Si vemos un COLON, configuramos la bandera para esperar indentación
-    #         # en la siguiente línea (excepto si estamos dentro de paréntesis)
-    #         if tok.type == 'COLON' and self.paren_level == 0:
-    #             self.expect_indent = True
-            
-    #     # If end of input and still indented, unwind all remaining indentation
-    #     if tok is None and len(self.indent_stack) > 1:
-    #         # Pop all remaining indentation levels and emit DEDENTs
-    #         while len(self.indent_stack) > 1:
-    #             self.indent_stack.pop()
-    #             self.pending.append(self._emit('DEDENT'))
-    #         return self.pending.pop(0)
-            
-    #     return tok
-
-    # Hook: return synthetic tokens first
     def hooked_token(self):
         # First deliver any pending indentation tokens
         if self.pending: 
@@ -416,35 +380,26 @@ class Lexer:
         # If we have a real token, mark that we've seen content
         if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
             self.saw_token_on_line = True
-            self.prev_token = tok.value
-            
-            # If we see a COLON outside of parentheses
+
+            # Decide indent expectation when we see a COLON outside parentheses
             if tok.type == 'COLON' and self.paren_level == 0:
-                # We need to check what comes after the colon
-                # Store current position
-                saved_pos = self.lex.lexpos
-                
-                # Peek ahead to see if there's content on the same line
-                # Skip whitespace
-                i = saved_pos
-                while i < len(self.lex.lexdata) and self.lex.lexdata[i] in ' \t':
+                # Peek ahead to the end of the physical line
+                data = self.lex.lexdata
+                i = self.lex.lexpos
+                # skip horizontal whitespace
+                while i < len(data) and data[i] in ' \t':
                     i += 1
-                
-                # Check what comes after whitespace
-                if i < len(self.lex.lexdata):
-                    next_char = self.lex.lexdata[i]
+                if i < len(data):
+                    next_char = data[i]
                     if next_char == '\n' or next_char == '#':
-                        # Newline or comment after colon - expect indent on next line
+                        # Nothing else on this line → block required next line
                         self.expect_indent = True
-                    # else: there's content on the same line, so no indent expected
-        
-        # Handle parentheses/brackets for tracking nesting level
-        if tok:
-            if tok.type in ('LPAREN', 'LBRACKET', 'LBRACE'):
-                self.paren_level += 1
-            elif tok.type in ('RPAREN', 'RBRACKET', 'RBRACE'):
-                self.paren_level -= 1
-        
+                        self.forbid_indent_next = False
+                    else:
+                        # Inline suite (e.g., "if x: y") → next line must NOT indent
+                        self.forbid_indent_next = True
+                        self.expect_indent = False
+
         # If end of input and still indented, unwind all remaining indentation
         if tok is None and len(self.indent_stack) > 1:
             # Pop all remaining indentation levels and emit DEDENTs
@@ -471,6 +426,8 @@ class Lexer:
         self.saw_token_on_line = False
         # Track if we're expecting an indentation after a colon
         self.expect_indent = False
+        # Track if we just saw an inline suite and need to forbid indentation
+        self.forbid_indent_next = False
         self.prev_token = None
         self.defFlag = False
 
@@ -496,6 +453,15 @@ def lexer_tester(path, lexer_instance):
     # Restore stdout
     sys.stdout = stdout_original
 
+def pretty_print_errors(errors):
+    if not errors:
+        print("\nDetected errors: none.")
+        return
+    print(f"\nDetected {len(errors)} errors:")
+    for i, e in enumerate(errors, 1):
+        # each error on its own block with a leading blank line
+        print(f"\n[{i}] {e}")
+
 
 # TEST
 errors = []
@@ -505,4 +471,5 @@ lexer = Lexer(errors, debug=True)
 path = "test.py"
 lexer_tester(path, lexer)
 
-print("Detected errors:", errors)
+pretty_print_errors(errors)
+

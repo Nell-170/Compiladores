@@ -9,9 +9,22 @@ def random_operation(a, b):
 def f(a, b): a + b 
 continue
 
- 
 # Preguntar esto al profe, si es valido o no
 def f(): 0+1; return 0
+
+def f(): a = 0
+    return a
+
+def f(): a = 0
+        return a
+
+def func():
+return 0
+
+if 6 > 7 : return 0
+
+def func():
+    return 0
 
 def fibonacci(n):
     if n == 1 or n == 2:
