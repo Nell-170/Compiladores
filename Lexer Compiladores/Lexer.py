@@ -8,10 +8,6 @@ from symbol_table import SymbolTable
 class Lexer:
     def __init__(self, errors: list[Error], debug=False):
         self.lex = None
-        self.paren_level = 0
-        self.expect_indent = False
-        self.same_line_compound = False
-        self.in_compound_stmt = False
         self.saw_token_on_line = False
         self.data = None
         self.debug = debug
@@ -151,7 +147,23 @@ class Lexer:
 
     # Delimiters
     t_COMMA = r","
-    t_SEMICOLON = r";"
+    
+    # Semicolon is not allowed as a line separator in our Python version
+    def t_SEMICOLON(self, t):
+        r";"
+        # Add error instead of returning token
+        self.errors.append(
+            Error(
+                "The semicolon (;) is not allowed as a line separator in our Fangless Python.",
+                t.lineno,
+                t.lexpos,
+                "lexer",
+                self.data,
+            )
+        )
+        # Skip the semicolon character
+        return t
+        
     t_COLON = r":"
     t_DOT = r"\."
 
@@ -233,9 +245,28 @@ class Lexer:
         
         # Check if next line is empty or comment
         nxt = self.lex.lexdata[self.lex.lexpos:self.lex.lexpos+1]
+        nextToken = self.lex.lexdata[self.lex.lexpos:self.lex.lexpos+7]
+
+        #if nextToken in ("return"):
+        print("\nEl token previo es: " + '<' + str(self.prev_token) + '>' + "\n")
+
+
         if nxt in ('', '\n', '#'):
             # Don't emit NEWLINE/INDENT/DEDENT for empty lines or comments
             return
+        elif str(self.prev_token) in (":") and self.indent_stack[-1] == 0:
+            if nextToken in ("return\n") or nextToken in ("return "):
+                self.errors.append(
+                    Error(
+                        "Line cannot start with 'return' at base indentation level",
+                        t.lexer.lineno,
+                        t.lexpos,
+                        "lexer",
+                        self.data,
+                    )
+                )
+            
+        
         
         # Validate indentation
         if current_col > 0 and current_col % self.INDENT_STEP != 0:
@@ -248,6 +279,8 @@ class Lexer:
                     self.data,
                 )
             )
+
+        
         
         # Always emit NEWLINE for lines with real content
         t.type = 'NEWLINE'
@@ -256,41 +289,6 @@ class Lexer:
         # Get current indentation level from stack
         prev_col = self.indent_stack[-1]
         
-        
-        # Handle same-line statements after colon
-        if self.same_line_compound:
-            # Compound statement = def, if, class... WITH same line body then
-            # If next line is in same indentation level continuing body
-            # Then error
-            if current_col == prev_col:
-                # Check if next like is continuing the body
-                peek_pos = self.lex.lexpos
-                while peek_pos < len(self.lex.lexdata) and self.lex.lexdata[peek_pos] in ' \t':
-                    peek_pos += 1
-
-            # TODO(any): implement if in same line compound, and there is content after newline that is INDENTED, then throw error
-
-                # # habra mejor forma de hacerlo ? con tok_type?
-                # cont_keywords = ['return', 'pass', 'continue', 'break']
-                # for keyword in cont_keywords:
-                #     # Check if it starts reading like a Keyword
-                #     if self.lex.lexdata[peek_pos:peek_pos+len(keyword)] == keyword:
-                #         # Check if its not part of a larger word
-                #         if peek_pos + len(keyword) >= len(self.lex.lexdata) or not self.lex.lexdata[peek_pos + len(keyword)].isalnum():
-                #             self.errors.append(
-                #                 Error(
-                #                     "Unexpected continuation of same-line compund statement body",
-                #                     t.lexer.lineno,
-                #                     t.lexpos,
-                #                     "lexer",
-                #                     self.data,
-                #                 )
-                #             )
-                #             break
-
-            # Reset flag
-            self.same_line_compound = False
-
         # Check if we were expecting an indentation increase after a colon
         if self.expect_indent and current_col <= prev_col:
             self.errors.append(
@@ -302,10 +300,10 @@ class Lexer:
                     self.data,
                 )
             )
-            # Reset the flag even on error
+            # Important: reset the flag even on error
             self.expect_indent = False
         elif self.expect_indent and current_col > prev_col:
-            # Got the expected indent
+            # Good - we got the expected indent
             self.expect_indent = False
         
         # Compare current vs previous indentation
@@ -379,64 +377,83 @@ class Lexer:
         t.lexer.skip(1)
 
     # Hook: return synthetic tokens first
+    # def hooked_token(self):
+    #     # First deliver any pending indentation tokens
+    #     if self.pending:
+    #         return self.pending.pop(0)
+            
+    #     # Then get next token from lexer
+    #     tok = self.orig_token()
+        
+    #     # If we have a real token, mark that we've seen content
+    #     if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
+    #         self.saw_token_on_line = True
+            
+    #         # Si vemos un COLON, configuramos la bandera para esperar indentación
+    #         # en la siguiente línea (excepto si estamos dentro de paréntesis)
+    #         if tok.type == 'COLON' and self.paren_level == 0:
+    #             self.expect_indent = True
+            
+    #     # If end of input and still indented, unwind all remaining indentation
+    #     if tok is None and len(self.indent_stack) > 1:
+    #         # Pop all remaining indentation levels and emit DEDENTs
+    #         while len(self.indent_stack) > 1:
+    #             self.indent_stack.pop()
+    #             self.pending.append(self._emit('DEDENT'))
+    #         return self.pending.pop(0)
+            
+    #     return tok
+
+    # Hook: return synthetic tokens first
     def hooked_token(self):
         # First deliver any pending indentation tokens
-        if self.pending:
+        if self.pending: 
             return self.pending.pop(0)
             
         # Then get next token from lexer
         tok = self.orig_token()
-
-        # Track if we're in a compound statement
-        if tok and tok.type in ('DEF', 'CLASS', 'IF', 'ELIF', 'ELSE', 'WHILE', 'FOR'):
-            self.in_compound_stmt = True
         
         # If we have a real token, mark that we've seen content
-            if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
-                self.saw_token_on_line = True
-                
-                # If we see a COLON outside of parentheses
-                if tok.type == 'COLON' and self.paren_level == 0:
-                    # We need to check what comes after the colon
-                    # Store current position
-                    saved_pos = self.lex.lexpos
-                    
-                    # Peek ahead to see if there's content on the same line
-                    # Skip whitespace
-                    i = saved_pos
-                    while i < len(self.lex.lexdata) and self.lex.lexdata[i] in ' \t':
-                        i += 1
-                    
-                    # Check what comes after whitespace
-                    if i < len(self.lex.lexdata):
-                        next_char = self.lex.lexdata[i]
-                        if next_char == '\n' or next_char == '#':
-                            # Newline or comment after colon - expect indent on next line
-                            self.expect_indent = True
-                            self.in_compound_stmt = False
-                        else:
-                            # There's content on the same line after the colon
-                            if self.in_compound_stmt:
-                                # This is a compound statement with same-line body
-                                self.same_line_compound = True
-                            self.in_compound_stmt = False
+        if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
+            self.saw_token_on_line = True
+            self.prev_token = tok.value
             
-            # Handle parentheses/brackets for tracking nesting level
-            if tok:
-                if tok.type in ('LPAREN', 'LBRACKET', 'LBRACE'):
-                    self.paren_level += 1
-                elif tok.type in ('RPAREN', 'RBRACKET', 'RBRACE'):
-                    self.paren_level -= 1
-            
-            # If end of input and still indented, unwind all remaining indentation
-            if tok is None and len(self.indent_stack) > 1:
-                # Pop all remaining indentation levels and emit DEDENTs
-                while len(self.indent_stack) > 1:
-                    self.indent_stack.pop()
-                    self.pending.append(self._emit('DEDENT'))
-                return self.pending.pop(0) if self.pending else None
+            # If we see a COLON outside of parentheses
+            if tok.type == 'COLON' and self.paren_level == 0:
+                # We need to check what comes after the colon
+                # Store current position
+                saved_pos = self.lex.lexpos
                 
-            return tok
+                # Peek ahead to see if there's content on the same line
+                # Skip whitespace
+                i = saved_pos
+                while i < len(self.lex.lexdata) and self.lex.lexdata[i] in ' \t':
+                    i += 1
+                
+                # Check what comes after whitespace
+                if i < len(self.lex.lexdata):
+                    next_char = self.lex.lexdata[i]
+                    if next_char == '\n' or next_char == '#':
+                        # Newline or comment after colon - expect indent on next line
+                        self.expect_indent = True
+                    # else: there's content on the same line, so no indent expected
+        
+        # Handle parentheses/brackets for tracking nesting level
+        if tok:
+            if tok.type in ('LPAREN', 'LBRACKET', 'LBRACE'):
+                self.paren_level += 1
+            elif tok.type in ('RPAREN', 'RBRACKET', 'RBRACE'):
+                self.paren_level -= 1
+        
+        # If end of input and still indented, unwind all remaining indentation
+        if tok is None and len(self.indent_stack) > 1:
+            # Pop all remaining indentation levels and emit DEDENTs
+            while len(self.indent_stack) > 1:
+                self.indent_stack.pop()
+                self.pending.append(self._emit('DEDENT'))
+            return self.pending.pop(0) if self.pending else None
+            
+        return tok
 
     def build(self):
         self.lex = lex.lex(module=self)
@@ -454,6 +471,8 @@ class Lexer:
         self.saw_token_on_line = False
         # Track if we're expecting an indentation after a colon
         self.expect_indent = False
+        self.prev_token = None
+        self.defFlag = False
 
 
 def lexer_tester(path, lexer_instance):
