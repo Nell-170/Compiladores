@@ -1,5 +1,6 @@
 import ply.lex as lex
 import sys
+import ast
 
 from utils import Error
 from symbol_table import SymbolTable
@@ -170,13 +171,39 @@ class Lexer:
     # String literals: "..." or '...' (no newlines)
     def t_DQSTRING(self, t):
         r'"([^"\\\n]|\\.)*"'
-        # TODO(any): save string value to t.value
+        raw = t.value               # entire matched lexeme with quotes
+        t.raw = raw                 # keep original, useful for error messages
+
+        try:
+            # Evaluate like Python
+            t.value = ast.literal_eval(raw)
+        except Exception as exc:
+            # If you want to error on bad escapes:
+            self.errors.append(
+                Error(f"Invalid string literal: {exc}", t.lineno, t.lexpos, "lexer", self.data)
+            )
+            # Fallback: strip quotes without unescaping so parser can continue
+            t.value = raw[1:-1]
+            
         t.type = 'SCONST'
         return t
 
     def t_SQSTRING(self, t):
         r"'([^'\\\n]|\\.)*'"
-        # TODO(any): save string value to t.value
+        raw = t.value               # entire matched lexeme with quotes
+        t.raw = raw                 # keep original, useful for error messages
+
+        try:
+            # Evaluate like Python
+            t.value = ast.literal_eval(raw)
+        except Exception as exc:
+            # If you want to error on bad escapes:
+            self.errors.append(
+                Error(f"Invalid string literal: {exc}", t.lineno, t.lexpos, "lexer", self.data)
+            )
+            # Fallback: strip quotes without unescaping so parser can continue
+            t.value = raw[1:-1]
+            
         t.type = 'SCONST'
         return t
 
@@ -325,8 +352,8 @@ class Lexer:
         # Reset flag after processing this newline
         self.saw_token_on_line = False
         
-        # Always return the NEWLINE token
-        return t
+        # Never return the NEWLINE token
+        pass
 
     # Identifiers and reserved words
     def t_ID(self, t):

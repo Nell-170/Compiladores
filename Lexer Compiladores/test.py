@@ -88,3 +88,11 @@ def outer():
             y = 2
             z = 3
 # EOF here; no explicit dedent lines
+
+def func(): 5 < 2
+return 0
+
+x = 1
+def func() : 1+1
+if x > 5:
+    a = 0
