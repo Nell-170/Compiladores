@@ -1,85 +1,98 @@
-### File whit test 
+# -*- coding: utf-8 -*-
+# Lexer stress test — contains intentional errors to exercise indentation & newline logic.
+
+# --- 1) Valid block to warm up ---
 def random_operation(a, b):
     c = a + b
     # Hi I'm a comment!
     return c + a * b + 2.6548
 
 
-def fibonacci(n):
-    if n == 1 or n == 2:
-        return 1
-    elif n == 0:
-        return n / 0
-    else:
-        return fibonacci(n - 1) + fibonacci(n - 2)
+# --- 2) Semicolon forbidden anywhere ---
+def f():
+    x = 0; return 0          # EXPECT: semicolon forbidden
 
 
-def fibonacci_d(n):
-    n_1 = 1
-    n_2 = 1
-
-    while n_1 < n:
-        new = n_1 + n_2
-        n_2 = n_1
-        n_1 = new
-    return n_1
+# --- 3) Inline suite followed by an indented next line (should NOT indent) ---
+def g(): return 1
+    return 2                 # EXPECT: Unexpected indentation after one-line suite
 
 
-def iter_example():
-    l = [1, 2.5, 3, "hola", 5, "mundo"]
-    it = iter(l)
-    for i in l:
-        print(next(it))
-    return True
+# --- 4) Colon + NEWLINE requires an indented block next line ---
+if True:
+x = 1                        # EXPECT: Expected an indented block
 
 
-def map_ex():
-    d = {
-        "hola": "mundo",
-        1: [1, 2, 3, 4, 5],
-        "dict": {'adios': ':D'}
-    }
-    for k in d.keys():
-        print(d[k])
-    return "hola" + "mundo"
+# --- 5) Indentation must be multiple of 4 (3 spaces here) ---
+if 1:
+   bad = 3                   # EXPECT: Indentation must be a multiple of 4
+# back to base
 
 
-def default_ex(a='hola'):
-    return a
+# --- 6) Inconsistent dedent (dedent to a level never used: 6 spaces) ---
+if True:
+    if True:
+        deep = 42
+      oops = deep            # (6 spaces) EXPECT: Inconsistent dedent
+# back to base
 
 
-def set_ex():
-    a = {1, 2, "hola", 4, 5}
-    return 2 in a
+# --- 7) Another inline suite + semicolon chain ---
+if 5 > 8: a = 9; b = 10      # EXPECT: semicolon forbidden
 
 
-def tuple_ex():
-    a = (5, 6, 'joseph')
-    b = (1, 2, 'valverde')
-    return a + b
+# --- 8) Explicit line continuation with backslash (should NOT emit NEWLINE/INDENT) ---
+def linesum():
+    total = 1 + \
+            2 + \
+            3
+    return total
 
 
-def slices_ex():
-    l = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9]
-    print(l[-2])
-    print(l[1:-2])
-    k = l[1:2] + l[-3:-4]
-    return k
+# --- 9) Paren/bracket continuation (inner indents are ignored by lexer) ---
+nums = [
+    1,
+    2,  # comment after item
+    3,
+]
 
 
-def string_ex():
-    print("profe"[2:4])
-    print("profe"[2:4] + "profe"[0:2] + "profe"[-1])
+# --- 10) Base-level RETURN (lexer should allow; parser would complain later) ---
+return 0                     # NOTE: lexer should NOT treat this as an indent error
 
 
-# EJECUCIÓN DE PRUEBAS
-print(random_operation(5, 6))
-print(fibonacci(4))
-print(fibonacci_d(4))
-print(iter_example())
-print(map_ex())
-print(default_ex())
-print(tuple_ex())
-print(set_ex())
-print(slices_ex())
-string_ex()
+# --- 11) Strings with escapes and # inside (shouldn’t start a comment) ---
+s1 = "hash # inside ok"
+s2 = 'quote \" escape ok'
+
+
+# --- 12) Illegal character to trigger t_error ---
+weird = 1 § 2                # EXPECT: Illegal character '§'
+
+
+# --- 13) Mixed: colon then comment on same line → block required next line ---
+if True:  # comment after colon
+print("no indent")           # EXPECT: Expected an indented block
+
+
+# --- 14) Valid inline suites that should pass ---
+def ok_inline(): return 7
+if 6 < 9: y = 7
+
+
+# --- 15) EOF with pending dedents (lexer should auto-emit DEDENTs at EOF) ---
+def outer():
+    def inner():
+        x = 1
+        if x:
+            y = 2
+            z = 3
+# EOF here; no explicit dedent lines
+
+def func(): 5 < 2
+return 0
+
+x = 1
+def func() : 1+1
+if x > 5:
+    a = 0
