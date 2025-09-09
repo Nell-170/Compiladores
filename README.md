@@ -35,8 +35,8 @@ Esto analizará `test.py` y generará el archivo `Lexer_report.txt` con los toke
 - El lexer está diseñado para detectar errores de indentación, uso de punto y coma, caracteres ilegales, y otros detalles sintácticos.
 
 ## Créditos
-B88948	Antonio Emmanuel González Sandoval 
-C17546	Milton Sojo Córdoba
-C28377	Valentino Vidaurre Rodríguez 
+- B88948	Antonio Emmanuel González Sandoval 
+- C17546	Milton Sojo Córdoba
+- C28377	Valentino Vidaurre Rodríguez 
 
 Desarrollado usando PLY
