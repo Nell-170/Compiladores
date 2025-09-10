@@ -352,7 +352,7 @@ class Lexer:
         # Reset flag after processing this newline
         self.saw_token_on_line = False
         
-        # Never return the NEWLINE token
+        # return the NEWLINE token
         return t
 
     # Identifiers and reserved words
