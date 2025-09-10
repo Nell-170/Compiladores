@@ -353,7 +353,7 @@ class Lexer:
         self.saw_token_on_line = False
         
         # Never return the NEWLINE token
-        pass
+        return t
 
     # Identifiers and reserved words
     def t_ID(self, t):
