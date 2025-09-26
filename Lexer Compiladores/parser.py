@@ -36,7 +36,6 @@ class Parser:
     def p_stmt(self, p):
         """stmt : func_def
                 | class_def 
-                | if_stmt
                 | simple_stmt"""
         p[0] = p[1]
 
@@ -49,11 +48,6 @@ class Parser:
     def p_class_def(self, p):
         """class_def : CLASS ID COLON NEWLINE INDENT stmt_list DEDENT"""
         p[0] = ("class_def", p[2], p[6])  # nombre, cuerpo
-
-    # ---- Sentencia if -----
-    def p_if_stmt(self, p):
-        """if_stmt : IF expr COLON NEWLINE INDENT stmt_list DEDENT"""
-        p[0] = ("if", p[2], p[6])
 
     # ----- Sentencia simple -----
     def p_simple_stmt(self, p):
