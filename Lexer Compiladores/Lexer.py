@@ -487,7 +487,7 @@ def pretty_print_errors(errors):
     print(f"\nDetected {len(errors)} errors:")
     for i, e in enumerate(errors, 1):
         # each error on its own block with a leading blank line
-        print(f"\n[{i}] {e}")
+        print(f"\n[{i}] {e}") 
 
 
 # TEST
@@ -498,5 +498,5 @@ lexer = Lexer(errors, debug=False)
 path = "test.py"
 lexer_tester(path, lexer)
 
-pretty_print_errors(errors)
+# pretty_print_errors(errors)
 
