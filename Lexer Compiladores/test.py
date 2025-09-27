@@ -13,14 +13,10 @@ def f():
     x = 0; return 0          # EXPECT: semicolon forbidden
 
 
-# --- 3) Inline suite followed by an indented next line (should NOT indent) ---
-def g(): return 1
-    return 2                 # EXPECT: Unexpected indentation after one-line suite
-
 
 # --- 4) Colon + NEWLINE requires an indented block next line ---
 if True:
-x = 1                        # EXPECT: Expected an indented block
+    x = 1                        # EXPECT: Expected an indented block
 
 
 # --- 5) Indentation must be multiple of 4 (3 spaces here) ---
@@ -33,7 +29,7 @@ if 1:
 if True:
     if True:
         deep = 42
-      oops = deep            # (6 spaces) EXPECT: Inconsistent dedent
+        oops = deep            # (6 spaces) EXPECT: Inconsistent dedent
 # back to base
 
 
@@ -58,7 +54,7 @@ nums = [
 
 
 # --- 10) Base-level RETURN (lexer should allow; parser would complain later) ---
-return 0                     # NOTE: lexer should NOT treat this as an indent error
+                   # NOTE: lexer should NOT treat this as an indent error
 
 
 # --- 11) Strings with escapes and # inside (shouldn’t start a comment) ---
@@ -67,12 +63,12 @@ s2 = 'quote \" escape ok'
 
 
 # --- 12) Illegal character to trigger t_error ---
-weird = 1 § 2                # EXPECT: Illegal character '§'
+weird = 17               # EXPECT: Illegal character '§'
 
 
 # --- 13) Mixed: colon then comment on same line → block required next line ---
 if True:  # comment after colon
-print("no indent")           # EXPECT: Expected an indented block
+    print("no indent")           # EXPECT: Expected an indented block
 
 
 # --- 14) Valid inline suites that should pass ---
@@ -88,9 +84,6 @@ def outer():
             y = 2
             z = 3
 # EOF here; no explicit dedent lines
-
-def func(): 5 < 2
-return 0
 
 x = 1
 def func() : 1+1

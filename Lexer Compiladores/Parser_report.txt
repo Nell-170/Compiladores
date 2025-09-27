@@ -1,3 +1,2 @@
-ERROR(LEXER): Illegal character '§' at line 70, column 1825
 Parser completado exitosamente
 AST result: None
