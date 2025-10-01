@@ -20,13 +20,13 @@ class Parser:
 
     # Programa: lista de sentencias (puede ser función, clase o expresión simple)
     def p_program(self, p):
-        """program : stmt_list"""
+        """program : top_level_stmt_list"""
         p[0] = ("program", p[1]) # AST raíz: tipo 'program', con lista de sentencias
 
-    # Lista de sentencias: Se meten todas las sentencias en una lista de manera recursiva
+    # Lista de sentencias: Se meten todas las sentencias de alto nivel en una lista de manera recursiva
     def p_stmt_list(self, p):
-        """stmt_list : stmt_list stmt
-                     | stmt"""
+        """top_level_stmt_list : top_level_stmt_list top_level_stmt
+                               | top_level_stmt"""
         if len(p) == 3:
             p[0] = p[1] + [p[2]]
         else:
@@ -34,26 +34,35 @@ class Parser:
 
     # Sentencias: puede ser función, clase o expresión simple
     def p_stmt(self, p):
-        """stmt : func_def
-                | class_def 
-                | if_stmt
-                | simple_stmt"""
+        """top_level_stmt : func_def
+                          | class_def
+                          | simple_stmt"""
         p[0] = p[1]
 
-    # ----- Definición de funciones -----
+    # Definición de funciones
     def p_func_def(self, p):
-        """func_def : DEF ID LPAREN RPAREN COLON NEWLINE INDENT stmt_list DEDENT"""
+        """func_def : DEF ID LPAREN RPAREN COLON NEWLINE INDENT body_stmt_list DEDENT"""
         p[0] = ("func_def", p[2], p[8])  # nombre, cuerpo
 
-    # ----- Definición de clases -----
+    # Definición de clases
     def p_class_def(self, p):
-        """class_def : CLASS ID COLON NEWLINE INDENT stmt_list DEDENT"""
+        """class_def : CLASS ID COLON NEWLINE INDENT body_stmt_list DEDENT"""
         p[0] = ("class_def", p[2], p[6])  # nombre, cuerpo
 
-    # ---- Sentencia if -----
-    def p_if_stmt(self, p):
-        """if_stmt : IF simple_stmt COLON NEWLINE INDENT stmt_list DEDENT"""
-        p[0] = ("if", p[2], p[6])
+    # Cuerpo de funciones/clases (NO pueden contener def ni class) -----
+    def p_body_stmt_list(self, p):
+        """body_stmt_list : body_stmt_list body_stmt
+                          | body_stmt"""
+        if len(p) == 3:
+            p[0] = p[1] + [p[2]]
+        else:
+            p[0] = [p[1]]
+
+    
+    # Sentencias permitidas dentro de funciones/clases
+    def p_body_stmt(self, p):
+        """body_stmt : simple_stmt""" # Por ahora solo expresiones simples, se pueden añadir más tipos como if, for, etc.
+        p[0] = p[1]
 
     # ----- Sentencia simple -----
     def p_simple_stmt(self, p):
