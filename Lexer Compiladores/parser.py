@@ -83,13 +83,13 @@ class Parser:
     # Sentencia de asignación (identificador = expresión)
     def p_assignment_stmt(self, p): # -> preguntarle a Valentino si se va a agregar := (morsa) por su sintaxis especial
         """assignment_stmt : ID ASSIGN expression
-                           | ID PLUSASSIGN expression
-                           | ID MINUSASSIGN expression
+                           | ID PLUS_ASSIGN expression
+                           | ID MINUS_ASSIGN expression
                            | ID MULTI_ASSIGN expression
                            | ID DIVIDE_ASSIGN expression
                            | ID MOD_ASSIGN expression
                            | ID FLOORDIV_ASSIGN expression
-                           | ID POW_ASSIGN expression"""
+                           | ID POW_ASSIGN expression """
         p[0] = ("assign", p[1], p[3])
 
     # Sentencia while
