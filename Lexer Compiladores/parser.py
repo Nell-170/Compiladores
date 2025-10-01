@@ -39,12 +39,12 @@ class Parser:
                           | simple_stmt"""
         p[0] = p[1]
 
-    # Definición de funciones
+    # Definición de funciones -> Falta agregar parámetros
     def p_func_def(self, p):
         """func_def : DEF ID LPAREN RPAREN COLON NEWLINE INDENT body_stmt_list DEDENT"""
         p[0] = ("func_def", p[2], p[8])  # nombre, cuerpo
 
-    # Definición de clases
+    # Definición de clases -> Falta agregar herencia y parámetros
     def p_class_def(self, p):
         """class_def : CLASS ID COLON NEWLINE INDENT body_stmt_list DEDENT"""
         p[0] = ("class_def", p[2], p[6])  # nombre, cuerpo
@@ -63,20 +63,46 @@ class Parser:
     def p_body_stmt(self, p):
         """body_stmt : if_stmt 
                      | assignment_stmt
-                     | simple_stmt"""
+                     | while_stmt
+                     | for_stmt
+                     | return_stmt
+                     | simple_stmt""" # -> Recordar agregar un expression_stmt para llamado a funciones y demás. Puede que no sea necesario
         p[0] = p[1]
 
     # Sentencia if (simplificada, sin elif ni else) -> Preguntarle a Valentino si le vamos a agregar elif
     def p_if_stmt(self, p):
-        #              | Justo entre if y colon van las expresiones condicionales de Milton
-        """if_stmt : IF COLON NEWLINE INDENT body_stmt_list DEDENT
-                   | IF COLON NEWLINE INDENT body_stmt_list DEDENT ELSE COLON NEWLINE INDENT body_stmt_list DEDENT"""
+        """if_stmt : IF expression COLON NEWLINE INDENT body_stmt_list DEDENT
+                   | IF expression COLON NEWLINE INDENT body_stmt_list DEDENT ELSE COLON NEWLINE INDENT body_stmt_list DEDENT"""
         if len(p) == 8:
             # if sin else
             p[0] = ("if", p[2], p[6], None)
         else:
             # if con else
             p[0] = ("if", p[2], p[6], p[12])
+
+    # Sentencia de asignación (identificador = expresión)
+    def p_assignment_stmt(self, p): # -> preguntarle a Valentino si va a haber más tipos de asignaciones como := o +=
+        """assignment_stmt : ID ASSIGN expression"""
+        p[0] = ("assign", p[1], p[3])
+
+    # Sentencia while
+    def p_while_stmt(self, p):
+        """while_stmt : WHILE expression COLON NEWLINE INDENT body_stmt_list DEDENT"""
+        p[0] = ("while", p[2], p[6])
+
+    # Sentencia for -> Preguntarle a Valentino si le vamos a agregar range, foreach y demás
+    def p_for_stmt(self, p):
+        """for_stmt : FOR ID IN expression COLON NEWLINE INDENT body_stmt_list DEDENT"""
+        p[0] = ("for", p[2], p[6])
+
+    # Sentencia return
+    def p_return_stmt(self, p):
+        """return_stmt : RETURN expression
+                       | RETURN """
+        if len(p) == 3:
+            p[0] = ("return", p[2])
+        else:
+            p[0] = ("return", None)
 
     # Sentencia simple: puede ser un identificador, entero, decimal o cadena
     def p_simple_stmt(self, p):
@@ -86,11 +112,10 @@ class Parser:
                        | SCONST"""
         p[0] = ("expr", p[1])
 
-    # Sentencia de asignación (identificador = expresión)
-    def p_assignment_stmt(self, p):
-        # Cambiar simple_stmt por expression_stmt cuando esté implementada
-        """assignment_stmt : ID ASSIGN simple_stmt"""
-        p[0] = ("assign", p[1], p[3])
+    # Placeholder para expresiones (puede ser una sentencia simple por ahora)
+    def p_expression_stmt(self, p):
+        """expression : simple_stmt"""
+        p[0] = p[1]
 
     # Manejo de errores
     def p_error(self, p):
