@@ -32,7 +32,7 @@ class Parser:
         else:
             p[0] = [p[1]]
 
-    # Sentencias: puede ser función, clase o expresión simple
+    # Sentencias de alto nivel: puede ser funciones, clases o expresiones simples
     def p_stmt(self, p):
         """top_level_stmt : func_def
                           | class_def
@@ -61,10 +61,24 @@ class Parser:
     
     # Sentencias permitidas dentro de funciones/clases
     def p_body_stmt(self, p):
-        """body_stmt : simple_stmt""" # Por ahora solo expresiones simples, se pueden añadir más tipos como if, for, etc.
+        """body_stmt : if_stmt 
+                     | assignment_stmt
+                     | simple_stmt"""
         p[0] = p[1]
 
-    # ----- Sentencia simple -----
+    # Sentencia if (simplificada, sin elif ni else) -> Preguntarle a Valentino si le vamos a agregar elif
+    def p_if_stmt(self, p):
+        #              | Justo entre if y colon van las expresiones condicionales de Milton
+        """if_stmt : IF COLON NEWLINE INDENT body_stmt_list DEDENT
+                   | IF COLON NEWLINE INDENT body_stmt_list DEDENT ELSE COLON NEWLINE INDENT body_stmt_list DEDENT"""
+        if len(p) == 8:
+            # if sin else
+            p[0] = ("if", p[2], p[6], None)
+        else:
+            # if con else
+            p[0] = ("if", p[2], p[6], p[12])
+
+    # Sentencia simple: puede ser un identificador, entero, decimal o cadena
     def p_simple_stmt(self, p):
         """simple_stmt : ID
                        | INTEGER
@@ -72,7 +86,13 @@ class Parser:
                        | SCONST"""
         p[0] = ("expr", p[1])
 
-    # ----- Manejo de errores -----
+    # Sentencia de asignación (identificador = expresión)
+    def p_assignment_stmt(self, p):
+        # Cambiar simple_stmt por expression_stmt cuando esté implementada
+        """assignment_stmt : ID ASSIGN simple_stmt"""
+        p[0] = ("assign", p[1], p[3])
+
+    # Manejo de errores
     def p_error(self, p):
         if p:
             self.errors.append(
@@ -90,7 +110,7 @@ class Parser:
             )
 
 
-# --- Tester ---
+# Tester
 if __name__ == "__main__":
     errors = []
     parser = Parser(errors, debug=False)
@@ -110,7 +130,7 @@ if __name__ == "__main__":
         print("\nNo syntax errors detected.")
 
 
-# To test the parser
+# ---- To test the parser ----
 
 # Function to read the file and test the parser
 def parser_tester(path, parser_instance):
