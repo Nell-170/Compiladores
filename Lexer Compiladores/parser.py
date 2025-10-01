@@ -81,8 +81,15 @@ class Parser:
             p[0] = ("if", p[2], p[6], p[12])
 
     # Sentencia de asignación (identificador = expresión)
-    def p_assignment_stmt(self, p): # -> preguntarle a Valentino si va a haber más tipos de asignaciones como := o +=
-        """assignment_stmt : ID ASSIGN expression"""
+    def p_assignment_stmt(self, p): # -> preguntarle a Valentino si se va a agregar := (morsa) por su sintaxis especial
+        """assignment_stmt : ID ASSIGN expression
+                           | ID PLUSASSIGN expression
+                           | ID MINUSASSIGN expression
+                           | ID MULTI_ASSIGN expression
+                           | ID DIVIDE_ASSIGN expression
+                           | ID MOD_ASSIGN expression
+                           | ID FLOORDIV_ASSIGN expression
+                           | ID POW_ASSIGN expression"""
         p[0] = ("assign", p[1], p[3])
 
     # Sentencia while
