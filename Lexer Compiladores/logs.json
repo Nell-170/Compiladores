@@ -1,14 +1,7 @@
 [
-    "ERROR(PARSER): Syntax error at token 'NEWLINE' at line 4, column 151",
-    "ERROR(PARSER): Syntax error at token 'a' at line 5, column 173",
-    "ERROR(PARSER): Syntax error at token '=' at line 13, column 307",
-    "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 13, column 310",
-    "ERROR(LEXER): Indentation must be a multiple of 4 spaces at line 24, column 578",
-    "ERROR(PARSER): Syntax error at token '=' at line 24, column 586",
-    "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 37, column 941",
-    "ERROR(PARSER): Syntax error at token '=' at line 42, column 1100",
-    "ERROR(PARSER): Syntax error at token 'return' at line 75, column 1940",
-    "ERROR(PARSER): Syntax error at token '=' at line 82, column 2086",
-    "ERROR(PARSER): Syntax error at token '=' at line 84, column 2118",
-    "ERROR(PARSER): Syntax error at token '1' at line 89, column 2197"
+    "ERROR(PARSER): Syntax error at token 'a' at line 1, column 21",
+    "ERROR(LEXER): Illegal character '\"' at line 6, column 99",
+    "ERROR(LEXER): Expected an indented block at line 9, column 134",
+    "ERROR(LEXER): Expected an indented block at line 12, column 197",
+    "ERROR(LEXER): Illegal character '\"' at line 14, column 233"
 ]

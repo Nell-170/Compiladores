@@ -18,6 +18,8 @@ class Parser:
 
     # ----- Reglas de la gramática -----
 
+    # RECORDAR QUE LAS REGLAS DEBEN ESTAR EN ORDEN DESCENDENTE DE PRECEDENCIA
+
     # Programa: lista de sentencias (puede ser función, clase o expresión simple)
     def p_program(self, p):
         """program : top_level_stmt_list"""
@@ -50,7 +52,7 @@ class Parser:
         p[0] = ("class_def", p[2], p[6])  # nombre, cuerpo
 
     # Cuerpo de funciones/clases (NO pueden contener def ni class) -----
-    def p_body_stmt_list(self, p):
+    def p_body_stmt_list(self, p): 
         """body_stmt_list : body_stmt_list body_stmt
                           | body_stmt"""
         if len(p) == 3:
@@ -120,7 +122,7 @@ class Parser:
         p[0] = ("expr", p[1])
 
     # Placeholder para expresiones (puede ser una sentencia simple por ahora)
-    def p_expression_stmt(self, p):
+    def p_expression(self, p):
         """expression : simple_stmt"""
         p[0] = p[1]
 

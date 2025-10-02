@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'programAND ASSIGN ASSIGN_COLON BREAK CLASS COLON COMMA CONTINUE DECIMAL DEDENT DEF DIVIDE DIVIDE_ASSIGN DOT DOUBLEGREATER DOUBLELESS ELIF ELSE EQ FALSE FLOORDIV FLOORDIV_ASSIGN FOR GREATER GREATEREQ ID IF IN INDENT INTEGER LBRACKET LESS LESSEQ LESSGREATER LKEY LPAREN MINUS MINUS_ASSIGN MOD MOD_ASSIGN MULTI MULTI_ASSIGN NEQ NEWLINE NOT OR PASS PLUS PLUS_ASSIGN POW POW_ASSIGN RBRACKET RETURN RKEY RPAREN SCONST SEMICOLON TERNAL TRIPLEGREATER TRIPLELESS TRUE WHILEprogram : stmt_liststmt_list : stmt_list stmt\n| stmtstmt : func_def\n| class_def \n| if_stmt\n| simple_stmtfunc_def : DEF ID LPAREN RPAREN COLON NEWLINE INDENT stmt_list DEDENTclass_def : CLASS ID COLON NEWLINE INDENT stmt_list DEDENTif_stmt : IF simple_stmt COLON NEWLINE INDENT stmt_list DEDENTsimple_stmt : ID\n| INTEGER\n| DECIMAL\n| SCONST'
+_lr_signature = 'programAND ASSIGN ASSIGN_COLON BREAK CLASS COLON COMMA CONTINUE DECIMAL DEDENT DEF DIVIDE DIVIDE_ASSIGN DOT DOUBLEGREATER DOUBLELESS ELIF ELSE EQ FALSE FLOORDIV FLOORDIV_ASSIGN FOR GREATER GREATEREQ ID IF IN INDENT INTEGER LBRACKET LESS LESSEQ LESSGREATER LKEY LPAREN MINUS MINUS_ASSIGN MOD MOD_ASSIGN MULTI MULTI_ASSIGN NEQ NEWLINE NOT OR PASS PLUS PLUS_ASSIGN POW POW_ASSIGN RBRACKET RETURN RKEY RPAREN SCONST SEMICOLON TERNAL TRIPLEGREATER TRIPLELESS TRUE WHILEprogram : top_level_stmt_listtop_level_stmt_list : top_level_stmt_list top_level_stmt\n| top_level_stmttop_level_stmt : func_def\n| class_def\n| simple_stmtfunc_def : DEF ID LPAREN RPAREN COLON NEWLINE INDENT body_stmt_list DEDENTclass_def : CLASS ID COLON NEWLINE INDENT body_stmt_list DEDENTbody_stmt_list : body_stmt_list body_stmt\n| body_stmtbody_stmt : if_stmt \n| assignment_stmt\n| while_stmt\n| for_stmt\n| return_stmt\n| simple_stmtif_stmt : IF expression COLON NEWLINE INDENT body_stmt_list DEDENT\n| IF expression COLON NEWLINE INDENT body_stmt_list DEDENT ELSE COLON NEWLINE INDENT body_stmt_list DEDENTassignment_stmt : ID ASSIGN expression\n| ID PLUS_ASSIGN expression\n| ID MINUS_ASSIGN expression\n| ID MULTI_ASSIGN expression\n| ID DIVIDE_ASSIGN expression\n| ID MOD_ASSIGN expression\n| ID FLOORDIV_ASSIGN expression\n| ID POW_ASSIGN expression while_stmt : WHILE expression COLON NEWLINE INDENT body_stmt_list DEDENTfor_stmt : FOR ID IN expression COLON NEWLINE INDENT body_stmt_list DEDENTreturn_stmt : RETURN expression\n| RETURN simple_stmt : ID\n| INTEGER\n| DECIMAL\n| SCONSTexpression : simple_stmt'
     
-_lr_action_items = {'DEF':([0,2,3,4,5,6,7,9,12,13,14,15,26,27,29,30,31,32,33,34,35,],[8,8,-3,-4,-5,-6,-7,-11,-12,-13,-14,-2,8,8,8,8,8,-9,-10,8,-8,]),'CLASS':([0,2,3,4,5,6,7,9,12,13,14,15,26,27,29,30,31,32,33,34,35,],[10,10,-3,-4,-5,-6,-7,-11,-12,-13,-14,-2,10,10,10,10,10,-9,-10,10,-8,]),'IF':([0,2,3,4,5,6,7,9,12,13,14,15,26,27,29,30,31,32,33,34,35,],[11,11,-3,-4,-5,-6,-7,-11,-12,-13,-14,-2,11,11,11,11,11,-9,-10,11,-8,]),'ID':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,26,27,29,30,31,32,33,34,35,],[9,9,-3,-4,-5,-6,-7,16,-11,17,9,-12,-13,-14,-2,9,9,9,9,9,-9,-10,9,-8,]),'INTEGER':([0,2,3,4,5,6,7,9,11,12,13,14,15,26,27,29,30,31,32,33,34,35,],[12,12,-3,-4,-5,-6,-7,-11,12,-12,-13,-14,-2,12,12,12,12,12,-9,-10,12,-8,]),'DECIMAL':([0,2,3,4,5,6,7,9,11,12,13,14,15,26,27,29,30,31,32,33,34,35,],[13,13,-3,-4,-5,-6,-7,-11,13,-12,-13,-14,-2,13,13,13,13,13,-9,-10,13,-8,]),'SCONST':([0,2,3,4,5,6,7,9,11,12,13,14,15,26,27,29,30,31,32,33,34,35,],[14,14,-3,-4,-5,-6,-7,-11,14,-12,-13,-14,-2,14,14,14,14,14,-9,-10,14,-8,]),'$end':([1,2,3,4,5,6,7,9,12,13,14,15,32,33,35,],[0,-1,-3,-4,-5,-6,-7,-11,-12,-13,-14,-2,-9,-10,-8,]),'DEDENT':([3,4,5,6,7,9,12,13,14,15,29,30,32,33,34,35,],[-3,-4,-5,-6,-7,-11,-12,-13,-14,-2,32,33,-9,-10,35,-8,]),'COLON':([9,12,13,14,17,18,22,],[-11,-12,-13,-14,20,21,25,]),'LPAREN':([16,],[19,]),'RPAREN':([19,],[22,]),'NEWLINE':([20,21,25,],[23,24,28,]),'INDENT':([23,24,28,],[26,27,31,]),}
+_lr_action_items = {'DEF':([0,2,3,4,5,6,8,10,11,12,13,45,64,],[7,7,-3,-4,-5,-6,-31,-32,-33,-34,-2,-8,-7,]),'CLASS':([0,2,3,4,5,6,8,10,11,12,13,45,64,],[9,9,-3,-4,-5,-6,-31,-32,-33,-34,-2,-8,-7,]),'ID':([0,2,3,4,5,6,7,8,9,10,11,12,13,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,51,52,53,54,55,56,57,58,59,60,63,64,68,69,71,72,74,75,76,78,80,82,83,84,],[8,8,-3,-4,-5,-6,14,-31,15,-32,-33,-34,-2,23,-31,23,-10,-11,-12,-13,-14,-15,-16,8,8,50,8,23,8,8,8,8,8,8,8,8,-8,-9,-35,-29,23,-19,-20,-21,-22,-23,-24,-25,-26,8,-7,23,23,23,23,-17,-27,23,23,-28,23,23,-18,]),'INTEGER':([0,2,3,4,5,6,8,10,11,12,13,21,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,51,52,53,54,55,56,57,58,59,60,63,64,68,69,71,72,74,75,76,78,80,82,83,84,],[10,10,-3,-4,-5,-6,-31,-32,-33,-34,-2,10,-31,10,-10,-11,-12,-13,-14,-15,-16,10,10,10,10,10,10,10,10,10,10,10,10,-8,-9,-35,-29,10,-19,-20,-21,-22,-23,-24,-25,-26,10,-7,10,10,10,10,-17,-27,10,10,-28,10,10,-18,]),'DECIMAL':([0,2,3,4,5,6,8,10,11,12,13,21,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,51,52,53,54,55,56,57,58,59,60,63,64,68,69,71,72,74,75,76,78,80,82,83,84,],[11,11,-3,-4,-5,-6,-31,-32,-33,-34,-2,11,-31,11,-10,-11,-12,-13,-14,-15,-16,11,11,11,11,11,11,11,11,11,11,11,11,-8,-9,-35,-29,11,-19,-20,-21,-22,-23,-24,-25,-26,11,-7,11,11,11,11,-17,-27,11,11,-28,11,11,-18,]),'SCONST':([0,2,3,4,5,6,8,10,11,12,13,21,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,51,52,53,54,55,56,57,58,59,60,63,64,68,69,71,72,74,75,76,78,80,82,83,84,],[12,12,-3,-4,-5,-6,-31,-32,-33,-34,-2,12,-31,12,-10,-11,-12,-13,-14,-15,-16,12,12,12,12,12,12,12,12,12,12,12,12,-8,-9,-35,-29,12,-19,-20,-21,-22,-23,-24,-25,-26,12,-7,12,12,12,12,-17,-27,12,12,-28,12,12,-18,]),'$end':([1,2,3,4,5,6,8,10,11,12,13,45,64,],[0,-1,-3,-4,-5,-6,-31,-32,-33,-34,-2,-8,-7,]),'COLON':([8,10,11,12,15,18,47,48,49,67,77,],[-31,-32,-33,-34,17,20,61,-35,62,70,79,]),'DEDENT':([8,10,11,12,23,24,25,26,27,28,29,30,31,35,46,48,51,52,53,54,55,56,57,58,59,60,71,72,74,75,78,80,83,84,],[-31,-32,-33,-34,-31,45,-10,-11,-12,-13,-14,-15,-16,-30,-9,-35,-29,64,-19,-20,-21,-22,-23,-24,-25,-26,74,75,-17,-27,80,-28,84,-18,]),'IF':([8,10,11,12,21,23,24,25,26,27,28,29,30,31,35,36,46,48,51,52,53,54,55,56,57,58,59,60,68,69,71,72,74,75,76,78,80,82,83,84,],[-31,-32,-33,-34,32,-31,32,-10,-11,-12,-13,-14,-15,-16,-30,32,-9,-35,-29,32,-19,-20,-21,-22,-23,-24,-25,-26,32,32,32,32,-17,-27,32,32,-28,32,32,-18,]),'WHILE':([8,10,11,12,21,23,24,25,26,27,28,29,30,31,35,36,46,48,51,52,53,54,55,56,57,58,59,60,68,69,71,72,74,75,76,78,80,82,83,84,],[-31,-32,-33,-34,33,-31,33,-10,-11,-12,-13,-14,-15,-16,-30,33,-9,-35,-29,33,-19,-20,-21,-22,-23,-24,-25,-26,33,33,33,33,-17,-27,33,33,-28,33,33,-18,]),'FOR':([8,10,11,12,21,23,24,25,26,27,28,29,30,31,35,36,46,48,51,52,53,54,55,56,57,58,59,60,68,69,71,72,74,75,76,78,80,82,83,84,],[-31,-32,-33,-34,34,-31,34,-10,-11,-12,-13,-14,-15,-16,-30,34,-9,-35,-29,34,-19,-20,-21,-22,-23,-24,-25,-26,34,34,34,34,-17,-27,34,34,-28,34,34,-18,]),'RETURN':([8,10,11,12,21,23,24,25,26,27,28,29,30,31,35,36,46,48,51,52,53,54,55,56,57,58,59,60,68,69,71,72,74,75,76,78,80,82,83,84,],[-31,-32,-33,-34,35,-31,35,-10,-11,-12,-13,-14,-15,-16,-30,35,-9,-35,-29,35,-19,-20,-21,-22,-23,-24,-25,-26,35,35,35,35,-17,-27,35,35,-28,35,35,-18,]),'LPAREN':([14,],[16,]),'RPAREN':([16,],[18,]),'NEWLINE':([17,20,61,62,70,79,],[19,22,65,66,73,81,]),'INDENT':([19,22,65,66,73,81,],[21,36,68,69,76,82,]),'ASSIGN':([23,],[37,]),'PLUS_ASSIGN':([23,],[38,]),'MINUS_ASSIGN':([23,],[39,]),'MULTI_ASSIGN':([23,],[40,]),'DIVIDE_ASSIGN':([23,],[41,]),'MOD_ASSIGN':([23,],[42,]),'FLOORDIV_ASSIGN':([23,],[43,]),'POW_ASSIGN':([23,],[44,]),'IN':([50,],[63,]),'ELSE':([74,],[77,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'stmt_list':([0,26,27,31,],[2,29,30,34,]),'stmt':([0,2,26,27,29,30,31,34,],[3,15,3,3,15,15,3,15,]),'func_def':([0,2,26,27,29,30,31,34,],[4,4,4,4,4,4,4,4,]),'class_def':([0,2,26,27,29,30,31,34,],[5,5,5,5,5,5,5,5,]),'if_stmt':([0,2,26,27,29,30,31,34,],[6,6,6,6,6,6,6,6,]),'simple_stmt':([0,2,11,26,27,29,30,31,34,],[7,7,18,7,7,7,7,7,7,]),}
+_lr_goto_items = {'program':([0,],[1,]),'top_level_stmt_list':([0,],[2,]),'top_level_stmt':([0,2,],[3,13,]),'func_def':([0,2,],[4,4,]),'class_def':([0,2,],[5,5,]),'simple_stmt':([0,2,21,24,32,33,35,36,37,38,39,40,41,42,43,44,52,63,68,69,71,72,76,78,82,83,],[6,6,31,31,48,48,48,31,48,48,48,48,48,48,48,48,31,48,31,31,31,31,31,31,31,31,]),'body_stmt_list':([21,36,68,69,76,82,],[24,52,71,72,78,83,]),'body_stmt':([21,24,36,52,68,69,71,72,76,78,82,83,],[25,46,25,46,25,25,46,46,25,46,25,46,]),'if_stmt':([21,24,36,52,68,69,71,72,76,78,82,83,],[26,26,26,26,26,26,26,26,26,26,26,26,]),'assignment_stmt':([21,24,36,52,68,69,71,72,76,78,82,83,],[27,27,27,27,27,27,27,27,27,27,27,27,]),'while_stmt':([21,24,36,52,68,69,71,72,76,78,82,83,],[28,28,28,28,28,28,28,28,28,28,28,28,]),'for_stmt':([21,24,36,52,68,69,71,72,76,78,82,83,],[29,29,29,29,29,29,29,29,29,29,29,29,]),'return_stmt':([21,24,36,52,68,69,71,72,76,78,82,83,],[30,30,30,30,30,30,30,30,30,30,30,30,]),'expression':([32,33,35,37,38,39,40,41,42,43,44,63,],[47,49,51,53,54,55,56,57,58,59,60,67,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,18 +27,39 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> stmt_list','program',1,'p_program','parser.py',23),
-  ('stmt_list -> stmt_list stmt','stmt_list',2,'p_stmt_list','parser.py',28),
-  ('stmt_list -> stmt','stmt_list',1,'p_stmt_list','parser.py',29),
-  ('stmt -> func_def','stmt',1,'p_stmt','parser.py',37),
-  ('stmt -> class_def','stmt',1,'p_stmt','parser.py',38),
-  ('stmt -> if_stmt','stmt',1,'p_stmt','parser.py',39),
-  ('stmt -> simple_stmt','stmt',1,'p_stmt','parser.py',40),
-  ('func_def -> DEF ID LPAREN RPAREN COLON NEWLINE INDENT stmt_list DEDENT','func_def',9,'p_func_def','parser.py',45),
-  ('class_def -> CLASS ID COLON NEWLINE INDENT stmt_list DEDENT','class_def',7,'p_class_def','parser.py',50),
-  ('if_stmt -> IF simple_stmt COLON NEWLINE INDENT stmt_list DEDENT','if_stmt',7,'p_if_stmt','parser.py',55),
-  ('simple_stmt -> ID','simple_stmt',1,'p_simple_stmt','parser.py',60),
-  ('simple_stmt -> INTEGER','simple_stmt',1,'p_simple_stmt','parser.py',61),
-  ('simple_stmt -> DECIMAL','simple_stmt',1,'p_simple_stmt','parser.py',62),
-  ('simple_stmt -> SCONST','simple_stmt',1,'p_simple_stmt','parser.py',63),
+  ('program -> top_level_stmt_list','program',1,'p_program','parser.py',23),
+  ('top_level_stmt_list -> top_level_stmt_list top_level_stmt','top_level_stmt_list',2,'p_stmt_list','parser.py',28),
+  ('top_level_stmt_list -> top_level_stmt','top_level_stmt_list',1,'p_stmt_list','parser.py',29),
+  ('top_level_stmt -> func_def','top_level_stmt',1,'p_stmt','parser.py',37),
+  ('top_level_stmt -> class_def','top_level_stmt',1,'p_stmt','parser.py',38),
+  ('top_level_stmt -> simple_stmt','top_level_stmt',1,'p_stmt','parser.py',39),
+  ('func_def -> DEF ID LPAREN RPAREN COLON NEWLINE INDENT body_stmt_list DEDENT','func_def',9,'p_func_def','parser.py',44),
+  ('class_def -> CLASS ID COLON NEWLINE INDENT body_stmt_list DEDENT','class_def',7,'p_class_def','parser.py',49),
+  ('body_stmt_list -> body_stmt_list body_stmt','body_stmt_list',2,'p_body_stmt_list','parser.py',54),
+  ('body_stmt_list -> body_stmt','body_stmt_list',1,'p_body_stmt_list','parser.py',55),
+  ('body_stmt -> if_stmt','body_stmt',1,'p_body_stmt','parser.py',64),
+  ('body_stmt -> assignment_stmt','body_stmt',1,'p_body_stmt','parser.py',65),
+  ('body_stmt -> while_stmt','body_stmt',1,'p_body_stmt','parser.py',66),
+  ('body_stmt -> for_stmt','body_stmt',1,'p_body_stmt','parser.py',67),
+  ('body_stmt -> return_stmt','body_stmt',1,'p_body_stmt','parser.py',68),
+  ('body_stmt -> simple_stmt','body_stmt',1,'p_body_stmt','parser.py',69),
+  ('if_stmt -> IF expression COLON NEWLINE INDENT body_stmt_list DEDENT','if_stmt',7,'p_if_stmt','parser.py',74),
+  ('if_stmt -> IF expression COLON NEWLINE INDENT body_stmt_list DEDENT ELSE COLON NEWLINE INDENT body_stmt_list DEDENT','if_stmt',13,'p_if_stmt','parser.py',75),
+  ('assignment_stmt -> ID ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',85),
+  ('assignment_stmt -> ID PLUS_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',86),
+  ('assignment_stmt -> ID MINUS_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',87),
+  ('assignment_stmt -> ID MULTI_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',88),
+  ('assignment_stmt -> ID DIVIDE_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',89),
+  ('assignment_stmt -> ID MOD_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',90),
+  ('assignment_stmt -> ID FLOORDIV_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',91),
+  ('assignment_stmt -> ID POW_ASSIGN expression','assignment_stmt',3,'p_assignment_stmt','parser.py',92),
+  ('while_stmt -> WHILE expression COLON NEWLINE INDENT body_stmt_list DEDENT','while_stmt',7,'p_while_stmt','parser.py',97),
+  ('for_stmt -> FOR ID IN expression COLON NEWLINE INDENT body_stmt_list DEDENT','for_stmt',9,'p_for_stmt','parser.py',102),
+  ('return_stmt -> RETURN expression','return_stmt',2,'p_return_stmt','parser.py',107),
+  ('return_stmt -> RETURN','return_stmt',1,'p_return_stmt','parser.py',108),
+  ('simple_stmt -> ID','simple_stmt',1,'p_simple_stmt','parser.py',116),
+  ('simple_stmt -> INTEGER','simple_stmt',1,'p_simple_stmt','parser.py',117),
+  ('simple_stmt -> DECIMAL','simple_stmt',1,'p_simple_stmt','parser.py',118),
+  ('simple_stmt -> SCONST','simple_stmt',1,'p_simple_stmt','parser.py',119),
+  ('expression -> simple_stmt','expression',1,'p_expression','parser.py',124),
 ]
