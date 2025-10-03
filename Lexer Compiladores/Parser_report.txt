@@ -1,4 +1,3 @@
-ERROR(LEXER): Illegal character '"' at line 6, column 99
-ERROR(LEXER): Illegal character '"' at line 14, column 233
+ERROR(LEXER): Illegal character '§' at line 70, column 1825
 Parser completado exitosamente
-AST result: ('program', [('expr', '')])
+AST result: None

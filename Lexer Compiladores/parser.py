@@ -5,9 +5,32 @@ from utils import Error
 import ast
 import json
 
+# PLY necesita 'tokens' visible desde el módulo cuando se construye el parser
+tokens = Lexer.tokens
 
 
 class Parser:
+
+    precedence = (
+        ("left", "OR"),
+        ("left", "AND"),
+        ("right", "NOT"),
+        (
+            "nonassoc",
+            "LESS",
+            "LESSEQ",
+            "GREATER",
+            "GREATEREQ",
+            "EQ",
+            "NEQ",
+            "LESSGREATER",
+        ),
+        ("left", "PLUS", "MINUS"),
+        ("left", "MULTI", "DIVIDE", "FLOORDIV", "MOD"),
+        ("right", "POW"),
+        ("right", "UMINUS", "UPLUS"),
+    )
+
     def __init__(self, errors: list[Error], debug=False):
         self.errors = errors
         self.debug = debug
@@ -15,6 +38,19 @@ class Parser:
         self.lexer.build()
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self, start="program", debug=debug)
+
+    # --- helpers AST (solo para expresiones; no afectan otros segmentos) ---
+    def _bin(self, op, left, right):
+        return ("binary_op", op.lower(), left, right)
+
+    def _un(self, op, operand):
+        return ("unary_op", op.lower(), operand)
+
+    def _lit(self, kind, value):
+        return ("literal", kind, value)
+
+    def _id(self, name):
+        return ("identifier", name)
 
     # ----- Reglas de la gramática -----
 
@@ -60,7 +96,6 @@ class Parser:
         else:
             p[0] = [p[1]]
 
-    
     # Sentencias permitidas dentro de funciones/clases
     def p_body_stmt(self, p):
         """body_stmt : if_stmt 
@@ -92,6 +127,7 @@ class Parser:
                            | ID MOD_ASSIGN expression
                            | ID FLOORDIV_ASSIGN expression
                            | ID POW_ASSIGN expression """
+        # Conservamos la forma original de AST para no romper consumidores no relacionados
         p[0] = ("assign", p[1], p[3])
 
     # Sentencia while
@@ -113,18 +149,174 @@ class Parser:
         else:
             p[0] = ("return", None)
 
-    # Sentencia simple: puede ser un identificador, entero, decimal o cadena
+    # ----- Sentencia simple como sentencia de expresión -----
+    # Minimiza cambios: ahora simple_stmt acepta cualquier expresión
     def p_simple_stmt(self, p):
-        """simple_stmt : ID
-                       | INTEGER
-                       | DECIMAL
-                       | SCONST"""
+        """simple_stmt : expression"""
         p[0] = ("expr", p[1])
 
-    # Placeholder para expresiones (puede ser una sentencia simple por ahora)
+    # ======================
+    # ===== Expresiones =====
+    # ======================
+
     def p_expression(self, p):
-        """expression : simple_stmt"""
+        """expression : or_expression"""
         p[0] = p[1]
+
+    def p_or_expression(self, p):
+        """or_expression : or_expression OR and_expression
+        | and_expression"""
+        p[0] = self._bin("OR", p[1], p[3]) if len(p) == 4 else p[1]
+
+    def p_and_expression(self, p):
+        """and_expression : and_expression AND not_expression
+        | not_expression"""
+        p[0] = self._bin("AND", p[1], p[3]) if len(p) == 4 else p[1]
+
+    def p_not_expression(self, p):
+        """not_expression : NOT not_expression
+        | comparison"""
+        p[0] = self._un("NOT", p[2]) if len(p) == 3 else p[1]
+
+    def p_comparison(self, p):
+        """comparison : arithmetic_expression
+        | arithmetic_expression comparator arithmetic_expression"""
+        p[0] = self._bin(p[2], p[1], p[3]) if len(p) == 4 else p[1]
+
+    def p_comparator(self, p):
+        """comparator : EQ
+        | NEQ
+        | LESS
+        | LESSEQ
+        | GREATER
+        | GREATEREQ
+        | LESSGREATER"""
+        p[0] = p.slice[1].type
+
+    def p_arithmetic_expression(self, p):
+        """arithmetic_expression : arithmetic_expression PLUS term
+        | arithmetic_expression MINUS term
+        | term"""
+        p[0] = self._bin(p.slice[2].type, p[1], p[3]) if len(p) == 4 else p[1]
+
+    def p_term(self, p):
+        """term : term MULTI factor
+        | term DIVIDE factor
+        | term FLOORDIV factor
+        | term MOD factor
+        | factor"""
+        p[0] = self._bin(p.slice[2].type, p[1], p[3]) if len(p) == 4 else p[1]
+
+    def p_factor(self, p):
+        """factor : PLUS factor %prec UPLUS
+        | MINUS factor %prec UMINUS
+        | power"""
+        if len(p) == 3:
+            p[0] = self._un(p.slice[1].type, p[2])
+        else:
+            p[0] = p[1]
+
+    def p_power(self, p):
+        """power : primary
+        | primary POW power"""
+        p[0] = self._bin("POW", p[1], p[3]) if len(p) == 4 else p[1]
+
+    # ----- Primarios: literales, id, llamadas, listas/tuplas/dicts, agrupación -----
+
+    # Llamadas a funciones con argumentos posicionales
+    def p_primary_call(self, p):
+        """primary : ID LPAREN arglist_opt RPAREN"""
+        p[0] = ("call", self._id(p[1]), p[3])
+
+    # Literales y nombres
+    def p_primary_atoms(self, p):
+        """primary : ID
+        | INTEGER
+        | DECIMAL
+        | SCONST
+        | TRUE
+        | FALSE"""
+        tok = p.slice[1].type
+        if tok == "ID":
+            p[0] = self._id(p[1])
+        elif tok == "INTEGER":
+            p[0] = self._lit("int", p[1])
+        elif tok == "DECIMAL":
+            p[0] = self._lit("float", p[1])
+        elif tok == "SCONST":
+            p[0] = self._lit("string", p[1])
+        elif tok == "TRUE":
+            p[0] = self._lit("bool", True)
+        elif tok == "FALSE":
+            p[0] = self._lit("bool", False)
+
+    # Agrupación: (expr)
+    def p_primary_group(self, p):
+        """primary : LPAREN expression RPAREN"""
+        p[0] = ("group", p[2])
+
+    # Tuplas: (a,) — tupla de un elemento
+    def p_primary_tuple_trailing(self, p):
+        """primary : LPAREN expression COMMA RPAREN"""
+        p[0] = ("tuple", [p[2]])
+
+    # Tuplas: (a, b, ...)
+    def p_primary_tuple(self, p):
+        """primary : LPAREN expr_list COMMA_opt RPAREN"""
+        if len(p[2]) > 1 or p[3] is True:
+            p[0] = ("tuple", p[2])
+        else:
+            p[0] = ("group", p[2][0])
+
+    # Listas: [a, b, c]
+    def p_primary_list(self, p):
+        """primary : LBRACKET expr_list_opt RBRACKET"""
+        p[0] = ("list", p[2])
+
+    # Diccionarios: {k1: v1, k2: v2}
+    def p_primary_dict(self, p):
+        """primary : LKEY key_value_list_opt RKEY"""
+        p[0] = ("dict", p[2])
+
+    # ----- utilidades para listas/argumentos -----
+    def p_arglist_opt(self, p):
+        """arglist_opt : expr_list_opt"""
+        p[0] = p[1]
+
+    def p_expr_list(self, p):
+        """expr_list : expression
+        | expr_list COMMA expression"""
+        p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
+
+    def p_expr_list_opt(self, p):
+        """expr_list_opt : expr_list
+        | empty"""
+        p[0] = p[1] if p[1] is not None else []
+
+    def p_COMMA_opt(self, p):
+        """COMMA_opt : COMMA
+        | empty"""
+        p[0] = True if len(p) == 2 and p.slice[1].type == "COMMA" else False
+
+    # Pares k:v para diccionarios
+    def p_key_value(self, p):
+        """key_value : expression COLON expression"""
+        p[0] = (p[1], p[3])
+
+    def p_key_value_list(self, p):
+        """key_value_list : key_value
+        | key_value_list COMMA key_value"""
+        p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
+
+    def p_key_value_list_opt(self, p):
+        """key_value_list_opt : key_value_list
+        | empty"""
+        p[0] = p[1] if p[1] is not None else []
+
+    # Vacío (utilidad)
+    def p_empty(self, p):
+        """empty :"""
+        pass
 
     # Manejo de errores
     def p_error(self, p):
@@ -157,11 +349,11 @@ if __name__ == "__main__":
     print("AST result:", result)
 
     if errors:
-        print("\nDetected errors:")
+        print("Detected errors:")
         for e in errors:
             print(e)
     else:
-        print("\nNo syntax errors detected.")
+        print("No syntax errors detected.")
 
 
 # ---- To test the parser ----
@@ -213,7 +405,7 @@ if __name__ == "__main__":
     parser_instance = Parser(errors, debug=False)
 
     # Archivo a analizar
-    path = "test.py"
+    path = "original_text.py"
     success = parser_tester(path, parser_instance)
 
     structures_parser_tester(errors)
