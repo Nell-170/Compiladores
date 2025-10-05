@@ -357,7 +357,7 @@ class Lexer:
 
     # Identifiers and reserved words
     def t_ID(self, t):
-        r"""[a-z_A-Z][a-zA-Z0-9_]*"""
+        r"""[a-zA-Z_][a-zA-Z0-9_]*"""
         self.saw_token_on_line = True
         if self.debug:
             print(f"DEBUG(LEXER): {t.value} on line {t.lineno}, position {t.lexpos}")
