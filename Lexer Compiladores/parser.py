@@ -26,7 +26,7 @@ class Parser:
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self, start="program", debug=debug)
 
-       # --- helpers AST (solo para expresiones; no afectan otros segmentos) ---
+    # --- helpers AST (solo para expresiones; no afectan otros segmentos) ---
     def _bin(self, op, left, right):
         return ("binary_op", op.lower(), left, right)
 
@@ -38,6 +38,43 @@ class Parser:
 
     def _id(self, name):
         return ("identifier", name)
+    
+    # --- diagnostics ---------------------------------------------------------
+    def _has_lexer_errors(self) -> bool:
+        """Return True if any error originated in the lexer."""
+        return any(getattr(e, "source", "").lower() == "lexer" for e in self.errors)
+
+    def _has_parser_errors(self) -> bool:
+        """Return True if any error originated in the parser."""
+        return any(getattr(e, "source", "").lower() == "parser" for e in self.errors)
+
+    def _validate_ast_for_empty_string_literals(self, node):
+        """
+        Walk the AST and emit a validator warning if we find ('literal','string','').
+        This is especially suspicious when lexer errors occurred (e.g., broken strings).
+        """
+        def walk(n):
+            if isinstance(n, tuple):
+                # ('literal', 'string', '')
+                if len(n) == 3 and n[0] == "literal" and n[1] == "string" and n[2] == "":
+                    # Attach a validator entry (non-blocking) to the shared errors list
+                    self.errors.append(
+                        Error(
+                            "Empty string literal found in AST; likely caused by prior lexing errors on string tokens.",
+                            getattr(self.lexer, "lineno", -1),
+                            -1,
+                            "validator",
+                            self.lexer.data if hasattr(self.lexer, "data") else "",
+                        )
+                    )
+                for part in n:
+                    walk(part)
+            elif isinstance(n, list):
+                for item in n:
+                    walk(item)
+            # identifiers/ints/floats/None are leaves; ignore
+
+        walk(node)
 
 
     # ----- Reglas de la gramática -----
@@ -501,11 +538,29 @@ def parser_tester(path, parser_instance):
                 lexer=parser_instance.lexer.lex,
                 debug=False
             )
-            print("Parser completado exitosamente")
-            print("AST result:", result)
-            success = True
+            # Post-parse validation: if there were lexer errors, scan the AST for bad string literals
+            if result is not None and parser_instance._has_lexer_errors():
+                parser_instance._validate_ast_for_empty_string_literals(result)
+
+            # Decide overall success
+            has_lex_err = parser_instance._has_lexer_errors()
+            has_par_err = parser_instance._has_parser_errors()
+            success = not (has_lex_err or has_par_err)
+
+            if success:
+                print("Parsing completed successfully.")
+                print("AST result:", result)
+            else:
+                print("Parsing completed with errors.")
+                if has_lex_err:
+                    print("- Blocking: lexer errors present → AST may be incomplete/invalid.")
+                if has_par_err:
+                    print("- Parser errors present.")
+                # Show AST only if you want to inspect partial trees. Here we **omit** to avoid masking issues.
+                # print("Partial AST (unsafe):", result)
+
         except Exception as e:
-            print(f"Error durante el parseo: {e}")
+            print(f"Error durante el parseo (uncaught): {e}")
             success = False
 
     # Restoring stdout

@@ -1,4 +1,4 @@
 ERROR(LEXER): Illegal character '"' at line 6, column 99
 ERROR(LEXER): Illegal character '"' at line 14, column 233
-Parser completado exitosamente
+Parsing completed successfully.
 AST result: ('program', [('func_def', 'random_operation', ['a', 'b'], [('assignment', 'c', ('binop', '+', ('identifier', 'a'), ('identifier', 'b'))), ('return', ('binop', '+', ('binop', '+', ('identifier', 'c'), ('binop', '*', ('identifier', 'a'), ('identifier', 'b'))), ('literal', 'float', 2.6548)))]), ('literal', 'string', ''), ('assignment', 'n', ('call', ('identifier', 'len'), [('identifier', 'data')])), ('comparison', '>', ('identifier', 'n'), ('literal', 'int', 10)), ('call', ('identifier', 'print'), [('identifier', 'f')]), ('group', ('identifier', 'n')), ('literal', 'int', 10), ('call', ('identifier', 'print'), [('identifier', 'f')]), ('literal', 'string', '')])
