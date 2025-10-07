@@ -1,4 +1,76 @@
-ERROR(LEXER): Illegal character '"' at line 6, column 99
-ERROR(LEXER): Illegal character '"' at line 14, column 233
+
+Para el archivo parser_minimal.py:
 Parsing completed successfully.
-AST result: ('program', [('func_def', 'random_operation', ['a', 'b'], [('assignment', 'c', ('binop', '+', ('identifier', 'a'), ('identifier', 'b'))), ('return', ('binop', '+', ('binop', '+', ('identifier', 'c'), ('binop', '*', ('identifier', 'a'), ('identifier', 'b'))), ('literal', 'float', 2.6548)))]), ('literal', 'string', ''), ('assignment', 'n', ('call', ('identifier', 'len'), [('identifier', 'data')])), ('comparison', '>', ('identifier', 'n'), ('literal', 'int', 10)), ('call', ('identifier', 'print'), [('identifier', 'f')]), ('group', ('identifier', 'n')), ('literal', 'int', 10), ('call', ('identifier', 'print'), [('identifier', 'f')]), ('literal', 'string', '')])
+AST result: ('program', [])
+
+
+Para el archivo parser_assign_expr.py:
+Parsing completed successfully.
+AST result: ('program', [('assignment', 'x', ('literal', 'int', 1)), ('assignment', 'y', ('literal', 'int', 2)), ('assignment', 'z', ('binop', '+', ('unaryop', '-', ('binary_op', 'pow', ('literal', 'int', 2), ('literal', 'int', 3))), ('binop', '%', ('binop', '//', ('binop', '*', ('unaryop', '+', ('identifier', 'y')), ('group', ('binop', '+', ('identifier', 'x'), ('literal', 'int', 4)))), ('literal', 'int', 2)), ('literal', 'int', 3)))), ('assignment', 'w', ('tuple', [('identifier', 'x')])), ('assignment', 't', ('tuple', [('identifier', 'x')])), ('assignment', 'lst', ('list', [('identifier', 'x'), ('identifier', 'y'), ('identifier', 'z')])), ('assignment', 'dct', ('dict', [(('literal', 'string', 'a'), ('identifier', 'x')), (('literal', 'string', 'b'), ('binop', '+', ('identifier', 'y'), ('literal', 'int', 1))), (('literal', 'bool', True), ('literal', 'int', 5))])), ('call', ('identifier', 'print'), [('literal', 'string', 'ok'), ('identifier', 'x'), ('identifier', 'y'), ('identifier', 'z')])])
+
+
+Para el archivo parser_function_control.py:
+Parsing completed successfully.
+AST result: ('program', [('func_def', 'f', ['a', 'b'], [('assignment', 'c', ('binop', '+', ('identifier', 'a'), ('identifier', 'b'))), ('if_stmt', ('comparison', '>', ('identifier', 'c'), ('literal', 'int', 10)), [('return', ('identifier', 'c'))], [('elif', ('comparison', '==', ('identifier', 'c'), ('literal', 'int', 10)), [('return', ('literal', 'int', 0))])], ('else', [('assignment', 'i', ('literal', 'int', 0)), ('while', ('comparison', '<', ('identifier', 'i'), ('literal', 'int', 3)), [('if_stmt', ('comparison', '==', ('identifier', 'i'), ('literal', 'int', 1)), [('aug_assignment', '+=', 'i', ('literal', 'int', 1)), ('continue',)], [], None), ('aug_assignment', '+=', 'i', ('literal', 'int', 1))]), ('assignment', 'total', ('literal', 'int', 0)), ('for', 'k', ('identifier', 'lst'), [('aug_assignment', '+=', 'total', ('identifier', 'k'))]), ('return', ('identifier', 'total'))]))])])
+
+
+Para el archivo parser_augmented_assigns.py:
+Parsing completed successfully.
+AST result: ('program', [('assignment', 'a', ('literal', 'int', 2)), ('aug_assignment', '+=', 'a', ('literal', 'int', 3)), ('aug_assignment', '-=', 'a', ('literal', 'int', 1)), ('aug_assignment', '*=', 'a', ('literal', 'int', 5)), ('aug_assignment', '//=', 'a', ('literal', 'int', 2)), ('aug_assignment', '%=', 'a', ('literal', 'int', 3)), ('aug_assignment', '**=', 'a', ('literal', 'int', 2)), ('assignment', 'ok', ('binary_op', 'and', ('group', ('comparison', '>', ('identifier', 'a'), ('literal', 'int', 1))), ('unary_op', 'not', ('group', ('comparison', '==', ('identifier', 'a'), ('literal', 'int', 0))))))])
+
+
+Para el archivo parser_class_and_method.py:
+Parsing completed successfully.
+AST result: ('program', [('class_def', 'Accumulator', None, [('func_def', '__init__', ['self', 'value'], [('assignment', 'self', ('identifier', 'self')), ('identifier', 'self'), ('assignment', 'value', ('identifier', 'value'))]), ('func_def', 'add', ['self', 'x'], [('assignment', 's', ('literal', 'int', 0)), ('while', ('comparison', '>', ('identifier', 'x'), ('literal', 'int', 0)), [('aug_assignment', '+=', 's', ('identifier', 'x')), ('aug_assignment', '-=', 'x', ('literal', 'int', 1))]), ('return', ('identifier', 's'))])])])
+
+
+Para el archivo parser_class_and_method.py:
+Parsing completed successfully.
+AST result: ('program', [('class_def', 'Accumulator', None, [('func_def', '__init__', ['self', 'value'], [('assignment', 'self', ('identifier', 'self')), ('identifier', 'self'), ('assignment', 'value', ('identifier', 'value'))]), ('func_def', 'add', ['self', 'x'], [('assignment', 's', ('literal', 'int', 0)), ('while', ('comparison', '>', ('identifier', 'x'), ('literal', 'int', 0)), [('aug_assignment', '+=', 's', ('identifier', 'x')), ('aug_assignment', '-=', 'x', ('literal', 'int', 1))]), ('return', ('identifier', 's'))])])])
+
+
+Para el archivo parser_inline_function.py:
+Parsing completed successfully.
+AST result: None
+
+
+Para el archivo parser_semicolons.py:
+Parsing completed successfully.
+AST result: ('program', [('assignment', 'x', ('literal', 'int', 1)), ('assignment', 'y', ('literal', 'int', 2))])
+
+
+Para el archivo parser_top_level_if.py:
+Parsing completed successfully.
+AST result: ('program', [('assignment', 'x', ('literal', 'int', 5)), ('if_stmt', ('comparison', '>', ('identifier', 'x'), ('literal', 'int', 4)), [('call', ('identifier', 'print'), [('literal', 'string', 'hi')])], [], None)])
+
+
+Para el archivo parser_tuple_unpacking.py:
+Parsing completed successfully.
+AST result: ('program', [('for', 'a', ('list', [('tuple', [('literal', 'int', 1)]), ('tuple', [('literal', 'int', 3)])]), [('pass',)])])
+
+
+Para el archivo parser_keyword_args.py:
+Parsing completed successfully.
+AST result: ('program', [('call', ('identifier', 'print'), [('identifier', 'msg')])])
+
+
+Para el archivo parser_chained_comparison.py:
+Parsing completed successfully.
+AST result: ('program', [('assignment', 'a', ('literal', 'int', 1)), ('assignment', 'b', ('literal', 'int', 2)), ('assignment', 'c', ('literal', 'int', 3)), ('assignment', 'flag', ('comparison', '<', ('identifier', 'a'), ('identifier', 'b'))), ('identifier', 'c')])
+
+
+Para el archivo parser_list_trailing_comma.py:
+Parsing completed successfully.
+AST result: None
+
+
+Para el archivo parser_dict_trailing_comma.py:
+Parsing completed successfully.
+AST result: None
+
+
+Para el archivo parser_missing_colon_or_indent.py:
+Parsing completed successfully.
+AST result: ('program', [('if_stmt', ('comparison', '>', ('literal', 'int', 3), ('literal', 'int', 2)), [('assignment', 'x', ('literal', 'int', 1))], [], ('else', [('assignment', 'x', ('literal', 'int', 2))]))])
+
+

@@ -20,6 +20,8 @@ class Lexer:
             self.reserved_map[r.lower()] = r
 
     reserved = (
+        # TODO(any): add PRINT token and rule
+        # TODO(any): add TRY CATCH token and rule
         # Control flow
         "IF", "ELSE", "ELIF", "WHILE", "FOR", "IN", 
         "BREAK", "CONTINUE", "PASS",
@@ -490,13 +492,14 @@ def pretty_print_errors(errors):
         print(f"\n[{i}] {e}") 
 
 
-# TEST
-errors = []
-lexer = Lexer(errors, debug=False)
+# --- MAIN TEST ---
+if __name__ == "__main__":
+    # TEST
+    errors = []
+    lexer = Lexer(errors, debug=False)
 
-# File to test
-path = "test.py"
-lexer_tester(path, lexer)
-
-# pretty_print_errors(errors)
+    # File to test
+    path = "lexer_test.py"
+    lexer_tester(path, lexer)
+    pretty_print_errors(errors)
 

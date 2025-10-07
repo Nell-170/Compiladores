@@ -5,6 +5,15 @@ from utils import Error
 import ast
 import json
 
+# TODO(any): Agregar atributos de clases (e.g. self.value)
+# TODO(any): Agregar regla de inline function (def f(): return 0)
+# TODO(any): Agregar regla de PRINT y TRY y TRY CATCH
+# TODO(any): tuple unpacking en los fors (y algún otro lado??)
+# TODO(any): keyword args (e.g. print(msg="hello"))
+# TODO(any): chained comparisons (e.g. flag = a < b < c)
+# TODO(any): trailing commas in list, dict, 
+
+
 class Parser:
 # ----- PRECEDENCIA Y ASOCIATIVIDAD -----
     precedence = (
@@ -500,31 +509,6 @@ class Parser:
                 )
             )
 
-# --- Tester ---
-if __name__ == "__main__":
-    errors = []
-    parser = Parser(errors, debug=False)
-
-    with open("test.py", "r", encoding="utf-8") as f:
-        code = f.read()
-
-    # Guardar el código para manejo de errores
-    parser.lexer.data = code
-
-    result = parser.parser.parse(code, lexer=parser.lexer.lex)
-
-    print("AST result:", result)
-
-    if errors:
-        print("\nDetected errors:")
-        for e in errors:
-            print(e)
-    else:
-        print("\nNo syntax errors detected.")
-
-
-# To test the parser
-
 # Function to read the file and test the parser
 def parser_tester(path, parser_instance):
     parser_instance.lexer.lex.lineno = 1  # reset line count
@@ -535,8 +519,9 @@ def parser_tester(path, parser_instance):
         input_text = f.read()
 
     # Redirecting stdout to a report file
-    with open("Parser_report.txt", "w", encoding="utf-8") as archivoParser:
+    with open("Parser_report.txt", "a", encoding="utf-8") as archivoParser:
         sys.stdout = archivoParser
+        print(f"Para el archivo {path}:")
         try:
             result = parser_instance.parser.parse(
                 input_text,
@@ -563,7 +548,8 @@ def parser_tester(path, parser_instance):
                     print("- Parser errors present.")
                 # Show AST only if you want to inspect partial trees. Here we **omit** to avoid masking issues.
                 # print("Partial AST (unsafe):", result)
-
+            
+            print("\n")
         except Exception as e:
             print(f"Error durante el parseo (uncaught): {e}")
             success = False
@@ -571,7 +557,6 @@ def parser_tester(path, parser_instance):
     # Restoring stdout
     sys.stdout = stdout_original
     return success
-
 
 # Structures testing method
 def structures_parser_tester(errors):
@@ -583,14 +568,24 @@ def structures_parser_tester(errors):
     with open("logs.json", "w", encoding="utf-8") as f:
         f.write(logs_json)
 
-
 # --- MAIN TEST ---
 if __name__ == "__main__":
     errors = []
     parser_instance = Parser(errors, debug=False)
 
-    # Archivo a analizar
-    path = "parser_test.py"
-    success = parser_tester(path, parser_instance)
+    with open("Parser_report.txt", "w", encoding="utf-8") as archivoParser:
+        stdout_original = sys.stdout
+        sys.stdout = archivoParser
+        print("")
+        sys.stdout = stdout_original
 
-    structures_parser_tester(errors)
+    # Archivos a analizar
+    test_files = ["parser_minimal.py", "parser_assign_expr.py", "parser_function_control.py", "parser_augmented_assigns.py", "parser_class_and_method.py", "parser_class_and_method.py", "parser_inline_function.py", "parser_semicolons.py", "parser_top_level_if.py", "parser_tuple_unpacking.py", "parser_keyword_args.py", "parser_chained_comparison.py", "parser_list_trailing_comma.py", "parser_dict_trailing_comma.py", "parser_missing_colon_or_indent.py"]
+
+    for test in test_files:
+        path = test
+        success = parser_tester(path, parser_instance)
+        print(f"Para el archivo {test}:")
+        {structures_parser_tester(errors)}
+        print("\n")
+        errors.clear()

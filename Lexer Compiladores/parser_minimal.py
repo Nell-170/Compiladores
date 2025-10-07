@@ -1,0 +1,1 @@
+# Empty program should be allowed (top_level_stmts → empty)
