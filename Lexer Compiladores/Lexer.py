@@ -17,7 +17,10 @@ class Lexer:
         self.errors = errors  # use the same error list as the parser
         for r in self.reserved:
             # map keyword text in lowercase to its token name in uppercase
-            self.reserved_map[r.lower()] = r
+            if r in ("TRUE", "FALSE"):
+                self.reserved_map[r.capitalize()] = r  # "True" y "False"
+            else:
+                self.reserved_map[r.lower()] = r
 
     reserved = (
         # TODO(any): add PRINT token and rule
@@ -364,7 +367,7 @@ class Lexer:
         if self.debug:
             print(f"DEBUG(LEXER): {t.value} on line {t.lineno}, position {t.lexpos}")
         # lookup in lowercase so 'True' -> 'TRUE', 'In' -> 'IN', etc.
-        t.type = self.reserved_map.get(t.value.lower(), "ID")
+        t.type = self.reserved_map.get(t.value, "ID")
         return t
 
     # Numbers: decimal must be matched before integer

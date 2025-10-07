@@ -5,8 +5,7 @@
 def random_operation(a, b):
     c = a + b
     # Hi I'm a comment!
-    return c + a * b + 2.6548
-
+    return c + a * b + 2.6543
 
 # --- 2) Semicolon forbidden anywhere ---
 def f():
