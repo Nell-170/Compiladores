@@ -590,7 +590,7 @@ if __name__ == "__main__":
     parser_instance = Parser(errors, debug=False)
 
     # Archivo a analizar
-    path = "test.py"
+    path = "parser_test.py"
     success = parser_tester(path, parser_instance)
 
     structures_parser_tester(errors)
