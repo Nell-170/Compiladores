@@ -14,7 +14,7 @@ class Parser:
     ('left', 'LESS', 'GREATER', 'LESSEQ', 'GREATEREQ', 'EQ', 'NEQ'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'MULTI', 'DIVIDE', 'FLOORDIV', 'MOD'),
-    ('right', 'UMINUS', 'UPLUS'),  # Operadores unarios
+    ('right', 'UMINUS', 'UPLUS'),  # Operadores unarios, tokens usados solo para precedencia
     ('right', 'POW'),
     )
 
@@ -102,7 +102,10 @@ class Parser:
     def p_top_level_stmt(self, p):
         """top_level_stmt : func_def
                          | class_def
-                         | simple_stmt"""
+                         | simple_stmt
+                         | if_stmt
+                         | while_stmt
+                         | for_stmt"""
         p[0] = p[1]
 
     # ----- SENTENCIAS DENTRO DE FUNCIONES -----
@@ -245,7 +248,9 @@ class Parser:
     # ----- BUCLE FOR -----
     def p_for_stmt(self, p):
         """for_stmt : FOR ID IN expression COLON NEWLINE INDENT block_stmts DEDENT"""
-        p[0] = ("for", p[2], p[4], p[8])    # ----- SENTENCIAS SIMPLES -----
+        p[0] = ("for", p[2], p[4], p[8])    
+        
+    # ----- SENTENCIAS SIMPLES -----
     def p_simple_stmt(self, p):
         """simple_stmt : small_stmt NEWLINE
                       | small_stmt"""
@@ -253,35 +258,35 @@ class Parser:
 
     def p_small_stmt(self, p):
         """small_stmt : assignment
-                     | aug_assignment
-                     | expression
-                     | return_stmt
-                     | pass_stmt
-                     | break_stmt
-                     | continue_stmt"""
+                      | aug_assignment
+                      | expression
+                      | return_stmt
+                      | pass_stmt
+                      | break_stmt
+                      | continue_stmt"""
         p[0] = p[1]
 
     # Asignación simple
     def p_assignment(self, p):
         """assignment : ID ASSIGN expression
-                     | ID ASSIGN_COLON expression"""
+                      | ID ASSIGN_COLON expression"""
         p[0] = ("assignment", p[1], p[3])
 
     # Asignación aumentada
     def p_aug_assignment(self, p):
         """aug_assignment : ID PLUS_ASSIGN expression
-                         | ID MINUS_ASSIGN expression
-                         | ID MULTI_ASSIGN expression
-                         | ID DIVIDE_ASSIGN expression
-                         | ID MOD_ASSIGN expression
-                         | ID FLOORDIV_ASSIGN expression
-                         | ID POW_ASSIGN expression"""
+                          | ID MINUS_ASSIGN expression
+                          | ID MULTI_ASSIGN expression
+                          | ID DIVIDE_ASSIGN expression
+                          | ID MOD_ASSIGN expression
+                          | ID FLOORDIV_ASSIGN expression
+                          | ID POW_ASSIGN expression"""
         p[0] = ("aug_assignment", p[2], p[1], p[3])
 
     # Sentencias de control de flujo
     def p_return_stmt(self, p):
         """return_stmt : RETURN expression
-                      | RETURN"""
+                       | RETURN"""
         if len(p) == 3:
             p[0] = ("return", p[2])
         else:
@@ -323,7 +328,7 @@ class Parser:
     # Operadores de comparación
     def p_comparison(self, p):
         """comparison : arithmetic_expr comp_op arithmetic_expr
-                     | arithmetic_expr"""
+                      | arithmetic_expr"""
         if len(p) == 4:
             p[0] = ("comparison", p[2], p[1], p[3])
         else:
@@ -331,18 +336,18 @@ class Parser:
 
     def p_comp_op(self, p):
         """comp_op : LESS
-                  | GREATER
-                  | LESSEQ
-                  | GREATEREQ
-                  | EQ
-                  | NEQ"""
+                   | GREATER
+                   | LESSEQ
+                   | GREATEREQ
+                   | EQ
+                   | NEQ"""
         p[0] = p[1]
 
     # Expresiones aritméticas
     def p_arithmetic_expr(self, p):
         """arithmetic_expr : arithmetic_expr PLUS term
-        | arithmetic_expr MINUS term
-        | term"""
+                           | arithmetic_expr MINUS term
+                           | term"""
         if len(p) == 4:
             p[0] = ("binop", p[2], p[1], p[3])
         else:
@@ -350,10 +355,10 @@ class Parser:
 
     def p_term(self, p):
         """term : term MULTI factor
-        | term DIVIDE factor
-        | term FLOORDIV factor
-        | term MOD factor
-        | factor"""
+                | term DIVIDE factor
+                | term FLOORDIV factor
+                | term MOD factor
+                | factor"""
         if len(p) == 4:
             p[0] = ("binop", p[2], p[1], p[3])
         else:
@@ -361,8 +366,8 @@ class Parser:
 
     def p_factor(self, p):
         """factor : PLUS factor %prec UPLUS
-        | MINUS factor %prec UMINUS
-        | power"""
+                  | MINUS factor %prec UMINUS
+                  | power"""
         if len(p) == 3:
             p[0] = ("unaryop", p[1], p[2])
         else:
@@ -370,7 +375,7 @@ class Parser:
 
     def p_power(self, p):
         """power : primary POW power
-        | primary"""
+                 | primary"""
         p[0] = self._bin("POW", p[1], p[3]) if len(p) == 4 else p[1]
 
     # ----- Primarios: literales, id, llamadas, listas/tuplas/dicts, agrupación -----
@@ -383,11 +388,11 @@ class Parser:
     # Literales y nombres
     def p_primary_atoms(self, p):
         """primary : ID
-        | INTEGER
-        | DECIMAL
-        | SCONST
-        | TRUE
-        | FALSE"""
+                   | INTEGER
+                   | DECIMAL
+                   | SCONST
+                   | TRUE
+                   | FALSE"""
         tok = p.slice[1].type
         if tok == "ID":
             p[0] = self._id(p[1])
@@ -437,17 +442,17 @@ class Parser:
 
     def p_expr_list(self, p):
         """expr_list : expression
-        | expr_list COMMA expression"""
+                     | expr_list COMMA expression"""
         p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
     def p_expr_list_opt(self, p):
         """expr_list_opt : expr_list
-        | empty"""
+                         | empty"""
         p[0] = p[1] if p[1] is not None else []
 
     def p_COMMA_opt(self, p):
         """COMMA_opt : COMMA
-        | empty"""
+                     | empty"""
         p[0] = True if len(p) == 2 and p.slice[1].type == "COMMA" else False
 
     # Pares k:v para diccionarios
@@ -457,12 +462,12 @@ class Parser:
 
     def p_key_value_list(self, p):
         """key_value_list : key_value
-        | key_value_list COMMA key_value"""
+                          | key_value_list COMMA key_value"""
         p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
     def p_key_value_list_opt(self, p):
         """key_value_list_opt : key_value_list
-        | empty"""
+                              | empty"""
         p[0] = p[1] if p[1] is not None else []
 
     # Vacío (utilidad)
