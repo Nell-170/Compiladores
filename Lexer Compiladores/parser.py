@@ -509,83 +509,174 @@ class Parser:
                 )
             )
 
-# Function to read the file and test the parser
-def parser_tester(path, parser_instance):
-    parser_instance.lexer.lex.lineno = 1  # reset line count
-    stdout_original = sys.stdout
+# # Function to read the file and test the parser
+# def parser_tester(path, parser_instance):
+#     parser_instance.lexer.lex.lineno = 1  # reset line count
+#     stdout_original = sys.stdout
     
-    # Reading the file
-    with open(path, 'r', encoding='utf-8') as f:
-        input_text = f.read()
+#     # Reading the file
+#     with open(path, 'r', encoding='utf-8') as f:
+#         input_text = f.read()
 
-    # Redirecting stdout to a report file
-    with open("Parser_report.txt", "a", encoding="utf-8") as archivoParser:
-        sys.stdout = archivoParser
-        print(f"Para el archivo {path}:")
-        try:
-            result = parser_instance.parser.parse(
-                input_text,
-                lexer=parser_instance.lexer.lex,
-                debug=False
-            )
-            # Post-parse validation: if there were lexer errors, scan the AST for bad string literals
-            if result is not None and parser_instance._has_lexer_errors():
-                parser_instance._validate_ast_for_empty_string_literals(result)
+#     # Redirecting stdout to a report file
+#     with open("Parser_report.txt", "a", encoding="utf-8") as archivoParser:
+#         sys.stdout = archivoParser
+#         print(f"Para el archivo {path}:")
+#         try:
+#             result = parser_instance.parser.parse(
+#                 input_text,
+#                 lexer=parser_instance.lexer.lex,
+#                 debug=False
+#             )
+#             # Post-parse validation: if there were lexer errors, scan the AST for bad string literals
+#             if result is not None and parser_instance._has_lexer_errors():
+#                 parser_instance._validate_ast_for_empty_string_literals(result)
 
-            # Decide overall success
-            has_lex_err = parser_instance._has_lexer_errors()
-            has_par_err = parser_instance._has_parser_errors()
-            success = not (has_lex_err or has_par_err)
+#             # Decide overall success
+#             has_lex_err = parser_instance._has_lexer_errors()
+#             has_par_err = parser_instance._has_parser_errors()
+#             success = not (has_lex_err or has_par_err)
 
-            if success:
-                print("Parsing completed successfully.")
-                print("AST result:", result)
-            else:
-                print("Parsing completed with errors.")
-                if has_lex_err:
-                    print("- Blocking: lexer errors present → AST may be incomplete/invalid.")
-                if has_par_err:
-                    print("- Parser errors present.")
-                # Show AST only if you want to inspect partial trees. Here we **omit** to avoid masking issues.
-                # print("Partial AST (unsafe):", result)
+#             if success:
+#                 print("Parsing completed successfully.")
+#                 print("AST result:", result)
+#             else:
+#                 print("Parsing completed with errors.")
+#                 if has_lex_err:
+#                     print("- Blocking: lexer errors present → AST may be incomplete/invalid.")
+#                 if has_par_err:
+#                     print("- Parser errors present.")
+#                 # Show AST only if you want to inspect partial trees. Here we **omit** to avoid masking issues.
+#                 # print("Partial AST (unsafe):", result)
             
-            print("\n")
-        except Exception as e:
-            print(f"Error durante el parseo (uncaught): {e}")
-            success = False
+#             print("\n")
+#         except Exception as e:
+#             print(f"Error durante el parseo (uncaught): {e}")
+#             success = False
 
-    # Restoring stdout
-    sys.stdout = stdout_original
-    return success
+#     # Restoring stdout
+#     sys.stdout = stdout_original
+#     return success
 
-# Structures testing method
-def structures_parser_tester(errors):
-    # Filtrar solo errores
-    print(f"Se encontraron {len(errors)} errores durante el análisis sintáctico.")
-    
-    # Exportar a JSON
-    logs_json = json.dumps([str(e) for e in errors], indent=4, ensure_ascii=False) 
-    with open("logs.json", "w", encoding="utf-8") as f:
-        f.write(logs_json)
+def _line_info_from_lexpos(text: str, lexpos: int):
+    """Return (line_text, col0, col1) given a 0-based lexpos; handles EOF/unknown."""
+    if lexpos is None or lexpos < 0 or not text:
+        return ("", -1, -1)
+    start = text.rfind("\n", 0, lexpos) + 1
+    end = text.find("\n", lexpos)
+    if end == -1:
+        end = len(text)
+    line = text[start:end]
+    col0 = lexpos - start
+    return (line, col0, col0 + 1)
+
+def format_error_pretty(e, source_code: str):
+    """Pretty, caret-annotated error line."""
+    try:
+        line, col0, _ = _line_info_from_lexpos(source_code, getattr(e, "lexpos", -1))
+        lineno = getattr(e, "lineno", -1)
+        msg = getattr(e, "message", str(e))
+        caret = (" " * col0 + "^") if col0 >= 0 else ""
+        return f"L{lineno}:{(col0+1) if col0>=0 else '?'}  {msg}\n    {line}\n    {caret}"
+    except Exception:
+        # Fallback
+        return str(e)
+
+def run_single_file(path: str):
+    """Parse one file with a fresh Parser; return a rich dict for reporting."""
+    # Fresh container for this run
+    errors: list[Error] = []
+    parser = Parser(errors, debug=False)
+
+    with open(path, "r", encoding="utf-8") as f:
+        code = f.read()
+
+    # Give the lexer the source for better locations
+    parser.lexer.data = code
+    # (If your Lexer has more state like indent stack, ensure it’s reset here; fresh Parser usually suffices)
+
+    result = None
+    uncaught = None
+    try:
+        # IMPORTANT: use the *fresh* lex object bound to this parser instance
+        parser.lexer.lex.lineno = 1
+        result = parser.parser.parse(code, lexer=parser.lexer.lex, debug=False)
+
+        # Optional AST post-check when lexer had errors
+        if result is not None and parser._has_lexer_errors():
+            parser._validate_ast_for_empty_string_literals(result)
+
+    except Exception as ex:
+        uncaught = str(ex)
+
+    # Decide success more strictly
+    has_lex_err = parser._has_lexer_errors()
+    has_par_err = parser._has_parser_errors()
+    success = (result is not None) and not (has_lex_err or has_par_err) and (uncaught is None)
+
+    # Pretty-errors for report
+    pretty_errors = [format_error_pretty(e, code) for e in errors]
+
+    return {
+        "path": path,
+        "success": success,
+        "result": None if not success else result,  # keep report light
+        "error_count": len(errors),
+        "has_lexer_errors": has_lex_err,
+        "has_parser_errors": has_par_err,
+        "uncaught": uncaught,
+        "errors_pretty": pretty_errors,
+        "errors_raw": [str(e) for e in errors],
+    }
 
 # --- MAIN TEST ---
 if __name__ == "__main__":
-    errors = []
-    parser_instance = Parser(errors, debug=False)
+    test_files = [
+        "tests/parser_assign_expr.py",
+        "tests/parser_augmented_assigns.py",
+        "tests/parser_chained_comparison.py",
+        "tests/parser_class_and_method.py",
+        "tests/parser_dict_trailing_comma.py",
+        "tests/parser_function_control.py",
+        "tests/parser_inline_function.py",
+        "tests/parser_keyword_args.py",
+        "tests/parser_list_trailing_comma.py",
+        "tests/parser_minimal.py",
+        "tests/parser_missing_colon_or_indent.py",
+        "tests/parser_semicolons.py",
+        "tests/parser_top_level_if.py",
+        "tests/parser_tuple_unpacking.py",
+    ]
 
-    with open("Parser_report.txt", "w", encoding="utf-8") as archivoParser:
-        stdout_original = sys.stdout
-        sys.stdout = archivoParser
-        print("")
-        sys.stdout = stdout_original
+    # Run
+    reports = []
+    for path in test_files:
+        rep = run_single_file(path)
+        reports.append(rep)
 
-    # Archivos a analizar
-    test_files = ["parser_minimal.py", "parser_assign_expr.py", "parser_function_control.py", "parser_augmented_assigns.py", "parser_class_and_method.py", "parser_class_and_method.py", "parser_inline_function.py", "parser_semicolons.py", "parser_top_level_if.py", "parser_tuple_unpacking.py", "parser_keyword_args.py", "parser_chained_comparison.py", "parser_list_trailing_comma.py", "parser_dict_trailing_comma.py", "parser_missing_colon_or_indent.py"]
+    # --- Write the human report (single place) ---
+    with open("Parser_report.txt", "w", encoding="utf-8") as out:
+        for rep in reports:
+            out.write(f"=== {rep['path']} ===\n")
+            status = "OK" if rep["success"] else "ERROR"
+            out.write(f"Status: {status}\n")
+            if rep["uncaught"]:
+                out.write(f"Uncaught exception: {rep['uncaught']}\n")
+            out.write(f"Lexer errors: {rep['has_lexer_errors']} | Parser errors: {rep['has_parser_errors']}\n")
+            out.write(f"Total errors: {rep['error_count']}\n")
+            if not rep["success"]:
+                # Show the first few pretty errors with caret
+                for msg in rep["errors_pretty"][:10]:
+                    out.write(msg + "\n")
+            else:
+                out.write("AST: (omitted in report for brevity)\n")
+            out.write("\n")
 
-    for test in test_files:
-        path = test
-        success = parser_tester(path, parser_instance)
-        print(f"Para el archivo {test}:")
-        {structures_parser_tester(errors)}
-        print("\n")
-        errors.clear()
+    # --- Write machine-readable logs once, not per file ---
+    with open("logs.json", "w", encoding="utf-8") as jf:
+        json.dump(reports, jf, indent=2, ensure_ascii=False)
+
+    # Terminal summary (short)
+    for rep in reports:
+        status = "OK" if rep["success"] else "ERROR"
+        print(f"{status:5}  {rep['error_count']:2}  {rep['path']}")
