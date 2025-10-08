@@ -417,19 +417,20 @@ class Parser:
             p[0] = self._lit("bool", False)
 
     # Agrupación: (expr)
-    def p_primary_group(self, p):
-        """primary : LPAREN expression RPAREN"""
-        p[0] = ("group", p[2])
+    # def p_primary_group(self, p):
+    #     """primary : LPAREN expression RPAREN"""
+    #     p[0] = ("group", p[2])
 
     # Tuplas: (a,) — tupla de un elemento
     def p_primary_tuple_trailing(self, p):
-        """primary : LPAREN expression COMMA RPAREN"""
+        """primary : LPAREN expr_list COMMA RPAREN"""
         p[0] = ("tuple", [p[2]])
 
     # Tuplas: (a, b, ...)
-    def p_primary_tuple(self, p):
-        """primary : LPAREN expr_list COMMA_opt RPAREN"""
-        if len(p[2]) > 1 or p[3] is True:
+    # (a, b, c)   or   (a)  -> group if len==1, tuple if len>1
+    def p_primary_tuple_or_group(self, p):
+        """primary : LPAREN expr_list RPAREN"""
+        if len(p[2]) > 1:
             p[0] = ("tuple", p[2])
         else:
             p[0] = ("group", p[2][0])
@@ -459,10 +460,10 @@ class Parser:
                          | empty"""
         p[0] = p[1] if p[1] is not None else []
 
-    def p_COMMA_opt(self, p):
-        """COMMA_opt : COMMA
-                     | empty"""
-        p[0] = True if len(p) == 2 and p.slice[1].type == "COMMA" else False
+    # def p_COMMA_opt(self, p):
+    #     """COMMA_opt : COMMA
+    #                  | empty"""
+    #     p[0] = True if len(p) == 2 and p.slice[1].type == "COMMA" else False
 
     # Pares k:v para diccionarios
     def p_key_value(self, p):

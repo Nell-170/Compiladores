@@ -102,8 +102,10 @@
             "tuple",
             [
               [
-                "identifier",
-                "x"
+                [
+                  "identifier",
+                  "x"
+                ]
               ]
             ]
           ]
@@ -117,6 +119,14 @@
               [
                 "identifier",
                 "x"
+              ],
+              [
+                "identifier",
+                "y"
+              ],
+              [
+                "identifier",
+                "z"
               ]
             ]
           ]
@@ -222,20 +232,12 @@
         ]
       ]
     ],
-    "error_count": 3,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token 'y' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'z' (ID)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token 'y' (ID) at line 6, column 148. On:\nt = (x, y, z)       # multi-element tuple\n        ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 6, column 149. On:\nt = (x, y, z)       # multi-element tuple\n         ^",
-      "ERROR(PARSER): Syntax error at token 'z' (ID) at line 6, column 151. On:\nt = (x, y, z)       # multi-element tuple\n           ^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_augmented_assigns.py",
@@ -1079,6 +1081,11 @@
                     "literal",
                     "int",
                     1
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    2
                   ]
                 ]
               ],
@@ -1089,6 +1096,11 @@
                     "literal",
                     "int",
                     3
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    4
                   ]
                 ]
               ]
@@ -1102,21 +1114,17 @@
         ]
       ]
     ],
-    "error_count": 4,
+    "error_count": 2,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
     "errors_pretty": [
       "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'b' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token '4' (INTEGER)\n    \n    "
+      "L-1:?  Syntax error at token 'b' (ID)\n    \n    "
     ],
     "errors_raw": [
       "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 2, column 74. On:\nfor a, b in [ (1,2), (3,4) ]:\n     ^",
-      "ERROR(PARSER): Syntax error at token 'b' (ID) at line 2, column 76. On:\nfor a, b in [ (1,2), (3,4) ]:\n       ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 2, column 86. On:\nfor a, b in [ (1,2), (3,4) ]:\n                 ^",
-      "ERROR(PARSER): Syntax error at token '4' (INTEGER) at line 2, column 93. On:\nfor a, b in [ (1,2), (3,4) ]:\n                        ^"
+      "ERROR(PARSER): Syntax error at token 'b' (ID) at line 2, column 76. On:\nfor a, b in [ (1,2), (3,4) ]:\n       ^"
     ]
   }
 ]
