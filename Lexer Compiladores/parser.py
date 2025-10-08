@@ -47,6 +47,10 @@ class Parser:
 
     def _id(self, name):
         return ("identifier", name)
+
+    def _cmp_chain(self, left, chain):
+        """chain is a list of (op_token, expr)."""
+        return ("cmp_chain", left, chain)
     
     # --- diagnostics ---------------------------------------------------------
     def _has_lexer_errors(self) -> bool:
@@ -335,13 +339,59 @@ class Parser:
         p[0] = self._un("NOT", p[2]) if len(p) == 3 else p[1]
 
     # Operadores de comparación
+
+    # Chained comparison: a < b < c == (a < b) and (b < c)
+    """
+    split the comparison so it collects a list of pairs after the first expression
+    first part --> "left"
+    second part --> "chain" := zero or more (op, expression) pairs
+
+    gramática:
+
+    comparison  → arithmetic_expr comp_chain
+    comp_chain  → ε
+                | comp_op arithmetic_expr
+                | comp_chain comp_op arithmetic_expr
+
+    ejemplo:
+    a < b → ("comparison", "<", a, b)
+    a < b < c → ("cmp_chain", a, [("<", b), ("<", c)])
+    a < b <= c != d → ("cmp_chain", a, [("<", b), ("<=", c), ("!=", d)])
+
+    ejemplo 2:
+    x + 1 < y*2 < z**3
+        left: (x+1)
+        chain: ("<", y*2), ("<", z**3)       
+    """
+    # comparison := arithmetic_expr (comp_op arithmetic_expr)*
     def p_comparison(self, p):
-        """comparison : arithmetic_expr comp_op arithmetic_expr
-                      | arithmetic_expr"""
-        if len(p) == 4:
-            p[0] = ("comparison", p[2], p[1], p[3])
+        """comparison : arithmetic_expr comp_chain"""
+        left = p[1]
+        chain = p[2]  # list of (op, expr)
+        if not chain:
+            # No comparison at all → just the arithmetic expr (e.g., "a+1")
+            p[0] = left
+        elif len(chain) == 1:
+            # Backward-compatible for existing code/tests:
+            op, right = chain[0]
+            p[0] = ("comparison", op, left, right)
         else:
-            p[0] = p[1]
+            # True chained comparison
+            p[0] = self._cmp_chain(left, chain)
+
+    def p_comp_chain(self, p):
+        """comp_chain : comp_chain comp_op arithmetic_expr
+                    | comp_op arithmetic_expr
+                    | empty"""
+        if len(p) == 2:
+            # empty
+            p[0] = []
+        elif len(p) == 3:
+            # first pair
+            p[0] = [(p[1], p[2])]
+        else:
+            # extend
+            p[0] = p[1] + [(p[2], p[3])]
 
     def p_comp_op(self, p):
         """comp_op : LESS
@@ -416,11 +466,6 @@ class Parser:
         elif tok == "FALSE":
             p[0] = self._lit("bool", False)
 
-    # Agrupación: (expr)
-    # def p_primary_group(self, p):
-    #     """primary : LPAREN expression RPAREN"""
-    #     p[0] = ("group", p[2])
-
     # Tuplas: (a,) — tupla de un elemento
     def p_primary_tuple_trailing(self, p):
         """primary : LPAREN expr_list COMMA RPAREN"""
@@ -459,11 +504,6 @@ class Parser:
         """expr_list_opt : expr_list
                          | empty"""
         p[0] = p[1] if p[1] is not None else []
-
-    # def p_COMMA_opt(self, p):
-    #     """COMMA_opt : COMMA
-    #                  | empty"""
-    #     p[0] = True if len(p) == 2 and p.slice[1].type == "COMMA" else False
 
     # Pares k:v para diccionarios
     def p_key_value(self, p):

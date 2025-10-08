@@ -13,7 +13,7 @@ AST: (omitted in report for brevity)
 === tests/parser_chained_comparison.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 1
+Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_class_and_method.py ===
