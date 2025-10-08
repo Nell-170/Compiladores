@@ -273,12 +273,19 @@ class Lexer:
         indent_text = t.value[1:]
         # Calculate current indentation level
         current_col = self._tab_expand_col(indent_text)
+        # Get current indentation level from stack
+        prev_col = self.indent_stack[-1]
         
-        # Check if next line is empty or comment
-        nxt = self.lex.lexdata[self.lex.lexpos:self.lex.lexpos+1]
-        if nxt in ('', '\n', '#'):
-            # Don't emit NEWLINE/INDENT/DEDENT for empty lines or comments
+        if not self.saw_token_on_line:
+            # prepare for the next physical line
+            self.saw_token_on_line = False
             return
+
+        # # Check if next line is empty or comment
+        # nxt = self.lex.lexdata[self.lex.lexpos:self.lex.lexpos+1]
+        # if nxt in ('', '\n', '#'):
+        #     # Don't emit NEWLINE/INDENT/DEDENT for empty lines or comments
+        #     return
 
         # Enforce “multiples of INDENT_STEP”
         if current_col > 0 and current_col % self.INDENT_STEP != 0:
@@ -296,9 +303,6 @@ class Lexer:
         t.type = 'NEWLINE'
         t.value = 'NEWLINE'
         
-        # Get current indentation level from stack
-        prev_col = self.indent_stack[-1]
-
         # Case A: last colon required an indented block
         if self.expect_indent and current_col <= prev_col:
             self.errors.append(
@@ -501,7 +505,7 @@ if __name__ == "__main__":
     lexer = Lexer(errors, debug=False)
 
     # File to test
-    path = "lexer_test.py"
+    path = "tests/lexer_test.py"
     lexer_tester(path, lexer)
     pretty_print_errors(errors)
 

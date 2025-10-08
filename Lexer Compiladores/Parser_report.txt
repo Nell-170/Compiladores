@@ -1,35 +1,35 @@
 === tests/parser_assign_expr.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 4
+Total errors: 3
 AST: (omitted in report for brevity)
 
 === tests/parser_augmented_assigns.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 1
+Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_chained_comparison.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 2
+Total errors: 1
 AST: (omitted in report for brevity)
 
 === tests/parser_class_and_method.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 2
+Total errors: 1
 AST: (omitted in report for brevity)
 
 === tests/parser_dict_trailing_comma.py ===
 Status: ERROR
 Lexer errors: False | Parser errors: False
 Total errors: 3
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
 L-1:?  Syntax error at token '}' (RKEY)
+    
+    
+L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
     
     
 L-1:?  Unexpected end of input
@@ -39,16 +39,13 @@ L-1:?  Unexpected end of input
 === tests/parser_function_control.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 1
+Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_inline_function.py ===
 Status: ERROR
 Lexer errors: False | Parser errors: False
-Total errors: 4
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
+Total errors: 3
 L-1:?  Syntax error at token 'return' (RETURN)
     
     
@@ -109,24 +106,24 @@ AST: (omitted in report for brevity)
 === tests/parser_missing_colon_or_indent.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 12
+Total errors: 11
 AST: (omitted in report for brevity)
 
 === tests/parser_semicolons.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 2
+Total errors: 1
 AST: (omitted in report for brevity)
 
 === tests/parser_top_level_if.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 1
+Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_tuple_unpacking.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 5
+Total errors: 4
 AST: (omitted in report for brevity)
 
