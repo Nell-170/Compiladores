@@ -6,6 +6,57 @@
       "program",
       [
         [
+          "class_def",
+          "MyNumber",
+          null,
+          [
+            [
+              "func_def",
+              "__init__",
+              [
+                "self",
+                "value"
+              ],
+              [
+                [
+                  "identifier",
+                  "self"
+                ],
+                [
+                  "assignment",
+                  "value",
+                  [
+                    "identifier",
+                    "value"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "func_def",
+              "print_value",
+              [
+                "self"
+              ],
+              [
+                [
+                  "call",
+                  [
+                    "identifier",
+                    "print"
+                  ],
+                  [
+                    [
+                      "identifier",
+                      "self"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
           "assignment",
           "x",
           [
@@ -232,12 +283,20 @@
         ]
       ]
     ],
-    "error_count": 0,
+    "error_count": 3,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [],
-    "errors_raw": []
+    "errors_pretty": [
+      "L-1:?  Syntax error at token '.' (DOT)\n    \n    ",
+      "L-1:?  Syntax error at token '.' (DOT)\n    \n    ",
+      "L-1:?  Syntax error at token 'value' (ID)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token '.' (DOT) at line 4, column 85. On:\nself.value = value\n    ^",
+      "ERROR(PARSER): Syntax error at token '.' (DOT) at line 7, column 150. On:\nprint(self.value)\n          ^",
+      "ERROR(PARSER): Syntax error at token 'value' (ID) at line 7, column 151. On:\nprint(self.value)\n           ^"
+    ]
   },
   {
     "path": "tests/parser_augmented_assigns.py",

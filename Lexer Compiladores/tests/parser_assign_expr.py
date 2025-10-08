@@ -1,3 +1,14 @@
+# Test with self atribute
+class MyNumber:
+    def __init__(self, value):
+        self.value = value
+    
+    def print_value(self):
+        print(self.value)
+
+#num = MyNumber(10)
+#num.print_value(num.value)
+
 # Top-level simple statements + expression precedence
 x = 1
 y = 2

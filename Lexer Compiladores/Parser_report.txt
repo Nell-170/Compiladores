@@ -1,7 +1,7 @@
 === tests/parser_assign_expr.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 0
+Total errors: 3
 AST: (omitted in report for brevity)
 
 === tests/parser_augmented_assigns.py ===

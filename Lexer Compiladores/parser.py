@@ -200,7 +200,9 @@ class Parser:
     # Lista de parámetros
     def p_params_list(self, p):
         """params_list : params_list COMMA ID
-                      | ID"""
+                       | params_list COMMA SELF
+                       | SELF
+                       | ID """
         if len(p) == 4:
             p[0] = p[1] + [p[3]]
         else:
@@ -214,6 +216,7 @@ class Parser:
             p[0] = ("class_def", p[2], None, p[6])  # nombre, sin herencia, cuerpo
         else:
             p[0] = ("class_def", p[2], p[4], p[9])  # nombre, clase padre, cuerpo
+            
 
     # ----- SENTENCIA IF -----
     def p_if_stmt(self, p):

@@ -364,6 +364,12 @@ class Lexer:
         # return the NEWLINE token
         return t
 
+    def t_SELF(self, t):
+        r"self | [a-zA-Z0-9_]+\.[a-zA-Z0-9_]+"
+        t.is_self = True
+        t.type = "SELF"
+        return t
+
     # Identifiers and reserved words
     def t_ID(self, t):
         r"""[a-zA-Z_][a-zA-Z0-9_]*"""
