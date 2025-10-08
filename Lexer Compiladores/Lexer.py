@@ -447,7 +447,6 @@ class Lexer:
         # Save original method and wrap
         self.orig_token = self.lex.token
         self.lex.token = self.hooked_token
-
         # Indentation tracking structures
         self.indent_stack = [0]  # indentation levels
         self.pending = []  # synthetic tokens queue
