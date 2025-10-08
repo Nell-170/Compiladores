@@ -10,7 +10,6 @@ import json
 # TODO(any): Agregar regla de PRINT y TRY y TRY CATCH
 # TODO(any): tuple unpacking en los fors (y algún otro lado??)
 # TODO(any): keyword args (e.g. print(msg="hello"))
-# TODO(any): chained comparisons (e.g. flag = a < b < c)
 # TODO(any): trailing commas in list, dict, 
 
 
