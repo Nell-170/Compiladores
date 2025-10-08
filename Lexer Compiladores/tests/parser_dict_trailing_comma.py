@@ -1,2 +1,9 @@
-# FAIL: dicts don’t allow trailing comma after last pair.
-cfg = {"a": 1,}
+d0 = {}
+d1 = {"a": 1}
+d2 = {"a": 1,}
+d3 = {"a": 1, "b": 2,}
+
+
+bad1 = {,}
+bad2 = {"a": 1,,}
+bad3 = {"a":}
