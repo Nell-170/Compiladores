@@ -6,7 +6,7 @@ class Error:
         self.message = message
         self.line = line
         self.column = column
-        self.type = _type
+        self.type = _type 
         self.data = data
 
     def __repr__(self):
