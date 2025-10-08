@@ -509,55 +509,6 @@ class Parser:
                 )
             )
 
-# # Function to read the file and test the parser
-# def parser_tester(path, parser_instance):
-#     parser_instance.lexer.lex.lineno = 1  # reset line count
-#     stdout_original = sys.stdout
-    
-#     # Reading the file
-#     with open(path, 'r', encoding='utf-8') as f:
-#         input_text = f.read()
-
-#     # Redirecting stdout to a report file
-#     with open("Parser_report.txt", "a", encoding="utf-8") as archivoParser:
-#         sys.stdout = archivoParser
-#         print(f"Para el archivo {path}:")
-#         try:
-#             result = parser_instance.parser.parse(
-#                 input_text,
-#                 lexer=parser_instance.lexer.lex,
-#                 debug=False
-#             )
-#             # Post-parse validation: if there were lexer errors, scan the AST for bad string literals
-#             if result is not None and parser_instance._has_lexer_errors():
-#                 parser_instance._validate_ast_for_empty_string_literals(result)
-
-#             # Decide overall success
-#             has_lex_err = parser_instance._has_lexer_errors()
-#             has_par_err = parser_instance._has_parser_errors()
-#             success = not (has_lex_err or has_par_err)
-
-#             if success:
-#                 print("Parsing completed successfully.")
-#                 print("AST result:", result)
-#             else:
-#                 print("Parsing completed with errors.")
-#                 if has_lex_err:
-#                     print("- Blocking: lexer errors present → AST may be incomplete/invalid.")
-#                 if has_par_err:
-#                     print("- Parser errors present.")
-#                 # Show AST only if you want to inspect partial trees. Here we **omit** to avoid masking issues.
-#                 # print("Partial AST (unsafe):", result)
-            
-#             print("\n")
-#         except Exception as e:
-#             print(f"Error durante el parseo (uncaught): {e}")
-#             success = False
-
-#     # Restoring stdout
-#     sys.stdout = stdout_original
-#     return success
-
 def _line_info_from_lexpos(text: str, lexpos: int):
     """Return (line_text, col0, col1) given a 0-based lexpos; handles EOF/unknown."""
     if lexpos is None or lexpos < 0 or not text:
