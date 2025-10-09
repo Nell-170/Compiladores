@@ -5,13 +5,10 @@ from utils import Error
 import ast
 import json
 
-# TODO(any): Agregar atributos de clases (e.g. self.value)
-# TODO(any): Agregar regla de inline function (def f(): return 0)
-# TODO(any): Agregar regla de PRINT y TRY y TRY CATCH
-# TODO(any): tuple unpacking en los fors (y algún otro lado??)
-# TODO(any): keyword args (e.g. print(msg="hello"))
-# TODO(any): trailing commas in list, dict, 
-
+# TODO(VAL): Agregar regla de inline function (def f(): return 0)
+# TODO(MILTON): Agregar regla de PRINT y TRY y TRY CATCH
+# TODO(MILTON): tuple unpacking en los fors (y algún otro lado??)
+# TODO(EMMA): keyword args (e.g. print(msg="hello"))
 
 class Parser:
 # ----- PRECEDENCIA Y ASOCIATIVIDAD -----
@@ -520,14 +517,17 @@ class Parser:
         else:
             p[0] = ("group", p[2][0])
 
-    # Listas: [a, b, c]
+    # Listas: [a, b, c] y [a, b,]
     def p_primary_list(self, p):
-        """primary : LBRACKET expr_list_opt RBRACKET"""
+        """primary : LBRACKET expr_list_opt RBRACKET
+                    | LBRACKET expr_list COMMA RBRACKET """
         p[0] = ("list", p[2])
 
-    # Diccionarios: {k1: v1, k2: v2}
+    # Diccionarios: {k1: v1, k2: v2}  and  {k1: v1,}
     def p_primary_dict(self, p):
-        """primary : LKEY key_value_list_opt RKEY"""
+        """primary : LKEY key_value_list_opt RKEY
+                | LKEY key_value_list COMMA RKEY"""
+        # p[2] is always the list of pairs (possibly [])
         p[0] = ("dict", p[2])
 
     # ----- utilidades para listas/argumentos -----

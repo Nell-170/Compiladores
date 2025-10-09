@@ -25,7 +25,13 @@ AST: (omitted in report for brevity)
 === tests/parser_dict_trailing_comma.py ===
 Status: ERROR
 Lexer errors: False | Parser errors: False
-Total errors: 3
+Total errors: 5
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
 L-1:?  Syntax error at token '}' (RKEY)
     
     
@@ -65,35 +71,35 @@ AST: (omitted in report for brevity)
 === tests/parser_list_trailing_comma.py ===
 Status: ERROR
 Lexer errors: False | Parser errors: False
-Total errors: 15
+Total errors: 161
+L-1:?  Syntax error at token 'return' (RETURN)
+    
+    
+L-1:?  Syntax error at token '0' (INTEGER)
+    
+    
+L-1:?  Syntax error at token 'empty' (ID)
+    
+    
+L-1:?  Syntax error at token '=' (ASSIGN)
+    
+    
+L-1:?  Syntax error at token '[' (LBRACKET)
+    
+    
 L-1:?  Syntax error at token ']' (RBRACKET)
     
     
 L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
     
     
-L-1:?  Syntax error at token 'for' (FOR)
+L-1:?  Syntax error at token 'single' (ID)
     
     
-L-1:?  Syntax error at token 'in' (IN)
+L-1:?  Syntax error at token '=' (ASSIGN)
     
     
-L-1:?  Syntax error at token 'vals' (ID)
-    
-    
-L-1:?  Syntax error at token ':' (COLON)
-    
-    
-L-1:?  Indentation must be a multiple of 4 spaces
-    
-    
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
-L-1:?  Syntax error at token 'INDENT' (INDENT)
-    
-    
-L-1:?  Syntax error at token 'print' (ID)
+L-1:?  Syntax error at token '[' (LBRACKET)
     
     
 
