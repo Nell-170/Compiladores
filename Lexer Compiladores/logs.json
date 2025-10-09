@@ -20,8 +20,15 @@
               [
                 [
                   "assignment",
-                  "self",
-                  "value"
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
+                  ]
                 ]
               ]
             ],
@@ -39,15 +46,35 @@
                     "print"
                   ],
                   [
-                    [
-                      "identifier",
-                      "MyNumber"
-                    ]
+                    null
                   ]
                 ]
               ]
             ]
           ]
+        ],
+        [
+          "assignment",
+          "num",
+          [
+            "call",
+            [
+              "identifier",
+              "MyNumber"
+            ],
+            [
+              [
+                "literal",
+                "int",
+                10
+              ]
+            ]
+          ]
+        ],
+        null,
+        [
+          "group",
+          null
         ],
         [
           "assignment",
@@ -733,8 +760,15 @@
                 ],
                 [
                   "assignment",
-                  "self",
-                  "value"
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
+                  ]
                 ]
               ]
             ]

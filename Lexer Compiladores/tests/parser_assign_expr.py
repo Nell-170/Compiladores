@@ -8,8 +8,8 @@ class MyNumber:
         print(MyNumber.value)
 
 
-#num = MyNumber(10)
-#num.print_value(num.value)
+num = MyNumber(10)
+num.print_value(num.value)
 
 # Top-level simple statements + expression precedence
 x = 1

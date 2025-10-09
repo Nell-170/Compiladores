@@ -286,21 +286,30 @@ class Parser:
 
     # Asignación simple 
     def p_assignment(self, p):
-        """assignment : ID DOT ID ASSIGN expression
-                      | ID DOT ID ASSIGN_COLON expression
+        """assignment : nested_id ASSIGN expression
+                      | nested_id ASSIGN_COLON expression
                       | ID ASSIGN expression
                       | ID ASSIGN_COLON expression """
         p[0] = ("assignment", p[1], p[3])
 
+    # nested ids (id.id.id ...)
+    def p_nested_id(self, p):
+        """nested_id : nested_id DOT ID
+                     | ID DOT ID"""
+        if len(p) == 4:
+            p[0] = ("attribute_access", p[1], p[3])  # (obj, attr)
+        else:
+            p[0] = ("attribute_access", p[1], p[3])  # (obj.attr, attr)
+
     # Asignación aumentada 
     def p_aug_assignment(self, p):
-        """aug_assignment : ID DOT ID PLUS_ASSIGN expression
-                          | ID DOT ID MINUS_ASSIGN expression
-                          | ID DOT ID MULTI_ASSIGN expression
-                          | ID DOT ID DIVIDE_ASSIGN expression
-                          | ID DOT ID MOD_ASSIGN expression
-                          | ID DOT ID FLOORDIV_ASSIGN expression
-                          | ID DOT ID POW_ASSIGN expression
+        """aug_assignment : nested_id PLUS_ASSIGN expression
+                          | nested_id MINUS_ASSIGN expression
+                          | nested_id MULTI_ASSIGN expression
+                          | nested_id DIVIDE_ASSIGN expression
+                          | nested_id MOD_ASSIGN expression
+                          | nested_id FLOORDIV_ASSIGN expression
+                          | nested_id POW_ASSIGN expression
                           | ID PLUS_ASSIGN expression
                           | ID MINUS_ASSIGN expression
                           | ID MULTI_ASSIGN expression
@@ -475,7 +484,7 @@ class Parser:
 
     # Literales y nombres
     def p_primary_atoms(self, p):
-        """primary : ID DOT ID
+        """primary : nested_id
                    | ID
                    | INTEGER
                    | DECIMAL
