@@ -6,21 +6,23 @@ import ast
 import json
 
 # TODO(VAL): Agregar regla de inline function (def f(): return 0)
-# TODO(MILTON): Agregar regla de PRINT y TRY y TRY CATCH
-# TODO(MILTON): tuple unpacking en los fors (y algún otro lado??)
 # TODO(EMMA): keyword args (e.g. print(msg="hello"))
 
 class Parser:
-# ----- PRECEDENCIA Y ASOCIATIVIDAD -----
+    # ----- PRECEDENCIA Y ASOCIATIVIDAD -----
     precedence = (
-    ('left', 'OR'),
-    ('left', 'AND'),
-    ('right', 'NOT'),
-    ('left', 'LESS', 'GREATER', 'LESSEQ', 'GREATEREQ', 'EQ', 'NEQ'),
-    ('left', 'PLUS', 'MINUS'),
-    ('left', 'MULTI', 'DIVIDE', 'FLOORDIV', 'MOD'),
-    ('right', 'UMINUS', 'UPLUS'),  # Operadores unarios, tokens usados solo para precedencia
-    ('right', 'POW'),
+        ("left", "OR"),  # OR tiene menor precedencia
+        ("left", "AND"),
+        ("right", "NOT"),
+        ("left", "LESS", "GREATER", "LESSEQ", "GREATEREQ", "EQ", "NEQ"),
+        ("left", "PLUS", "MINUS"),
+        ("left", "MULTI", "DIVIDE", "FLOORDIV", "MOD"),
+        (
+            "right",
+            "UMINUS",
+            "UPLUS",
+        ),  # Operadores unarios
+        ("right", "POW"),  # POW tiene mayor precedencia
     )
 
     def __init__(self, errors: list[Error], debug=False):
@@ -31,7 +33,8 @@ class Parser:
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self, start="program", debug=debug)
 
-    # --- helpers AST (solo para expresiones; no afectan otros segmentos) ---
+    # --- Crean nodos del Abstract Syntax Tree (AST).
+
     def _bin(self, op, left, right):
         return ("binary_op", op.lower(), left, right)
 
@@ -50,7 +53,7 @@ class Parser:
     def _cmp_chain(self, left, chain):
         """chain is a list of (op_token, expr)."""
         return ("cmp_chain", left, chain)
-    
+
     # --- diagnostics ---------------------------------------------------------
     def _has_lexer_errors(self) -> bool:
         """Return True if any error originated in the lexer."""
@@ -88,7 +91,6 @@ class Parser:
 
         walk(node)
 
-
     # ----- Reglas de la gramática -----
     # Programa: lista de sentencias (puede ser función, clase o expresión simple)
     def p_program(self, p):
@@ -110,14 +112,15 @@ class Parser:
             p[0] = []
         else:
             p[0] = [p[1]]
-
+    # ----- SENTENCIAS DE NIVEL SUPERIOR (módulo) -----
     def p_top_level_stmt(self, p):
         """top_level_stmt : func_def
-                         | class_def
-                         | simple_stmt
-                         | if_stmt
-                         | while_stmt
-                         | for_stmt"""
+        | class_def
+        | simple_stmt
+        | if_stmt
+        | while_stmt
+        | for_stmt
+        | try_stmt"""
         p[0] = p[1]
 
     # ----- SENTENCIAS DENTRO DE FUNCIONES -----
@@ -138,11 +141,11 @@ class Parser:
 
     def p_func_body_stmt(self, p):
         """func_body_stmt : simple_stmt
-                         | if_stmt
-                         | while_stmt
-                         | for_stmt"""
+        | if_stmt
+        | while_stmt
+        | for_stmt
+         | try_stmt"""
         p[0] = p[1]
-
 
     # ----- SENTENCIAS DENTRO DE CLASES -----
     # Dentro de clases se permiten métodos (funciones) pero NO clases anidadas
@@ -165,7 +168,7 @@ class Parser:
                           | simple_stmt"""
         p[0] = p[1]
 
-     # ----- SENTENCIAS DENTRO DE BLOQUES DE CONTROL -----
+    # ----- SENTENCIAS DENTRO DE BLOQUES DE CONTROL -----
     # En if/while/for se permiten todas las sentencias excepto def. de clases / funciones
     def p_block_stmts(self, p):
         """block_stmts : block_stmts block_stmt
@@ -181,11 +184,13 @@ class Parser:
         else:
             p[0] = [p[1]]
 
+    # ----- SENTENCIAS DENTRO DE BLOQUES DE CONTROL -----
     def p_block_stmt(self, p):
         """block_stmt : simple_stmt
-                     | if_stmt
-                     | while_stmt
-                     | for_stmt"""
+        | if_stmt
+        | while_stmt
+        | for_stmt
+        | try_stmt"""
         p[0] = p[1]
 
     # ----- DEFINICIÓN DE FUNCIONES -----
@@ -223,7 +228,7 @@ class Parser:
                    | IF expression COLON NEWLINE INDENT block_stmts DEDENT"""
         condition = p[2]
         then_body = p[6]
-        
+
         if len(p) == 10:  # if-elif-else
             p[0] = ("if_stmt", condition, then_body, p[8], p[9])
         elif len(p) == 9:
@@ -259,9 +264,18 @@ class Parser:
 
     # ----- BUCLE FOR -----
     def p_for_stmt(self, p):
-        """for_stmt : FOR ID IN expression COLON NEWLINE INDENT block_stmts DEDENT"""
-        p[0] = ("for", p[2], p[4], p[8])    
-        
+        """for_stmt : FOR target_tuple IN expression COLON NEWLINE INDENT block_stmts DEDENT
+        | FOR target IN expression COLON NEWLINE INDENT block_stmts DEDENT"""
+        # for a, b in iterable:
+        #     body
+        # o
+        # for x in iterable:
+        #     body
+        target = p[2]
+        iterable = p[4]
+        body = p[8]
+        p[0] = ("for", target, iterable, body)
+
     # ----- SENTENCIAS SIMPLES -----
 
     # Sentencia simple dentro de clase
@@ -270,23 +284,126 @@ class Parser:
                        | small_stmt"""
         p[0] = p[1]
 
-    # Sentencia simple dentro de función o nivel superior
+    # ----- SENTENCIAS SIMPLES -----
     def p_small_stmt(self, p):
         """small_stmt : assignment
-                      | aug_assignment
-                      | expression
-                      | return_stmt
-                      | pass_stmt
-                      | break_stmt
-                      | continue_stmt"""
+        | aug_assignment
+        | expression
+        | return_stmt
+        | pass_stmt
+        | break_stmt
+        | continue_stmt
+        | print_stmt"""
         p[0] = p[1]
 
-    # Asignación simple 
+    # ----- TARGET LIST (para unpacking) -----
+    # Un "target" puede ser un ID simple o una lista de targets
+    def p_target(self, p):
+        """target : ID
+        | nested_id"""
+        # Un target simple: variable o atributo (self.x, obj.attr)
+        p[0] = p[1]
+
+    # Lista de targets para unpacking: a, b, c
+    def p_target_list(self, p):
+        """target_list : target_list COMMA target
+        | target COMMA target"""
+        # target_list : a, b, c
+        # Resultado: ("target_list", [a, b, c])
+        if len(p) == 4:
+            if isinstance(p[1], tuple) and p[1][0] == "target_list":
+                # Ya es una lista, agregar el nuevo target
+                p[0] = ("target_list", p[1][1] + [p[3]])
+            else:
+                # Primer par: a, b
+                p[0] = ("target_list", [p[1], p[3]])
+
+    # Target con paréntesis opcionales: (a, b) o a, b
+    def p_target_tuple(self, p):
+        """target_tuple : LPAREN target_list RPAREN
+        | target_list"""
+        # (a, b, c) o simplemente a, b, c
+        if len(p) == 4:
+            # Con paréntesis
+            p[0] = p[2]
+        else:
+            # Sin paréntesis
+            p[0] = p[1]
+
+    # ----- SENTENCIA PRINT -----
+    def p_print_stmt(self, p):
+        """print_stmt : PRINT LPAREN expr_list_opt RPAREN
+        | PRINT LPAREN RPAREN"""
+        # PRINT puede recibir múltiples argumentos separados por coma
+        # PRINT(a, b, c) → ("print", [a, b, c])
+        # PRINT() → ("print", [])
+        if len(p) == 5:
+            p[0] = ("print", p[3])  # p[3] es la lista de expresiones
+        else:
+            p[0] = ("print", [])
+
+    # ----- BLOQUE TRY-EXCEPT -----
+    def p_try_stmt(self, p):
+        """try_stmt : TRY COLON NEWLINE INDENT block_stmts DEDENT except_clauses
+        | TRY COLON NEWLINE INDENT block_stmts DEDENT"""
+        # try:
+        #     <block_stmts>
+        # except ExceptionType:
+        #     <handler>
+        # except:
+        #     <default_handler>
+
+        try_body = p[5]  # Cuerpo del try
+
+        if len(p) == 8:
+            # Con cláusulas except
+            except_clauses = p[7]  # Lista de excepts
+            p[0] = ("try_stmt", try_body, except_clauses)
+        else:
+            # Try sin except (poco común pero válido en algunos lenguajes)
+            p[0] = ("try_stmt", try_body, [])
+
+    # ----- CLÁUSULAS EXCEPT (Una o más) -----
+    def p_except_clauses(self, p):
+        """except_clauses : except_clauses except_clause
+        | except_clause"""
+        # Permite múltiples excepts: except E1: ... except E2: ...
+        if len(p) == 3:
+            p[0] = p[1] + [p[2]]
+        else:
+            p[0] = [p[1]]
+
+    # ----- CLÁUSULA EXCEPT INDIVIDUAL -----
+    def p_except_clause(self, p):
+        """except_clause : EXCEPT ID COLON NEWLINE INDENT block_stmts DEDENT
+        | EXCEPT COLON NEWLINE INDENT block_stmts DEDENT"""
+        # except ExceptionType:
+        #     <handler_body>
+        # o
+        # except:  (captura todo)
+        #     <default_handler>
+
+        if len(p) == 8:
+            # except con tipo de excepción específico
+            exception_type = p[2]
+            handler_body = p[6]
+            p[0] = ("except", exception_type, handler_body)
+        else:
+            # except genérico (sin tipo)
+            handler_body = p[5]
+            p[0] = ("except", None, handler_body)
+
+    # Asignación simple
     def p_assignment(self, p):
-        """assignment : nested_id ASSIGN expression
-                      | nested_id ASSIGN_COLON expression
-                      | ID ASSIGN expression
-                      | ID ASSIGN_COLON expression """
+        """assignment : target_tuple ASSIGN expression
+        | target_tuple ASSIGN_COLON expression
+        | nested_id ASSIGN expression
+        | nested_id ASSIGN_COLON expression
+        | ID ASSIGN expression
+        | ID ASSIGN_COLON expression"""
+        # a, b = 1, 2
+        # x = 5
+        # self.attr = 10
         p[0] = ("assignment", p[1], p[3])
 
     # nested ids (id.id.id ...)
@@ -298,22 +415,24 @@ class Parser:
         else:
             p[0] = ("attribute_access", p[1], p[3])  # (obj.attr, attr)
 
-    # Asignación aumentada 
+    # Asignación aumentada
     def p_aug_assignment(self, p):
         """aug_assignment : nested_id PLUS_ASSIGN expression
-                          | nested_id MINUS_ASSIGN expression
-                          | nested_id MULTI_ASSIGN expression
-                          | nested_id DIVIDE_ASSIGN expression
-                          | nested_id MOD_ASSIGN expression
-                          | nested_id FLOORDIV_ASSIGN expression
-                          | nested_id POW_ASSIGN expression
-                          | ID PLUS_ASSIGN expression
-                          | ID MINUS_ASSIGN expression
-                          | ID MULTI_ASSIGN expression
-                          | ID DIVIDE_ASSIGN expression
-                          | ID MOD_ASSIGN expression
-                          | ID FLOORDIV_ASSIGN expression
-                          | ID POW_ASSIGN expression """
+        | nested_id MINUS_ASSIGN expression
+        | nested_id MULTI_ASSIGN expression
+        | nested_id DIVIDE_ASSIGN expression
+        | nested_id MOD_ASSIGN expression
+        | nested_id FLOORDIV_ASSIGN expression
+        | nested_id POW_ASSIGN expression
+        | ID PLUS_ASSIGN expression
+        | ID MINUS_ASSIGN expression
+        | ID MULTI_ASSIGN expression
+        | ID DIVIDE_ASSIGN expression
+        | ID MOD_ASSIGN expression
+        | ID FLOORDIV_ASSIGN expression
+        | ID POW_ASSIGN expression"""
+        # NOTE: Augmented assignments NO soportan unpacking
+        # a, b += 1  → INVÁLIDO en Python
         p[0] = ("aug_assignment", p[2], p[1], p[3])
 
     # Sentencias de control de flujo
@@ -342,20 +461,40 @@ class Parser:
     """ Según precedencia y asociatividad definidas arriba, la jerarquía es:
     
         expression
-        └── or_expression
-            └── and_expression
-                └── not_expression
-                        └── comparison
-                                └── arithmetic_expr
-                                    └── term
-                                        └── factor
-                                                └── power
-                                                    └── primary
+        └── tuple_expr (opt)
+            └── or_expression
+                └── and_expression
+                    └── not_expression
+                            └── comparison
+                                    └── arithmetic_expr
+                                        └── term
+                                            └── factor
+                                                    └── power
+                                                        └── primary
     """
 
     def p_expression(self, p):
-        """expression : or_expression"""
+        """expression : tuple_expr"""
         p[0] = p[1]
+
+    def p_tuple_expr(self, p):
+        """tuple_expr : or_expression COMMA or_expression
+        | tuple_expr COMMA or_expression
+        | or_expression"""
+        # a, b → ("tuple", [a, b])
+        # a, b, c → ("tuple", [a, b, c])
+        # a → a (sin cambio)
+        if len(p) == 2:
+            # Solo una expresión, no es tupla
+            p[0] = p[1]
+        elif len(p) == 4:
+            # Expresión con comas
+            if isinstance(p[1], tuple) and p[1][0] == "tuple":
+                # Ya es una tupla, agregar elemento
+                p[0] = ("tuple", p[1][1] + [p[3]])
+            else:
+                # Primera tupla: a, b
+                p[0] = ("tuple", [p[1], p[3]])
 
     # Operadores lógicos
     def p_or_expression(self, p):
@@ -489,7 +628,7 @@ class Parser:
                    | TRUE
                    | FALSE"""
         tok = p.slice[1].type
-        
+
         if tok == "ID":
             p[0] = self._id(p[1])
         elif tok == "INTEGER":
@@ -503,19 +642,25 @@ class Parser:
         elif tok == "FALSE":
             p[0] = self._lit("bool", False)
 
-    # Tuplas: (a,) — tupla de un elemento
-    def p_primary_tuple_trailing(self, p):
-        """primary : LPAREN expr_list COMMA RPAREN"""
-        p[0] = ("tuple", [p[2]])
-
-    # Tuplas: (a, b, ...)
-    # (a, b, c)   or   (a)  -> group if len==1, tuple if len>1
-    def p_primary_tuple_or_group(self, p):
-        """primary : LPAREN expr_list RPAREN"""
-        if len(p[2]) > 1:
-            p[0] = ("tuple", p[2])
+    # Tuplas con paréntesis: (a, b) o (a,)
+    def p_primary_tuple_explicit(self, p):
+        """primary : LPAREN tuple_expr RPAREN
+        | LPAREN tuple_expr COMMA RPAREN"""
+        # (a, b, c) → ya es ("tuple", [...])
+        # (a,) → ("tuple", [a])
+        if len(p) == 4:
+            # (a, b, c)
+            if isinstance(p[2], tuple) and p[2][0] == "tuple":
+                p[0] = p[2]  # Ya es tupla
+            else:
+                # (a) → grouping, no tupla
+                p[0] = ("group", p[2])
         else:
-            p[0] = ("group", p[2][0])
+            # (a,) → tupla de un elemento
+            if isinstance(p[2], tuple) and p[2][0] == "tuple":
+                p[0] = p[2]
+            else:
+                p[0] = ("tuple", [p[2]])
 
     # Listas: [a, b, c] y [a, b,]
     def p_primary_list(self, p):
@@ -678,6 +823,7 @@ if __name__ == "__main__":
         "tests/parser_semicolons.py",
         "tests/parser_top_level_if.py",
         "tests/parser_tuple_unpacking.py",
+        "tests/parser_print_try.py",
     ]
 
     # Run

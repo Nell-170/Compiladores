@@ -40,11 +40,7 @@
               ],
               [
                 [
-                  "call",
-                  [
-                    "identifier",
-                    "print"
-                  ],
+                  "print",
                   [
                     null
                   ]
@@ -173,142 +169,132 @@
             "tuple",
             [
               [
-                [
-                  "identifier",
-                  "x"
-                ]
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          "t",
-          [
-            "tuple",
-            [
-              [
                 "identifier",
                 "x"
               ],
               [
-                "identifier",
-                "y"
-              ],
-              [
-                "identifier",
-                "z"
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          "lst",
-          [
-            "list",
-            [
-              [
-                "identifier",
-                "x"
-              ],
-              [
-                "identifier",
-                "y"
-              ],
-              [
-                "identifier",
-                "z"
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          "dct",
-          [
-            "dict",
-            [
-              [
-                [
-                  "literal",
-                  "string",
-                  "a"
-                ],
+                "call",
                 [
                   "identifier",
-                  "x"
-                ]
-              ],
-              [
-                [
-                  "literal",
-                  "string",
-                  "b"
+                  "t"
                 ],
                 [
-                  "binop",
-                  "+",
                   [
-                    "identifier",
-                    "y"
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    1
+                    "tuple",
+                    [
+                      [
+                        "identifier",
+                        "x"
+                      ],
+                      [
+                        "identifier",
+                        "y"
+                      ],
+                      [
+                        "identifier",
+                        "z"
+                      ]
+                    ]
                   ]
                 ]
               ],
               [
-                [
-                  "literal",
-                  "bool",
-                  true
-                ],
-                [
-                  "literal",
-                  "int",
-                  5
-                ]
+                "identifier",
+                "y"
+              ],
+              [
+                "identifier",
+                "z"
+              ],
+              [
+                "literal",
+                "string",
+                "b"
+              ],
+              [
+                "literal",
+                "bool",
+                true
+              ],
+              [
+                "identifier",
+                "x"
+              ],
+              [
+                "identifier",
+                "y"
+              ],
+              [
+                "identifier",
+                "z"
               ]
-            ]
-          ]
-        ],
-        [
-          "call",
-          [
-            "identifier",
-            "print"
-          ],
-          [
-            [
-              "literal",
-              "string",
-              "ok"
-            ],
-            [
-              "identifier",
-              "x"
-            ],
-            [
-              "identifier",
-              "y"
-            ],
-            [
-              "identifier",
-              "z"
             ]
           ]
         ]
       ]
     ],
-    "error_count": 0,
+    "error_count": 27,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [],
-    "errors_raw": []
+    "errors_pretty": [
+      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'lst' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
+      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'dct' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
+      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
+      "L-1:?  Syntax error at token 'y' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '+' (PLUS)\n    \n    ",
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
+      "L-1:?  Syntax error at token '5' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'print' (PRINT)\n    \n    ",
+      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
+      "L-1:?  Syntax error at token 'ok' (SCONST)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 18, column 323. On:\nw = (x,)            # one-element tuple\n       ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 18, column 355. On:\nw = (x,)            # one-element tuple\n                                       ^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 19, column 358. On:\nt = (x, y, z)       # multi-element tuple\n  ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 19, column 397. On:\nt = (x, y, z)       # multi-element tuple\n                                         ^",
+      "ERROR(PARSER): Syntax error at token 'lst' (ID) at line 20, column 398. On:\nlst = [x, y, z]     # list\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 20, column 402. On:\nlst = [x, y, z]     # list\n    ^",
+      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 20, column 404. On:\nlst = [x, y, z]     # list\n      ^",
+      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 20, column 405. On:\nlst = [x, y, z]     # list\n       ^",
+      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 20, column 412. On:\nlst = [x, y, z]     # list\n              ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 20, column 424. On:\nlst = [x, y, z]     # list\n                          ^",
+      "ERROR(PARSER): Syntax error at token 'dct' (ID) at line 21, column 425. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 21, column 429. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n    ^",
+      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 21, column 431. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n      ^",
+      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 21, column 432. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n       ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 21, column 435. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n          ^",
+      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 21, column 437. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n            ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 21, column 443. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                  ^",
+      "ERROR(PARSER): Syntax error at token 'y' (ID) at line 21, column 445. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                    ^",
+      "ERROR(PARSER): Syntax error at token '+' (PLUS) at line 21, column 447. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                      ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 21, column 449. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                        ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 21, column 456. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                               ^",
+      "ERROR(PARSER): Syntax error at token '5' (INTEGER) at line 21, column 458. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                                 ^",
+      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 21, column 459. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                                  ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 21, column 460. On:\ndct = {\"a\": x, \"b\": y + 1, True: 5}\n                                   ^",
+      "ERROR(PARSER): Syntax error at token 'print' (PRINT) at line 24, column 496. On:\nprint(\"ok\", x, y, z)\n^",
+      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 24, column 501. On:\nprint(\"ok\", x, y, z)\n     ^",
+      "ERROR(PARSER): Syntax error at token 'ok' (SCONST) at line 24, column 502. On:\nprint(\"ok\", x, y, z)\n      ^"
+    ]
   },
   {
     "path": "tests/parser_augmented_assigns.py",
@@ -848,25 +834,165 @@
   },
   {
     "path": "tests/parser_dict_trailing_comma.py",
-    "success": false,
-    "result": null,
-    "error_count": 5,
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "assignment",
+          "d0",
+          [
+            "dict",
+            []
+          ]
+        ],
+        [
+          "assignment",
+          "d1",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "d2",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "literal",
+                      "int",
+                      1
+                    ],
+                    [
+                      "identifier",
+                      "d3"
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "literal",
+                  "string",
+                  "b"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "literal",
+                      "int",
+                      2
+                    ],
+                    [
+                      "identifier",
+                      "bad1"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "bad2",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "literal",
+                      "int",
+                      1
+                    ],
+                    [
+                      "identifier",
+                      "bad3"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 18,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
     "errors_pretty": [
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
       "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Unexpected end of input\n    \n    "
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    "
     ],
     "errors_raw": [
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 7, column 70. On:\nbad1 = {,}\n        ^",
+      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 3, column 35. On:\nd2 = {\"a\": 1,}\n             ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 3, column 36. On:\nd2 = {\"a\": 1,}\n              ^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 4, column 40. On:\nd3 = {\"a\": 1, \"b\": 2,}\n   ^",
+      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 4, column 42. On:\nd3 = {\"a\": 1, \"b\": 2,}\n     ^",
+      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 4, column 43. On:\nd3 = {\"a\": 1, \"b\": 2,}\n      ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 4, column 46. On:\nd3 = {\"a\": 1, \"b\": 2,}\n         ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 4, column 48. On:\nd3 = {\"a\": 1, \"b\": 2,}\n           ^",
+      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 4, column 58. On:\nd3 = {\"a\": 1, \"b\": 2,}\n                     ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 4, column 59. On:\nd3 = {\"a\": 1, \"b\": 2,}\n                      ^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 7, column 67. On:\nbad1 = {,}\n     ^",
+      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 7, column 69. On:\nbad1 = {,}\n       ^",
       "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 8, column 88. On:\nbad2 = {\"a\": 1,,}\n               ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 9, column 103. On:\nbad3 = {\"a\":}\n            ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 9, column 104. On:\nbad3 = {\"a\":}\n             ^",
-      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\nbad3 = {\"a\":}\n^"
+      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 8, column 89. On:\nbad2 = {\"a\": 1,,}\n                ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 8, column 90. On:\nbad2 = {\"a\": 1,,}\n                 ^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 9, column 96. On:\nbad3 = {\"a\":}\n     ^",
+      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 9, column 98. On:\nbad3 = {\"a\":}\n       ^",
+      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 9, column 99. On:\nbad3 = {\"a\":}\n        ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 9, column 102. On:\nbad3 = {\"a\":}\n           ^"
     ]
   },
   {
@@ -1099,11 +1225,7 @@
       "program",
       [
         [
-          "call",
-          [
-            "identifier",
-            "print"
-          ],
+          "print",
           [
             [
               "identifier",
@@ -1130,114 +1252,59 @@
     "path": "tests/parser_list_trailing_comma.py",
     "success": false,
     "result": null,
-    "error_count": 161,
+    "error_count": 85,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
     "errors_pretty": [
+      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'for' (FOR)\n    \n    ",
+      "L-1:?  Syntax error at token 'in' (IN)\n    \n    ",
+      "L-1:?  Syntax error at token 'vals' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'INDENT' (INDENT)\n    \n    ",
+      "L-1:?  Syntax error at token 'print' (PRINT)\n    \n    ",
+      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
+      "L-1:?  Syntax error at token 'val' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'DEDENT' (DEDENT)\n    \n    ",
+      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '0' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'y' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'def' (DEF)\n    \n    ",
+      "L-1:?  Syntax error at token 'f' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
+      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
       "L-1:?  Syntax error at token 'return' (RETURN)\n    \n    ",
       "L-1:?  Syntax error at token '0' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
       "L-1:?  Syntax error at token 'empty' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'single' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'multi' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '3' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'nested_mix' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
       "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'y' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '3' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '4' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'b' (SCONST)\n    \n    ",
       "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
       "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '+' (PLUS)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
       "L-1:?  Syntax error at token 'multi_line' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token '+' (PLUS)\n    \n    ",
-      "L-1:?  Syntax error at token 'f' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token '3' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '+' (PLUS)\n    \n    ",
-      "L-1:?  Syntax error at token '4' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token '//' (FLOORDIV)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token '%' (MOD)\n    \n    ",
-      "L-1:?  Syntax error at token '3' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'k' (SCONST)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '7' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '8' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'spaces' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '3' (INTEGER)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
       "L-1:?  Syntax error at token 'grouping_vs_tuple' (ID)\n    \n    ",
@@ -1246,51 +1313,30 @@
       "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
       "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
       "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'y' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'comments_and_blanks' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
       "L-1:?  Syntax error at token 'trailing1' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'trailing2' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'trailing_nested' (ID)\n    \n    ",
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
       "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
       "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
       "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
       "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
       "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
       "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
       "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
@@ -1298,109 +1344,54 @@
       "L-1:?  Unexpected end of input\n    \n    "
     ],
     "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 1, column 13. On:\nvals = [1, 2,]\n            ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 1, column 14. On:\nvals = [1, 2,]\n             ^",
+      "ERROR(PARSER): Syntax error at token 'for' (FOR) at line 2, column 15. On:\nfor val in vals:\n^",
+      "ERROR(PARSER): Syntax error at token 'in' (IN) at line 2, column 23. On:\nfor val in vals:\n        ^",
+      "ERROR(PARSER): Syntax error at token 'vals' (ID) at line 2, column 26. On:\nfor val in vals:\n           ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 2, column 30. On:\nfor val in vals:\n               ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 2, column 31. On:\nfor val in vals:\n                ^",
+      "ERROR(PARSER): Syntax error at token 'INDENT' (INDENT) at line 3, column 36. On:\nprint(val)\n^",
+      "ERROR(PARSER): Syntax error at token 'print' (PRINT) at line 3, column 36. On:\nprint(val)\n^",
+      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 3, column 41. On:\nprint(val)\n     ^",
+      "ERROR(PARSER): Syntax error at token 'val' (ID) at line 3, column 42. On:\nprint(val)\n      ^",
+      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 3, column 45. On:\nprint(val)\n         ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 3, column 46. On:\nprint(val)\n          ^",
+      "ERROR(PARSER): Syntax error at token 'DEDENT' (DEDENT) at line 4, column 47. On:\n\n^",
+      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 5, column 48. On:\nx = 0\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 5, column 50. On:\nx = 0\n  ^",
+      "ERROR(PARSER): Syntax error at token '0' (INTEGER) at line 5, column 52. On:\nx = 0\n    ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 5, column 53. On:\nx = 0\n     ^",
+      "ERROR(PARSER): Syntax error at token 'y' (ID) at line 6, column 54. On:\ny = 1\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 6, column 56. On:\ny = 1\n  ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 6, column 58. On:\ny = 1\n    ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 6, column 59. On:\ny = 1\n     ^",
+      "ERROR(PARSER): Syntax error at token 'def' (DEF) at line 8, column 61. On:\ndef f(): return 0\n^",
+      "ERROR(PARSER): Syntax error at token 'f' (ID) at line 8, column 65. On:\ndef f(): return 0\n    ^",
+      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 8, column 66. On:\ndef f(): return 0\n     ^",
+      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 8, column 67. On:\ndef f(): return 0\n      ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 8, column 68. On:\ndef f(): return 0\n       ^",
       "ERROR(PARSER): Syntax error at token 'return' (RETURN) at line 8, column 70. On:\ndef f(): return 0\n         ^",
       "ERROR(PARSER): Syntax error at token '0' (INTEGER) at line 8, column 77. On:\ndef f(): return 0\n                ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 8, column 78. On:\ndef f(): return 0\n                 ^",
       "ERROR(PARSER): Syntax error at token 'empty' (ID) at line 11, column 96. On:\nempty = []\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 11, column 102. On:\nempty = []\n      ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 11, column 104. On:\nempty = []\n        ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 11, column 105. On:\nempty = []\n         ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 11, column 106. On:\nempty = []\n          ^",
-      "ERROR(PARSER): Syntax error at token 'single' (ID) at line 12, column 107. On:\nsingle = [x]\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 12, column 114. On:\nsingle = [x]\n       ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 12, column 116. On:\nsingle = [x]\n         ^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 12, column 117. On:\nsingle = [x]\n          ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 12, column 118. On:\nsingle = [x]\n           ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 12, column 119. On:\nsingle = [x]\n            ^",
-      "ERROR(PARSER): Syntax error at token 'multi' (ID) at line 13, column 120. On:\nmulti  = [1, 2, 3]\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 13, column 127. On:\nmulti  = [1, 2, 3]\n       ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 13, column 129. On:\nmulti  = [1, 2, 3]\n         ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 13, column 130. On:\nmulti  = [1, 2, 3]\n          ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 13, column 131. On:\nmulti  = [1, 2, 3]\n           ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 13, column 133. On:\nmulti  = [1, 2, 3]\n             ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 13, column 134. On:\nmulti  = [1, 2, 3]\n              ^",
-      "ERROR(PARSER): Syntax error at token '3' (INTEGER) at line 13, column 136. On:\nmulti  = [1, 2, 3]\n                ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 13, column 137. On:\nmulti  = [1, 2, 3]\n                 ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 13, column 138. On:\nmulti  = [1, 2, 3]\n                  ^",
-      "ERROR(PARSER): Syntax error at token 'nested_mix' (ID) at line 16, column 211. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 16, column 222. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n           ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 16, column 224. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n             ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 16, column 225. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n              ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 16, column 226. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n               ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 227. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                ^",
       "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 16, column 228. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                 ^",
       "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 229. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                  ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 16, column 231. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                    ^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 16, column 232. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                     ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 233. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                      ^",
-      "ERROR(PARSER): Syntax error at token 'y' (ID) at line 16, column 235. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                        ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 16, column 236. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                         ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 237. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                          ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 16, column 239. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                            ^",
-      "ERROR(PARSER): Syntax error at token '3' (INTEGER) at line 16, column 240. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                             ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 241. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                              ^",
-      "ERROR(PARSER): Syntax error at token '4' (INTEGER) at line 16, column 243. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 16, column 244. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                 ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 245. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                  ^",
-      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 16, column 247. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                    ^",
-      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 16, column 248. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                     ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 16, column 251. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                        ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 16, column 253. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                          ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 254. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                           ^",
-      "ERROR(PARSER): Syntax error at token 'b' (SCONST) at line 16, column 256. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                             ^",
       "ERROR(PARSER): Syntax error at token ':' (COLON) at line 16, column 259. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                ^",
       "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 16, column 261. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                  ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 262. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                   ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 16, column 263. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                    ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 264. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                     ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 16, column 266. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                       ^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 16, column 267. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                        ^",
-      "ERROR(PARSER): Syntax error at token '+' (PLUS) at line 16, column 269. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                          ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 16, column 271. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                            ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 16, column 272. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                             ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 16, column 273. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                              ^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 16, column 274. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                               ^",
       "ERROR(PARSER): Syntax error at token 'multi_line' (ID) at line 19, column 345. On:\nmulti_line = [\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 19, column 356. On:\nmulti_line = [\n           ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 19, column 358. On:\nmulti_line = [\n             ^",
       "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 20, column 364. On:\n1,\n^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 20, column 365. On:\n1,\n ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 21, column 371. On:\n2 + f(3),\n^",
-      "ERROR(PARSER): Syntax error at token '+' (PLUS) at line 21, column 373. On:\n2 + f(3),\n  ^",
-      "ERROR(PARSER): Syntax error at token 'f' (ID) at line 21, column 375. On:\n2 + f(3),\n    ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 21, column 376. On:\n2 + f(3),\n     ^",
-      "ERROR(PARSER): Syntax error at token '3' (INTEGER) at line 21, column 377. On:\n2 + f(3),\n      ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 21, column 378. On:\n2 + f(3),\n       ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 21, column 379. On:\n2 + f(3),\n        ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 22, column 385. On:\n(x + 4) // 2 % 3,\n^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 22, column 386. On:\n(x + 4) // 2 % 3,\n ^",
-      "ERROR(PARSER): Syntax error at token '+' (PLUS) at line 22, column 388. On:\n(x + 4) // 2 % 3,\n   ^",
-      "ERROR(PARSER): Syntax error at token '4' (INTEGER) at line 22, column 390. On:\n(x + 4) // 2 % 3,\n     ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 22, column 391. On:\n(x + 4) // 2 % 3,\n      ^",
-      "ERROR(PARSER): Syntax error at token '//' (FLOORDIV) at line 22, column 393. On:\n(x + 4) // 2 % 3,\n        ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 22, column 396. On:\n(x + 4) // 2 % 3,\n           ^",
-      "ERROR(PARSER): Syntax error at token '%' (MOD) at line 22, column 398. On:\n(x + 4) // 2 % 3,\n             ^",
-      "ERROR(PARSER): Syntax error at token '3' (INTEGER) at line 22, column 400. On:\n(x + 4) // 2 % 3,\n               ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 22, column 401. On:\n(x + 4) // 2 % 3,\n                ^",
-      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 23, column 407. On:\n{\"k\": [7, 8]},\n^",
-      "ERROR(PARSER): Syntax error at token 'k' (SCONST) at line 23, column 408. On:\n{\"k\": [7, 8]},\n ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 23, column 411. On:\n{\"k\": [7, 8]},\n    ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 23, column 413. On:\n{\"k\": [7, 8]},\n      ^",
-      "ERROR(PARSER): Syntax error at token '7' (INTEGER) at line 23, column 414. On:\n{\"k\": [7, 8]},\n       ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 23, column 415. On:\n{\"k\": [7, 8]},\n        ^",
-      "ERROR(PARSER): Syntax error at token '8' (INTEGER) at line 23, column 417. On:\n{\"k\": [7, 8]},\n          ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 23, column 418. On:\n{\"k\": [7, 8]},\n           ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 23, column 419. On:\n{\"k\": [7, 8]},\n            ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 23, column 420. On:\n{\"k\": [7, 8]},\n             ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 24, column 422. On:\n]\n^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 24, column 423. On:\n]\n ^",
-      "ERROR(PARSER): Syntax error at token 'spaces' (ID) at line 27, column 467. On:\nspaces = [  1 , 2 , 3  ]\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 27, column 474. On:\nspaces = [  1 , 2 , 3  ]\n       ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 27, column 476. On:\nspaces = [  1 , 2 , 3  ]\n         ^",
       "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 27, column 479. On:\nspaces = [  1 , 2 , 3  ]\n            ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 27, column 481. On:\nspaces = [  1 , 2 , 3  ]\n              ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 27, column 483. On:\nspaces = [  1 , 2 , 3  ]\n                ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 27, column 485. On:\nspaces = [  1 , 2 , 3  ]\n                  ^",
-      "ERROR(PARSER): Syntax error at token '3' (INTEGER) at line 27, column 487. On:\nspaces = [  1 , 2 , 3  ]\n                    ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 27, column 490. On:\nspaces = [  1 , 2 , 3  ]\n                       ^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 27, column 491. On:\nspaces = [  1 , 2 , 3  ]\n                        ^",
       "ERROR(PARSER): Syntax error at token 'grouping_vs_tuple' (ID) at line 28, column 492. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n^",
@@ -1408,52 +1399,31 @@
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 28, column 512. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                    ^",
       "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 28, column 513. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                     ^",
       "ERROR(PARSER): Syntax error at token 'x' (ID) at line 28, column 514. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                      ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 28, column 515. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                       ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 28, column 516. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                        ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 28, column 518. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                          ^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 28, column 519. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                           ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 28, column 520. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                            ^",
-      "ERROR(PARSER): Syntax error at token 'y' (ID) at line 28, column 522. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                              ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 28, column 523. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                               ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 28, column 524. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 28, column 526. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                  ^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 28, column 527. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                   ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 28, column 528. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                    ^",
       "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 28, column 529. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                     ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 28, column 530. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                      ^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 28, column 565. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                                                         ^",
-      "ERROR(PARSER): Syntax error at token 'comments_and_blanks' (ID) at line 31, column 608. On:\ncomments_and_blanks = [\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 31, column 628. On:\ncomments_and_blanks = [\n                    ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 31, column 630. On:\ncomments_and_blanks = [\n                      ^",
       "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 32, column 636. On:\n1,              # ok\n^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 32, column 637. On:\n1,              # ok\n ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 34, column 685. On:\n2\n^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 35, column 687. On:\n]\n^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 35, column 688. On:\n]\n ^",
       "ERROR(PARSER): Syntax error at token 'trailing1' (ID) at line 38, column 736. On:\ntrailing1 = [1,]\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 38, column 746. On:\ntrailing1 = [1,]\n          ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 38, column 748. On:\ntrailing1 = [1,]\n            ^",
       "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 38, column 749. On:\ntrailing1 = [1,]\n             ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 38, column 750. On:\ntrailing1 = [1,]\n              ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 38, column 751. On:\ntrailing1 = [1,]\n               ^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 38, column 752. On:\ntrailing1 = [1,]\n                ^",
-      "ERROR(PARSER): Syntax error at token 'trailing2' (ID) at line 39, column 753. On:\ntrailing2 = [1, 2,]\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 39, column 763. On:\ntrailing2 = [1, 2,]\n          ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 39, column 765. On:\ntrailing2 = [1, 2,]\n            ^",
       "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 39, column 766. On:\ntrailing2 = [1, 2,]\n             ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 39, column 767. On:\ntrailing2 = [1, 2,]\n              ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 39, column 769. On:\ntrailing2 = [1, 2,]\n                ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 39, column 770. On:\ntrailing2 = [1, 2,]\n                 ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 39, column 771. On:\ntrailing2 = [1, 2,]\n                  ^",
       "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 39, column 772. On:\ntrailing2 = [1, 2,]\n                   ^",
-      "ERROR(PARSER): Syntax error at token 'trailing_nested' (ID) at line 40, column 773. On:\ntrailing_nested = [{\"a\": 1,},]\n^",
       "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 40, column 789. On:\ntrailing_nested = [{\"a\": 1,},]\n                ^",
       "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 40, column 791. On:\ntrailing_nested = [{\"a\": 1,},]\n                  ^",
       "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 40, column 792. On:\ntrailing_nested = [{\"a\": 1,},]\n                   ^",
       "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 40, column 793. On:\ntrailing_nested = [{\"a\": 1,},]\n                    ^",
       "ERROR(PARSER): Syntax error at token ':' (COLON) at line 40, column 796. On:\ntrailing_nested = [{\"a\": 1,},]\n                       ^",
       "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 40, column 798. On:\ntrailing_nested = [{\"a\": 1,},]\n                         ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 40, column 799. On:\ntrailing_nested = [{\"a\": 1,},]\n                          ^",
       "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 40, column 800. On:\ntrailing_nested = [{\"a\": 1,},]\n                           ^",
       "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 40, column 801. On:\ntrailing_nested = [{\"a\": 1,},]\n                            ^",
       "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 40, column 802. On:\ntrailing_nested = [{\"a\": 1,},]\n                             ^",
@@ -1626,11 +1596,7 @@
           ],
           [
             [
-              "call",
-              [
-                "identifier",
-                "print"
-              ],
+              "print",
               [
                 [
                   "literal",
@@ -1660,7 +1626,13 @@
       [
         [
           "for",
-          "a",
+          [
+            "target_list",
+            [
+              "a",
+              "b"
+            ]
+          ],
           [
             "list",
             [
@@ -1676,21 +1648,21 @@
                     "literal",
                     "int",
                     2
-                  ]
-                ]
-              ],
-              [
-                "tuple",
-                [
-                  [
-                    "literal",
-                    "int",
-                    3
                   ],
                   [
-                    "literal",
-                    "int",
-                    4
+                    "tuple",
+                    [
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
                   ]
                 ]
               ]
@@ -1698,7 +1670,260 @@
           ],
           [
             [
-              "pass"
+              "print",
+              [
+                [
+                  "tuple",
+                  [
+                    [
+                      "identifier",
+                      "a"
+                    ],
+                    [
+                      "identifier",
+                      "b"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "for",
+          [
+            "target_list",
+            [
+              "x",
+              "y"
+            ]
+          ],
+          [
+            "list",
+            [
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    2
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    3
+                  ],
+                  [
+                    "tuple",
+                    [
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        5
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        6
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "print",
+              [
+                [
+                  "tuple",
+                  [
+                    [
+                      "identifier",
+                      "x"
+                    ],
+                    [
+                      "identifier",
+                      "y"
+                    ],
+                    [
+                      "identifier",
+                      "z"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              "a",
+              "b"
+            ]
+          ],
+          [
+            "tuple",
+            [
+              [
+                "literal",
+                "int",
+                10
+              ],
+              [
+                "literal",
+                "int",
+                20
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              "x",
+              "y",
+              "z"
+            ]
+          ],
+          [
+            "list",
+            [
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    2
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    3
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              "m",
+              "n"
+            ]
+          ],
+          [
+            "tuple",
+            [
+              [
+                "literal",
+                "int",
+                5
+              ],
+              [
+                "literal",
+                "int",
+                6
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              [
+                "attribute_access",
+                "self",
+                "x"
+              ],
+              [
+                "attribute_access",
+                "self",
+                "y"
+              ]
+            ]
+          ],
+          [
+            "tuple",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ]
+            ]
+          ]
+        ],
+        [
+          "for",
+          "i",
+          [
+            "list",
+            [
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    2
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    3
+                  ]
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "print",
+              [
+                [
+                  "identifier",
+                  "i"
+                ]
+              ]
             ]
           ]
         ]
@@ -1710,11 +1935,245 @@
     "uncaught": null,
     "errors_pretty": [
       "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'b' (ID)\n    \n    "
+      "L-1:?  Syntax error at token 'z' (ID)\n    \n    "
     ],
     "errors_raw": [
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 2, column 74. On:\nfor a, b in [ (1,2), (3,4) ]:\n     ^",
-      "ERROR(PARSER): Syntax error at token 'b' (ID) at line 2, column 76. On:\nfor a, b in [ (1,2), (3,4) ]:\n       ^"
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 6, column 142. On:\nfor (x, y), z in [((1, 2), 3), ((4, 5), 6)]:\n          ^",
+      "ERROR(PARSER): Syntax error at token 'z' (ID) at line 6, column 144. On:\nfor (x, y), z in [((1, 2), 3), ((4, 5), 6)]:\n            ^"
     ]
+  },
+  {
+    "path": "tests/parser_print_try.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "print",
+          []
+        ],
+        [
+          "print",
+          [
+            [
+              "identifier",
+              "x"
+            ]
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "tuple",
+              [
+                [
+                  "identifier",
+                  "a"
+                ],
+                [
+                  "identifier",
+                  "b"
+                ],
+                [
+                  "binop",
+                  "+",
+                  [
+                    "identifier",
+                    "c"
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "try_stmt",
+          [
+            [
+              "assignment",
+              "x",
+              [
+                "binop",
+                "/",
+                [
+                  "literal",
+                  "int",
+                  1
+                ],
+                [
+                  "literal",
+                  "int",
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "except",
+              "ZeroDivisionError",
+              [
+                [
+                  "print",
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "Division by zero!"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "try_stmt",
+          [
+            [
+              "call",
+              [
+                "identifier",
+                "risky_operation"
+              ],
+              []
+            ]
+          ],
+          [
+            [
+              "except",
+              "NetworkError",
+              [
+                [
+                  "print",
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "Network failed"
+                    ]
+                  ]
+                ]
+              ]
+            ],
+            [
+              "except",
+              null,
+              [
+                [
+                  "print",
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "Unknown error"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "for",
+          [
+            "target_list",
+            [
+              "a",
+              "b"
+            ]
+          ],
+          [
+            "list",
+            [
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    2
+                  ],
+                  [
+                    "tuple",
+                    [
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "try_stmt",
+              [
+                [
+                  "print",
+                  [
+                    [
+                      "binop",
+                      "/",
+                      [
+                        "identifier",
+                        "a"
+                      ],
+                      [
+                        "identifier",
+                        "b"
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "except",
+                  "ZeroDivisionError",
+                  [
+                    [
+                      "print",
+                      [
+                        [
+                          "literal",
+                          "string",
+                          "Cannot divide by zero"
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 0,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [],
+    "errors_raw": []
   }
 ]
