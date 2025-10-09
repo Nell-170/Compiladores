@@ -5,13 +5,10 @@ from utils import Error
 import ast
 import json
 
-# TODO(any): Agregar atributos de clases (e.g. self.value)
-# TODO(any): Agregar regla de inline function (def f(): return 0)
-# TODO(any): Agregar regla de PRINT y TRY y TRY CATCH
-# TODO(any): tuple unpacking en los fors (y algún otro lado??)
-# TODO(any): keyword args (e.g. print(msg="hello"))
-# TODO(any): trailing commas in list, dict, 
-
+# TODO(VAL): Agregar regla de inline function (def f(): return 0)
+# TODO(MILTON): Agregar regla de PRINT y TRY y TRY CATCH
+# TODO(MILTON): tuple unpacking en los fors (y algún otro lado??)
+# TODO(EMMA): keyword args (e.g. print(msg="hello"))
 
 class Parser:
 # ----- PRECEDENCIA Y ASOCIATIVIDAD -----
