@@ -172,7 +172,7 @@ class Lexer:
         pass
         
     def t_SELF(self, t):
-        r"self | [a-zA-Z_]+[a-zA-Z0-9_]*\.[a-zA-Z0-9_]+"
+        r"self"
         t.is_self = True
         t.type = "SELF"
         return t

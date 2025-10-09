@@ -202,7 +202,7 @@ class Parser:
 
     # Lista de parámetros
     def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
-        """params_list : params_list COMMA SELF 
+        """params_list : params_list COMMA SELF
                        | SELF
                        | params_list COMMA ID
                        | ID """
@@ -329,7 +329,9 @@ class Parser:
 
     # Asignación simple dentro de clase 
     def p_assignment(self, p):
-        """assignment : SELF ASSIGN expression
+        """assignment : SELF DOT ID ASSIGN expression
+                      | SELF DOT ID ASSIGN_COLON expression
+                      | SELF ASSIGN expression
                       | SELF ASSIGN_COLON expression
                       | ID ASSIGN expression
                       | ID ASSIGN_COLON expression"""
@@ -337,13 +339,13 @@ class Parser:
 
     # Asignación aumentada dentro de clase
     def p_aug_assignment(self, p):
-        """aug_assignment : SELF PLUS_ASSIGN expression
-                          | SELF MINUS_ASSIGN expression
-                          | SELF MULTI_ASSIGN expression
-                          | SELF DIVIDE_ASSIGN expression
-                          | SELF MOD_ASSIGN expression
-                          | SELF FLOORDIV_ASSIGN expression
-                          | SELF POW_ASSIGN expression
+        """aug_assignment : SELF DOT ID PLUS_ASSIGN expression
+                          | SELF DOT ID MINUS_ASSIGN expression
+                          | SELF DOT ID MULTI_ASSIGN expression
+                          | SELF DOT ID DIVIDE_ASSIGN expression
+                          | SELF DOT ID MOD_ASSIGN expression
+                          | SELF DOT ID FLOORDIV_ASSIGN expression
+                          | SELF DOT ID POW_ASSIGN expression
                           | ID PLUS_ASSIGN expression
                           | ID MINUS_ASSIGN expression
                           | ID MULTI_ASSIGN expression
@@ -519,6 +521,7 @@ class Parser:
     # Literales y nombres
     def p_primary_atoms(self, p):
         """primary : SELF
+                   | SELF DOT ID
                    | ID
                    | INTEGER
                    | DECIMAL

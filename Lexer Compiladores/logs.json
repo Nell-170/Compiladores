@@ -19,16 +19,9 @@
               ],
               [
                 [
-                  "self_identifier",
-                  "self"
-                ],
-                [
                   "assignment",
-                  "value",
-                  [
-                    "identifier",
-                    "value"
-                  ]
+                  "self",
+                  "value"
                 ]
               ]
             ],
@@ -283,20 +276,12 @@
         ]
       ]
     ],
-    "error_count": 3,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token '.' (DOT)\n    \n    ",
-      "L-1:?  Syntax error at token '.' (DOT)\n    \n    ",
-      "L-1:?  Syntax error at token 'value' (ID)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token '.' (DOT) at line 4, column 85. On:\nself.value = value\n    ^",
-      "ERROR(PARSER): Syntax error at token '.' (DOT) at line 7, column 150. On:\nprint(self.value)\n          ^",
-      "ERROR(PARSER): Syntax error at token 'value' (ID) at line 7, column 151. On:\nprint(self.value)\n           ^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_augmented_assigns.py",
@@ -747,16 +732,9 @@
                   ]
                 ],
                 [
-                  "self_identifier",
-                  "self"
-                ],
-                [
                   "assignment",
-                  "value",
-                  [
-                    "identifier",
-                    "value"
-                  ]
+                  "self",
+                  "value"
                 ]
               ]
             ]
@@ -827,16 +805,12 @@
         ]
       ]
     ],
-    "error_count": 1,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token '.' (DOT)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token '.' (DOT) at line 5, column 210. On:\nself.value = value   # Attribute access\n    ^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_dict_trailing_comma.py",
