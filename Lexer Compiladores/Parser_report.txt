@@ -23,10 +23,24 @@ Total errors: 1
 AST: (omitted in report for brevity)
 
 === tests/parser_dict_trailing_comma.py ===
-Status: OK
+Status: ERROR
 Lexer errors: False | Parser errors: False
-Total errors: 0
-AST: (omitted in report for brevity)
+Total errors: 5
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token '}' (RKEY)
+    
+    
+L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
+    
+    
+L-1:?  Unexpected end of input
+    
+    
 
 === tests/parser_function_control.py ===
 Status: OK
@@ -57,10 +71,7 @@ AST: (omitted in report for brevity)
 === tests/parser_list_trailing_comma.py ===
 Status: ERROR
 Lexer errors: False | Parser errors: False
-Total errors: 215
-L-1:?  Indentation must be a multiple of 4 spaces
-    
-    
+Total errors: 161
 L-1:?  Syntax error at token 'return' (RETURN)
     
     
@@ -86,6 +97,9 @@ L-1:?  Syntax error at token 'single' (ID)
     
     
 L-1:?  Syntax error at token '=' (ASSIGN)
+    
+    
+L-1:?  Syntax error at token '[' (LBRACKET)
     
     
 

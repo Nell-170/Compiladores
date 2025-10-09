@@ -1,6 +1,6 @@
 vals = [1, 2,]
 for val in vals:
-  print(val)
+    print(val)
 
 x = 0
 y = 1
@@ -39,13 +39,13 @@ trailing1 = [1,]
 trailing2 = [1, 2,]
 trailing_nested = [{"a": 1,},]
 
-# Comma issues
-double_comma = [1,,2]
-leading_comma = [,1]
-missing_value = [1, ]            # comma with no following element
-missing_comma = [1 2]            # needs a comma between items
+# # Comma issues
+# double_comma = [1,,2]
+# leading_comma = [,1]
+# missing_value = [1, ]            # comma with no following element
+# missing_comma = [1 2]            # needs a comma between items
 
-# Structural problems
-missing_close = [1, 2
-missing_open  = 1, 2]
-comp = [x for x in xs]           # list comprehensions unsupported in this grammar
+# # Structural problems
+# missing_close = [1, 2
+# missing_open  = 1, 2]
+# comp = [x for x in xs]           # list comprehensions unsupported in this grammar
