@@ -41,6 +41,7 @@ class Lexer:
     tokens = reserved + (
         # Literals
         "ID",
+        "SELF",
         "INTEGER",
         "DECIMAL",
         "SCONST",
@@ -170,6 +171,12 @@ class Lexer:
         # swallow it so the parser can't use it as a separator
         pass
         
+    def t_SELF(self, t):
+        r"self | [a-zA-Z_]+[a-zA-Z0-9_]*\.[a-zA-Z0-9_]+"
+        t.is_self = True
+        t.type = "SELF"
+        return t
+
     t_COLON = r":"
     t_DOT = r"\."
 
@@ -362,12 +369,6 @@ class Lexer:
         self.saw_token_on_line = False
         
         # return the NEWLINE token
-        return t
-
-    def t_SELF(self, t):
-        r"self | [a-zA-Z0-9_]+\.[a-zA-Z0-9_]+"
-        t.is_self = True
-        t.type = "SELF"
         return t
 
     # Identifiers and reserved words

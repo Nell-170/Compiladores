@@ -19,7 +19,7 @@
               ],
               [
                 [
-                  "identifier",
+                  "self_identifier",
                   "self"
                 ],
                 [
@@ -47,7 +47,7 @@
                   ],
                   [
                     [
-                      "identifier",
+                      "self_identifier",
                       "self"
                     ]
                   ]
@@ -742,12 +742,12 @@
                   "assignment",
                   "self",
                   [
-                    "identifier",
+                    "self_identifier",
                     "self"
                   ]
                 ],
                 [
-                  "identifier",
+                  "self_identifier",
                   "self"
                 ],
                 [
