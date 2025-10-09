@@ -6,6 +6,77 @@
       "program",
       [
         [
+          "class_def",
+          "MyNumber",
+          null,
+          [
+            [
+              "func_def",
+              "__init__",
+              [
+                "myNumber",
+                "value"
+              ],
+              [
+                [
+                  "assignment",
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "func_def",
+              "print_value",
+              [
+                "self"
+              ],
+              [
+                [
+                  "call",
+                  [
+                    "identifier",
+                    "print"
+                  ],
+                  [
+                    null
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "num",
+          [
+            "call",
+            [
+              "identifier",
+              "MyNumber"
+            ],
+            [
+              [
+                "literal",
+                "int",
+                10
+              ]
+            ]
+          ]
+        ],
+        null,
+        [
+          "group",
+          null
+        ],
+        [
           "assignment",
           "x",
           [
@@ -688,12 +759,12 @@
                   ]
                 ],
                 [
-                  "identifier",
-                  "self"
-                ],
-                [
                   "assignment",
-                  "value",
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
                   [
                     "identifier",
                     "value"
@@ -768,16 +839,12 @@
         ]
       ]
     ],
-    "error_count": 1,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token '.' (DOT)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token '.' (DOT) at line 5, column 210. On:\nself.value = value   # Attribute access\n    ^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_dict_trailing_comma.py",

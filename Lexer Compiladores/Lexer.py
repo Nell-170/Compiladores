@@ -41,6 +41,7 @@ class Lexer:
     tokens = reserved + (
         # Literals
         "ID",
+        "SELF",
         "INTEGER",
         "DECIMAL",
         "SCONST",
@@ -169,7 +170,7 @@ class Lexer:
         )
         # swallow it so the parser can't use it as a separator
         pass
-        
+
     t_COLON = r":"
     t_DOT = r"\."
 

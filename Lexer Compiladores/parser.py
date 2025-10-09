@@ -41,6 +41,9 @@ class Parser:
     def _lit(self, kind, value):
         return ("literal", kind, value)
 
+    def _self(self, name):
+        return ("self_identifier", name)
+
     def _id(self, name):
         return ("identifier", name)
 
@@ -195,9 +198,9 @@ class Parser:
             p[0] = ("func_def", p[2], [], p[8])  # nombre, sin parámetros, cuerpo
 
     # Lista de parámetros
-    def p_params_list(self, p):
+    def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
         """params_list : params_list COMMA ID
-                      | ID"""
+                       | ID """
         if len(p) == 4:
             p[0] = p[1] + [p[3]]
         else:
@@ -206,7 +209,7 @@ class Parser:
     # ----- DEFINICIÓN DE CLASES -----
     def p_class_def(self, p):
         """class_def : CLASS ID COLON NEWLINE INDENT class_body_stmts DEDENT
-                     | CLASS ID LPAREN ID RPAREN COLON NEWLINE INDENT class_body_stmts DEDENT"""
+                     | CLASS ID LPAREN params_list RPAREN COLON NEWLINE INDENT class_body_stmts DEDENT"""
         if len(p) == 8:
             p[0] = ("class_def", p[2], None, p[6])  # nombre, sin herencia, cuerpo
         else:
@@ -260,11 +263,14 @@ class Parser:
         p[0] = ("for", p[2], p[4], p[8])    
         
     # ----- SENTENCIAS SIMPLES -----
+
+    # Sentencia simple dentro de clase
     def p_simple_stmt(self, p):
         """simple_stmt : small_stmt NEWLINE
-                      | small_stmt"""
+                       | small_stmt"""
         p[0] = p[1]
 
+    # Sentencia simple dentro de función o nivel superior
     def p_small_stmt(self, p):
         """small_stmt : assignment
                       | aug_assignment
@@ -275,21 +281,39 @@ class Parser:
                       | continue_stmt"""
         p[0] = p[1]
 
-    # Asignación simple
+    # Asignación simple 
     def p_assignment(self, p):
-        """assignment : ID ASSIGN expression
-                      | ID ASSIGN_COLON expression"""
+        """assignment : nested_id ASSIGN expression
+                      | nested_id ASSIGN_COLON expression
+                      | ID ASSIGN expression
+                      | ID ASSIGN_COLON expression """
         p[0] = ("assignment", p[1], p[3])
 
-    # Asignación aumentada
+    # nested ids (id.id.id ...)
+    def p_nested_id(self, p):
+        """nested_id : nested_id DOT ID
+                     | ID DOT ID"""
+        if len(p) == 4:
+            p[0] = ("attribute_access", p[1], p[3])  # (obj, attr)
+        else:
+            p[0] = ("attribute_access", p[1], p[3])  # (obj.attr, attr)
+
+    # Asignación aumentada 
     def p_aug_assignment(self, p):
-        """aug_assignment : ID PLUS_ASSIGN expression
+        """aug_assignment : nested_id PLUS_ASSIGN expression
+                          | nested_id MINUS_ASSIGN expression
+                          | nested_id MULTI_ASSIGN expression
+                          | nested_id DIVIDE_ASSIGN expression
+                          | nested_id MOD_ASSIGN expression
+                          | nested_id FLOORDIV_ASSIGN expression
+                          | nested_id POW_ASSIGN expression
+                          | ID PLUS_ASSIGN expression
                           | ID MINUS_ASSIGN expression
                           | ID MULTI_ASSIGN expression
                           | ID DIVIDE_ASSIGN expression
                           | ID MOD_ASSIGN expression
                           | ID FLOORDIV_ASSIGN expression
-                          | ID POW_ASSIGN expression"""
+                          | ID POW_ASSIGN expression """
         p[0] = ("aug_assignment", p[2], p[1], p[3])
 
     # Sentencias de control de flujo
@@ -314,6 +338,21 @@ class Parser:
         p[0] = ("continue",)
 
     # ----- EXPRESIONES -----
+
+    """ Según precedencia y asociatividad definidas arriba, la jerarquía es:
+    
+        expression
+        └── or_expression
+            └── and_expression
+                └── not_expression
+                        └── comparison
+                                └── arithmetic_expr
+                                    └── term
+                                        └── factor
+                                                └── power
+                                                    └── primary
+    """
+
     def p_expression(self, p):
         """expression : or_expression"""
         p[0] = p[1]
@@ -442,13 +481,15 @@ class Parser:
 
     # Literales y nombres
     def p_primary_atoms(self, p):
-        """primary : ID
+        """primary : nested_id
+                   | ID
                    | INTEGER
                    | DECIMAL
                    | SCONST
                    | TRUE
                    | FALSE"""
         tok = p.slice[1].type
+        
         if tok == "ID":
             p[0] = self._id(p[1])
         elif tok == "INTEGER":
