@@ -1,10 +1,12 @@
 # Test with self atribute
+
 class MyNumber:
-    def __init__(self, value):
+    def __init__(myNumber, value):
         self.value = value
     
     def print_value(self):
-        print(self.value)
+        print(MyNumber.value)
+
 
 #num = MyNumber(10)
 #num.print_value(num.value)

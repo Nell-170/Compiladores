@@ -14,7 +14,7 @@
               "func_def",
               "__init__",
               [
-                "self",
+                "myNumber",
                 "value"
               ],
               [
@@ -40,8 +40,8 @@
                   ],
                   [
                     [
-                      "self_identifier",
-                      "self"
+                      "identifier",
+                      "MyNumber"
                     ]
                   ]
                 ]
@@ -727,7 +727,7 @@
                   "assignment",
                   "self",
                   [
-                    "self_identifier",
+                    "identifier",
                     "self"
                   ]
                 ],

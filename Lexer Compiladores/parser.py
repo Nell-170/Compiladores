@@ -117,7 +117,7 @@ class Parser:
     def p_top_level_stmt(self, p):
         """top_level_stmt : func_def
                          | class_def
-                         | simple_stmt_out
+                         | simple_stmt
                          | if_stmt
                          | while_stmt
                          | for_stmt"""
@@ -202,9 +202,7 @@ class Parser:
 
     # Lista de parámetros
     def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
-        """params_list : params_list COMMA SELF
-                       | SELF
-                       | params_list COMMA ID
+        """params_list : params_list COMMA ID
                        | ID """
         if len(p) == 4:
             p[0] = p[1] + [p[3]]
@@ -214,20 +212,11 @@ class Parser:
     # ----- DEFINICIÓN DE CLASES -----
     def p_class_def(self, p):
         """class_def : CLASS ID COLON NEWLINE INDENT class_body_stmts DEDENT
-                     | CLASS ID LPAREN multiple_ids RPAREN COLON NEWLINE INDENT class_body_stmts DEDENT"""
+                     | CLASS ID LPAREN params_list RPAREN COLON NEWLINE INDENT class_body_stmts DEDENT"""
         if len(p) == 8:
             p[0] = ("class_def", p[2], None, p[6])  # nombre, sin herencia, cuerpo
         else:
             p[0] = ("class_def", p[2], p[4], p[9])  # nombre, clase padre, cuerpo
-
-    # Lista de múltiples IDs (herencia múltiple)
-    def p_multiple_ids(self, p):
-        """multiple_ids : multiple_ids COMMA ID
-                        | ID"""
-        if len(p) == 4:
-            p[0] = p[1] + [p[3]]
-        else:
-            p[0] = [p[1]]
 
     # ----- SENTENCIA IF -----
     def p_if_stmt(self, p):
@@ -278,21 +267,6 @@ class Parser:
         
     # ----- SENTENCIAS SIMPLES -----
 
-    def p_simple_stmt_out(self, p):
-        """simple_stmt_out : small_stmt_out NEWLINE
-                           | small_stmt_out"""
-        p[0] = p[1]
-
-    def p_small_stmt_out(self, p):
-        """small_stmt_out : assignment_out
-                          | aug_assignment_out
-                          | expression
-                          | return_stmt
-                          | pass_stmt
-                          | break_stmt
-                          | continue_stmt"""
-        p[0] = p[1]
-
     # Sentencia simple dentro de clase
     def p_simple_stmt(self, p):
         """simple_stmt : small_stmt NEWLINE
@@ -310,42 +284,23 @@ class Parser:
                       | continue_stmt"""
         p[0] = p[1]
 
-    # Asignación simple fuera de clase
-    def p_assignment_out(self, p):
-        """assignment_out : ID ASSIGN expression
-                          | ID ASSIGN_COLON expression """
-        p[0] = ("assignment", p[1], p[3])
-
-    # Asignación aumentada fuera de clase
-    def p_aug_assignment_out(self, p):
-        """aug_assignment_out : ID PLUS_ASSIGN expression
-                          | ID MINUS_ASSIGN expression
-                          | ID MULTI_ASSIGN expression
-                          | ID DIVIDE_ASSIGN expression
-                          | ID MOD_ASSIGN expression
-                          | ID FLOORDIV_ASSIGN expression
-                          | ID POW_ASSIGN expression """
-        p[0] = ("aug_assignment", p[2], p[1], p[3])
-
-    # Asignación simple dentro de clase 
+    # Asignación simple 
     def p_assignment(self, p):
-        """assignment : SELF DOT ID ASSIGN expression
-                      | SELF DOT ID ASSIGN_COLON expression
-                      | SELF ASSIGN expression
-                      | SELF ASSIGN_COLON expression
+        """assignment : ID DOT ID ASSIGN expression
+                      | ID DOT ID ASSIGN_COLON expression
                       | ID ASSIGN expression
-                      | ID ASSIGN_COLON expression"""
+                      | ID ASSIGN_COLON expression """
         p[0] = ("assignment", p[1], p[3])
 
-    # Asignación aumentada dentro de clase
+    # Asignación aumentada 
     def p_aug_assignment(self, p):
-        """aug_assignment : SELF DOT ID PLUS_ASSIGN expression
-                          | SELF DOT ID MINUS_ASSIGN expression
-                          | SELF DOT ID MULTI_ASSIGN expression
-                          | SELF DOT ID DIVIDE_ASSIGN expression
-                          | SELF DOT ID MOD_ASSIGN expression
-                          | SELF DOT ID FLOORDIV_ASSIGN expression
-                          | SELF DOT ID POW_ASSIGN expression
+        """aug_assignment : ID DOT ID PLUS_ASSIGN expression
+                          | ID DOT ID MINUS_ASSIGN expression
+                          | ID DOT ID MULTI_ASSIGN expression
+                          | ID DOT ID DIVIDE_ASSIGN expression
+                          | ID DOT ID MOD_ASSIGN expression
+                          | ID DOT ID FLOORDIV_ASSIGN expression
+                          | ID DOT ID POW_ASSIGN expression
                           | ID PLUS_ASSIGN expression
                           | ID MINUS_ASSIGN expression
                           | ID MULTI_ASSIGN expression
@@ -520,8 +475,7 @@ class Parser:
 
     # Literales y nombres
     def p_primary_atoms(self, p):
-        """primary : SELF
-                   | SELF DOT ID
+        """primary : ID DOT ID
                    | ID
                    | INTEGER
                    | DECIMAL
@@ -529,9 +483,8 @@ class Parser:
                    | TRUE
                    | FALSE"""
         tok = p.slice[1].type
-        if tok == "SELF":
-            p[0] = self._self(p[1])
-        elif tok == "ID":
+        
+        if tok == "ID":
             p[0] = self._id(p[1])
         elif tok == "INTEGER":
             p[0] = self._lit("int", p[1])

@@ -170,12 +170,6 @@ class Lexer:
         )
         # swallow it so the parser can't use it as a separator
         pass
-        
-    def t_SELF(self, t):
-        r"self"
-        t.is_self = True
-        t.type = "SELF"
-        return t
 
     t_COLON = r":"
     t_DOT = r"\."
