@@ -23,19 +23,35 @@ class Lexer:
                 self.reserved_map[r.lower()] = r
 
     reserved = (
-        # TODO(any): add PRINT token and rule
-        # TODO(any): add TRY CATCH token and rule
         # Control flow
-        "IF", "ELSE", "ELIF", "WHILE", "FOR", "IN", 
-        "BREAK", "CONTINUE", "PASS",
+        "IF",
+        "ELSE",
+        "ELIF",
+        "WHILE",
+        "FOR",
+        "IN",
+        "BREAK",
+        "CONTINUE",
+        "PASS",
+        "TRY",
+        "EXCEPT",  # except en python, luego lo traducimos a catch
+        "RETURN",
         # Definitions
-        "DEF", "RETURN", "CLASS",
+        "DEF",
+        "CLASS",
         # Boolean types
-        "TRUE", "FALSE",
+        "TRUE",
+        "FALSE",
         # Logical operators
-        "AND", "OR", "NOT",
+        "AND",
+        "OR",
+        "NOT",
         # Synthetic indentation and newline
-        "INDENT", "DEDENT", "NEWLINE",
+        "INDENT",
+        "DEDENT",
+        "NEWLINE",
+        # Reserved functions
+        "PRINT",
     )
 
     tokens = reserved + (
@@ -154,7 +170,7 @@ class Lexer:
 
     # Delimiters
     t_COMMA = r","
-    
+
     # Semicolon is not allowed as a line separator in our Python version
     def t_SEMICOLON(self, t):
         r";"
@@ -190,7 +206,7 @@ class Lexer:
             )
             # Fallback: strip quotes without unescaping so parser can continue
             t.value = raw[1:-1]
-            
+
         t.type = 'SCONST'
         return t
 
@@ -209,7 +225,7 @@ class Lexer:
             )
             # Fallback: strip quotes without unescaping so parser can continue
             t.value = raw[1:-1]
-            
+
         t.type = 'SCONST'
         return t
 
@@ -264,19 +280,19 @@ class Lexer:
     def t_newline(self, t):
         r'\n[ \t]*'
         t.lexer.lineno += 1
-        
+
         # Skip indentation for continuation lines
         if self.paren_level > 0 or self.backslash_cont:
             self.backslash_cont = False
             return
-        
+
         # Extract indentation text after newline
         indent_text = t.value[1:]
         # Calculate current indentation level
         current_col = self._tab_expand_col(indent_text)
         # Get current indentation level from stack
         prev_col = self.indent_stack[-1]
-        
+
         if not self.saw_token_on_line:
             # prepare for the next physical line
             self.saw_token_on_line = False
@@ -299,11 +315,11 @@ class Lexer:
                     self.data,
                 )
             )
-        
+
         # Always emit NEWLINE for lines with real content
         t.type = 'NEWLINE'
         t.value = 'NEWLINE'
-        
+
         # Case A: last colon required an indented block
         if self.expect_indent and current_col <= prev_col:
             self.errors.append(
@@ -333,7 +349,7 @@ class Lexer:
             )
         # Either way, clear the guard after we’ve examined this newline
         self.forbid_indent_next = False
-        
+
         # Emit INDENT/DEDENT tokens
         # Compare current vs previous indentation
         if current_col > prev_col:
@@ -346,7 +362,7 @@ class Lexer:
             while self.indent_stack and self.indent_stack[-1] > current_col:
                 self.indent_stack.pop()
                 self.pending.append(self._emit('DEDENT'))
-            
+
             # Verify indentation matches a previous level
             if self.indent_stack[-1] != current_col:
                 self.errors.append(
@@ -358,10 +374,10 @@ class Lexer:
                         self.data,
                     )
                 )
-        
+
         # Reset flag after processing this newline
         self.saw_token_on_line = False
-        
+
         # return the NEWLINE token
         return t
 
@@ -410,10 +426,10 @@ class Lexer:
         # First deliver any pending indentation tokens
         if self.pending: 
             return self.pending.pop(0)
-            
+
         # Then get next token from lexer
         tok = self.orig_token()
-        
+
         # If we have a real token, mark that we've seen content
         if tok and tok.type not in ('NEWLINE', 'INDENT', 'DEDENT'):
             self.saw_token_on_line = True
@@ -444,7 +460,7 @@ class Lexer:
                 self.indent_stack.pop()
                 self.pending.append(self._emit('DEDENT'))
             return self.pending.pop(0) if self.pending else None
-            
+
         return tok
 
     def build(self):
@@ -509,4 +525,3 @@ if __name__ == "__main__":
     path = "tests/lexer_test.py"
     lexer_tester(path, lexer)
     pretty_print_errors(errors)
-
