@@ -115,20 +115,20 @@ class Parser:
     # ----- SENTENCIAS DE NIVEL SUPERIOR (módulo) -----
     def p_top_level_stmt(self, p):
         """top_level_stmt : func_def
-        | class_def
-        | simple_stmt
-        | if_stmt
-        | while_stmt
-        | for_stmt
-        | try_stmt"""
+                          | class_def
+                          | simple_stmt
+                          | if_stmt
+                          | while_stmt
+                          | for_stmt
+                          | try_stmt"""
         p[0] = p[1]
 
     # ----- SENTENCIAS DENTRO DE FUNCIONES -----
     # Dentro de funciones NO se permiten definiciones de clases ni funciones anidadas
     def p_func_body_stmts(self, p):
         """func_body_stmts : func_body_stmts func_body_stmt
-                          | func_body_stmt
-                          | empty"""
+                           | func_body_stmt
+                           | empty"""
         if len(p) == 3:
             if p[1] is None:
                 p[0] = [p[2]]
@@ -141,18 +141,18 @@ class Parser:
 
     def p_func_body_stmt(self, p):
         """func_body_stmt : simple_stmt
-        | if_stmt
-        | while_stmt
-        | for_stmt
-         | try_stmt"""
+                          | if_stmt
+                          | while_stmt
+                          | for_stmt
+                          | try_stmt"""
         p[0] = p[1]
 
     # ----- SENTENCIAS DENTRO DE CLASES -----
     # Dentro de clases se permiten métodos (funciones) pero NO clases anidadas
     def p_class_body_stmts(self, p):
         """class_body_stmts : class_body_stmts class_body_stmt
-                           | class_body_stmt
-                           | empty"""
+                            | class_body_stmt
+                            | empty"""
         if len(p) == 3:
             if p[1] is None:
                 p[0] = [p[2]]
@@ -165,7 +165,7 @@ class Parser:
 
     def p_class_body_stmt(self, p):
         """class_body_stmt : func_def
-                          | simple_stmt"""
+                           | simple_stmt"""
         p[0] = p[1]
 
     # ----- SENTENCIAS DENTRO DE BLOQUES DE CONTROL -----
@@ -204,7 +204,9 @@ class Parser:
 
     # Lista de parámetros
     def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
-        """params_list : params_list COMMA ID
+        """params_list : params_list COMMA nested_id
+                       | nested_id
+                       | params_list COMMA ID
                        | ID """
         if len(p) == 4:
             p[0] = p[1] + [p[3]]
