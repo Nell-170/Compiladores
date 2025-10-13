@@ -55,12 +55,28 @@ class Parser:
 
     # --- diagnostics ---------------------------------------------------------
     def _has_lexer_errors(self) -> bool:
-        """Return True if any error originated in the lexer."""
-        return any(getattr(e, "source", "").lower() == "lexer" for e in self.errors)
+        for e in self.errors:
+            src = getattr(e, "source", None)
+            # Be robust to different attribute names/casing
+            label = (str(src) if src is not None else "").strip().lower()
+            if label == "lexer":
+                return True
+            # Fallback: look at the formatted string
+            s = str(e).lower()
+            if "error(lexer)" in s:
+                return True
+        return False
 
     def _has_parser_errors(self) -> bool:
-        """Return True if any error originated in the parser."""
-        return any(getattr(e, "source", "").lower() == "parser" for e in self.errors)
+        for e in self.errors:
+            src = getattr(e, "source", None)
+            label = (str(src) if src is not None else "").strip().lower()
+            if label == "parser":
+                return True
+            s = str(e).lower()
+            if "error(parser)" in s:
+                return True
+        return False
 
     def _validate_ast_for_empty_string_literals(self, node):
         """
@@ -525,25 +541,6 @@ class Parser:
         """expression : or_expression"""
         p[0] = p[1]
 
-    # def p_tuple_expr(self, p):
-    #     """tuple_expr : or_expression COMMA or_expression
-    #     | tuple_expr COMMA or_expression
-    #     | or_expression"""
-    #     # a, b → ("tuple", [a, b])
-    #     # a, b, c → ("tuple", [a, b, c])
-    #     # a → a (sin cambio)
-    #     if len(p) == 2:
-    #         # Solo una expresión, no es tupla
-    #         p[0] = p[1]
-    #     elif len(p) == 4:
-    #         # Expresión con comas
-    #         if isinstance(p[1], tuple) and p[1][0] == "tuple":
-    #             # Ya es una tupla, agregar elemento
-    #             p[0] = ("tuple", p[1][1] + [p[3]])
-    #         else:
-    #             # Primera tupla: a, b
-    #             p[0] = ("tuple", [p[1], p[3]])
-
     # Operadores lógicos
     def p_or_expression(self, p):
         """or_expression : or_expression OR and_expression
@@ -685,8 +682,10 @@ class Parser:
                    | TRUE
                    | FALSE"""
         tok = p.slice[1].type
-
-        if tok == "ID": # -> Falta caso nested_id
+        if tok == "nested_id":
+            # nested_id already returns an AST node like ("attribute_access", base, name)
+            p[0] = p[1]
+        elif tok == "ID":
             p[0] = self._id(p[1])
         elif tok == "INTEGER":
             p[0] = self._lit("int", p[1])
@@ -903,10 +902,11 @@ def run_single_file(path: str):
     # Decide success more strictly
     has_lex_err = parser._has_lexer_errors()
     has_par_err = parser._has_parser_errors()
-    success = (result is not None) and not (has_lex_err or has_par_err) and (uncaught is None)
+    success = (result is not None) and (uncaught is None) and (len(errors) == 0)
+
 
     # Pretty-errors for report
-    pretty_errors = [format_error_pretty(e, code) for e in errors]
+    # pretty_errors = [format_error_pretty(e, code) for e in errors]
 
     return {
         "path": path,
@@ -916,7 +916,7 @@ def run_single_file(path: str):
         "has_lexer_errors": has_lex_err,
         "has_parser_errors": has_par_err,
         "uncaught": uncaught,
-        "errors_pretty": pretty_errors,
+        # "errors_pretty": pretty_errors,
         "errors_raw": [str(e) for e in errors],
     }
 
@@ -964,6 +964,9 @@ if __name__ == "__main__":
             out.write(f"Total errors: {rep['error_count']}\n")
             if rep["success"]:
                 out.write("AST: (omitted in report for brevity)\n")
+            else:
+                for line in rep["errors_raw"]:
+                    out.write(line + "\n")
             out.write("\n")
 
     # --- Write machine-readable logs once, not per file ---
