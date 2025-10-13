@@ -1,7 +1,7 @@
 === tests/parser_assign_expr.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 27
+Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_augmented_assigns.py ===
@@ -23,10 +23,24 @@ Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_dict_trailing_comma.py ===
-Status: OK
+Status: ERROR
 Lexer errors: False | Parser errors: False
-Total errors: 18
-AST: (omitted in report for brevity)
+Total errors: 5
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token '}' (RKEY)
+    
+    
+L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
+    
+    
+L-1:?  Unexpected end of input
+    
+    
 
 === tests/parser_function_control.py ===
 Status: OK
@@ -35,18 +49,10 @@ Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_inline_function.py ===
-Status: ERROR
+Status: OK
 Lexer errors: False | Parser errors: False
 Total errors: 3
-L-1:?  Syntax error at token 'return' (RETURN)
-    
-    
-L-1:?  Syntax error at token '0' (INTEGER)
-    
-    
-L-1:?  Unexpected end of input
-    
-    
+AST: (omitted in report for brevity)
 
 === tests/parser_keyword_args.py ===
 Status: ERROR
@@ -55,39 +61,10 @@ Lexer errors: False | Parser errors: False
 Total errors: 0
 
 === tests/parser_list_trailing_comma.py ===
-Status: ERROR
+Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 85
-L-1:?  Syntax error at token ']' (RBRACKET)
-    
-    
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
-L-1:?  Syntax error at token 'for' (FOR)
-    
-    
-L-1:?  Syntax error at token 'in' (IN)
-    
-    
-L-1:?  Syntax error at token 'vals' (ID)
-    
-    
-L-1:?  Syntax error at token ':' (COLON)
-    
-    
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
-L-1:?  Syntax error at token 'INDENT' (INDENT)
-    
-    
-L-1:?  Syntax error at token 'print' (PRINT)
-    
-    
-L-1:?  Syntax error at token '(' (LPAREN)
-    
-    
+Total errors: 0
+AST: (omitted in report for brevity)
 
 === tests/parser_minimal.py ===
 Status: OK
