@@ -1,8 +1,8 @@
 === tests/parser_assign_expr.py ===
-Status: OK
+Status: ERROR
+Uncaught exception: list index out of range
 Lexer errors: False | Parser errors: False
-Total errors: 27
-AST: (omitted in report for brevity)
+Total errors: 0
 
 === tests/parser_augmented_assigns.py ===
 Status: OK
@@ -17,10 +17,10 @@ Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_class_and_method.py ===
-Status: OK
+Status: ERROR
+Uncaught exception: list index out of range
 Lexer errors: False | Parser errors: False
 Total errors: 0
-AST: (omitted in report for brevity)
 
 === tests/parser_dict_trailing_comma.py ===
 Status: OK
@@ -29,24 +29,16 @@ Total errors: 18
 AST: (omitted in report for brevity)
 
 === tests/parser_function_control.py ===
-Status: OK
+Status: ERROR
+Uncaught exception: list index out of range
 Lexer errors: False | Parser errors: False
 Total errors: 0
-AST: (omitted in report for brevity)
 
 === tests/parser_inline_function.py ===
 Status: ERROR
+Uncaught exception: list index out of range
 Lexer errors: False | Parser errors: False
-Total errors: 3
-L-1:?  Syntax error at token 'return' (RETURN)
-    
-    
-L-1:?  Syntax error at token '0' (INTEGER)
-    
-    
-L-1:?  Unexpected end of input
-    
-    
+Total errors: 0
 
 === tests/parser_keyword_args.py ===
 Status: OK
@@ -116,7 +108,7 @@ AST: (omitted in report for brevity)
 === tests/parser_tuple_unpacking.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 2
+Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_print_try.py ===

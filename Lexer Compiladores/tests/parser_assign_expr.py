@@ -1,5 +1,4 @@
 # Test with self atribute
-
 class MyNumber:
     def __init__(myNumber, value):
         self.value = value

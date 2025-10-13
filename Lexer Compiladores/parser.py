@@ -195,11 +195,13 @@ class Parser:
 
     # ----- DEFINICIÓN DE FUNCIONES -----
     def p_func_def(self, p):
-        """func_def : DEF ID LPAREN params_list RPAREN COLON NEWLINE INDENT func_body_stmts DEDENT
-                    | DEF ID LPAREN RPAREN COLON NEWLINE INDENT func_body_stmts DEDENT"""
-        if len(p) == 11:
+        """func_def : DEF ID LPAREN params_list RPAREN COLON func_suite
+                    | DEF ID LPAREN RPAREN COLON func_suite"""
+        if len(p) == 8:
+            # DEF ID ( params ) : func_suite
             p[0] = ("func_def", p[2], p[4], p[9])  # nombre, parámetros, cuerpo
         else:
+            # DEF ID ( ) : func_suite
             p[0] = ("func_def", p[2], [], p[8])  # nombre, sin parámetros, cuerpo
 
     # Lista de parámetros
@@ -211,6 +213,17 @@ class Parser:
         else:
             p[0] = [p[1]]
 
+    # A function suite can be a block or a single simple statement.
+    def p_func_suite_block(self, p):
+        """func_suite : NEWLINE INDENT func_body_stmts DEDENT"""
+        # already a list
+        p[0] = p[3]
+
+    def p_func_suite_inline(self, p):
+        """func_suite : simple_stmt"""
+        # wrap the single stmt into a list so func_def sees a uniform shape
+        p[0] = [p[1]]
+        
     # ----- DEFINICIÓN DE CLASES -----
     def p_class_def(self, p):
         """class_def : CLASS ID COLON NEWLINE INDENT class_body_stmts DEDENT
