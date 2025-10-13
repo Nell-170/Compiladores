@@ -93,7 +93,7 @@ AST: (omitted in report for brevity)
 === tests/parser_tuple_unpacking.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 0
+Total errors: 2
 AST: (omitted in report for brevity)
 
 === tests/parser_print_try.py ===
@@ -103,14 +103,8 @@ Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_params_and_calls.py ===
-Status: ERROR
-Uncaught exception: can only concatenate str (not "list") to str
+Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 2
-L-1:?  Syntax error at token '=' (ASSIGN)
-    
-    
-L-1:?  Syntax error at token '2' (INTEGER)
-    
-    
+Total errors: 0
+AST: (omitted in report for brevity)
 

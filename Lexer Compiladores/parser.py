@@ -204,18 +204,47 @@ class Parser:
             # DEF ID ( ) : func_suite
             p[0] = ("func_def", p[2], [], p[6])  # nombre, sin parámetros, cuerpo
 
-    # Lista de parámetros
-    def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
-        """params_list : params_list COMMA ID ASSIGN expression
-                       | params_list COMMA ID DOT ID
-                       | params_list COMMA ID
-                       | ID ASSIGN expression
-                       | ID DOT ID
-                       | ID """
-        if len(p) == 4:
-            p[0] = p[1] + [p[3]]
-        else:
+    def p_params_list(self, p):
+        """params_list : params_list COMMA ID DOT ID ASSIGN expression
+                    | params_list COMMA ID ASSIGN expression
+                    | params_list COMMA ID DOT ID
+                    | params_list COMMA ID
+                    | ID DOT ID ASSIGN expression
+                    | ID ASSIGN expression
+                    | ID DOT ID
+                    | ID"""
+        
+        if len(p) == 2:
+            # Caso base: solo ID
             p[0] = [p[1]]
+        
+        elif len(p) == 4:
+            # ID DOT ID
+            p[0] = [f"{p[1]}.{p[3]}"]
+        
+        elif len(p) == 5:
+            if p[2] == '=':
+                # ID ASSIGN expression
+                p[0] = [(p[1], p[3])]
+            else:
+                # params_list COMMA ID
+                p[0] = p[1] + [p[3]]
+        
+        elif len(p) == 6:
+            # params_list COMMA ID DOT ID
+            p[0] = p[1] + [f"{p[3]}.{p[5]}"]
+        
+        elif len(p) == 7:
+            if p[4] == '=':
+                # ID DOT ID ASSIGN expression
+                p[0] = [(f"{p[1]}.{p[3]}", p[5])]
+            else:
+                # params_list COMMA ID ASSIGN expression
+                p[0] = p[1] + [(p[3], p[5])]
+        
+        elif len(p) == 8:
+            # params_list COMMA ID DOT ID ASSIGN expression
+            p[0] = p[1] + [(f"{p[3]}.{p[5]}", p[7])]
 
     # A function suite can be a block or a single simple statement.
     def p_func_suite_block(self, p):
