@@ -18,7 +18,7 @@ class C2:
 def g(a, obj.attr, z):
     pass
 
-# 5) param_default_syntax.py — Sintácticamente inválido con la gramática actual (ID=expr en params)
+# 5) param_default_syntax.py — OK
 def h(x=1, y=2):
     pass
 

@@ -877,22 +877,27 @@ def run_single_file(path: str):
 # --- MAIN TEST ---
 if __name__ == "__main__":
     test_files = [
-        "tests/parser_assign_expr.py",
-        "tests/parser_augmented_assigns.py",
-        "tests/parser_chained_comparison.py",
-        "tests/parser_class_and_method.py",
-        "tests/parser_dict_trailing_comma.py",
-        "tests/parser_function_control.py",
-        "tests/parser_inline_function.py",
-        "tests/parser_keyword_args.py",
-        "tests/parser_list_trailing_comma.py",
-        "tests/parser_minimal.py",
-        "tests/parser_missing_colon_or_indent.py",
-        "tests/parser_semicolons.py",
-        "tests/parser_top_level_if.py",
-        "tests/parser_tuple_unpacking.py",
-        "tests/parser_print_try.py",
-        "tests/parser_params_and_calls.py",
+        "tests/parser_ERR_dict_trailing_comma.py",
+        "tests/parser_ERR_inline_function.py",
+        "tests/parser_ERR_list_trailing_comma.py",
+        "tests/parser_ERR_missing_colon_or_indent.py",
+        "tests/parser_ERR_params_and_calls.py",
+        "tests/parser_ERR_semicolons.py",
+
+        "tests/parser_OK_assign_expr.py",
+        "tests/parser_OK_augmented_assigns.py",
+        "tests/parser_OK_chained_comparison.py",
+        "tests/parser_OK_class_and_method.py",
+        "tests/parser_OK_dict_trailing_comma.py",
+        "tests/parser_OK_function_control.py",
+        "tests/parser_OK_inline_function.py",
+        "tests/parser_OK_keyword_args.py",
+        "tests/parser_OK_list_trailing_comma.py",
+        "tests/parser_OK_minimal.py",
+        "tests/parser_OK_params_and_calls.py",
+        "tests/parser_OK_print_try.py",
+        "tests/parser_OK_top_level_if.py",
+        "tests/parser_OK_tuple_unpacking.py",
     ]
 
     # Run
@@ -911,11 +916,7 @@ if __name__ == "__main__":
                 out.write(f"Uncaught exception: {rep['uncaught']}\n")
             out.write(f"Lexer errors: {rep['has_lexer_errors']} | Parser errors: {rep['has_parser_errors']}\n")
             out.write(f"Total errors: {rep['error_count']}\n")
-            if not rep["success"]:
-                # Show the first few pretty errors with caret
-                for msg in rep["errors_pretty"][:10]:
-                    out.write(msg + "\n")
-            else:
+            if rep["success"]:
                 out.write("AST: (omitted in report for brevity)\n")
             out.write("\n")
 

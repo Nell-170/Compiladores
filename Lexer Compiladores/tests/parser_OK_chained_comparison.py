@@ -1,5 +1,4 @@
-# FAIL: grammar allows only one comp_op between two arithmetic_expr.
-# Chained comparisons like a < b < c aren’t supported.
+# Chained comparisons like a < b < c should be supported
 a = 1
 b = 2
 c = 3

@@ -1,6 +1,390 @@
 [
   {
-    "path": "tests/parser_assign_expr.py",
+    "path": "tests/parser_ERR_dict_trailing_comma.py",
+    "success": false,
+    "result": null,
+    "error_count": 5,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Unexpected end of input\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 2, column 26. On:\nbad1 = {,}\n        ^",
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 3, column 44. On:\nbad2 = {\"a\": 1,,}\n               ^",
+      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 4, column 59. On:\nbad3 = {\"a\":}\n            ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 4, column 60. On:\nbad3 = {\"a\":}\n             ^",
+      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\nbad3 = {\"a\":}\n^"
+    ]
+  },
+  {
+    "path": "tests/parser_ERR_inline_function.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "func_def",
+          "f",
+          [],
+          [
+            [
+              "assignment",
+              "a",
+              [
+                "literal",
+                "int",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "b",
+          [
+            "literal",
+            "int",
+            2
+          ]
+        ],
+        [
+          "func_def",
+          "bad",
+          [],
+          [
+            [
+              "identifier",
+              "x"
+            ]
+          ]
+        ],
+        [
+          "identifier",
+          "y"
+        ]
+      ]
+    ],
+    "error_count": 3,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  The semicolon (;) is not allowed as a line separator in our Fangless Python.\n    \n    ",
+      "L-1:?  Syntax error at token 'if' (IF)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 2, column 29. On:\ndef f(): a = 1; b = 2      # semicolons unsupported in this grammar\n              ^",
+      "ERROR(PARSER): Syntax error at token 'if' (IF) at line 3, column 94. On:\ndef bad(): if x: y         # control-flow can’t be inline\n           ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 3, column 98. On:\ndef bad(): if x: y         # control-flow can’t be inline\n               ^"
+    ]
+  },
+  {
+    "path": "tests/parser_ERR_list_trailing_comma.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "assignment",
+          "double_comma",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "leading_comma",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "missing_value",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "missing_comma",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "missing_close",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "comp",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "identifier",
+                  "x"
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 10,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token 'missing_open' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token 'for' (FOR)\n    \n    ",
+      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token 'in' (IN)\n    \n    ",
+      "L-1:?  Syntax error at token 'xs' (ID)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 2, column 33. On:\ndouble_comma = [1,,2]\n                  ^",
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 3, column 54. On:\nleading_comma = [,1]\n                 ^",
+      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 5, column 144. On:\nmissing_comma = [1 2]            # needs a comma between items\n                   ^",
+      "ERROR(PARSER): Syntax error at token 'missing_open' (ID) at line 9, column 233. On:\nmissing_open  = 1, 2]\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 9, column 247. On:\nmissing_open  = 1, 2]\n              ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 9, column 249. On:\nmissing_open  = 1, 2]\n                ^",
+      "ERROR(PARSER): Syntax error at token 'for' (FOR) at line 10, column 265. On:\ncomp = [x for x in xs]           # list comprehensions unsupported in this grammar\n          ^",
+      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 10, column 269. On:\ncomp = [x for x in xs]           # list comprehensions unsupported in this grammar\n              ^",
+      "ERROR(PARSER): Syntax error at token 'in' (IN) at line 10, column 271. On:\ncomp = [x for x in xs]           # list comprehensions unsupported in this grammar\n                ^",
+      "ERROR(PARSER): Syntax error at token 'xs' (ID) at line 10, column 274. On:\ncomp = [x for x in xs]           # list comprehensions unsupported in this grammar\n                   ^"
+    ]
+  },
+  {
+    "path": "tests/parser_ERR_missing_colon_or_indent.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "if_stmt",
+          [
+            "comparison",
+            ">",
+            [
+              "literal",
+              "int",
+              3
+            ],
+            [
+              "literal",
+              "int",
+              2
+            ]
+          ],
+          [
+            [
+              "assignment",
+              "x",
+              [
+                "literal",
+                "int",
+                1
+              ]
+            ]
+          ],
+          [],
+          [
+            "else",
+            [
+              [
+                "assignment",
+                "x",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 11,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'INDENT' (INDENT)\n    \n    ",
+      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Syntax error at token 'DEDENT' (DEDENT)\n    \n    ",
+      "L-1:?  Syntax error at token 'if' (IF)\n    \n    ",
+      "L-1:?  Syntax error at token 'True' (TRUE)\n    \n    ",
+      "L-1:?  Indentation must be a multiple of 4 spaces\n    \n    ",
+      "L-1:?  Inconsistent dedent\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 2, column 63. On:\nif 3 > 2\n        ^",
+      "ERROR(PARSER): Syntax error at token 'INDENT' (INDENT) at line 3, column 68. On:\nx = 1\n^",
+      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 3, column 68. On:\nx = 1\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 3, column 70. On:\nx = 1\n  ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 3, column 72. On:\nx = 1\n    ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 3, column 73. On:\nx = 1\n     ^",
+      "ERROR(PARSER): Syntax error at token 'DEDENT' (DEDENT) at line 4, column 74. On:\n\n^",
+      "ERROR(PARSER): Syntax error at token 'if' (IF) at line 6, column 155. On:\nif True:\n^",
+      "ERROR(PARSER): Syntax error at token 'True' (TRUE) at line 6, column 158. On:\nif True:\n   ^",
+      "ERROR(LEXER): Indentation must be a multiple of 4 spaces at line 8, column 173. On:\nelse:\n^",
+      "ERROR(LEXER): Inconsistent dedent at line 8, column 173. On:\nelse:\n^"
+    ]
+  },
+  {
+    "path": "tests/parser_ERR_params_and_calls.py",
+    "success": false,
+    "result": null,
+    "error_count": 2,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  Syntax error at token 'b' (ID)\n    \n    ",
+      "L-1:?  Unexpected end of input\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token 'b' (ID) at line 2, column 91. On:\ndef bad(a b): # ERROR\n          ^",
+      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\n# 10) invalid_func_missing_colon.py — Error sintáctico (falta coma entre params)\n^"
+    ]
+  },
+  {
+    "path": "tests/parser_ERR_semicolons.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "assignment",
+          "x",
+          [
+            "literal",
+            "int",
+            1
+          ]
+        ],
+        [
+          "assignment",
+          "y",
+          [
+            "literal",
+            "int",
+            2
+          ]
+        ]
+      ]
+    ],
+    "error_count": 1,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  The semicolon (;) is not allowed as a line separator in our Fangless Python.\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 2, column 66. On:\nx = 1; y = 2\n     ^"
+    ]
+  },
+  {
+    "path": "tests/parser_OK_assign_expr.py",
     "success": true,
     "result": [
       "program",
@@ -351,7 +735,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_augmented_assigns.py",
+    "path": "tests/parser_OK_augmented_assigns.py",
     "success": true,
     "result": [
       "program",
@@ -485,7 +869,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_chained_comparison.py",
+    "path": "tests/parser_OK_chained_comparison.py",
     "success": true,
     "result": [
       "program",
@@ -790,7 +1174,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_class_and_method.py",
+    "path": "tests/parser_OK_class_and_method.py",
     "success": true,
     "result": [
       "program",
@@ -903,30 +1287,105 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_dict_trailing_comma.py",
-    "success": false,
-    "result": null,
-    "error_count": 5,
+    "path": "tests/parser_OK_dict_trailing_comma.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "assignment",
+          "d0",
+          [
+            "dict",
+            []
+          ]
+        ],
+        [
+          "assignment",
+          "d1",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "d2",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "d3",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ],
+              [
+                [
+                  "literal",
+                  "string",
+                  "b"
+                ],
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Unexpected end of input\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 7, column 70. On:\nbad1 = {,}\n        ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 8, column 88. On:\nbad2 = {\"a\": 1,,}\n               ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 9, column 103. On:\nbad3 = {\"a\":}\n            ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 9, column 104. On:\nbad3 = {\"a\":}\n             ^",
-      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\nbad3 = {\"a\":}\n^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
-    "path": "tests/parser_function_control.py",
+    "path": "tests/parser_OK_function_control.py",
     "success": true,
     "result": [
       "program",
@@ -1129,7 +1588,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_inline_function.py",
+    "path": "tests/parser_OK_inline_function.py",
     "success": true,
     "result": [
       "program",
@@ -1233,66 +1692,18 @@
               ]
             ]
           ]
-        ],
-        [
-          "func_def",
-          "f",
-          [],
-          [
-            [
-              "assignment",
-              "a",
-              [
-                "literal",
-                "int",
-                1
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          "b",
-          [
-            "literal",
-            "int",
-            2
-          ]
-        ],
-        [
-          "func_def",
-          "bad",
-          [],
-          [
-            [
-              "identifier",
-              "x"
-            ]
-          ]
-        ],
-        [
-          "identifier",
-          "y"
         ]
       ]
     ],
-    "error_count": 3,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  The semicolon (;) is not allowed as a line separator in our Fangless Python.\n    \n    ",
-      "L-1:?  Syntax error at token 'if' (IF)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 12, column 171. On:\ndef f(): a = 1; b = 2      # semicolons unsupported in this grammar\n              ^",
-      "ERROR(PARSER): Syntax error at token 'if' (IF) at line 13, column 236. On:\ndef bad(): if x: y         # control-flow can’t be inline\n           ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 13, column 240. On:\ndef bad(): if x: y         # control-flow can’t be inline\n               ^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
-    "path": "tests/parser_keyword_args.py",
+    "path": "tests/parser_OK_keyword_args.py",
     "success": true,
     "result": [
       "program",
@@ -1324,7 +1735,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_list_trailing_comma.py",
+    "path": "tests/parser_OK_list_trailing_comma.py",
     "success": true,
     "result": [
       "program",
@@ -1911,7 +2322,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_minimal.py",
+    "path": "tests/parser_OK_minimal.py",
     "success": true,
     "result": [
       "program",
@@ -1925,171 +2336,165 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_missing_colon_or_indent.py",
+    "path": "tests/parser_OK_params_and_calls.py",
     "success": true,
     "result": [
       "program",
       [
         [
-          "if_stmt",
+          "func_def",
+          "f",
           [
-            "comparison",
-            ">",
-            [
-              "literal",
-              "int",
-              3
-            ],
-            [
-              "literal",
-              "int",
-              2
-            ]
+            "[\"['a'].b\"].c"
           ],
           [
             [
-              "assignment",
-              "x",
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "C",
+          null,
+          [
+            [
+              "func_def",
+              "m",
+              [
+                "['self'].x"
+              ],
+              [
+                [
+                  "pass"
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "C2",
+          null,
+          [
+            [
+              "func_def",
+              "m",
+              [
+                "self",
+                "self.x"
+              ],
+              [
+                [
+                  "pass"
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "g",
+          [
+            "['a', 'obj.attr'].z"
+          ],
+          [
+            [
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "h",
+          [
+            "x.('literal', 'int', 1)",
+            "y.('literal', 'int', 2)"
+          ],
+          [
+            [
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "D",
+          [
+            "B.C"
+          ],
+          [
+            [
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "keyword_arg",
+              [
+                "identifier",
+                "msg"
+              ],
               [
                 "literal",
-                "int",
-                1
+                "string",
+                "hello"
               ]
             ]
-          ],
-          [],
+          ]
+        ],
+        [
+          "print",
           [
-            "else",
             [
+              "positional_arg",
               [
-                "assignment",
-                "x",
-                [
-                  "literal",
-                  "int",
-                  2
-                ]
+                "literal",
+                "string",
+                "hi"
               ]
-            ]
-          ]
-        ]
-      ]
-    ],
-    "error_count": 11,
-    "has_lexer_errors": false,
-    "has_parser_errors": false,
-    "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'INDENT' (INDENT)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'DEDENT' (DEDENT)\n    \n    ",
-      "L-1:?  Syntax error at token 'if' (IF)\n    \n    ",
-      "L-1:?  Syntax error at token 'True' (TRUE)\n    \n    ",
-      "L-1:?  Indentation must be a multiple of 4 spaces\n    \n    ",
-      "L-1:?  Inconsistent dedent\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 2, column 63. On:\nif 3 > 2\n        ^",
-      "ERROR(PARSER): Syntax error at token 'INDENT' (INDENT) at line 3, column 68. On:\nx = 1\n^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 3, column 68. On:\nx = 1\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 3, column 70. On:\nx = 1\n  ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 3, column 72. On:\nx = 1\n    ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 3, column 73. On:\nx = 1\n     ^",
-      "ERROR(PARSER): Syntax error at token 'DEDENT' (DEDENT) at line 4, column 74. On:\n\n^",
-      "ERROR(PARSER): Syntax error at token 'if' (IF) at line 6, column 155. On:\nif True:\n^",
-      "ERROR(PARSER): Syntax error at token 'True' (TRUE) at line 6, column 158. On:\nif True:\n   ^",
-      "ERROR(LEXER): Indentation must be a multiple of 4 spaces at line 8, column 173. On:\nelse:\n^",
-      "ERROR(LEXER): Inconsistent dedent at line 8, column 173. On:\nelse:\n^"
-    ]
-  },
-  {
-    "path": "tests/parser_semicolons.py",
-    "success": true,
-    "result": [
-      "program",
-      [
-        [
-          "assignment",
-          "x",
-          [
-            "literal",
-            "int",
-            1
-          ]
-        ],
-        [
-          "assignment",
-          "y",
-          [
-            "literal",
-            "int",
-            2
-          ]
-        ]
-      ]
-    ],
-    "error_count": 1,
-    "has_lexer_errors": false,
-    "has_parser_errors": false,
-    "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  The semicolon (;) is not allowed as a line separator in our Fangless Python.\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 2, column 66. On:\nx = 1; y = 2\n     ^"
-    ]
-  },
-  {
-    "path": "tests/parser_top_level_if.py",
-    "success": true,
-    "result": [
-      "program",
-      [
-        [
-          "assignment",
-          "x",
-          [
-            "literal",
-            "int",
-            5
-          ]
-        ],
-        [
-          "if_stmt",
-          [
-            "comparison",
-            ">",
-            [
-              "identifier",
-              "x"
             ],
             [
-              "literal",
-              "int",
-              4
-            ]
-          ],
-          [
-            [
-              "print",
+              "keyword_arg",
               [
-                [
-                  "positional_arg",
-                  [
-                    "literal",
-                    "string",
-                    "hi"
-                  ]
-                ]
+                "identifier",
+                "msg"
+              ],
+              [
+                "literal",
+                "string",
+                "hello"
               ]
             ]
-          ],
-          [],
-          null
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "keyword_arg",
+              [
+                "identifier",
+                "msg"
+              ],
+              [
+                "literal",
+                "string",
+                "hello"
+              ]
+            ],
+            [
+              "positional_arg",
+              [
+                "literal",
+                "string",
+                "oops"
+              ]
+            ]
+          ]
         ]
       ]
     ],
@@ -2101,278 +2506,7 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_tuple_unpacking.py",
-    "success": true,
-    "result": [
-      "program",
-      [
-        [
-          "for",
-          [
-            "target_list",
-            [
-              "a",
-              "b"
-            ]
-          ],
-          [
-            "list",
-            [
-              [
-                "positional_arg",
-                [
-                  "tuple",
-                  [
-                    [
-                      "positional_arg",
-                      [
-                        "literal",
-                        "int",
-                        1
-                      ]
-                    ],
-                    [
-                      "positional_arg",
-                      [
-                        "literal",
-                        "int",
-                        2
-                      ]
-                    ]
-                  ]
-                ]
-              ],
-              [
-                "positional_arg",
-                [
-                  "tuple",
-                  [
-                    [
-                      "positional_arg",
-                      [
-                        "literal",
-                        "int",
-                        3
-                      ]
-                    ],
-                    [
-                      "positional_arg",
-                      [
-                        "literal",
-                        "int",
-                        4
-                      ]
-                    ]
-                  ]
-                ]
-              ]
-            ]
-          ],
-          [
-            [
-              "print",
-              [
-                [
-                  "positional_arg",
-                  [
-                    "identifier",
-                    "a"
-                  ]
-                ],
-                [
-                  "positional_arg",
-                  [
-                    "identifier",
-                    "b"
-                  ]
-                ]
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          [
-            "target_list",
-            [
-              "a",
-              "b"
-            ]
-          ],
-          [
-            "literal",
-            "int",
-            10
-          ]
-        ],
-        [
-          "literal",
-          "int",
-          20
-        ],
-        [
-          "assignment",
-          [
-            "target_list",
-            [
-              "x",
-              "y",
-              "z"
-            ]
-          ],
-          [
-            "list",
-            [
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  1
-                ]
-              ],
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  2
-                ]
-              ],
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  3
-                ]
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          [
-            "target_list",
-            [
-              "m",
-              "n"
-            ]
-          ],
-          [
-            "tuple",
-            [
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  5
-                ]
-              ],
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  6
-                ]
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          [
-            "target_list",
-            [
-              [
-                "attribute_access",
-                "self",
-                "x"
-              ],
-              [
-                "attribute_access",
-                "self",
-                "y"
-              ]
-            ]
-          ],
-          [
-            "literal",
-            "int",
-            1
-          ]
-        ],
-        [
-          "literal",
-          "int",
-          2
-        ],
-        [
-          "for",
-          "i",
-          [
-            "list",
-            [
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  1
-                ]
-              ],
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  2
-                ]
-              ],
-              [
-                "positional_arg",
-                [
-                  "literal",
-                  "int",
-                  3
-                ]
-              ]
-            ]
-          ],
-          [
-            [
-              "print",
-              [
-                [
-                  "positional_arg",
-                  [
-                    "identifier",
-                    "i"
-                  ]
-                ]
-              ]
-            ]
-          ]
-        ]
-      ]
-    ],
-    "error_count": 2,
-    "has_lexer_errors": false,
-    "has_parser_errors": false,
-    "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 6, column 136. On:\na, b = 10, 20\n         ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 13, column 267. On:\nself.x, self.y = 1, 2\n                  ^"
-    ]
-  },
-  {
-    "path": "tests/parser_print_try.py",
+    "path": "tests/parser_OK_print_try.py",
     "success": true,
     "result": [
       "program",
@@ -2646,115 +2780,52 @@
     "errors_raw": []
   },
   {
-    "path": "tests/parser_params_and_calls.py",
+    "path": "tests/parser_OK_top_level_if.py",
     "success": true,
     "result": [
       "program",
       [
         [
-          "func_def",
-          "f",
+          "assignment",
+          "x",
           [
-            "[\"['a'].b\"].c"
-          ],
-          [
-            [
-              "pass"
-            ]
+            "literal",
+            "int",
+            5
           ]
         ],
         [
-          "class_def",
-          "C",
-          null,
+          "if_stmt",
+          [
+            "comparison",
+            ">",
+            [
+              "identifier",
+              "x"
+            ],
+            [
+              "literal",
+              "int",
+              4
+            ]
+          ],
           [
             [
-              "func_def",
-              "m",
-              [
-                "['self'].x"
-              ],
+              "print",
               [
                 [
-                  "pass"
+                  "positional_arg",
+                  [
+                    "literal",
+                    "string",
+                    "hi"
+                  ]
                 ]
               ]
             ]
-          ]
-        ],
-        [
-          "class_def",
-          "C2",
-          null,
-          [
-            [
-              "func_def",
-              "m",
-              [
-                "self",
-                "self.x"
-              ],
-              [
-                [
-                  "pass"
-                ]
-              ]
-            ]
-          ]
-        ],
-        [
-          "func_def",
-          "g",
-          [
-            "['a', 'obj.attr'].z"
           ],
-          [
-            [
-              "pass"
-            ]
-          ]
-        ],
-        [
-          "func_def",
-          "h",
-          [
-            "x.('literal', 'int', 1)",
-            "y.('literal', 'int', 2)"
-          ],
-          [
-            [
-              "pass"
-            ]
-          ]
-        ],
-        [
-          "class_def",
-          "D",
-          [
-            "B.C"
-          ],
-          [
-            [
-              "pass"
-            ]
-          ]
-        ],
-        [
-          "print",
-          [
-            [
-              "keyword_arg",
-              [
-                "identifier",
-                "msg"
-              ],
-              [
-                "literal",
-                "string",
-                "hello"
-              ]
-            ]
-          ]
+          [],
+          null
         ],
         [
           "print",
@@ -2764,44 +2835,7 @@
               [
                 "literal",
                 "string",
-                "hi"
-              ]
-            ],
-            [
-              "keyword_arg",
-              [
-                "identifier",
-                "msg"
-              ],
-              [
-                "literal",
-                "string",
-                "hello"
-              ]
-            ]
-          ]
-        ],
-        [
-          "print",
-          [
-            [
-              "keyword_arg",
-              [
-                "identifier",
-                "msg"
-              ],
-              [
-                "literal",
-                "string",
-                "hello"
-              ]
-            ],
-            [
-              "positional_arg",
-              [
-                "literal",
-                "string",
-                "oops"
+                "test"
               ]
             ]
           ]
@@ -2814,5 +2848,276 @@
     "uncaught": null,
     "errors_pretty": [],
     "errors_raw": []
+  },
+  {
+    "path": "tests/parser_OK_tuple_unpacking.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "for",
+          [
+            "target_list",
+            [
+              "a",
+              "b"
+            ]
+          ],
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "tuple",
+                  [
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        2
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "tuple",
+                  [
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "print",
+              [
+                [
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "a"
+                  ]
+                ],
+                [
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "b"
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              "a",
+              "b"
+            ]
+          ],
+          [
+            "literal",
+            "int",
+            10
+          ]
+        ],
+        [
+          "literal",
+          "int",
+          20
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              "x",
+              "y",
+              "z"
+            ]
+          ],
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              "m",
+              "n"
+            ]
+          ],
+          [
+            "tuple",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  5
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  6
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          [
+            "target_list",
+            [
+              [
+                "attribute_access",
+                "self",
+                "x"
+              ],
+              [
+                "attribute_access",
+                "self",
+                "y"
+              ]
+            ]
+          ],
+          [
+            "literal",
+            "int",
+            1
+          ]
+        ],
+        [
+          "literal",
+          "int",
+          2
+        ],
+        [
+          "for",
+          "i",
+          [
+            "list",
+            [
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "print",
+              [
+                [
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "i"
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 2,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 6, column 136. On:\na, b = 10, 20\n         ^",
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 13, column 267. On:\nself.x, self.y = 1, 2\n                  ^"
+    ]
   }
 ]
