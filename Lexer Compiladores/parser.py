@@ -6,7 +6,6 @@ import ast
 import json
 
 # TODO(VAL): Agregar regla de inline function (def f(): return 0)
-# TODO(EMMA): keyword args (e.g. print(msg="hello"))
 
 class Parser:
     # ----- PRECEDENCIA Y ASOCIATIVIDAD -----
