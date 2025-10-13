@@ -113,6 +113,6 @@ AST: (omitted in report for brevity)
 === tests/parser_OK_tuple_unpacking.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 2
+Total errors: 0
 AST: (omitted in report for brevity)
 

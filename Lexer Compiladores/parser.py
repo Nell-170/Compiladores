@@ -363,21 +363,27 @@ class Parser:
                 # Primer par: a, b
                 p[0] = ("target_list", [p[1], p[3]])
 
-    # Target con paréntesis opcionales: (a, b) o a, b
+    # One-target with trailing comma (unparenthesized), e.g., a, = rhs
+    def p_target_trailing(self, p):
+        """target_trailing : target COMMA"""
+        p[0] = ("target_list", [p[1]])   # normalize to same shape as target_list
+
+    # Target con paréntesis opcionales: (a, b) | a, b | (a,) | a,
     def p_target_tuple(self, p):
         """target_tuple : LPAREN target_list RPAREN
-        | target_list"""
-        # (a, b, c) o simplemente a, b, c
+                        | LPAREN target COMMA RPAREN
+                        | target_list
+                        | target_trailing"""
         if len(p) == 4:
-            # Con paréntesis
-            p[0] = p[2]
+            p[0] = p[2]                         # (a, b, c)
+        elif len(p) == 5:
+            p[0] = ("target_list", [p[2]])      # (a,)
         else:
-            # Sin paréntesis
-            p[0] = p[1]
+            p[0] = p[1]                         # a, b, c  |  a,
 
     # ----- SENTENCIA PRINT -----
     def p_print_stmt(self, p):
-        """print_stmt : PRINT LPAREN expr_list_opt RPAREN
+        """print_stmt : PRINT LPAREN expr_list_plain_opt RPAREN
         | PRINT LPAREN RPAREN"""
         # PRINT puede recibir múltiples argumentos separados por coma
         # PRINT(a, b, c) → ("print", [a, b, c])
@@ -440,15 +446,12 @@ class Parser:
 
     # Asignación simple
     def p_assignment(self, p):
-        """assignment : target_tuple ASSIGN expression
-        | target_tuple ASSIGN_COLON expression
-        | nested_id ASSIGN expression
-        | nested_id ASSIGN_COLON expression
-        | ID ASSIGN expression
-        | ID ASSIGN_COLON expression"""
-        # a, b = 1, 2
-        # x = 5
-        # self.attr = 10
+        """assignment : target_tuple ASSIGN tuple_expr
+                    | target_tuple ASSIGN_COLON tuple_expr
+                    | nested_id ASSIGN expression
+                    | nested_id ASSIGN_COLON expression
+                    | ID ASSIGN expression
+                    | ID ASSIGN_COLON expression"""
         p[0] = ("assignment", p[1], p[3])
 
     # nested ids (id.id.id ...)
@@ -660,9 +663,9 @@ class Parser:
 
     # Llamadas a funciones con argumentos posicionales
     def p_primary_call(self, p):
-        """primary : ID LPAREN arglist_opt RPAREN
-                | nested_id LPAREN arglist_opt RPAREN
-                | PRINT LPAREN arglist_opt RPAREN"""
+        """primary : ID LPAREN arg_list_opt RPAREN
+                | nested_id LPAREN arg_list_opt RPAREN
+                | PRINT LPAREN arg_list_opt RPAREN"""
         # callee can be ID, nested_id, or PRINT
         if p.slice[1].type == "ID":
             callee = self._id(p[1])
@@ -696,21 +699,39 @@ class Parser:
         elif tok == "FALSE":
             p[0] = self._lit("bool", False)
 
+    # Tuple expressions used where commas are allowed without parens (e.g., RHS of unpacking)
+    def p_tuple_expr(self, p):
+        """tuple_expr : or_expression
+                    | tuple_expr COMMA or_expression
+                    | or_expression COMMA"""
+        if len(p) == 2:
+            # a
+            p[0] = p[1]
+        elif len(p) == 3:
+            # a,    -> ("tuple", [a])
+            p[0] = ("tuple", [p[1]])
+        else:
+            # tuple_expr , or_expression
+            if isinstance(p[1], tuple) and p[1][0] == "tuple":
+                p[0] = ("tuple", p[1][1] + [p[3]])
+            else:
+                p[0] = ("tuple", [p[1], p[3]])
+
     # Tuplas con paréntesis: (a, b) o (a,)
     # (a) or (a, b, c) — decide tuple vs group by length
     def p_primary_tuple_or_group(self, p):
-        """primary : LPAREN expr_list RPAREN"""
+        """primary : LPAREN expr_list_plain RPAREN"""
         p[0] = ("tuple", p[2]) if len(p[2]) > 1 else ("group", p[2][0])
 
     # (a,) — one-element tuple by trailing comma
     def p_primary_tuple_trailing(self, p):
-        """primary : LPAREN expr_list COMMA RPAREN"""
+        """primary : LPAREN expr_list_plain COMMA RPAREN"""
         p[0] = ("tuple", p[2])
 
     # Listas: [a, b, c] y [a, b,]
     def p_primary_list(self, p):
-        """primary : LBRACKET expr_list_opt RBRACKET
-                    | LBRACKET expr_list COMMA RBRACKET """
+        """primary : LBRACKET expr_list_plain_opt RBRACKET
+                    | LBRACKET expr_list_plain COMMA RBRACKET """
         p[0] = ("list", p[2])
 
     # Diccionarios: {k1: v1, k2: v2}  and  {k1: v1,}
@@ -721,40 +742,66 @@ class Parser:
         p[0] = ("dict", p[2])
 
     # ----- utilidades para listas/argumentos -----
-    def p_arglist_opt(self, p):
-        """arglist_opt : expr_list_opt"""
-        p[0] = p[1]
+    def p_arg_list(self, p):
+        """arg_list : arg_list COMMA arg
+                    | arg"""
+        p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
-    def p_expr_list(self, p):
-        """expr_list : expr_list COMMA ID ASSIGN expression
-                    | expr_list COMMA nested_id ASSIGN expression
-                    | expr_list COMMA expression
-                    | ID ASSIGN expression
-                    | nested_id ASSIGN expression
-                    | expression"""
-        
+    def p_arg(self, p):
+        """arg : expression
+            | ID ASSIGN expression
+            | nested_id ASSIGN expression"""
         if len(p) == 2:
-            # Caso base: expression
-            p[0] = [("positional_arg", p[1])]
-        
-        elif len(p) == 4:
-            # expr_list COMMA expression  O  ID ASSIGN expression (caso base keyword)
-            if p[2] == '=':
-                # ID ASSIGN expression (caso base)
-                key = self._id(p[1]) if isinstance(p[1], str) else p[1]
-                p[0] = [("keyword_arg", key, p[3])]
-            else:
-                # expr_list COMMA expression
-                p[0] = p[1] + [("positional_arg", p[3])]
-        
-        elif len(p) == 6:
-            # expr_list COMMA ID ASSIGN expression  o  expr_list COMMA nested_id ASSIGN expression
-            key = self._id(p[3]) if isinstance(p[3], str) else p[3]
-            p[0] = p[1] + [("keyword_arg", key, p[5])]
+            p[0] = ("positional_arg", p[1])
+        else:
+            key = self._id(p[1]) if isinstance(p[1], str) else p[1]
+            p[0] = ("keyword_arg", key, p[3])
 
-    def p_expr_list_opt(self, p):
-        """expr_list_opt : expr_list
-                         | empty"""
+    def p_arg_list_opt(self, p):
+        """arg_list_opt : arg_list
+                        | empty"""
+        p[0] = p[1] if p[1] is not None else []
+
+    # def p_expr_list(self, p):
+    #     """expr_list : expr_list COMMA ID ASSIGN expression
+    #                 | expr_list COMMA nested_id ASSIGN expression
+    #                 | expr_list COMMA expression
+    #                 | ID ASSIGN expression
+    #                 | nested_id ASSIGN expression
+    #                 | expression"""
+        
+    #     if len(p) == 2:
+    #         # Caso base: expression
+    #         p[0] = [("positional_arg", p[1])]
+        
+    #     elif len(p) == 4:
+    #         # expr_list COMMA expression  O  ID ASSIGN expression (caso base keyword)
+    #         if p[2] == '=':
+    #             # ID ASSIGN expression (caso base)
+    #             key = self._id(p[1]) if isinstance(p[1], str) else p[1]
+    #             p[0] = [("keyword_arg", key, p[3])]
+    #         else:
+    #             # expr_list COMMA expression
+    #             p[0] = p[1] + [("positional_arg", p[3])]
+        
+    #     elif len(p) == 6:
+    #         # expr_list COMMA ID ASSIGN expression  o  expr_list COMMA nested_id ASSIGN expression
+    #         key = self._id(p[3]) if isinstance(p[3], str) else p[3]
+    #         p[0] = p[1] + [("keyword_arg", key, p[5])]
+
+    # def p_expr_list_opt(self, p):
+    #     """expr_list_opt : expr_list
+    #                      | empty"""
+    #     p[0] = p[1] if p[1] is not None else []
+
+    def p_expr_list_plain(self, p):
+        """expr_list_plain : expression
+                        | expr_list_plain COMMA expression"""
+        p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
+
+    def p_expr_list_plain_opt(self, p):
+        """expr_list_plain_opt : expr_list_plain
+                            | empty"""
         p[0] = p[1] if p[1] is not None else []
 
     # Pares k:v para diccionarios
