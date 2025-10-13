@@ -199,10 +199,10 @@ class Parser:
                     | DEF ID LPAREN RPAREN COLON func_suite"""
         if len(p) == 8:
             # DEF ID ( params ) : func_suite
-            p[0] = ("func_def", p[2], p[4], p[9])  # nombre, parámetros, cuerpo
+            p[0] = ("func_def", p[2], p[4], p[7])  # nombre, parámetros, cuerpo
         else:
             # DEF ID ( ) : func_suite
-            p[0] = ("func_def", p[2], [], p[8])  # nombre, sin parámetros, cuerpo
+            p[0] = ("func_def", p[2], [], p[6])  # nombre, sin parámetros, cuerpo
 
     # Lista de parámetros
     def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
