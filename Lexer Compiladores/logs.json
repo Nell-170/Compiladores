@@ -1,12 +1,308 @@
 [
   {
     "path": "tests/parser_assign_expr.py",
-    "success": false,
-    "result": null,
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "class_def",
+          "MyNumber",
+          null,
+          [
+            [
+              "func_def",
+              "__init__",
+              [
+                "myNumber",
+                "value"
+              ],
+              [
+                [
+                  "assignment",
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "func_def",
+              "print_value",
+              [
+                "self"
+              ],
+              [
+                [
+                  "print",
+                  [
+                    null
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "num",
+          [
+            "call",
+            [
+              "identifier",
+              "MyNumber"
+            ],
+            [
+              [
+                "literal",
+                "int",
+                10
+              ]
+            ]
+          ]
+        ],
+        [
+          "call",
+          [
+            "attribute_access",
+            "num",
+            "print_value"
+          ],
+          [
+            null
+          ]
+        ],
+        [
+          "assignment",
+          "x",
+          [
+            "literal",
+            "int",
+            1
+          ]
+        ],
+        [
+          "assignment",
+          "y",
+          [
+            "literal",
+            "int",
+            2
+          ]
+        ],
+        [
+          "assignment",
+          "z",
+          [
+            "binop",
+            "+",
+            [
+              "unaryop",
+              "-",
+              [
+                "binary_op",
+                "pow",
+                [
+                  "literal",
+                  "int",
+                  2
+                ],
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
+              ]
+            ],
+            [
+              "binop",
+              "%",
+              [
+                "binop",
+                "//",
+                [
+                  "binop",
+                  "*",
+                  [
+                    "unaryop",
+                    "+",
+                    [
+                      "identifier",
+                      "y"
+                    ]
+                  ],
+                  [
+                    "group",
+                    [
+                      "binop",
+                      "+",
+                      [
+                        "identifier",
+                        "x"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
+                  ]
+                ],
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
+              ],
+              [
+                "literal",
+                "int",
+                3
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "w",
+          [
+            "tuple",
+            [
+              [
+                "identifier",
+                "x"
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "t",
+          [
+            "tuple",
+            [
+              [
+                "identifier",
+                "x"
+              ],
+              [
+                "identifier",
+                "y"
+              ],
+              [
+                "identifier",
+                "z"
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "lst",
+          [
+            "list",
+            [
+              [
+                "identifier",
+                "x"
+              ],
+              [
+                "identifier",
+                "y"
+              ],
+              [
+                "identifier",
+                "z"
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "dct",
+          [
+            "dict",
+            [
+              [
+                [
+                  "literal",
+                  "string",
+                  "a"
+                ],
+                [
+                  "identifier",
+                  "x"
+                ]
+              ],
+              [
+                [
+                  "literal",
+                  "string",
+                  "b"
+                ],
+                [
+                  "binop",
+                  "+",
+                  [
+                    "identifier",
+                    "y"
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
+                ]
+              ],
+              [
+                [
+                  "literal",
+                  "bool",
+                  true
+                ],
+                [
+                  "literal",
+                  "int",
+                  5
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "literal",
+              "string",
+              "ok"
+            ],
+            [
+              "identifier",
+              "x"
+            ],
+            [
+              "identifier",
+              "y"
+            ],
+            [
+              "identifier",
+              "z"
+            ]
+          ]
+        ]
+      ]
+    ],
     "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
-    "uncaught": "list index out of range",
+    "uncaught": null,
     "errors_pretty": [],
     "errors_raw": []
   },
@@ -433,124 +729,330 @@
   },
   {
     "path": "tests/parser_class_and_method.py",
-    "success": false,
-    "result": null,
-    "error_count": 0,
-    "has_lexer_errors": false,
-    "has_parser_errors": false,
-    "uncaught": "list index out of range",
-    "errors_pretty": [],
-    "errors_raw": []
-  },
-  {
-    "path": "tests/parser_dict_trailing_comma.py",
     "success": true,
     "result": [
       "program",
       [
         [
-          "assignment",
-          "d0",
+          "class_def",
+          "Accumulator",
+          null,
           [
-            "dict",
-            []
-          ]
-        ],
-        [
-          "assignment",
-          "d1",
-          [
-            "dict",
             [
+              "func_def",
+              "__init__",
+              [
+                "self",
+                "value"
+              ],
               [
                 [
-                  "literal",
-                  "string",
-                  "a"
+                  "assignment",
+                  "self",
+                  [
+                    "identifier",
+                    "self"
+                  ]
                 ],
                 [
-                  "literal",
-                  "int",
-                  1
+                  "assignment",
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
+                  ]
                 ]
               ]
             ]
           ]
         ],
         [
-          "assignment",
-          "d2",
+          "func_def",
+          "add",
           [
-            "dict",
+            "self",
+            "x"
+          ],
+          [
             [
+              "assignment",
+              "s",
               [
+                "literal",
+                "int",
+                0
+              ]
+            ],
+            [
+              "while",
+              [
+                "comparison",
+                ">",
+                [
+                  "identifier",
+                  "x"
+                ],
                 [
                   "literal",
-                  "string",
+                  "int",
+                  0
+                ]
+              ],
+              [
+                [
+                  "aug_assignment",
+                  "+=",
+                  "s",
+                  [
+                    "identifier",
+                    "x"
+                  ]
+                ],
+                [
+                  "aug_assignment",
+                  "-=",
+                  "x",
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
+                ]
+              ]
+            ],
+            [
+              "return",
+              [
+                "identifier",
+                "s"
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 0,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [],
+    "errors_raw": []
+  },
+  {
+    "path": "tests/parser_dict_trailing_comma.py",
+    "success": false,
+    "result": null,
+    "error_count": 5,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
+      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
+      "L-1:?  Unexpected end of input\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 7, column 70. On:\nbad1 = {,}\n        ^",
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 8, column 88. On:\nbad2 = {\"a\": 1,,}\n               ^",
+      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 9, column 103. On:\nbad3 = {\"a\":}\n            ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 9, column 104. On:\nbad3 = {\"a\":}\n             ^",
+      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\nbad3 = {\"a\":}\n^"
+    ]
+  },
+  {
+    "path": "tests/parser_function_control.py",
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "func_def",
+          "f",
+          [
+            "a",
+            "b"
+          ],
+          [
+            [
+              "assignment",
+              "c",
+              [
+                "binop",
+                "+",
+                [
+                  "identifier",
                   "a"
                 ],
                 [
-                  "tuple",
+                  "identifier",
+                  "b"
+                ]
+              ]
+            ],
+            [
+              "if_stmt",
+              [
+                "comparison",
+                ">",
+                [
+                  "identifier",
+                  "c"
+                ],
+                [
+                  "literal",
+                  "int",
+                  10
+                ]
+              ],
+              [
+                [
+                  "return",
                   [
-                    [
-                      "literal",
-                      "int",
-                      1
-                    ],
-                    [
-                      "identifier",
-                      "d3"
-                    ]
+                    "identifier",
+                    "c"
                   ]
                 ]
               ],
               [
                 [
-                  "literal",
-                  "string",
-                  "b"
-                ],
-                [
-                  "tuple",
+                  "elif",
                   [
+                    "comparison",
+                    "==",
+                    [
+                      "identifier",
+                      "c"
+                    ],
                     [
                       "literal",
                       "int",
-                      2
-                    ],
+                      10
+                    ]
+                  ],
+                  [
                     [
-                      "identifier",
-                      "bad1"
+                      "return",
+                      [
+                        "literal",
+                        "int",
+                        0
+                      ]
                     ]
                   ]
                 ]
-              ]
-            ]
-          ]
-        ],
-        [
-          "assignment",
-          "bad2",
-          [
-            "dict",
-            [
+              ],
               [
+                "else",
                 [
-                  "literal",
-                  "string",
-                  "a"
-                ],
-                [
-                  "tuple",
                   [
+                    "assignment",
+                    "i",
                     [
                       "literal",
                       "int",
-                      1
+                      0
+                    ]
+                  ],
+                  [
+                    "while",
+                    [
+                      "comparison",
+                      "<",
+                      [
+                        "identifier",
+                        "i"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ]
                     ],
                     [
+                      [
+                        "if_stmt",
+                        [
+                          "comparison",
+                          "==",
+                          [
+                            "identifier",
+                            "i"
+                          ],
+                          [
+                            "literal",
+                            "int",
+                            1
+                          ]
+                        ],
+                        [
+                          [
+                            "aug_assignment",
+                            "+=",
+                            "i",
+                            [
+                              "literal",
+                              "int",
+                              1
+                            ]
+                          ],
+                          [
+                            "continue"
+                          ]
+                        ],
+                        [],
+                        null
+                      ],
+                      [
+                        "aug_assignment",
+                        "+=",
+                        "i",
+                        [
+                          "literal",
+                          "int",
+                          1
+                        ]
+                      ]
+                    ]
+                  ],
+                  [
+                    "assignment",
+                    "total",
+                    [
+                      "literal",
+                      "int",
+                      0
+                    ]
+                  ],
+                  [
+                    "for",
+                    "k",
+                    [
                       "identifier",
-                      "bad3"
+                      "lst"
+                    ],
+                    [
+                      [
+                        "aug_assignment",
+                        "+=",
+                        "total",
+                        [
+                          "identifier",
+                          "k"
+                        ]
+                      ]
+                    ]
+                  ],
+                  [
+                    "return",
+                    [
+                      "identifier",
+                      "total"
                     ]
                   ]
                 ]
@@ -560,72 +1062,176 @@
         ]
       ]
     ],
-    "error_count": 18,
-    "has_lexer_errors": false,
-    "has_parser_errors": false,
-    "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 3, column 35. On:\nd2 = {\"a\": 1,}\n             ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 3, column 36. On:\nd2 = {\"a\": 1,}\n              ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 4, column 40. On:\nd3 = {\"a\": 1, \"b\": 2,}\n   ^",
-      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 4, column 42. On:\nd3 = {\"a\": 1, \"b\": 2,}\n     ^",
-      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 4, column 43. On:\nd3 = {\"a\": 1, \"b\": 2,}\n      ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 4, column 46. On:\nd3 = {\"a\": 1, \"b\": 2,}\n         ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 4, column 48. On:\nd3 = {\"a\": 1, \"b\": 2,}\n           ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 4, column 58. On:\nd3 = {\"a\": 1, \"b\": 2,}\n                     ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 4, column 59. On:\nd3 = {\"a\": 1, \"b\": 2,}\n                      ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 7, column 67. On:\nbad1 = {,}\n     ^",
-      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 7, column 69. On:\nbad1 = {,}\n       ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 8, column 88. On:\nbad2 = {\"a\": 1,,}\n               ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 8, column 89. On:\nbad2 = {\"a\": 1,,}\n                ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 8, column 90. On:\nbad2 = {\"a\": 1,,}\n                 ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 9, column 96. On:\nbad3 = {\"a\":}\n     ^",
-      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 9, column 98. On:\nbad3 = {\"a\":}\n       ^",
-      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 9, column 99. On:\nbad3 = {\"a\":}\n        ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 9, column 102. On:\nbad3 = {\"a\":}\n           ^"
-    ]
-  },
-  {
-    "path": "tests/parser_function_control.py",
-    "success": false,
-    "result": null,
     "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
-    "uncaught": "list index out of range",
+    "uncaught": null,
     "errors_pretty": [],
     "errors_raw": []
   },
   {
     "path": "tests/parser_inline_function.py",
-    "success": false,
-    "result": null,
-    "error_count": 0,
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "func_def",
+          "f",
+          [],
+          [
+            [
+              "return",
+              [
+                "literal",
+                "int",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "g",
+          [
+            "x"
+          ],
+          [
+            [
+              "binop",
+              "+",
+              [
+                "identifier",
+                "x"
+              ],
+              [
+                "literal",
+                "int",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "h",
+          [
+            "a",
+            "b"
+          ],
+          [
+            [
+              "return",
+              [
+                "binop",
+                "+",
+                [
+                  "identifier",
+                  "a"
+                ],
+                [
+                  "identifier",
+                  "b"
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "C",
+          null,
+          [
+            [
+              "func_def",
+              "m",
+              [
+                "self"
+              ],
+              [
+                [
+                  "return",
+                  [
+                    "literal",
+                    "int",
+                    42
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "f",
+          [],
+          [
+            [
+              "assignment",
+              "a",
+              [
+                "literal",
+                "int",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "b",
+          [
+            "literal",
+            "int",
+            2
+          ]
+        ],
+        [
+          "func_def",
+          "bad",
+          [],
+          [
+            [
+              "identifier",
+              "x"
+            ]
+          ]
+        ],
+        [
+          "identifier",
+          "y"
+        ],
+        [
+          "func_def",
+          "nope",
+          [],
+          [
+            [
+              "return",
+              [
+                "literal",
+                "int",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 3,
     "has_lexer_errors": false,
     "has_parser_errors": false,
-    "uncaught": "list index out of range",
-    "errors_pretty": [],
-    "errors_raw": []
+    "uncaught": null,
+    "errors_pretty": [
+      "L-1:?  The semicolon (;) is not allowed as a line separator in our Fangless Python.\n    \n    ",
+      "L-1:?  Syntax error at token 'if' (IF)\n    \n    ",
+      "L-1:?  Syntax error at token ':' (COLON)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(LEXER): The semicolon (;) is not allowed as a line separator in our Fangless Python. at line 10, column 145. On:\ndef f(): a = 1; b = 2      # semicolons unsupported in this grammar\n              ^",
+      "ERROR(PARSER): Syntax error at token 'if' (IF) at line 11, column 210. On:\ndef bad(): if x: y         # control-flow can’t be inline\n           ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 11, column 214. On:\ndef bad(): if x: y         # control-flow can’t be inline\n               ^"
+    ]
   },
   {
     "path": "tests/parser_keyword_args.py",
@@ -659,186 +1265,464 @@
   },
   {
     "path": "tests/parser_list_trailing_comma.py",
-    "success": false,
-    "result": null,
-    "error_count": 85,
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "assignment",
+          "vals",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ]
+            ]
+          ]
+        ],
+        [
+          "for",
+          "val",
+          [
+            "identifier",
+            "vals"
+          ],
+          [
+            [
+              "print",
+              [
+                [
+                  "identifier",
+                  "val"
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "x",
+          [
+            "literal",
+            "int",
+            0
+          ]
+        ],
+        [
+          "assignment",
+          "y",
+          [
+            "literal",
+            "int",
+            1
+          ]
+        ],
+        [
+          "func_def",
+          "f",
+          [],
+          [
+            [
+              "return",
+              [
+                "literal",
+                "int",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "empty",
+          [
+            "list",
+            []
+          ]
+        ],
+        [
+          "assignment",
+          "single",
+          [
+            "list",
+            [
+              [
+                "identifier",
+                "x"
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "multi",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ],
+              [
+                "literal",
+                "int",
+                3
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "nested_mix",
+          [
+            "list",
+            [
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
+                ]
+              ],
+              [
+                "tuple",
+                [
+                  [
+                    "identifier",
+                    "x"
+                  ],
+                  [
+                    "identifier",
+                    "y"
+                  ]
+                ]
+              ],
+              [
+                "list",
+                [
+                  [
+                    "literal",
+                    "int",
+                    3
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    4
+                  ]
+                ]
+              ],
+              [
+                "dict",
+                [
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "a"
+                    ],
+                    [
+                      "literal",
+                      "int",
+                      1
+                    ]
+                  ],
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "b"
+                    ],
+                    [
+                      "literal",
+                      "int",
+                      2
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "group",
+                [
+                  "binop",
+                  "+",
+                  [
+                    "identifier",
+                    "x"
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "multi_line",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "binop",
+                "+",
+                [
+                  "literal",
+                  "int",
+                  2
+                ],
+                [
+                  "call",
+                  [
+                    "identifier",
+                    "f"
+                  ],
+                  [
+                    [
+                      "literal",
+                      "int",
+                      3
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "binop",
+                "%",
+                [
+                  "binop",
+                  "//",
+                  [
+                    "group",
+                    [
+                      "binop",
+                      "+",
+                      [
+                        "identifier",
+                        "x"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    2
+                  ]
+                ],
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
+              ],
+              [
+                "dict",
+                [
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "k"
+                    ],
+                    [
+                      "list",
+                      [
+                        [
+                          "literal",
+                          "int",
+                          7
+                        ],
+                        [
+                          "literal",
+                          "int",
+                          8
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "spaces",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ],
+              [
+                "literal",
+                "int",
+                3
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "grouping_vs_tuple",
+          [
+            "list",
+            [
+              [
+                "group",
+                [
+                  "identifier",
+                  "x"
+                ]
+              ],
+              [
+                "tuple",
+                [
+                  [
+                    "identifier",
+                    "x"
+                  ],
+                  [
+                    "identifier",
+                    "y"
+                  ]
+                ]
+              ],
+              [
+                "tuple",
+                [
+                  [
+                    "identifier",
+                    "x"
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "comments_and_blanks",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "trailing1",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "trailing2",
+          [
+            "list",
+            [
+              [
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ]
+            ]
+          ]
+        ],
+        [
+          "assignment",
+          "trailing_nested",
+          [
+            "list",
+            [
+              [
+                "dict",
+                [
+                  [
+                    [
+                      "literal",
+                      "string",
+                      "a"
+                    ],
+                    [
+                      "literal",
+                      "int",
+                      1
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'for' (FOR)\n    \n    ",
-      "L-1:?  Syntax error at token 'in' (IN)\n    \n    ",
-      "L-1:?  Syntax error at token 'vals' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'INDENT' (INDENT)\n    \n    ",
-      "L-1:?  Syntax error at token 'print' (PRINT)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'val' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'DEDENT' (DEDENT)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '0' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'y' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'def' (DEF)\n    \n    ",
-      "L-1:?  Syntax error at token 'f' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token 'return' (RETURN)\n    \n    ",
-      "L-1:?  Syntax error at token '0' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'empty' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'multi_line' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'grouping_vs_tuple' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '(' (LPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token 'x' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token ')' (RPAREN)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token 'trailing1' (ID)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '[' (LBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token '{' (LKEY)\n    \n    ",
-      "L-1:?  Syntax error at token 'a' (SCONST)\n    \n    ",
-      "L-1:?  Syntax error at token ':' (COLON)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token '}' (RKEY)\n    \n    ",
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token ']' (RBRACKET)\n    \n    ",
-      "L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)\n    \n    ",
-      "L-1:?  Unexpected end of input\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 1, column 13. On:\nvals = [1, 2,]\n            ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 1, column 14. On:\nvals = [1, 2,]\n             ^",
-      "ERROR(PARSER): Syntax error at token 'for' (FOR) at line 2, column 15. On:\nfor val in vals:\n^",
-      "ERROR(PARSER): Syntax error at token 'in' (IN) at line 2, column 23. On:\nfor val in vals:\n        ^",
-      "ERROR(PARSER): Syntax error at token 'vals' (ID) at line 2, column 26. On:\nfor val in vals:\n           ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 2, column 30. On:\nfor val in vals:\n               ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 2, column 31. On:\nfor val in vals:\n                ^",
-      "ERROR(PARSER): Syntax error at token 'INDENT' (INDENT) at line 3, column 36. On:\nprint(val)\n^",
-      "ERROR(PARSER): Syntax error at token 'print' (PRINT) at line 3, column 36. On:\nprint(val)\n^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 3, column 41. On:\nprint(val)\n     ^",
-      "ERROR(PARSER): Syntax error at token 'val' (ID) at line 3, column 42. On:\nprint(val)\n      ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 3, column 45. On:\nprint(val)\n         ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 3, column 46. On:\nprint(val)\n          ^",
-      "ERROR(PARSER): Syntax error at token 'DEDENT' (DEDENT) at line 4, column 47. On:\n\n^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 5, column 48. On:\nx = 0\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 5, column 50. On:\nx = 0\n  ^",
-      "ERROR(PARSER): Syntax error at token '0' (INTEGER) at line 5, column 52. On:\nx = 0\n    ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 5, column 53. On:\nx = 0\n     ^",
-      "ERROR(PARSER): Syntax error at token 'y' (ID) at line 6, column 54. On:\ny = 1\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 6, column 56. On:\ny = 1\n  ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 6, column 58. On:\ny = 1\n    ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 6, column 59. On:\ny = 1\n     ^",
-      "ERROR(PARSER): Syntax error at token 'def' (DEF) at line 8, column 61. On:\ndef f(): return 0\n^",
-      "ERROR(PARSER): Syntax error at token 'f' (ID) at line 8, column 65. On:\ndef f(): return 0\n    ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 8, column 66. On:\ndef f(): return 0\n     ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 8, column 67. On:\ndef f(): return 0\n      ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 8, column 68. On:\ndef f(): return 0\n       ^",
-      "ERROR(PARSER): Syntax error at token 'return' (RETURN) at line 8, column 70. On:\ndef f(): return 0\n         ^",
-      "ERROR(PARSER): Syntax error at token '0' (INTEGER) at line 8, column 77. On:\ndef f(): return 0\n                ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 8, column 78. On:\ndef f(): return 0\n                 ^",
-      "ERROR(PARSER): Syntax error at token 'empty' (ID) at line 11, column 96. On:\nempty = []\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 11, column 102. On:\nempty = []\n      ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 11, column 104. On:\nempty = []\n        ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 16, column 228. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                 ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 16, column 229. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                  ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 16, column 259. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 16, column 261. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                  ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 16, column 273. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                              ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 16, column 274. On:\nnested_mix = [(1,), (x, y), [3, 4], {\"a\": 1, \"b\": 2,}, (x + 1)]\n                                                               ^",
-      "ERROR(PARSER): Syntax error at token 'multi_line' (ID) at line 19, column 345. On:\nmulti_line = [\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 19, column 356. On:\nmulti_line = [\n           ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 19, column 358. On:\nmulti_line = [\n             ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 20, column 364. On:\n1,\n^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 24, column 422. On:\n]\n^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 24, column 423. On:\n]\n ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 27, column 474. On:\nspaces = [  1 , 2 , 3  ]\n       ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 27, column 476. On:\nspaces = [  1 , 2 , 3  ]\n         ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 27, column 479. On:\nspaces = [  1 , 2 , 3  ]\n            ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 27, column 490. On:\nspaces = [  1 , 2 , 3  ]\n                       ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 27, column 491. On:\nspaces = [  1 , 2 , 3  ]\n                        ^",
-      "ERROR(PARSER): Syntax error at token 'grouping_vs_tuple' (ID) at line 28, column 492. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 28, column 510. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                  ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 28, column 512. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                    ^",
-      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 28, column 513. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                     ^",
-      "ERROR(PARSER): Syntax error at token 'x' (ID) at line 28, column 514. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                      ^",
-      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 28, column 529. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                     ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 28, column 530. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                      ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 28, column 565. On:\ngrouping_vs_tuple = [(x), (x, y), (x,)]  # (x) is just x; (x,) is a tuple\n                                                                         ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 31, column 628. On:\ncomments_and_blanks = [\n                    ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 31, column 630. On:\ncomments_and_blanks = [\n                      ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 32, column 636. On:\n1,              # ok\n^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 35, column 687. On:\n]\n^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 35, column 688. On:\n]\n ^",
-      "ERROR(PARSER): Syntax error at token 'trailing1' (ID) at line 38, column 736. On:\ntrailing1 = [1,]\n^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 38, column 746. On:\ntrailing1 = [1,]\n          ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 38, column 748. On:\ntrailing1 = [1,]\n            ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 38, column 749. On:\ntrailing1 = [1,]\n             ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 38, column 751. On:\ntrailing1 = [1,]\n               ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 38, column 752. On:\ntrailing1 = [1,]\n                ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 39, column 763. On:\ntrailing2 = [1, 2,]\n          ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 39, column 765. On:\ntrailing2 = [1, 2,]\n            ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 39, column 766. On:\ntrailing2 = [1, 2,]\n             ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 39, column 771. On:\ntrailing2 = [1, 2,]\n                  ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 39, column 772. On:\ntrailing2 = [1, 2,]\n                   ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 40, column 789. On:\ntrailing_nested = [{\"a\": 1,},]\n                ^",
-      "ERROR(PARSER): Syntax error at token '[' (LBRACKET) at line 40, column 791. On:\ntrailing_nested = [{\"a\": 1,},]\n                  ^",
-      "ERROR(PARSER): Syntax error at token '{' (LKEY) at line 40, column 792. On:\ntrailing_nested = [{\"a\": 1,},]\n                   ^",
-      "ERROR(PARSER): Syntax error at token 'a' (SCONST) at line 40, column 793. On:\ntrailing_nested = [{\"a\": 1,},]\n                    ^",
-      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 40, column 796. On:\ntrailing_nested = [{\"a\": 1,},]\n                       ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 40, column 798. On:\ntrailing_nested = [{\"a\": 1,},]\n                         ^",
-      "ERROR(PARSER): Syntax error at token '}' (RKEY) at line 40, column 800. On:\ntrailing_nested = [{\"a\": 1,},]\n                           ^",
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 40, column 801. On:\ntrailing_nested = [{\"a\": 1,},]\n                            ^",
-      "ERROR(PARSER): Syntax error at token ']' (RBRACKET) at line 40, column 802. On:\ntrailing_nested = [{\"a\": 1,},]\n                             ^",
-      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 40, column 803. On:\ntrailing_nested = [{\"a\": 1,},]\n                              ^",
-      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\n# comp = [x for x in xs]           # list comprehensions unsupported in this grammar\n^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_minimal.py",
@@ -1057,21 +1941,21 @@
                     "literal",
                     "int",
                     2
+                  ]
+                ]
+              ],
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    3
                   ],
                   [
-                    "tuple",
-                    [
-                      [
-                        "literal",
-                        "int",
-                        3
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        4
-                      ]
-                    ]
+                    "literal",
+                    "int",
+                    4
                   ]
                 ]
               ]
@@ -1082,17 +1966,12 @@
               "print",
               [
                 [
-                  "tuple",
-                  [
-                    [
-                      "identifier",
-                      "a"
-                    ],
-                    [
-                      "identifier",
-                      "b"
-                    ]
-                  ]
+                  "identifier",
+                  "a"
+                ],
+                [
+                  "identifier",
+                  "b"
                 ]
               ]
             ]
@@ -1108,20 +1987,15 @@
             ]
           ],
           [
-            "tuple",
-            [
-              [
-                "literal",
-                "int",
-                10
-              ],
-              [
-                "literal",
-                "int",
-                20
-              ]
-            ]
+            "literal",
+            "int",
+            10
           ]
+        ],
+        [
+          "literal",
+          "int",
+          20
         ],
         [
           "assignment",
@@ -1137,24 +2011,19 @@
             "list",
             [
               [
-                "tuple",
-                [
-                  [
-                    "literal",
-                    "int",
-                    1
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    2
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    3
-                  ]
-                ]
+                "literal",
+                "int",
+                1
+              ],
+              [
+                "literal",
+                "int",
+                2
+              ],
+              [
+                "literal",
+                "int",
+                3
               ]
             ]
           ]
@@ -1202,7 +2071,21 @@
             ]
           ],
           [
-            "tuple",
+            "literal",
+            "int",
+            1
+          ]
+        ],
+        [
+          "literal",
+          "int",
+          2
+        ],
+        [
+          "for",
+          "i",
+          [
+            "list",
             [
               [
                 "literal",
@@ -1213,35 +2096,11 @@
                 "literal",
                 "int",
                 2
-              ]
-            ]
-          ]
-        ],
-        [
-          "for",
-          "i",
-          [
-            "list",
-            [
+              ],
               [
-                "tuple",
-                [
-                  [
-                    "literal",
-                    "int",
-                    1
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    2
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    3
-                  ]
-                ]
+                "literal",
+                "int",
+                3
               ]
             ]
           ],
@@ -1259,12 +2118,18 @@
         ]
       ]
     ],
-    "error_count": 0,
+    "error_count": 2,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [],
-    "errors_raw": []
+    "errors_pretty": [
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
+      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 6, column 136. On:\na, b = 10, 20\n         ^",
+      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 13, column 267. On:\nself.x, self.y = 1, 2\n                  ^"
+    ]
   },
   {
     "path": "tests/parser_print_try.py",
@@ -1289,29 +2154,24 @@
           "print",
           [
             [
-              "tuple",
+              "identifier",
+              "a"
+            ],
+            [
+              "identifier",
+              "b"
+            ],
+            [
+              "binop",
+              "+",
               [
-                [
-                  "identifier",
-                  "a"
-                ],
-                [
-                  "identifier",
-                  "b"
-                ],
-                [
-                  "binop",
-                  "+",
-                  [
-                    "identifier",
-                    "c"
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    1
-                  ]
-                ]
+                "identifier",
+                "c"
+              ],
+              [
+                "literal",
+                "int",
+                1
               ]
             ]
           ]
@@ -1428,21 +2288,21 @@
                     "literal",
                     "int",
                     2
+                  ]
+                ]
+              ],
+              [
+                "tuple",
+                [
+                  [
+                    "literal",
+                    "int",
+                    3
                   ],
                   [
-                    "tuple",
-                    [
-                      [
-                        "literal",
-                        "int",
-                        3
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        4
-                      ]
-                    ]
+                    "literal",
+                    "int",
+                    4
                   ]
                 ]
               ]

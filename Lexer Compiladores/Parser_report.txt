@@ -1,8 +1,8 @@
 === tests/parser_assign_expr.py ===
-Status: ERROR
-Uncaught exception: list index out of range
+Status: OK
 Lexer errors: False | Parser errors: False
 Total errors: 0
+AST: (omitted in report for brevity)
 
 === tests/parser_augmented_assigns.py ===
 Status: OK
@@ -17,28 +17,42 @@ Total errors: 0
 AST: (omitted in report for brevity)
 
 === tests/parser_class_and_method.py ===
-Status: ERROR
-Uncaught exception: list index out of range
-Lexer errors: False | Parser errors: False
-Total errors: 0
-
-=== tests/parser_dict_trailing_comma.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 18
+Total errors: 0
 AST: (omitted in report for brevity)
 
-=== tests/parser_function_control.py ===
+=== tests/parser_dict_trailing_comma.py ===
 Status: ERROR
-Uncaught exception: list index out of range
+Lexer errors: False | Parser errors: False
+Total errors: 5
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token ',' (COMMA)
+    
+    
+L-1:?  Syntax error at token '}' (RKEY)
+    
+    
+L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
+    
+    
+L-1:?  Unexpected end of input
+    
+    
+
+=== tests/parser_function_control.py ===
+Status: OK
 Lexer errors: False | Parser errors: False
 Total errors: 0
+AST: (omitted in report for brevity)
 
 === tests/parser_inline_function.py ===
-Status: ERROR
-Uncaught exception: list index out of range
+Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 0
+Total errors: 3
+AST: (omitted in report for brevity)
 
 === tests/parser_keyword_args.py ===
 Status: OK
@@ -47,39 +61,10 @@ Total errors: 2
 AST: (omitted in report for brevity)
 
 === tests/parser_list_trailing_comma.py ===
-Status: ERROR
+Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 85
-L-1:?  Syntax error at token ']' (RBRACKET)
-    
-    
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
-L-1:?  Syntax error at token 'for' (FOR)
-    
-    
-L-1:?  Syntax error at token 'in' (IN)
-    
-    
-L-1:?  Syntax error at token 'vals' (ID)
-    
-    
-L-1:?  Syntax error at token ':' (COLON)
-    
-    
-L-1:?  Syntax error at token 'NEWLINE' (NEWLINE)
-    
-    
-L-1:?  Syntax error at token 'INDENT' (INDENT)
-    
-    
-L-1:?  Syntax error at token 'print' (PRINT)
-    
-    
-L-1:?  Syntax error at token '(' (LPAREN)
-    
-    
+Total errors: 0
+AST: (omitted in report for brevity)
 
 === tests/parser_minimal.py ===
 Status: OK
@@ -108,7 +93,7 @@ AST: (omitted in report for brevity)
 === tests/parser_tuple_unpacking.py ===
 Status: OK
 Lexer errors: False | Parser errors: False
-Total errors: 0
+Total errors: 2
 AST: (omitted in report for brevity)
 
 === tests/parser_print_try.py ===

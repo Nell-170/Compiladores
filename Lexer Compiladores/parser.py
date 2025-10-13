@@ -487,27 +487,27 @@ class Parser:
     """
 
     def p_expression(self, p):
-        """expression : tuple_expr"""
+        """expression : or_expression"""
         p[0] = p[1]
 
-    def p_tuple_expr(self, p):
-        """tuple_expr : or_expression COMMA or_expression
-        | tuple_expr COMMA or_expression
-        | or_expression"""
-        # a, b → ("tuple", [a, b])
-        # a, b, c → ("tuple", [a, b, c])
-        # a → a (sin cambio)
-        if len(p) == 2:
-            # Solo una expresión, no es tupla
-            p[0] = p[1]
-        elif len(p) == 4:
-            # Expresión con comas
-            if isinstance(p[1], tuple) and p[1][0] == "tuple":
-                # Ya es una tupla, agregar elemento
-                p[0] = ("tuple", p[1][1] + [p[3]])
-            else:
-                # Primera tupla: a, b
-                p[0] = ("tuple", [p[1], p[3]])
+    # def p_tuple_expr(self, p):
+    #     """tuple_expr : or_expression COMMA or_expression
+    #     | tuple_expr COMMA or_expression
+    #     | or_expression"""
+    #     # a, b → ("tuple", [a, b])
+    #     # a, b, c → ("tuple", [a, b, c])
+    #     # a → a (sin cambio)
+    #     if len(p) == 2:
+    #         # Solo una expresión, no es tupla
+    #         p[0] = p[1]
+    #     elif len(p) == 4:
+    #         # Expresión con comas
+    #         if isinstance(p[1], tuple) and p[1][0] == "tuple":
+    #             # Ya es una tupla, agregar elemento
+    #             p[0] = ("tuple", p[1][1] + [p[3]])
+    #         else:
+    #             # Primera tupla: a, b
+    #             p[0] = ("tuple", [p[1], p[3]])
 
     # Operadores lógicos
     def p_or_expression(self, p):
@@ -628,8 +628,17 @@ class Parser:
 
     # Llamadas a funciones con argumentos posicionales
     def p_primary_call(self, p):
-        """primary : ID LPAREN arglist_opt RPAREN"""
-        p[0] = ("call", self._id(p[1]), p[3])
+        """primary : ID LPAREN arglist_opt RPAREN
+                | nested_id LPAREN arglist_opt RPAREN
+                | PRINT LPAREN arglist_opt RPAREN"""
+        # callee can be ID, nested_id, or PRINT
+        if p.slice[1].type == "ID":
+            callee = self._id(p[1])
+        elif p.slice[1].type == "PRINT":
+            callee = self._id("print")
+        else:  # nested_id
+            callee = p[1]  # already an AST node like ("attribute_access", base, name)
+        p[0] = ("call", callee, p[3])
 
     # Literales y nombres
     def p_primary_atoms(self, p):
@@ -656,24 +665,15 @@ class Parser:
             p[0] = self._lit("bool", False)
 
     # Tuplas con paréntesis: (a, b) o (a,)
-    def p_primary_tuple_explicit(self, p):
-        """primary : LPAREN tuple_expr RPAREN
-        | LPAREN tuple_expr COMMA RPAREN"""
-        # (a, b, c) → ya es ("tuple", [...])
-        # (a,) → ("tuple", [a])
-        if len(p) == 4:
-            # (a, b, c)
-            if isinstance(p[2], tuple) and p[2][0] == "tuple":
-                p[0] = p[2]  # Ya es tupla
-            else:
-                # (a) → grouping, no tupla
-                p[0] = ("group", p[2])
-        else:
-            # (a,) → tupla de un elemento
-            if isinstance(p[2], tuple) and p[2][0] == "tuple":
-                p[0] = p[2]
-            else:
-                p[0] = ("tuple", [p[2]])
+    # (a) or (a, b, c) — decide tuple vs group by length
+    def p_primary_tuple_or_group(self, p):
+        """primary : LPAREN expr_list RPAREN"""
+        p[0] = ("tuple", p[2]) if len(p[2]) > 1 else ("group", p[2][0])
+
+    # (a,) — one-element tuple by trailing comma
+    def p_primary_tuple_trailing(self, p):
+        """primary : LPAREN expr_list COMMA RPAREN"""
+        p[0] = ("tuple", p[2])
 
     # Listas: [a, b, c] y [a, b,]
     def p_primary_list(self, p):
