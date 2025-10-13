@@ -19,7 +19,7 @@ def g(a, obj.attr, z):
     pass
 
 # 5) param_default_syntax.py — Sintácticamente inválido con la gramática actual (ID=expr en params)
-def h(x=1, y=2):
+def h(x=1, y=2): # ERROR
     pass
 
 # 6) class_inherit_nested.py — Herencia con nested_id en params_list (aceptado sintácticamente)
@@ -36,5 +36,5 @@ print("hi", msg="hello")
 print(msg="hello", "oops")
 
 # 10) invalid_func_missing_colon.py — Error sintáctico (falta coma entre params)
-def bad(a b):
+def bad(a b): # ERROR
     pass

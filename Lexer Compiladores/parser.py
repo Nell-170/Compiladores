@@ -204,9 +204,10 @@ class Parser:
 
     # Lista de parámetros
     def p_params_list(self, p): # Falta separar self de ID sin self.x para atributos en definición de métodos
-        """params_list : params_list COMMA nested_id
-                       | nested_id
+        """params_list : params_list COMMA ID ASSIGN expression
+                       | params_list COMMA ID DOT ID
                        | params_list COMMA ID
+                       | ID DOT ID
                        | ID """
         if len(p) == 4:
             p[0] = p[1] + [p[3]]

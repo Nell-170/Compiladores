@@ -2076,21 +2076,17 @@
     "path": "tests/parser_params_and_calls.py",
     "success": false,
     "result": null,
-    "error_count": 4,
+    "error_count": 2,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": "can only concatenate str (not \"list\") to str",
     "errors_pretty": [
       "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    "
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    "
     ],
     "errors_raw": [
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 22, column 614. On:\ndef h(x=1, y=2):\n       ^",
-      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 22, column 615. On:\ndef h(x=1, y=2):\n        ^",
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 22, column 619. On:\ndef h(x=1, y=2):\n            ^",
-      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 22, column 620. On:\ndef h(x=1, y=2):\n             ^"
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 22, column 614. On:\ndef h(x=1, y=2): # ERROR\n       ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 22, column 615. On:\ndef h(x=1, y=2): # ERROR\n        ^"
     ]
   }
 ]
