@@ -19,7 +19,7 @@ def g(a, obj.attr, z):
     pass
 
 # 5) param_default_syntax.py — Sintácticamente inválido con la gramática actual (ID=expr en params)
-def h(x=1, y=2): # ERROR
+def h(x=1, y=2):
     pass
 
 # 6) class_inherit_nested.py — Herencia con nested_id en params_list (aceptado sintácticamente)

@@ -207,6 +207,7 @@ class Parser:
         """params_list : params_list COMMA ID ASSIGN expression
                        | params_list COMMA ID DOT ID
                        | params_list COMMA ID
+                       | ID ASSIGN expression
                        | ID DOT ID
                        | ID """
         if len(p) == 4:
