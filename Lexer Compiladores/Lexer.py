@@ -57,7 +57,6 @@ class Lexer:
     tokens = reserved + (
         # Literals
         "ID",
-        "SELF",
         "INTEGER",
         "DECIMAL",
         "SCONST",

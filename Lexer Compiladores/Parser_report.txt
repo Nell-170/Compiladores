@@ -55,10 +55,10 @@ Total errors: 3
 AST: (omitted in report for brevity)
 
 === tests/parser_keyword_args.py ===
-Status: ERROR
-Uncaught exception: can only concatenate str (not "list") to str
+Status: OK
 Lexer errors: False | Parser errors: False
 Total errors: 0
+AST: (omitted in report for brevity)
 
 === tests/parser_list_trailing_comma.py ===
 Status: OK

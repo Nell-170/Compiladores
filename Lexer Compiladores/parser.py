@@ -684,7 +684,7 @@ class Parser:
                    | FALSE"""
         tok = p.slice[1].type
 
-        if tok == "ID":
+        if tok == "ID": # -> Falta caso nested_id
             p[0] = self._id(p[1])
         elif tok == "INTEGER":
             p[0] = self._lit("int", p[1])
@@ -728,12 +728,30 @@ class Parser:
 
     def p_expr_list(self, p):
         """expr_list : expr_list COMMA ID ASSIGN expression
-                     | expr_list COMMA nested_id ASSIGN expression
-                     | expr_list COMMA expression
-                     | ID ASSIGN expression
-                     | nested_id ASSIGN expression
-                     | expression"""
-        p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
+                    | expr_list COMMA nested_id ASSIGN expression
+                    | expr_list COMMA expression
+                    | ID ASSIGN expression
+                    | nested_id ASSIGN expression
+                    | expression"""
+        
+        if len(p) == 2:
+            # Caso base: expression
+            p[0] = [("positional_arg", p[1])]
+        
+        elif len(p) == 4:
+            # expr_list COMMA expression  O  ID ASSIGN expression (caso base keyword)
+            if p[2] == '=':
+                # ID ASSIGN expression (caso base)
+                key = self._id(p[1]) if isinstance(p[1], str) else p[1]
+                p[0] = [("keyword_arg", key, p[3])]
+            else:
+                # expr_list COMMA expression
+                p[0] = p[1] + [("positional_arg", p[3])]
+        
+        elif len(p) == 6:
+            # expr_list COMMA ID ASSIGN expression  o  expr_list COMMA nested_id ASSIGN expression
+            key = self._id(p[3]) if isinstance(p[3], str) else p[3]
+            p[0] = p[1] + [("keyword_arg", key, p[5])]
 
     def p_expr_list_opt(self, p):
         """expr_list_opt : expr_list

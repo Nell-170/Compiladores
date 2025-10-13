@@ -41,7 +41,10 @@
                 [
                   "print",
                   [
-                    null
+                    [
+                      "positional_arg",
+                      null
+                    ]
                   ]
                 ]
               ]
@@ -59,9 +62,12 @@
             ],
             [
               [
-                "literal",
-                "int",
-                10
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  10
+                ]
               ]
             ]
           ]
@@ -74,7 +80,10 @@
             "print_value"
           ],
           [
-            null
+            [
+              "positional_arg",
+              null
+            ]
           ]
         ],
         [
@@ -139,16 +148,19 @@
                   [
                     "group",
                     [
-                      "binop",
-                      "+",
+                      "positional_arg",
                       [
-                        "identifier",
-                        "x"
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        4
+                        "binop",
+                        "+",
+                        [
+                          "identifier",
+                          "x"
+                        ],
+                        [
+                          "literal",
+                          "int",
+                          4
+                        ]
                       ]
                     ]
                   ]
@@ -174,8 +186,11 @@
             "tuple",
             [
               [
-                "identifier",
-                "x"
+                "positional_arg",
+                [
+                  "identifier",
+                  "x"
+                ]
               ]
             ]
           ]
@@ -187,16 +202,25 @@
             "tuple",
             [
               [
-                "identifier",
-                "x"
+                "positional_arg",
+                [
+                  "identifier",
+                  "x"
+                ]
               ],
               [
-                "identifier",
-                "y"
+                "positional_arg",
+                [
+                  "identifier",
+                  "y"
+                ]
               ],
               [
-                "identifier",
-                "z"
+                "positional_arg",
+                [
+                  "identifier",
+                  "z"
+                ]
               ]
             ]
           ]
@@ -208,16 +232,25 @@
             "list",
             [
               [
-                "identifier",
-                "x"
+                "positional_arg",
+                [
+                  "identifier",
+                  "x"
+                ]
               ],
               [
-                "identifier",
-                "y"
+                "positional_arg",
+                [
+                  "identifier",
+                  "y"
+                ]
               ],
               [
-                "identifier",
-                "z"
+                "positional_arg",
+                [
+                  "identifier",
+                  "z"
+                ]
               ]
             ]
           ]
@@ -278,21 +311,33 @@
           "print",
           [
             [
-              "literal",
-              "string",
-              "ok"
+              "positional_arg",
+              [
+                "literal",
+                "string",
+                "ok"
+              ]
             ],
             [
-              "identifier",
-              "x"
+              "positional_arg",
+              [
+                "identifier",
+                "x"
+              ]
             ],
             [
-              "identifier",
-              "y"
+              "positional_arg",
+              [
+                "identifier",
+                "y"
+              ]
             ],
             [
-              "identifier",
-              "z"
+              "positional_arg",
+              [
+                "identifier",
+                "z"
+              ]
             ]
           ]
         ]
@@ -389,16 +434,19 @@
             [
               "group",
               [
-                "comparison",
-                ">",
+                "positional_arg",
                 [
-                  "identifier",
-                  "a"
-                ],
-                [
-                  "literal",
-                  "int",
-                  1
+                  "comparison",
+                  ">",
+                  [
+                    "identifier",
+                    "a"
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
                 ]
               ]
             ],
@@ -408,16 +456,19 @@
               [
                 "group",
                 [
-                  "comparison",
-                  "==",
+                  "positional_arg",
                   [
-                    "identifier",
-                    "a"
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    0
+                    "comparison",
+                    "==",
+                    [
+                      "identifier",
+                      "a"
+                    ],
+                    [
+                      "literal",
+                      "int",
+                      0
+                    ]
                   ]
                 ]
               ]
@@ -562,16 +613,19 @@
             [
               "group",
               [
-                "binop",
-                "+",
+                "positional_arg",
                 [
-                  "identifier",
-                  "a"
-                ],
-                [
-                  "literal",
-                  "int",
-                  1
+                  "binop",
+                  "+",
+                  [
+                    "identifier",
+                    "a"
+                  ],
+                  [
+                    "literal",
+                    "int",
+                    1
+                  ]
                 ]
               ]
             ],
@@ -581,16 +635,19 @@
                 [
                   "group",
                   [
-                    "binop",
-                    "*",
+                    "positional_arg",
                     [
-                      "identifier",
-                      "b"
-                    ],
-                    [
-                      "literal",
-                      "int",
-                      2
+                      "binop",
+                      "*",
+                      [
+                        "identifier",
+                        "b"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        2
+                      ]
                     ]
                   ]
                 ]
@@ -600,16 +657,19 @@
                 [
                   "group",
                   [
-                    "binary_op",
-                    "pow",
+                    "positional_arg",
                     [
-                      "identifier",
-                      "c"
-                    ],
-                    [
-                      "literal",
-                      "int",
-                      3
+                      "binary_op",
+                      "pow",
+                      [
+                        "identifier",
+                        "c"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ]
                     ]
                   ]
                 ]
@@ -629,24 +689,27 @@
               [
                 "group",
                 [
-                  "cmp_chain",
+                  "positional_arg",
                   [
-                    "identifier",
-                    "a"
-                  ],
-                  [
+                    "cmp_chain",
                     [
-                      "<",
-                      [
-                        "identifier",
-                        "b"
-                      ]
+                      "identifier",
+                      "a"
                     ],
                     [
-                      "<",
                       [
-                        "identifier",
-                        "c"
+                        "<",
+                        [
+                          "identifier",
+                          "b"
+                        ]
+                      ],
+                      [
+                        "<",
+                        [
+                          "identifier",
+                          "c"
+                        ]
                       ]
                     ]
                   ]
@@ -1230,12 +1293,33 @@
   },
   {
     "path": "tests/parser_keyword_args.py",
-    "success": false,
-    "result": null,
+    "success": true,
+    "result": [
+      "program",
+      [
+        [
+          "print",
+          [
+            [
+              "keyword_arg",
+              [
+                "identifier",
+                "msg"
+              ],
+              [
+                "literal",
+                "string",
+                "hello"
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
     "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
-    "uncaught": "can only concatenate str (not \"list\") to str",
+    "uncaught": null,
     "errors_pretty": [],
     "errors_raw": []
   },
@@ -1252,14 +1336,20 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ]
             ]
           ]
@@ -1276,8 +1366,11 @@
               "print",
               [
                 [
-                  "identifier",
-                  "val"
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "val"
+                  ]
                 ]
               ]
             ]
@@ -1331,8 +1424,11 @@
             "list",
             [
               [
-                "identifier",
-                "x"
+                "positional_arg",
+                [
+                  "identifier",
+                  "x"
+                ]
               ]
             ]
           ]
@@ -1344,19 +1440,28 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ],
               [
-                "literal",
-                "int",
-                3
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
               ]
             ]
           ]
@@ -1368,85 +1473,118 @@
             "list",
             [
               [
-                "tuple",
+                "positional_arg",
                 [
-                  [
-                    "literal",
-                    "int",
-                    1
-                  ]
-                ]
-              ],
-              [
-                "tuple",
-                [
-                  [
-                    "identifier",
-                    "x"
-                  ],
-                  [
-                    "identifier",
-                    "y"
-                  ]
-                ]
-              ],
-              [
-                "list",
-                [
-                  [
-                    "literal",
-                    "int",
-                    3
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    4
-                  ]
-                ]
-              ],
-              [
-                "dict",
-                [
+                  "tuple",
                   [
                     [
-                      "literal",
-                      "string",
-                      "a"
-                    ],
-                    [
-                      "literal",
-                      "int",
-                      1
-                    ]
-                  ],
-                  [
-                    [
-                      "literal",
-                      "string",
-                      "b"
-                    ],
-                    [
-                      "literal",
-                      "int",
-                      2
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
                     ]
                   ]
                 ]
               ],
               [
-                "group",
+                "positional_arg",
                 [
-                  "binop",
-                  "+",
+                  "tuple",
                   [
-                    "identifier",
-                    "x"
-                  ],
+                    [
+                      "positional_arg",
+                      [
+                        "identifier",
+                        "x"
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "identifier",
+                        "y"
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "list",
                   [
-                    "literal",
-                    "int",
-                    1
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "literal",
+                        "string",
+                        "a"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
+                    ],
+                    [
+                      [
+                        "literal",
+                        "string",
+                        "b"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        2
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "group",
+                  [
+                    "positional_arg",
+                    [
+                      "binop",
+                      "+",
+                      [
+                        "identifier",
+                        "x"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
+                    ]
                   ]
                 ]
               ]
@@ -1460,88 +1598,112 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
-              ],
-              [
-                "binop",
-                "+",
+                "positional_arg",
                 [
                   "literal",
                   "int",
-                  2
-                ],
+                  1
+                ]
+              ],
+              [
+                "positional_arg",
                 [
-                  "call",
+                  "binop",
+                  "+",
                   [
-                    "identifier",
-                    "f"
+                    "literal",
+                    "int",
+                    2
                   ],
                   [
+                    "call",
                     [
-                      "literal",
-                      "int",
-                      3
+                      "identifier",
+                      "f"
+                    ],
+                    [
+                      [
+                        "positional_arg",
+                        [
+                          "literal",
+                          "int",
+                          3
+                        ]
+                      ]
                     ]
                   ]
                 ]
               ],
               [
-                "binop",
-                "%",
+                "positional_arg",
                 [
                   "binop",
-                  "//",
+                  "%",
                   [
-                    "group",
+                    "binop",
+                    "//",
                     [
-                      "binop",
-                      "+",
+                      "group",
                       [
-                        "identifier",
-                        "x"
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        4
+                        "positional_arg",
+                        [
+                          "binop",
+                          "+",
+                          [
+                            "identifier",
+                            "x"
+                          ],
+                          [
+                            "literal",
+                            "int",
+                            4
+                          ]
+                        ]
                       ]
+                    ],
+                    [
+                      "literal",
+                      "int",
+                      2
                     ]
                   ],
                   [
                     "literal",
                     "int",
-                    2
+                    3
                   ]
-                ],
-                [
-                  "literal",
-                  "int",
-                  3
                 ]
               ],
               [
-                "dict",
+                "positional_arg",
                 [
+                  "dict",
                   [
                     [
-                      "literal",
-                      "string",
-                      "k"
-                    ],
-                    [
-                      "list",
                       [
+                        "literal",
+                        "string",
+                        "k"
+                      ],
+                      [
+                        "list",
                         [
-                          "literal",
-                          "int",
-                          7
-                        ],
-                        [
-                          "literal",
-                          "int",
-                          8
+                          [
+                            "positional_arg",
+                            [
+                              "literal",
+                              "int",
+                              7
+                            ]
+                          ],
+                          [
+                            "positional_arg",
+                            [
+                              "literal",
+                              "int",
+                              8
+                            ]
+                          ]
                         ]
                       ]
                     ]
@@ -1558,19 +1720,28 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ],
               [
-                "literal",
-                "int",
-                3
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
               ]
             ]
           ]
@@ -1582,31 +1753,52 @@
             "list",
             [
               [
-                "group",
+                "positional_arg",
                 [
-                  "identifier",
-                  "x"
-                ]
-              ],
-              [
-                "tuple",
-                [
+                  "group",
                   [
-                    "identifier",
-                    "x"
-                  ],
-                  [
-                    "identifier",
-                    "y"
+                    "positional_arg",
+                    [
+                      "identifier",
+                      "x"
+                    ]
                   ]
                 ]
               ],
               [
-                "tuple",
+                "positional_arg",
                 [
+                  "tuple",
                   [
-                    "identifier",
-                    "x"
+                    [
+                      "positional_arg",
+                      [
+                        "identifier",
+                        "x"
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "identifier",
+                        "y"
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "positional_arg",
+                [
+                  "tuple",
+                  [
+                    [
+                      "positional_arg",
+                      [
+                        "identifier",
+                        "x"
+                      ]
+                    ]
                   ]
                 ]
               ]
@@ -1620,14 +1812,20 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ]
             ]
           ]
@@ -1639,9 +1837,12 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ]
             ]
           ]
@@ -1653,14 +1854,20 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ]
             ]
           ]
@@ -1672,18 +1879,21 @@
             "list",
             [
               [
-                "dict",
+                "positional_arg",
                 [
+                  "dict",
                   [
                     [
-                      "literal",
-                      "string",
-                      "a"
-                    ],
-                    [
-                      "literal",
-                      "int",
-                      1
+                      [
+                        "literal",
+                        "string",
+                        "a"
+                      ],
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
                     ]
                   ]
                 ]
@@ -1868,9 +2078,12 @@
               "print",
               [
                 [
-                  "literal",
-                  "string",
-                  "hi"
+                  "positional_arg",
+                  [
+                    "literal",
+                    "string",
+                    "hi"
+                  ]
                 ]
               ]
             ]
@@ -1906,32 +2119,50 @@
             "list",
             [
               [
-                "tuple",
+                "positional_arg",
                 [
+                  "tuple",
                   [
-                    "literal",
-                    "int",
-                    1
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    2
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        2
+                      ]
+                    ]
                   ]
                 ]
               ],
               [
-                "tuple",
+                "positional_arg",
                 [
+                  "tuple",
                   [
-                    "literal",
-                    "int",
-                    3
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    4
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
                   ]
                 ]
               ]
@@ -1942,12 +2173,18 @@
               "print",
               [
                 [
-                  "identifier",
-                  "a"
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "a"
+                  ]
                 ],
                 [
-                  "identifier",
-                  "b"
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "b"
+                  ]
                 ]
               ]
             ]
@@ -1987,19 +2224,28 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ],
               [
-                "literal",
-                "int",
-                3
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
               ]
             ]
           ]
@@ -2017,14 +2263,20 @@
             "tuple",
             [
               [
-                "literal",
-                "int",
-                5
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  5
+                ]
               ],
               [
-                "literal",
-                "int",
-                6
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  6
+                ]
               ]
             ]
           ]
@@ -2064,19 +2316,28 @@
             "list",
             [
               [
-                "literal",
-                "int",
-                1
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ],
               [
-                "literal",
-                "int",
-                2
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  2
+                ]
               ],
               [
-                "literal",
-                "int",
-                3
+                "positional_arg",
+                [
+                  "literal",
+                  "int",
+                  3
+                ]
               ]
             ]
           ],
@@ -2085,8 +2346,11 @@
               "print",
               [
                 [
-                  "identifier",
-                  "i"
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "i"
+                  ]
                 ]
               ]
             ]
@@ -2121,8 +2385,11 @@
           "print",
           [
             [
-              "identifier",
-              "x"
+              "positional_arg",
+              [
+                "identifier",
+                "x"
+              ]
             ]
           ]
         ],
@@ -2130,24 +2397,33 @@
           "print",
           [
             [
-              "identifier",
-              "a"
-            ],
-            [
-              "identifier",
-              "b"
-            ],
-            [
-              "binop",
-              "+",
+              "positional_arg",
               [
                 "identifier",
-                "c"
-              ],
+                "a"
+              ]
+            ],
+            [
+              "positional_arg",
               [
-                "literal",
-                "int",
-                1
+                "identifier",
+                "b"
+              ]
+            ],
+            [
+              "positional_arg",
+              [
+                "binop",
+                "+",
+                [
+                  "identifier",
+                  "c"
+                ],
+                [
+                  "literal",
+                  "int",
+                  1
+                ]
               ]
             ]
           ]
@@ -2183,9 +2459,12 @@
                   "print",
                   [
                     [
-                      "literal",
-                      "string",
-                      "Division by zero!"
+                      "positional_arg",
+                      [
+                        "literal",
+                        "string",
+                        "Division by zero!"
+                      ]
                     ]
                   ]
                 ]
@@ -2214,9 +2493,12 @@
                   "print",
                   [
                     [
-                      "literal",
-                      "string",
-                      "Network failed"
+                      "positional_arg",
+                      [
+                        "literal",
+                        "string",
+                        "Network failed"
+                      ]
                     ]
                   ]
                 ]
@@ -2230,9 +2512,12 @@
                   "print",
                   [
                     [
-                      "literal",
-                      "string",
-                      "Unknown error"
+                      "positional_arg",
+                      [
+                        "literal",
+                        "string",
+                        "Unknown error"
+                      ]
                     ]
                   ]
                 ]
@@ -2253,32 +2538,50 @@
             "list",
             [
               [
-                "tuple",
+                "positional_arg",
                 [
+                  "tuple",
                   [
-                    "literal",
-                    "int",
-                    1
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    2
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        1
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        2
+                      ]
+                    ]
                   ]
                 ]
               ],
               [
-                "tuple",
+                "positional_arg",
                 [
+                  "tuple",
                   [
-                    "literal",
-                    "int",
-                    3
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    4
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        3
+                      ]
+                    ],
+                    [
+                      "positional_arg",
+                      [
+                        "literal",
+                        "int",
+                        4
+                      ]
+                    ]
                   ]
                 ]
               ]
@@ -2292,15 +2595,18 @@
                   "print",
                   [
                     [
-                      "binop",
-                      "/",
+                      "positional_arg",
                       [
-                        "identifier",
-                        "a"
-                      ],
-                      [
-                        "identifier",
-                        "b"
+                        "binop",
+                        "/",
+                        [
+                          "identifier",
+                          "a"
+                        ],
+                        [
+                          "identifier",
+                          "b"
+                        ]
                       ]
                     ]
                   ]
@@ -2315,9 +2621,12 @@
                       "print",
                       [
                         [
-                          "literal",
-                          "string",
-                          "Cannot divide by zero"
+                          "positional_arg",
+                          [
+                            "literal",
+                            "string",
+                            "Cannot divide by zero"
+                          ]
                         ]
                       ]
                     ]
@@ -2344,13 +2653,156 @@
       [
         [
           "func_def",
-          "h",
+          "f",
           [
-            "ljij.lkjh"
+            "[\"['a'].b\"].c"
           ],
           [
             [
               "pass"
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "C",
+          null,
+          [
+            [
+              "func_def",
+              "m",
+              [
+                "['self'].x"
+              ],
+              [
+                [
+                  "pass"
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "C2",
+          null,
+          [
+            [
+              "func_def",
+              "m",
+              [
+                "self",
+                "self.x"
+              ],
+              [
+                [
+                  "pass"
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "g",
+          [
+            "['a', 'obj.attr'].z"
+          ],
+          [
+            [
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "func_def",
+          "h",
+          [
+            "x.('literal', 'int', 1)",
+            "y.('literal', 'int', 2)"
+          ],
+          [
+            [
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "class_def",
+          "D",
+          [
+            "B.C"
+          ],
+          [
+            [
+              "pass"
+            ]
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "keyword_arg",
+              [
+                "identifier",
+                "msg"
+              ],
+              [
+                "literal",
+                "string",
+                "hello"
+              ]
+            ]
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "positional_arg",
+              [
+                "literal",
+                "string",
+                "hi"
+              ]
+            ],
+            [
+              "keyword_arg",
+              [
+                "identifier",
+                "msg"
+              ],
+              [
+                "literal",
+                "string",
+                "hello"
+              ]
+            ]
+          ]
+        ],
+        [
+          "print",
+          [
+            [
+              "keyword_arg",
+              [
+                "identifier",
+                "msg"
+              ],
+              [
+                "literal",
+                "string",
+                "hello"
+              ]
+            ],
+            [
+              "positional_arg",
+              [
+                "literal",
+                "string",
+                "oops"
+              ]
             ]
           ]
         ]
