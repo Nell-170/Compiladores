@@ -1220,33 +1220,14 @@
   },
   {
     "path": "tests/parser_keyword_args.py",
-    "success": true,
-    "result": [
-      "program",
-      [
-        [
-          "print",
-          [
-            [
-              "identifier",
-              "msg"
-            ]
-          ]
-        ]
-      ]
-    ],
-    "error_count": 2,
+    "success": false,
+    "result": null,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
-    "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
-      "L-1:?  Syntax error at token 'hello' (SCONST)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 1, column 9. On:\nprint(msg=\"hello\")\n        ^",
-      "ERROR(PARSER): Syntax error at token 'hello' (SCONST) at line 1, column 10. On:\nprint(msg=\"hello\")\n         ^"
-    ]
+    "uncaught": "can only concatenate str (not \"list\") to str",
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_list_trailing_comma.py",
@@ -1690,85 +1671,6 @@
           ]
         ],
         [
-          "for",
-          [
-            "target_list",
-            [
-              "x",
-              "y"
-            ]
-          ],
-          [
-            "list",
-            [
-              [
-                "tuple",
-                [
-                  [
-                    "literal",
-                    "int",
-                    1
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    2
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    3
-                  ],
-                  [
-                    "tuple",
-                    [
-                      [
-                        "literal",
-                        "int",
-                        4
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        5
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        6
-                      ]
-                    ]
-                  ]
-                ]
-              ]
-            ]
-          ],
-          [
-            [
-              "print",
-              [
-                [
-                  "tuple",
-                  [
-                    [
-                      "identifier",
-                      "x"
-                    ],
-                    [
-                      "identifier",
-                      "y"
-                    ],
-                    [
-                      "identifier",
-                      "z"
-                    ]
-                  ]
-                ]
-              ]
-            ]
-          ]
-        ],
-        [
           "assignment",
           [
             "target_list",
@@ -1929,18 +1831,12 @@
         ]
       ]
     ],
-    "error_count": 2,
+    "error_count": 0,
     "has_lexer_errors": false,
     "has_parser_errors": false,
     "uncaught": null,
-    "errors_pretty": [
-      "L-1:?  Syntax error at token ',' (COMMA)\n    \n    ",
-      "L-1:?  Syntax error at token 'z' (ID)\n    \n    "
-    ],
-    "errors_raw": [
-      "ERROR(PARSER): Syntax error at token ',' (COMMA) at line 6, column 142. On:\nfor (x, y), z in [((1, 2), 3), ((4, 5), 6)]:\n          ^",
-      "ERROR(PARSER): Syntax error at token 'z' (ID) at line 6, column 144. On:\nfor (x, y), z in [((1, 2), 3), ((4, 5), 6)]:\n            ^"
-    ]
+    "errors_pretty": [],
+    "errors_raw": []
   },
   {
     "path": "tests/parser_print_try.py",
@@ -2175,5 +2071,26 @@
     "uncaught": null,
     "errors_pretty": [],
     "errors_raw": []
+  },
+  {
+    "path": "tests/parser_params_and_calls.py",
+    "success": false,
+    "result": null,
+    "error_count": 4,
+    "has_lexer_errors": false,
+    "has_parser_errors": false,
+    "uncaught": "can only concatenate str (not \"list\") to str",
+    "errors_pretty": [
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '1' (INTEGER)\n    \n    ",
+      "L-1:?  Syntax error at token '=' (ASSIGN)\n    \n    ",
+      "L-1:?  Syntax error at token '2' (INTEGER)\n    \n    "
+    ],
+    "errors_raw": [
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 22, column 614. On:\ndef h(x=1, y=2):\n       ^",
+      "ERROR(PARSER): Syntax error at token '1' (INTEGER) at line 22, column 615. On:\ndef h(x=1, y=2):\n        ^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 22, column 619. On:\ndef h(x=1, y=2):\n            ^",
+      "ERROR(PARSER): Syntax error at token '2' (INTEGER) at line 22, column 620. On:\ndef h(x=1, y=2):\n             ^"
+    ]
   }
 ]

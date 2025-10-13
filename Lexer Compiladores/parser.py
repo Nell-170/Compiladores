@@ -683,8 +683,12 @@ class Parser:
         p[0] = p[1]
 
     def p_expr_list(self, p):
-        """expr_list : expression
-                     | expr_list COMMA expression"""
+        """expr_list : expr_list COMMA ID ASSIGN expression
+                     | expr_list COMMA nested_id ASSIGN expression
+                     | expr_list COMMA expression
+                     | ID ASSIGN expression
+                     | nested_id ASSIGN expression
+                     | expression"""
         p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
     def p_expr_list_opt(self, p):
@@ -826,6 +830,7 @@ if __name__ == "__main__":
         "tests/parser_top_level_if.py",
         "tests/parser_tuple_unpacking.py",
         "tests/parser_print_try.py",
+        "tests/parser_params_and_calls.py",
     ]
 
     # Run
