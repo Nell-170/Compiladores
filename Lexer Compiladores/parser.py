@@ -5,8 +5,6 @@ from utils import Error
 import ast
 import json
 
-# TODO(VAL): Agregar regla de inline function (def f(): return 0)
-
 class Parser:
     # ----- PRECEDENCIA Y ASOCIATIVIDAD -----
     precedence = (
@@ -522,19 +520,26 @@ class Parser:
 
     # ----- EXPRESIONES -----
 
-    """ Según precedencia y asociatividad definidas arriba, la jerarquía es:
-    
-        expression
-        └── tuple_expr (opt)
-            └── or_expression
-                └── and_expression
-                    └── not_expression
-                            └── comparison
-                                    └── arithmetic_expr
-                                        └── term
-                                            └── factor
-                                                    └── power
-                                                        └── primary
+    """ Según precedencia y asociatividad definidas arriba, la jerarquía es (from lowest to highest precedence):
+
+    expression
+    └── or_expression
+        └── and_expression
+            └── not_expression
+                └── comparison
+                    └── arithmetic_expr
+                        └── term
+                            └── factor
+                                └── power
+                                    └── primary
+
+    Notas:
+    - Opeeradores lógicos (or / and / not) tienen la menor precedencia 
+    - Comparadores (<, <=, ==, !=, >, >=) pueden formar una cadena
+    - Existe precedencia aritmetica (para signos): +, -  <  *, /, //, %  <  unary +/-, **.
+    - Unary + y - usan %prec UPLUS / UMINUS para correctamente asignar signos
+    - POW (**), unarios y NOT son associativos por la derecha
+    - "primary" incluye literales, identificadores, llamados a funcion, acceso de atributos, grupos, tuplas, listas, y dictionarios.
     """
 
     def p_expression(self, p):
@@ -760,38 +765,6 @@ class Parser:
         """arg_list_opt : arg_list
                         | empty"""
         p[0] = p[1] if p[1] is not None else []
-
-    # def p_expr_list(self, p):
-    #     """expr_list : expr_list COMMA ID ASSIGN expression
-    #                 | expr_list COMMA nested_id ASSIGN expression
-    #                 | expr_list COMMA expression
-    #                 | ID ASSIGN expression
-    #                 | nested_id ASSIGN expression
-    #                 | expression"""
-        
-    #     if len(p) == 2:
-    #         # Caso base: expression
-    #         p[0] = [("positional_arg", p[1])]
-        
-    #     elif len(p) == 4:
-    #         # expr_list COMMA expression  O  ID ASSIGN expression (caso base keyword)
-    #         if p[2] == '=':
-    #             # ID ASSIGN expression (caso base)
-    #             key = self._id(p[1]) if isinstance(p[1], str) else p[1]
-    #             p[0] = [("keyword_arg", key, p[3])]
-    #         else:
-    #             # expr_list COMMA expression
-    #             p[0] = p[1] + [("positional_arg", p[3])]
-        
-    #     elif len(p) == 6:
-    #         # expr_list COMMA ID ASSIGN expression  o  expr_list COMMA nested_id ASSIGN expression
-    #         key = self._id(p[3]) if isinstance(p[3], str) else p[3]
-    #         p[0] = p[1] + [("keyword_arg", key, p[5])]
-
-    # def p_expr_list_opt(self, p):
-    #     """expr_list_opt : expr_list
-    #                      | empty"""
-    #     p[0] = p[1] if p[1] is not None else []
 
     def p_expr_list_plain(self, p):
         """expr_list_plain : expression
