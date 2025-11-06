@@ -74,7 +74,9 @@ def greet(name, greeting="Hello"):
         for i, param in enumerate(func_def.params):
             if isinstance(param, tuple):
                 param_name, default_val = param
-                print(f"  Param {i+1}: {param_name} = {default_val.printAST(0)}")
+                pretty = default_val.printAST(0) if hasattr(default_val, "printAST") else repr(default_val)
+                print(f"  Param {i+1}: {param_name} = {pretty}")
+
             else:
                 print(f"  Param {i+1}: {param}")
         
@@ -125,14 +127,14 @@ if x > 0:
     
     if result:
         from ast_nodes import (AssignmentNode, IfNode, BinOpNode, 
-                               IdentifierNode, LiteralNode, PrintNode)
+                               IdentifierNode, LiteralNode, CallNode)
         
         print(f"Assignment nodes: {count_nodes(result, AssignmentNode)}")
         print(f"If nodes: {count_nodes(result, IfNode)}")
         print(f"Binary operation nodes: {count_nodes(result, BinOpNode)}")
         print(f"Identifier nodes: {count_nodes(result, IdentifierNode)}")
         print(f"Literal nodes: {count_nodes(result, LiteralNode)}")
-        print(f"Print nodes: {count_nodes(result, PrintNode)}")
+        print(f"Call nodes: {count_nodes(result, CallNode)}")
 
 
 def example_class_definition():

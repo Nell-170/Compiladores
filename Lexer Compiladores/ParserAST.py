@@ -26,6 +26,31 @@ class Parser:
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self, start="program", debug=debug)
 
+    def _find_column(self, lexpos: int) -> int:
+        """Compute 1-based column from absolute lexpos using the lexer's input buffer."""
+        data = getattr(self.lexer, "data", None) or getattr(self.lexer, "lexdata", "")
+        last_cr = data.rfind("\n", 0, lexpos)
+        if last_cr < 0:
+            last_cr = -1
+        return (lexpos - last_cr)
+
+    def _setpos(self, node: ASTNode, p, i: int):
+        """Attach (lineno, col) from the i-th symbol of production p."""
+        try:
+            node.set_pos(p.lineno(i), self._find_column(p.lexpos(i)))
+        except Exception:
+            # Be forgiving if some productions don't expose lexpos/lineno
+            pass
+        return node
+
+    def _block(self, stmts, p=None, i=None):
+        """Wrap stmt list into BlockNode and optionally set position from p[i]."""
+        b = BlockNode(stmts or [])
+        if p is not None and i is not None:
+            self._setpos(b, p, i)
+        return b
+
+
     # --- diagnostics ---------------------------------------------------------
     def _has_lexer_errors(self) -> bool:
         for e in self.errors:
@@ -181,9 +206,11 @@ class Parser:
         """func_def : DEF ID LPAREN params_list RPAREN COLON func_suite
                     | DEF ID LPAREN RPAREN COLON func_suite"""
         if len(p) == 8:
-            p[0] = FuncDefNode(func_name=p[2], params=p[4], suite=p[7])
+            node = FuncDefNode(func_name=p[2], params=p[4], suite=p[7])
+            p[0] = self._setpos(node, p, 1)
         else:
-            p[0] = FuncDefNode(func_name=p[2], params=[], suite=p[6])
+            node = FuncDefNode(func_name=p[2], params=[], suite=p[6])
+            p[0] = self._setpos(node, p, 1)
 
     def p_params_list(self, p):
         """params_list : params_list COMMA ID DOT ID ASSIGN expression
@@ -216,20 +243,24 @@ class Parser:
 
     def p_func_suite_block(self, p):
         """func_suite : NEWLINE INDENT func_body_stmts DEDENT"""
-        p[0] = p[3]
+        p[0] = self._block(p[3], p, 2)  # position from INDENT
 
     def p_func_suite_inline(self, p):
         """func_suite : simple_stmt"""
-        p[0] = [p[1]]
+        p[0] = self._block([p[1]], p, 1)
 
     # ----- DEFINICIÓN DE CLASES -----
     def p_class_def(self, p):
         """class_def : CLASS ID COLON NEWLINE INDENT class_body_stmts DEDENT
                      | CLASS ID LPAREN params_list RPAREN COLON NEWLINE INDENT class_body_stmts DEDENT"""
         if len(p) == 8:
-            p[0] = ClassDefNode(class_name=p[2], parent=None, body=p[6])
+            body = self._block(p[6], p, 5)  # from INDENT
+            node = ClassDefNode(class_name=p[2], parent=None, body=body)
+            p[0] = self._setpos(node, p, 1)  # CLASS
         else:
-            p[0] = ClassDefNode(class_name=p[2], parent=p[4], body=p[9])
+            body = self._block(p[9], p, 8)
+            node = ClassDefNode(class_name=p[2], parent=p[4], body=body)
+            p[0] = self._setpos(node, p, 1)
 
     # ----- SENTENCIA IF -----
     def p_if_stmt(self, p):
@@ -238,17 +269,20 @@ class Parser:
                    | IF expression COLON NEWLINE INDENT block_stmts DEDENT else_clause
                    | IF expression COLON NEWLINE INDENT block_stmts DEDENT"""
         condition = p[2]
-        then_body = p[6]
+        then_body = self._block(p[6], p, 1)  # position from IF
 
         if len(p) == 10:
-            p[0] = IfNode(condition, then_body, p[8], p[9])
+            node = IfNode(condition, then_body, p[8], p[9])
         elif len(p) == 9:
             if isinstance(p[8], list):
-                p[0] = IfNode(condition, then_body, p[8], None)
+                node = IfNode(condition, then_body, p[8], None)
             else:
-                p[0] = IfNode(condition, then_body, [], p[8])
+                node = IfNode(condition, then_body, [], p[8])
         else:
-            p[0] = IfNode(condition, then_body, [], None)
+            node = IfNode(condition, then_body, [], None)
+
+        p[0] = self._setpos(node, p, 1)
+
 
     def p_elif_chain(self, p):
         """elif_chain : elif_chain elif_clause
@@ -260,22 +294,30 @@ class Parser:
 
     def p_elif_clause(self, p):
         """elif_clause : ELIF expression COLON NEWLINE INDENT block_stmts DEDENT"""
-        p[0] = ElifNode(condition=p[2], body=p[6])
+        block = self._block(p[6], p, 1)
+        node = ElifNode(condition=p[2], body=block)
+        p[0] = self._setpos(node, p, 1)
 
     def p_else_clause(self, p):
         """else_clause : ELSE COLON NEWLINE INDENT block_stmts DEDENT"""
-        p[0] = ElseNode(body=p[5])
+        block = self._block(p[5], p, 1)
+        node = ElseNode(body=block)
+        p[0] = self._setpos(node, p, 1)
 
     # ----- BUCLE WHILE -----
     def p_while_stmt(self, p):
         """while_stmt : WHILE expression COLON NEWLINE INDENT block_stmts DEDENT"""
-        p[0] = WhileNode(condition=p[2], body=p[6])
+        block = self._block(p[6], p, 1)
+        node = WhileNode(condition=p[2], body=block)
+        p[0] = self._setpos(node, p, 1)
 
     # ----- BUCLE FOR -----
     def p_for_stmt(self, p):
         """for_stmt : FOR target_tuple IN expression COLON NEWLINE INDENT block_stmts DEDENT
                     | FOR target IN expression COLON NEWLINE INDENT block_stmts DEDENT"""
-        p[0] = ForNode(target=p[2], iterable=p[4], body=p[8])
+        block = self._block(p[8], p, 1)
+        node = ForNode(target=p[2], iterable=p[4], body=block)
+        p[0] = self._setpos(node, p, 1)
 
     # ----- SENTENCIAS SIMPLES -----
     def p_simple_stmt(self, p):
@@ -338,11 +380,13 @@ class Parser:
     def p_try_stmt(self, p):
         """try_stmt : TRY COLON NEWLINE INDENT block_stmts DEDENT except_clauses
                     | TRY COLON NEWLINE INDENT block_stmts DEDENT"""
-        try_body = p[5]
+        try_body = self._block(p[5], p, 1)
         if len(p) == 8:
-            p[0] = TryNode(try_body=try_body, except_clauses=p[7])
+            node = TryNode(try_body=try_body, except_clauses=p[7])
         else:
-            p[0] = TryNode(try_body=try_body, except_clauses=[])
+            node = TryNode(try_body=try_body, except_clauses=[])
+
+        p[0] = self._setpos(node, p, 1)
 
     def p_except_clauses(self, p):
         """except_clauses : except_clauses except_clause
@@ -356,9 +400,13 @@ class Parser:
         """except_clause : EXCEPT ID COLON NEWLINE INDENT block_stmts DEDENT
                          | EXCEPT COLON NEWLINE INDENT block_stmts DEDENT"""
         if len(p) == 8:
-            p[0] = ExceptNode(exception_type=p[2], body=p[6])
+            handler_block = self._block(p[6], p, 1)
+            node = ExceptNode(exception_type=p[2], handler_body=handler_block)
+            p[0] = self._setpos(node, p, 1)
         else:
-            p[0] = ExceptNode(exception_type=None, body=p[5])
+            handler_block = self._block(p[5], p, 1)
+            node = ExceptNode(exception_type=None, handler_body=handler_block)
+            p[0] = self._setpos(node, p, 1)
 
     # ----- ASIGNACIONES -----
     def p_assignment(self, p):

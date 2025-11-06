@@ -41,10 +41,10 @@ class ASTNode:
 
 class ProgramNode(ASTNode):
     """Root node of the AST containing all top-level statements"""
-    
+
     def __init__(self, statements: List[ASTNode]):
         self.statements = statements if statements else []
-    
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}Program:"]
@@ -140,22 +140,22 @@ class AttributeAccessNode(ASTNode):
 
 class BinaryOpNode(ASTNode):
     """Binary operation (e.g., a + b, x and y)"""
-    
+
     def __init__(self, op: str, left: ASTNode, right: ASTNode):
         self.op = op.lower()
         self.left = left
         self.right = right
-    
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}BinaryOp: {self.op}"]
         lines.append(self.left.printAST(indent + 1))
         lines.append(self.right.printAST(indent + 1))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
         return ("binary_op", self.op, self.left.to_tuple(), self.right.to_tuple())
-    
+
     def to_dict(self) -> dict:
         return {
             "type": "binary_op",
@@ -274,6 +274,24 @@ class BlockNode(ASTNode):
     """A lexical block/suite of statements (e.g., bodies of if/while/for/def/class/try/except/else)."""
     def __init__(self, statements: List[ASTNode]):
         self.statements = statements or []
+
+    # ---- add list-like behavior ----
+    def __len__(self) -> int:
+        return len(self.statements)
+
+    def __iter__(self):
+        return iter(self.statements)
+
+    def __getitem__(self, idx):
+        return self.statements[idx]
+
+    # Optional: if you sometimes mutate blocks in transforms
+    def append(self, node: ASTNode) -> None:
+        self.statements.append(node)
+
+    def extend(self, nodes: List[ASTNode]) -> None:
+        self.statements.extend(nodes)
+    # --------------------------------
 
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
@@ -601,43 +619,42 @@ class ContinueNode(ASTNode):
 
 class IfNode(ASTNode):
     """If statement with optional elif and else clauses"""
-    
-    def __init__(self, condition: ASTNode, then_body: List[ASTNode], 
+
+    def __init__(self, condition: ASTNode, then_body: Union[BlockNode, List[ASTNode]],
                  elif_clauses: List['ElifNode'], else_clause: Optional['ElseNode']):
         self.condition = condition
-        self.then_body = then_body
+        self.then_body = then_body if isinstance(then_body, BlockNode) else BlockNode(then_body or [])
         self.elif_clauses = elif_clauses if elif_clauses else []
         self.else_clause = else_clause
-    
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}If:"]
         lines.append(f"{ind}  Condition:")
         lines.append(self.condition.printAST(indent + 2))
         lines.append(f"{ind}  Then:")
-        for stmt in self.then_body:
-            lines.append(stmt.printAST(indent + 2))
-        
+        lines.append(self.then_body.printAST(indent + 2))
+
         for elif_clause in self.elif_clauses:
             lines.append(elif_clause.printAST(indent + 1))
-        
+
         if self.else_clause:
             lines.append(self.else_clause.printAST(indent + 1))
-        
+
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("if_stmt", 
-                self.condition.to_tuple(), 
-                [s.to_tuple() for s in self.then_body],
+        return ("if_stmt",
+                self.condition.to_tuple(),
+                self.then_body.to_tuple(),
                 [e.to_tuple() for e in self.elif_clauses],
                 self.else_clause.to_tuple() if self.else_clause else None)
-    
+
     def to_dict(self) -> dict:
         return {
             "type": "if_stmt",
             "condition": self.condition.to_dict(),
-            "then_body": [s.to_dict() for s in self.then_body],
+            "then_body": self.then_body.to_dict(),
             "elif_clauses": [e.to_dict() for e in self.elif_clauses],
             "else_clause": self.else_clause.to_dict() if self.else_clause else None
         }
@@ -645,95 +662,91 @@ class IfNode(ASTNode):
 
 class ElifNode(ASTNode):
     """Elif clause"""
-    
-    def __init__(self, condition: ASTNode, body: List[ASTNode]):
+
+    def __init__(self, condition: ASTNode, body: Union[BlockNode, List[ASTNode]]):
         self.condition = condition
-        self.body = body
-    
+        self.body = body if isinstance(body, BlockNode) else BlockNode(body or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}Elif:"]
         lines.append(f"{ind}  Condition:")
         lines.append(self.condition.printAST(indent + 2))
         lines.append(f"{ind}  Body:")
-        for stmt in self.body:
-            lines.append(stmt.printAST(indent + 2))
+        lines.append(self.body.printAST(indent + 2))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("elif", self.condition.to_tuple(), [s.to_tuple() for s in self.body])
-    
+        return ("elif", self.condition.to_tuple(), self.body.to_tuple())
+
     def to_dict(self) -> dict:
         return {
             "type": "elif",
             "condition": self.condition.to_dict(),
-            "body": [s.to_dict() for s in self.body]
+            "body": self.body.to_dict()
         }
 
 
 class ElseNode(ASTNode):
     """Else clause"""
-    
-    def __init__(self, body: List[ASTNode]):
-        self.body = body
-    
+
+    def __init__(self, body: Union[BlockNode, List[ASTNode]]):
+        self.body = body if isinstance(body, BlockNode) else BlockNode(body or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}Else:"]
-        for stmt in self.body:
-            lines.append(stmt.printAST(indent + 1))
+        lines.append(self.body.printAST(indent + 1))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("else", [s.to_tuple() for s in self.body])
-    
+        return ("else", self.body.to_tuple())
+
     def to_dict(self) -> dict:
         return {
             "type": "else",
-            "body": [s.to_dict() for s in self.body]
+            "body": self.body.to_dict()
         }
-
 
 class WhileNode(ASTNode):
     """While loop"""
-    
-    def __init__(self, condition: ASTNode, body: List[ASTNode]):
+
+    def __init__(self, condition: ASTNode, body: Union[BlockNode, List[ASTNode]]):
         self.condition = condition
-        self.body = body
-    
+        self.body = body if isinstance(body, BlockNode) else BlockNode(body or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}While:"]
         lines.append(f"{ind}  Condition:")
         lines.append(self.condition.printAST(indent + 2))
         lines.append(f"{ind}  Body:")
-        for stmt in self.body:
-            lines.append(stmt.printAST(indent + 2))
+        lines.append(self.body.printAST(indent + 2))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("while", self.condition.to_tuple(), [s.to_tuple() for s in self.body])
-    
+        return ("while", self.condition.to_tuple(), self.body.to_tuple())
+
     def to_dict(self) -> dict:
         return {
             "type": "while",
             "condition": self.condition.to_dict(),
-            "body": [s.to_dict() for s in self.body]
+            "body": self.body.to_dict()
         }
 
 
 class ForNode(ASTNode):
     """For loop"""
-    
-    def __init__(self, target: Union[ASTNode, str], iterable: ASTNode, body: List[ASTNode]):
+
+    def __init__(self, target: Union[ASTNode, str], iterable: ASTNode, body: Union[BlockNode, List[ASTNode]]):
         # Ensure target is always an ASTNode
         if isinstance(target, str):
             self.target = IdentifierNode(target)
         else:
             self.target = target
         self.iterable = iterable
-        self.body = body
-    
+        self.body = body if isinstance(body, BlockNode) else BlockNode(body or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}For:"]
@@ -742,75 +755,71 @@ class ForNode(ASTNode):
         lines.append(f"{ind}  Iterable:")
         lines.append(self.iterable.printAST(indent + 2))
         lines.append(f"{ind}  Body:")
-        for stmt in self.body:
-            lines.append(stmt.printAST(indent + 2))
+        lines.append(self.body.printAST(indent + 2))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
         target_tuple = self.target.to_tuple() if isinstance(self.target, ASTNode) else self.target
-        return ("for", target_tuple, self.iterable.to_tuple(), 
-                [s.to_tuple() for s in self.body])
-    
+        return ("for", target_tuple, self.iterable.to_tuple(), self.body.to_tuple())
+
     def to_dict(self) -> dict:
         return {
             "type": "for",
             "target": self.target.to_dict() if isinstance(self.target, ASTNode) else self.target,
             "iterable": self.iterable.to_dict(),
-            "body": [s.to_dict() for s in self.body]
+            "body": self.body.to_dict()
         }
 
 
 class TryNode(ASTNode):
     """Try-except block"""
-    
-    def __init__(self, try_body: List[ASTNode], except_clauses: List['ExceptNode']):
-        self.try_body = try_body
+
+    def __init__(self, try_body: Union[BlockNode, List[ASTNode]], except_clauses: List['ExceptNode']):
+        self.try_body = try_body if isinstance(try_body, BlockNode) else BlockNode(try_body or [])
         self.except_clauses = except_clauses if except_clauses else []
-    
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}Try:"]
-        for stmt in self.try_body:
-            lines.append(stmt.printAST(indent + 1))
+        lines.append(self.try_body.printAST(indent + 1))
         for exc in self.except_clauses:
             lines.append(exc.printAST(indent + 1))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("try_stmt", [s.to_tuple() for s in self.try_body],
+        return ("try_stmt", self.try_body.to_tuple(),
                 [e.to_tuple() for e in self.except_clauses])
-    
+
     def to_dict(self) -> dict:
         return {
             "type": "try_stmt",
-            "try_body": [s.to_dict() for s in self.try_body],
+            "try_body": self.try_body.to_dict(),
             "except_clauses": [e.to_dict() for e in self.except_clauses]
         }
 
 
 class ExceptNode(ASTNode):
     """Except clause"""
-    
-    def __init__(self, exception_type: Optional[str], body: List[ASTNode]):
+
+    def __init__(self, exception_type: Optional[str], handler_body: Union[BlockNode, List[ASTNode]]):
         self.exception_type = exception_type
-        self.body = body
-    
+        self.handler_body =  handler_body if isinstance(handler_body, BlockNode) else BlockNode(handler_body or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         exc_type = self.exception_type if self.exception_type else "all"
         lines = [f"{ind}Except ({exc_type}):"]
-        for stmt in self.body:
-            lines.append(stmt.printAST(indent + 1))
+        lines.append(self.handler_body.printAST(indent + 1))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("except", self.exception_type, [s.to_tuple() for s in self.body])
-    
+        return ("except", self.exception_type, self.handler_body.to_tuple())
+
     def to_dict(self) -> dict:
         return {
             "type": "except",
             "exception_type": self.exception_type,
-            "body": [s.to_dict() for s in self.body]
+            "body": self.handler_body.to_dict()
         }
 
 
@@ -820,13 +829,13 @@ class ExceptNode(ASTNode):
 
 class FuncDefNode(ASTNode):
     """Function definition"""
-    
+
     def __init__(self, func_name: str, params: List[Union[str, Tuple[str, ASTNode]]], 
                  suite: List[ASTNode]):
         self.func_name = func_name
         self.params = params if params else []
-        self.suite = suite if suite else []
-    
+        self.suite = suite if isinstance(suite, BlockNode) else BlockNode(suite or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}FuncDef: {self.func_name}"]
@@ -842,11 +851,12 @@ class FuncDefNode(ASTNode):
                     lines.append(f"{ind}    {param}")
         
         lines.append(f"{ind}  Body:")
-        for stmt in self.suite:
-            lines.append(stmt.printAST(indent + 2))
-        
+        lines.append(self.suite.printAST(indent + 2))
+        # for stmt in self.suite:
+        #     lines.append(stmt.printAST(indent + 2))
+
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
         params_tuples = []
         for p in self.params:
@@ -854,10 +864,9 @@ class FuncDefNode(ASTNode):
                 params_tuples.append((p[0], p[1].to_tuple()))
             else:
                 params_tuples.append(p)
-        
-        return ("func_def", self.func_name, params_tuples, 
-                [s.to_tuple() for s in self.suite])
-    
+
+        return ("func_def", self.func_name, params_tuples, self.suite.to_tuple())
+
     def to_dict(self) -> dict:
         params_dicts = []
         for p in self.params:
@@ -865,44 +874,42 @@ class FuncDefNode(ASTNode):
                 params_dicts.append({"name": p[0], "default": p[1].to_dict()})
             else:
                 params_dicts.append({"name": p})
-        
+    
         return {
             "type": "func_def",
             "func_name": self.func_name,
             "params": params_dicts,
-            "suite": [s.to_dict() for s in self.suite]
+            "suite": self.suite.to_dict()
         }
 
 
 class ClassDefNode(ASTNode):
     """Class definition"""
-    
-    def __init__(self, class_name: str, parent: Optional[List], body: List[ASTNode]):
+
+    def __init__(self, class_name: str, parent: Optional[List], body: Union[BlockNode, List[ASTNode]]):
         self.class_name = class_name
         self.parent = parent  # Can be None or a list of parent class names
-        self.body = body if body else []
-    
+        self.body = body if isinstance(body, BlockNode) else BlockNode(body or [])
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         parent_str = f"({self.parent})" if self.parent else ""
         lines = [f"{ind}ClassDef: {self.class_name}{parent_str}"]
-        
+
         lines.append(f"{ind}  Body:")
-        for stmt in self.body:
-            lines.append(stmt.printAST(indent + 2))
-        
+        lines.append(self.body.printAST(indent + 2))
+
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
-        return ("class_def", self.class_name, self.parent, 
-                [s.to_tuple() for s in self.body])
-    
+        return ("class_def", self.class_name, self.parent, self.body.to_tuple())
+
     def to_dict(self) -> dict:
         return {
             "type": "class_def",
             "class_name": self.class_name,
             "parent": self.parent,
-            "body": [s.to_dict() for s in self.body]
+            "body": self.body.to_dict()
         }
 
 
