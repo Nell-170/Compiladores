@@ -300,7 +300,6 @@ class BlockNode(ASTNode):
             lines.append(s.printAST(indent + 1))
         return "\n".join(lines)
 
-    # Keep tuple back-compat: return *just the list* like your old AST
     def to_tuple(self) -> tuple:
         return ("block", [s.to_tuple() for s in self.statements])
 

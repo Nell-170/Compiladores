@@ -368,13 +368,15 @@ class Parser:
             p[0] = p[1]
 
     # ----- SENTENCIA PRINT -----
-    def p_print_stmt(self, p):
-        """print_stmt : PRINT LPAREN expr_list_plain_opt RPAREN
-                      | PRINT LPAREN RPAREN"""
-        if len(p) == 5:
-            p[0] = PrintNode(p[3])
-        else:
-            p[0] = PrintNode([])
+    # def p_print_stmt(self, p):
+    #     """print_stmt : PRINT LPAREN expr_list_plain_opt RPAREN
+    #                   | PRINT LPAREN RPAREN"""
+    #     if len(p) == 5:
+    #         node = PrintNode(p[3])
+    #         p[0] = self._setpos(node, p, 1)
+    #     else:
+    #         node = PrintNode([])
+    #         p[0] = self._setpos(node, p, 1)
 
     # ----- BLOQUE TRY-EXCEPT -----
     def p_try_stmt(self, p):
@@ -416,7 +418,8 @@ class Parser:
                       | nested_id ASSIGN_COLON expression
                       | ID ASSIGN expression
                       | ID ASSIGN_COLON expression"""
-        p[0] = AssignmentNode(target=p[1], value=p[3])
+        node = AssignmentNode(target=p[1], value=p[3])
+        p[0] = self._setpos(node, p, 1)  
 
     def p_nested_id(self, p):
         """nested_id : nested_id DOT ID
@@ -439,16 +442,20 @@ class Parser:
                           | ID MOD_ASSIGN expression
                           | ID FLOORDIV_ASSIGN expression
                           | ID POW_ASSIGN expression"""
-        p[0] = AugAssignmentNode(op=p[2], target=p[1], value=p[3])
+        node = AugAssignmentNode(op=p[2], target=p[1], value=p[3])
+        p[0] = self._setpos(node, p, 1)
 
     # ----- CONTROL FLOW -----
     def p_return_stmt(self, p):
         """return_stmt : RETURN expression
                        | RETURN"""
         if len(p) == 3:
-            p[0] = ReturnNode(value=p[2])
+            node = ReturnNode(value=p[2])
+            p[0] = self._setpos(node, p, 1)
         else:
-            p[0] = ReturnNode(value=None)
+            node = ReturnNode(value=None)
+            p[0] = self._setpos(node, p, 1)
+
 
     def p_pass_stmt(self, p):
         """pass_stmt : PASS"""
@@ -471,7 +478,8 @@ class Parser:
         """or_expression : or_expression OR and_expression
                          | and_expression"""
         if len(p) == 4:
-            p[0] = BinaryOpNode(op="OR", left=p[1], right=p[3])
+            node = BinaryOpNode(op="OR", left=p[1], right=p[3])
+            p[0] = self._setpos(node, p, 1)
         else:
             p[0] = p[1]
 
@@ -479,7 +487,8 @@ class Parser:
         """and_expression : and_expression AND not_expression
                           | not_expression"""
         if len(p) == 4:
-            p[0] = BinaryOpNode(op="AND", left=p[1], right=p[3])
+            node = BinaryOpNode(op="AND", left=p[1], right=p[3])
+            p[0] = self._setpos(node, p, 1)
         else:
             p[0] = p[1]
 
@@ -487,7 +496,8 @@ class Parser:
         """not_expression : NOT not_expression
                           | comparison"""
         if len(p) == 3:
-            p[0] = UnaryOpNode(op="NOT", operand=p[2])
+            node = UnaryOpNode(op="NOT", operand=p[2])
+            p[0] = self._setpos(node, p, 1)
         else:
             p[0] = p[1]
 
@@ -558,7 +568,8 @@ class Parser:
         """power : primary POW power
                  | primary"""
         if len(p) == 4:
-            p[0] = BinaryOpNode(op="POW", left=p[1], right=p[3])
+            node = BinaryOpNode(op="POW", left=p[1], right=p[3])
+            p[0] = self._setpos(node, p, 1)
         else:
             p[0] = p[1]
 
