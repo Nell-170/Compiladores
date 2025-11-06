@@ -9,7 +9,9 @@ import json
 
 class ASTNode:
     """Base class for all AST nodes"""
-    
+    lineno: Optional[int] = None
+    col: Optional[int] = None
+
     def printAST(self, indent: int = 0) -> str:
         """Return a formatted string representation of the AST"""
         raise NotImplementedError("Subclasses must implement printAST()")
@@ -21,6 +23,15 @@ class ASTNode:
     def to_dict(self) -> dict:
         """Convert to dictionary format for JSON serialization"""
         raise NotImplementedError("Subclasses must implement to_dict()")
+
+    def set_pos(self, lineno: Optional[int], col: Optional[int]):
+        """Save line number and column number information"""
+        self.lineno, self.col = lineno, col
+        return self
+
+    def accept(self, visitor):
+        m = getattr(visitor, f"visit_{self.__class__.__name__}")
+        return m(self)
     # TODO(any): def transpile(self):
 
 
@@ -259,6 +270,31 @@ class GroupNode(ASTNode):
 # COLLECTION NODES
 # ============================================================================
 
+class BlockNode(ASTNode):
+    """A lexical block/suite of statements (e.g., bodies of if/while/for/def/class/try/except/else)."""
+    def __init__(self, statements: List[ASTNode]):
+        self.statements = statements or []
+
+    def printAST(self, indent: int = 0) -> str:
+        ind = "  " * indent
+        lines = [f"{ind}Block:"]
+        for s in self.statements:
+            lines.append(s.printAST(indent + 1))
+        return "\n".join(lines)
+
+    # Keep tuple back-compat: return *just the list* like your old AST
+    def to_tuple(self) -> tuple:
+        return ("block", [s.to_tuple() for s in self.statements])
+
+    def to_dict(self) -> dict:
+        return {
+            "type": "block",
+            "statements": [s.to_dict() for s in self.statements],
+            "lineno": self.lineno,
+            "col": self.col,
+        }
+
+
 class TupleNode(ASTNode):
     """Tuple literal or expression"""
     
@@ -410,7 +446,11 @@ class AssignmentNode(ASTNode):
     """Assignment statement (x = 5 or a, b = 1, 2)"""
     
     def __init__(self, target: Union[ASTNode, str], value: ASTNode):
-        self.target = target if isinstance(target, ASTNode) else IdentifierNode(target)
+        # Ensure target is always an ASTNode
+        if isinstance(target, str):
+            self.target = IdentifierNode(target)
+        else:
+            self.target = target
         self.value = value
     
     def printAST(self, indent: int = 0) -> str:
@@ -439,7 +479,11 @@ class AugAssignmentNode(ASTNode):
     
     def __init__(self, op: str, target: Union[ASTNode, str], value: ASTNode):
         self.op = op
-        self.target = target if isinstance(target, ASTNode) else IdentifierNode(target)
+        # Ensure target is always an ASTNode
+        if isinstance(target, str):
+            self.target = IdentifierNode(target)
+        else:
+            self.target = target
         self.value = value
     
     def printAST(self, indent: int = 0) -> str:
@@ -681,8 +725,12 @@ class WhileNode(ASTNode):
 class ForNode(ASTNode):
     """For loop"""
     
-    def __init__(self, target: ASTNode, iterable: ASTNode, body: List[ASTNode]):
-        self.target = target
+    def __init__(self, target: Union[ASTNode, str], iterable: ASTNode, body: List[ASTNode]):
+        # Ensure target is always an ASTNode
+        if isinstance(target, str):
+            self.target = IdentifierNode(target)
+        else:
+            self.target = target
         self.iterable = iterable
         self.body = body
     
@@ -699,13 +747,14 @@ class ForNode(ASTNode):
         return "\n".join(lines)
     
     def to_tuple(self) -> tuple:
-        return ("for", self.target.to_tuple(), self.iterable.to_tuple(), 
+        target_tuple = self.target.to_tuple() if isinstance(self.target, ASTNode) else self.target
+        return ("for", target_tuple, self.iterable.to_tuple(), 
                 [s.to_tuple() for s in self.body])
     
     def to_dict(self) -> dict:
         return {
             "type": "for",
-            "target": self.target.to_dict(),
+            "target": self.target.to_dict() if isinstance(self.target, ASTNode) else self.target,
             "iterable": self.iterable.to_dict(),
             "body": [s.to_dict() for s in self.body]
         }
@@ -787,7 +836,8 @@ class FuncDefNode(ASTNode):
             for param in self.params:
                 if isinstance(param, tuple):
                     param_name, default = param
-                    lines.append(f"{ind}    {param_name} = {default.printAST(0)}")
+                    lines.append(f"{ind}    {param_name} =")
+                    lines.append(default.printAST(indent + 3))
                 else:
                     lines.append(f"{ind}    {param}")
         
@@ -864,25 +914,49 @@ class TargetListNode(ASTNode):
     """Target list for tuple unpacking (a, b, c)"""
     
     def __init__(self, targets: List[Union[ASTNode, str]]):
-        self.targets = [t if isinstance(t, ASTNode) else IdentifierNode(t) 
-                       for t in targets]
+        # Ensure all targets are ASTNodes
+        self.targets = []
+        for t in targets:
+            if isinstance(t, str):
+                self.targets.append(IdentifierNode(t))
+            elif isinstance(t, ASTNode):
+                self.targets.append(t)
+            else:
+                # Handle TargetListNode being passed in
+                if hasattr(t, 'targets'):
+                    self.targets.extend(t.targets)
+                else:
+                    self.targets.append(t)
     
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}TargetList:"]
         for target in self.targets:
-            lines.append(target.printAST(indent + 1))
+            if isinstance(target, ASTNode):
+                lines.append(target.printAST(indent + 1))
+            else:
+                lines.append(f"{ind}  {target}")
         return "\n".join(lines)
     
     def to_tuple(self) -> tuple:
-        return ("target_list", [t.to_tuple() if isinstance(t, ASTNode) else t 
-                               for t in self.targets])
+        result = []
+        for t in self.targets:
+            if isinstance(t, ASTNode):
+                result.append(t.to_tuple())
+            else:
+                result.append(t)
+        return ("target_list", result)
     
     def to_dict(self) -> dict:
+        result = []
+        for t in self.targets:
+            if isinstance(t, ASTNode):
+                result.append(t.to_dict())
+            else:
+                result.append(t)
         return {
             "type": "target_list",
-            "targets": [t.to_dict() if isinstance(t, ASTNode) else t 
-                       for t in self.targets]
+            "targets": result
         }
 
 

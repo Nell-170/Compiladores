@@ -78,10 +78,12 @@ class Parser:
         walk(node)
 
     # ----- Reglas de la gramática -----
-    
+
     def p_program(self, p):
         """program : top_level_stmts"""
         p[0] = ProgramNode(p[1])
+
+    # ----- SENTENCIAS DE NIVEL SUPERIOR (módulo) -----
 
     def p_top_level_stmts(self, p):
         """top_level_stmts : top_level_stmts top_level_stmt
@@ -107,6 +109,8 @@ class Parser:
                           | try_stmt"""
         p[0] = p[1]
 
+    # ----- SENTENCIAS DENTRO DE FUNCIONES -----
+
     def p_func_body_stmts(self, p):
         """func_body_stmts : func_body_stmts func_body_stmt
                            | func_body_stmt
@@ -128,6 +132,8 @@ class Parser:
                           | for_stmt
                           | try_stmt"""
         p[0] = p[1]
+
+    # ----- SENTENCIAS DENTRO DE CLASES -----
 
     def p_class_body_stmts(self, p):
         """class_body_stmts : class_body_stmts class_body_stmt
