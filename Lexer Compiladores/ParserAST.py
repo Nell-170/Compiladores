@@ -368,15 +368,15 @@ class Parser:
             p[0] = p[1]
 
     # ----- SENTENCIA PRINT -----
-    # def p_print_stmt(self, p):
-    #     """print_stmt : PRINT LPAREN expr_list_plain_opt RPAREN
-    #                   | PRINT LPAREN RPAREN"""
-    #     if len(p) == 5:
-    #         node = PrintNode(p[3])
-    #         p[0] = self._setpos(node, p, 1)
-    #     else:
-    #         node = PrintNode([])
-    #         p[0] = self._setpos(node, p, 1)
+    def p_print_stmt(self, p):
+        """print_stmt : PRINT LPAREN expr_list_plain_opt RPAREN
+                      | PRINT LPAREN RPAREN"""
+        if len(p) == 5:
+            node = PrintNode(p[3])
+            p[0] = self._setpos(node, p, 1)
+        else:
+            node = PrintNode([])
+            p[0] = self._setpos(node, p, 1)
 
     # ----- BLOQUE TRY-EXCEPT -----
     def p_try_stmt(self, p):
@@ -862,9 +862,9 @@ if __name__ == "__main__":
     print("PARSER TEST SUMMARY")
     print("="*60)
     for rep in reports:
-        status = "✓ OK" if rep["success"] else "✗ FAIL"
+        status = "[OK]" if rep["success"] else "[FAIL]"
         print(f"{status:8}  {rep['error_count']:2} errors  {rep['path']}")
-    
+
     # Count successes
     total = len(reports)
     passed = sum(1 for r in reports if r["success"])

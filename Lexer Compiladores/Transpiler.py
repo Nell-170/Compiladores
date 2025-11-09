@@ -1,4 +1,7 @@
 import json
+from ParserAST import Parser
+from utils import Error
+from ast_nodes import *
 
 class Transpiler:
     def __init__(self, options=None, symbols=None):
@@ -7,6 +10,27 @@ class Transpiler:
         self.symbols = symbols or {}
 
     def emit(self, s): self.out.append("    " * self.indent + s)
+
+    def transpile_file(self, file_path: str):
+        """Parse a Python file and transpile it to C++."""
+        errors: list[Error] = []
+        parser = Parser(errors, debug=False)
+
+        with open(file_path, "r", encoding="utf-8") as f:
+            code = f.read()
+
+        parser.lexer.data = code
+        parser.lexer.lex.lineno = 1
+        ast = parser.parser.parse(code, lexer=parser.lexer.lex, debug=False)
+
+        if errors:
+            error_msgs = "\n".join(str(e) for e in errors)
+            raise Exception(f"Errors during parsing:\n{error_msgs}")
+
+        if ast is None:
+            raise Exception("Failed to parse file")
+
+        return ast.accept(self)
 
     def visit_ProgramNode(self, n):
         self.emit("#include <bits/stdc++.h>")
@@ -22,9 +46,7 @@ class Transpiler:
         return "\n".join(self.out)
 
     def visit_AssignmentNode(self, n):
-        # decide on declaration vs assignment using symbol table
-        # simple example, assume ints unless inferred otherwise:
-        target = n.target  # IdentifierNode or more complex
+        target = n.target
         rhs = n.value.accept(self)
         if isinstance(target, IdentifierNode) and not self._is_defined(target.name):
             self.emit(f"int {target.name} = {rhs};")
@@ -33,7 +55,6 @@ class Transpiler:
             self.emit(f"{target.accept(self)} = {rhs};")
 
     def visit_AugAssignmentNode(self, n):
-        # careful with '**=' and '//=' differences (see helpers below)
         t = n.target.accept(self)
         r = n.value.accept(self)
         op = n.op
@@ -42,7 +63,7 @@ class Transpiler:
         elif op == "//=":
             self.emit(f"{t} = floor_div({t}, {r});")
         else:
-            self.emit(f"{t} {op} {r};")  # +=, -=, *=, /=, %=, etc.
+            self.emit(f"{t} {op} {r};")
 
     def visit_IdentifierNode(self, n):
         return n.name
@@ -51,44 +72,85 @@ class Transpiler:
         if n.kind == "int":   return str(n.value)
         if n.kind == "float": return str(n.value)
         if n.kind == "bool":  return "true" if n.value else "false"
-        if n.kind == "str":   return json.dumps(n.value)  # or quoted
+        if n.kind == "str":   return json.dumps(n.value)
         raise NotImplementedError(n.kind)
 
     def visit_BinaryOpNode(self, n):
         left = n.left.accept(self)
         right = n.right.accept(self)
-        if n.op == "**":
+        if n.op == "**" or n.op == "pow":
             return f"(int)std::pow({left}, {right})"
-        if n.op == "//":
+        if n.op == "//" or n.op == "floordiv":
             return f"floor_div({left}, {right})"
         if n.op in ("and", "or"):
-            # C++ short-circuits with && and ||
             cpp = "&&" if n.op == "and" else "||"
             return f"({left} {cpp} {right})"
-        # + - * / % < > <= >= == != etc.
         return f"({left} {n.op} {right})"
+
+    def visit_BinOpNode(self, n):
+        return self.visit_BinaryOpNode(n)
 
     def visit_UnaryOpNode(self, n):
         expr = n.operand.accept(self)
         if n.op == "not": return f"(!{expr})"
         return f"({n.op}{expr})"
 
+    def visit_ComparisonNode(self, n):
+        left = n.left.accept(self)
+        right = n.right.accept(self)
+        return f"({left} {n.op} {right})"
+
+    def visit_BlockNode(self, n):
+        for stmt in n.statements:
+            stmt.accept(self)
+
     def visit_IfNode(self, n):
-        cond = n.test.accept(self)
+        cond = n.condition.accept(self)
         self.emit(f"if ({cond}) {{")
         self.indent += 1
-        for s in n.body: s.accept(self)
+        if isinstance(n.then_body, list):
+            for s in n.then_body: s.accept(self)
+        else:
+            n.then_body.accept(self)
         self.indent -= 1
-        if n.elifs:
-            for econd, ebody in n.elifs:
-                cond = econd.accept(self)
+
+        if n.elif_clauses:
+            for elif_node in n.elif_clauses:
+                cond = elif_node.condition.accept(self)
                 self.emit(f"}} else if ({cond}) {{")
                 self.indent += 1
-                for s in ebody: s.accept(self)
+                if isinstance(elif_node.body, list):
+                    for s in elif_node.body: s.accept(self)
+                else:
+                    elif_node.body.accept(self)
                 self.indent -= 1
-        if n.orelse:
+
+        if n.else_clause:
             self.emit("} else {")
             self.indent += 1
-            for s in n.orelse: s.accept(self)
+            if isinstance(n.else_clause.body, list):
+                for s in n.else_clause.body: s.accept(self)
+            else:
+                n.else_clause.body.accept(self)
             self.indent -= 1
+
         self.emit("}")
+
+    def _is_defined(self, name: str) -> bool:
+        return name in self.symbols
+
+    def _define(self, name: str, type_: str):
+        self.symbols[name] = type_
+
+if __name__ == "__main__":
+    transpiler = Transpiler()
+    try:
+        cpp_code = transpiler.transpile_file("transpiler_tests/simple_test.py")
+        print(cpp_code)
+
+        # Optionally save to file
+        with open("output.cpp", "w", encoding="utf-8") as f:
+            f.write(cpp_code)
+        print("\n[Transpilation successful! Output saved to output.cpp]")
+    except Exception as e:
+        print(f"[ERROR] {e}")

@@ -1,0 +1,25 @@
+a = 5
+b = 10
+c = a + b
+
+if a < b:
+    d = a * 2
+else:
+    d = b * 2
+
+e = c - d
+
+if e > 0:
+    f = e + 1
+elif e == 0:
+    f = 0
+else:
+    f = e - 1
+
+g = a ** 2
+h = b // 3
+i = g + h
+
+a += 5
+b -= 2
+c *= 3
