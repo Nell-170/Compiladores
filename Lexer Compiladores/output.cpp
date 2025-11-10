@@ -12,6 +12,9 @@ int main() {
     }
     int e = (c - d);
     cout << a[i] << endl;
+    for (auto e : a[3]) {
+        cout << e << endl;
+    }
     if ((e > 0)) {
         int f = (e + 1);
     } else if ((e == 0)) {

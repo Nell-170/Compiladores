@@ -152,6 +152,19 @@ class Transpiler:
 
         self.emit("}")
 
+    def visit_ForNode(self, n):
+        target = n.target.accept(self)
+        iterable = n.iterable.accept(self)
+        self.emit(f"for (auto {target} : {iterable}) {{")
+        self.indent += 1
+        if isinstance(n.body, BlockNode):
+            n.body.accept(self)
+        else:
+            for stmt in n.body:
+                stmt.accept(self)
+        self.indent -= 1
+        self.emit("}")
+
     def _is_defined(self, name: str) -> bool:
         return name in self.symbols
 
@@ -161,7 +174,7 @@ class Transpiler:
 if __name__ == "__main__":
     transpiler = Transpiler()
     try:
-        cpp_code = transpiler.transpile_file("transpiler_tests/teacher_test.py")
+        cpp_code = transpiler.transpile_file("transpiler_tests/simple_test.py")
 
         # Optionally save to file
         with open("output.cpp", "w", encoding="utf-8") as f:

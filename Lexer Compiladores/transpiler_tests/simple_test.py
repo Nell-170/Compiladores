@@ -11,6 +11,9 @@ e = c - d
 
 print(a[i])
 
+for e in a[3]:
+    print (e)
+
 if e > 0:
     f = e + 1
 elif e == 0:
