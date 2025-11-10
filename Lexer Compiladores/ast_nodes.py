@@ -110,27 +110,53 @@ class IdentifierNode(ASTNode):
 
 class AttributeAccessNode(ASTNode):
     """Represents attribute access (obj.attr or self.x)"""
-    
+
     def __init__(self, base: Union[ASTNode, str], attribute: str):
         self.base = base if isinstance(base, ASTNode) else IdentifierNode(base)
         self.attribute = attribute
-    
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}AttributeAccess:"]
         lines.append(self.base.printAST(indent + 1))
         lines.append(f"{ind}  .{self.attribute}")
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
         base_tuple = self.base.to_tuple() if isinstance(self.base, ASTNode) else self.base
         return ("attribute_access", base_tuple, self.attribute)
-    
+
     def to_dict(self) -> dict:
         return {
             "type": "attribute_access",
             "base": self.base.to_dict() if isinstance(self.base, ASTNode) else self.base,
             "attribute": self.attribute
+        }
+
+
+class IndexAccessNode(ASTNode):
+    """Represents index/subscript access (arr[index])"""
+
+    def __init__(self, base: ASTNode, index: ASTNode):
+        self.base = base
+        self.index = index
+
+    def printAST(self, indent: int = 0) -> str:
+        ind = "  " * indent
+        lines = [f"{ind}IndexAccess:"]
+        lines.append(self.base.printAST(indent + 1))
+        lines.append(f"{ind}  Index:")
+        lines.append(self.index.printAST(indent + 2))
+        return "\n".join(lines)
+
+    def to_tuple(self) -> tuple:
+        return ("index_access", self.base.to_tuple(), self.index.to_tuple())
+
+    def to_dict(self) -> dict:
+        return {
+            "type": "index_access",
+            "base": self.base.to_dict(),
+            "index": self.index.to_dict()
         }
 
 

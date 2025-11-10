@@ -78,8 +78,8 @@ class Parser:
 
     def _validate_ast_for_empty_string_literals(self, node):
         """
-        Walk the AST and emit a validator warning if we find ('literal','string','').
-        This is especially suspicious when lexer errors occurred (e.g., broken strings).
+            Walk the AST and emit a validator warning if we find ('literal','string','').
+            This is especially suspicious when lexer errors occurred (e.g., broken strings).
         """
         def walk(n):
             if isinstance(n, tuple):
@@ -125,6 +125,7 @@ class Parser:
             p[0] = []
         else:
             p[0] = [p[1]]
+            
     # ----- SENTENCIAS DE NIVEL SUPERIOR (módulo) -----
     def p_top_level_stmt(self, p):
         """top_level_stmt : func_def
@@ -664,6 +665,12 @@ class Parser:
     # ----- Primarios: literales, id, llamadas, listas/tuplas/dicts, agrupación -----
 
     # Llamadas a funciones con argumentos posicionales
+    # Indexación (subscript)
+    def p_primary_index(self, p):
+        """primary : primary LBRACKET expression RBRACKET"""
+        p[0] = ("index_access", p[1], p[3])
+
+    # Llamadas a funciones con argumentos posicionales
     def p_primary_call(self, p):
         """primary : ID LPAREN arg_list_opt RPAREN
                 | nested_id LPAREN arg_list_opt RPAREN
@@ -917,6 +924,7 @@ if __name__ == "__main__":
         "tests/parser_OK_print_try.py",
         "tests/parser_OK_top_level_if.py",
         "tests/parser_OK_tuple_unpacking.py",
+        "transpiler_tests/teacher_test.py"
     ]
 
     # Run

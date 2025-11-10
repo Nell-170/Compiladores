@@ -104,6 +104,22 @@ class Transpiler:
         for stmt in n.statements:
             stmt.accept(self)
 
+    def visit_IndexAccessNode(self, n):
+        base = n.base.accept(self)
+        index = n.index.accept(self)
+        return f"{base}[{index}]"
+
+    def visit_CallNode(self, n):
+        callee = n.callee.accept(self)
+        args = ", ".join(arg.accept(self) for arg in n.args) if n.args else ""
+        if callee == "print":
+            self.emit(f"cout << {args} << endl;")
+            return ""
+        return f"{callee}({args})"
+
+    def visit_ArgumentNode(self, n):
+        return n.value.accept(self)
+
     def visit_IfNode(self, n):
         cond = n.condition.accept(self)
         self.emit(f"if ({cond}) {{")
@@ -145,8 +161,7 @@ class Transpiler:
 if __name__ == "__main__":
     transpiler = Transpiler()
     try:
-        cpp_code = transpiler.transpile_file("transpiler_tests/simple_test.py")
-        print(cpp_code)
+        cpp_code = transpiler.transpile_file("transpiler_tests/teacher_test.py")
 
         # Optionally save to file
         with open("output.cpp", "w", encoding="utf-8") as f:

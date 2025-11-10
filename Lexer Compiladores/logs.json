@@ -108,62 +108,47 @@
           "MyNumber",
           null,
           [
-            "block",
             [
+              "func_def",
+              "__init__",
               [
-                "func_def",
-                "__init__",
-                [
-                  "['myNumber'].value"
-                ],
-                [
-                  "block",
-                  [
-                    [
-                      "assignment",
-                      [
-                        "attribute_access",
-                        [
-                          "identifier",
-                          "self"
-                        ],
-                        "value"
-                      ],
-                      [
-                        "identifier",
-                        "value"
-                      ]
-                    ]
-                  ]
-                ]
+                "['myNumber'].value"
               ],
               [
-                "func_def",
-                "print_value",
                 [
-                  "self"
-                ],
+                  "assignment",
+                  [
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
+                  ]
+                ]
+              ]
+            ],
+            [
+              "func_def",
+              "print_value",
+              [
+                "self"
+              ],
+              [
                 [
-                  "block",
+                  "call",
+                  [
+                    "identifier",
+                    "print"
+                  ],
                   [
                     [
-                      "call",
+                      "positional_arg",
                       [
-                        "identifier",
-                        "print"
-                      ],
-                      [
-                        [
-                          "positional_arg",
-                          [
-                            "attribute_access",
-                            [
-                              "identifier",
-                              "MyNumber"
-                            ],
-                            "value"
-                          ]
-                        ]
+                        "attribute_access",
+                        "MyNumber",
+                        "value"
                       ]
                     ]
                   ]
@@ -174,10 +159,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "num"
-          ],
+          "num",
           [
             "call",
             [
@@ -200,10 +182,7 @@
           "call",
           [
             "attribute_access",
-            [
-              "identifier",
-              "num"
-            ],
+            "num",
             "print_value"
           ],
           [
@@ -211,10 +190,7 @@
               "positional_arg",
               [
                 "attribute_access",
-                [
-                  "identifier",
-                  "num"
-                ],
+                "num",
                 "value"
               ]
             ]
@@ -222,10 +198,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "x"
-          ],
+          "x",
           [
             "literal",
             "int",
@@ -234,10 +207,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "y"
-          ],
+          "y",
           [
             "literal",
             "int",
@@ -246,10 +216,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "z"
-          ],
+          "z",
           [
             "binop",
             "+",
@@ -321,10 +288,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "w"
-          ],
+          "w",
           [
             "tuple",
             [
@@ -337,10 +301,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "t"
-          ],
+          "t",
           [
             "tuple",
             [
@@ -361,10 +322,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "lst"
-          ],
+          "lst",
           [
             "list",
             [
@@ -385,10 +343,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "dct"
-          ],
+          "dct",
           [
             "dict",
             [
@@ -492,10 +447,7 @@
       [
         [
           "assignment",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -505,10 +457,7 @@
         [
           "aug_assignment",
           "+=",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -518,10 +467,7 @@
         [
           "aug_assignment",
           "-=",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -531,10 +477,7 @@
         [
           "aug_assignment",
           "*=",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -544,10 +487,7 @@
         [
           "aug_assignment",
           "//=",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -557,10 +497,7 @@
         [
           "aug_assignment",
           "%=",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -570,10 +507,7 @@
         [
           "aug_assignment",
           "**=",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -582,10 +516,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "ok"
-          ],
+          "ok",
           [
             "binary_op",
             "and",
@@ -643,10 +574,7 @@
       [
         [
           "assignment",
-          [
-            "identifier",
-            "a"
-          ],
+          "a",
           [
             "literal",
             "int",
@@ -655,10 +583,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "b"
-          ],
+          "b",
           [
             "literal",
             "int",
@@ -667,10 +592,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "c"
-          ],
+          "c",
           [
             "literal",
             "int",
@@ -679,10 +601,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "flag"
-          ],
+          "flag",
           [
             "cmp_chain",
             [
@@ -709,10 +628,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "ok1"
-          ],
+          "ok1",
           [
             "cmp_chain",
             [
@@ -739,10 +655,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "ok2"
-          ],
+          "ok2",
           [
             "cmp_chain",
             [
@@ -776,10 +689,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "ok3"
-          ],
+          "ok3",
           [
             "cmp_chain",
             [
@@ -842,10 +752,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "ok4"
-          ],
+          "ok4",
           [
             "binary_op",
             "and",
@@ -962,43 +869,31 @@
           "Accumulator",
           null,
           [
-            "block",
             [
+              "func_def",
+              "__init__",
               [
-                "func_def",
-                "__init__",
+                "['self'].value"
+              ],
+              [
                 [
-                  "['self'].value"
+                  "assignment",
+                  "self",
+                  [
+                    "identifier",
+                    "self"
+                  ]
                 ],
                 [
-                  "block",
+                  "assignment",
                   [
-                    [
-                      "assignment",
-                      [
-                        "identifier",
-                        "self"
-                      ],
-                      [
-                        "identifier",
-                        "self"
-                      ]
-                    ],
-                    [
-                      "assignment",
-                      [
-                        "attribute_access",
-                        [
-                          "identifier",
-                          "self"
-                        ],
-                        "value"
-                      ],
-                      [
-                        "identifier",
-                        "value"
-                      ]
-                    ]
+                    "attribute_access",
+                    "self",
+                    "value"
+                  ],
+                  [
+                    "identifier",
+                    "value"
                   ]
                 ]
               ]
@@ -1012,13 +907,23 @@
             "['self'].x"
           ],
           [
-            "block",
             [
+              "assignment",
+              "s",
               [
-                "assignment",
+                "literal",
+                "int",
+                0
+              ]
+            ],
+            [
+              "while",
+              [
+                "comparison",
+                ">",
                 [
                   "identifier",
-                  "s"
+                  "x"
                 ],
                 [
                   "literal",
@@ -1027,57 +932,32 @@
                 ]
               ],
               [
-                "while",
                 [
-                  "comparison",
-                  ">",
+                  "aug_assignment",
+                  "+=",
+                  "s",
                   [
                     "identifier",
                     "x"
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    0
                   ]
                 ],
                 [
-                  "block",
+                  "aug_assignment",
+                  "-=",
+                  "x",
                   [
-                    [
-                      "aug_assignment",
-                      "+=",
-                      [
-                        "identifier",
-                        "s"
-                      ],
-                      [
-                        "identifier",
-                        "x"
-                      ]
-                    ],
-                    [
-                      "aug_assignment",
-                      "-=",
-                      [
-                        "identifier",
-                        "x"
-                      ],
-                      [
-                        "literal",
-                        "int",
-                        1
-                      ]
-                    ]
+                    "literal",
+                    "int",
+                    1
                   ]
                 ]
-              ],
+              ]
+            ],
+            [
+              "return",
               [
-                "return",
-                [
-                  "identifier",
-                  "s"
-                ]
+                "identifier",
+                "s"
               ]
             ]
           ]
@@ -1098,10 +978,7 @@
       [
         [
           "assignment",
-          [
-            "identifier",
-            "d0"
-          ],
+          "d0",
           [
             "dict",
             []
@@ -1109,10 +986,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "d1"
-          ],
+          "d1",
           [
             "dict",
             [
@@ -1133,10 +1007,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "d2"
-          ],
+          "d2",
           [
             "dict",
             [
@@ -1157,10 +1028,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "d3"
-          ],
+          "d3",
           [
             "dict",
             [
@@ -1212,107 +1080,107 @@
             "['a'].b"
           ],
           [
-            "block",
             [
+              "assignment",
+              "c",
               [
-                "assignment",
+                "binop",
+                "+",
+                [
+                  "identifier",
+                  "a"
+                ],
+                [
+                  "identifier",
+                  "b"
+                ]
+              ]
+            ],
+            [
+              "if_stmt",
+              [
+                "comparison",
+                ">",
                 [
                   "identifier",
                   "c"
                 ],
                 [
-                  "binop",
-                  "+",
+                  "literal",
+                  "int",
+                  10
+                ]
+              ],
+              [
+                [
+                  "return",
                   [
                     "identifier",
-                    "a"
-                  ],
-                  [
-                    "identifier",
-                    "b"
+                    "c"
                   ]
                 ]
               ],
               [
-                "if_stmt",
                 [
-                  "comparison",
-                  ">",
+                  "elif",
                   [
-                    "identifier",
-                    "c"
+                    "comparison",
+                    "==",
+                    [
+                      "identifier",
+                      "c"
+                    ],
+                    [
+                      "literal",
+                      "int",
+                      10
+                    ]
                   ],
-                  [
-                    "literal",
-                    "int",
-                    10
-                  ]
-                ],
-                [
-                  "block",
                   [
                     [
                       "return",
                       [
-                        "identifier",
-                        "c"
+                        "literal",
+                        "int",
+                        0
                       ]
                     ]
                   ]
-                ],
+                ]
+              ],
+              [
+                "else",
                 [
                   [
-                    "elif",
+                    "assignment",
+                    "i",
+                    [
+                      "literal",
+                      "int",
+                      0
+                    ]
+                  ],
+                  [
+                    "while",
                     [
                       "comparison",
-                      "==",
+                      "<",
                       [
                         "identifier",
-                        "c"
+                        "i"
                       ],
                       [
                         "literal",
                         "int",
-                        10
+                        3
                       ]
                     ],
                     [
-                      "block",
                       [
-                        [
-                          "return",
-                          [
-                            "literal",
-                            "int",
-                            0
-                          ]
-                        ]
-                      ]
-                    ]
-                  ]
-                ],
-                [
-                  "else",
-                  [
-                    "block",
-                    [
-                      [
-                        "assignment",
-                        [
-                          "identifier",
-                          "i"
-                        ],
-                        [
-                          "literal",
-                          "int",
-                          0
-                        ]
-                      ],
-                      [
-                        "while",
+                        "if_stmt",
                         [
                           "comparison",
-                          "<",
+                          "==",
                           [
                             "identifier",
                             "i"
@@ -1320,114 +1188,72 @@
                           [
                             "literal",
                             "int",
-                            3
+                            1
                           ]
                         ],
                         [
-                          "block",
                           [
+                            "aug_assignment",
+                            "+=",
+                            "i",
                             [
-                              "if_stmt",
-                              [
-                                "comparison",
-                                "==",
-                                [
-                                  "identifier",
-                                  "i"
-                                ],
-                                [
-                                  "literal",
-                                  "int",
-                                  1
-                                ]
-                              ],
-                              [
-                                "block",
-                                [
-                                  [
-                                    "aug_assignment",
-                                    "+=",
-                                    [
-                                      "identifier",
-                                      "i"
-                                    ],
-                                    [
-                                      "literal",
-                                      "int",
-                                      1
-                                    ]
-                                  ],
-                                  [
-                                    "continue"
-                                  ]
-                                ]
-                              ],
-                              [],
-                              null
-                            ],
-                            [
-                              "aug_assignment",
-                              "+=",
-                              [
-                                "identifier",
-                                "i"
-                              ],
-                              [
-                                "literal",
-                                "int",
-                                1
-                              ]
+                              "literal",
+                              "int",
+                              1
                             ]
+                          ],
+                          [
+                            "continue"
                           ]
-                        ]
+                        ],
+                        [],
+                        null
                       ],
                       [
-                        "assignment",
-                        [
-                          "identifier",
-                          "total"
-                        ],
+                        "aug_assignment",
+                        "+=",
+                        "i",
                         [
                           "literal",
                           "int",
-                          0
+                          1
                         ]
-                      ],
+                      ]
+                    ]
+                  ],
+                  [
+                    "assignment",
+                    "total",
+                    [
+                      "literal",
+                      "int",
+                      0
+                    ]
+                  ],
+                  [
+                    "for",
+                    "k",
+                    [
+                      "identifier",
+                      "lst"
+                    ],
+                    [
                       [
-                        "for",
+                        "aug_assignment",
+                        "+=",
+                        "total",
                         [
                           "identifier",
                           "k"
-                        ],
-                        [
-                          "identifier",
-                          "lst"
-                        ],
-                        [
-                          "block",
-                          [
-                            [
-                              "aug_assignment",
-                              "+=",
-                              [
-                                "identifier",
-                                "total"
-                              ],
-                              [
-                                "identifier",
-                                "k"
-                              ]
-                            ]
-                          ]
-                        ]
-                      ],
-                      [
-                        "return",
-                        [
-                          "identifier",
-                          "total"
                         ]
                       ]
+                    ]
+                  ],
+                  [
+                    "return",
+                    [
+                      "identifier",
+                      "total"
                     ]
                   ]
                 ]
@@ -1454,15 +1280,12 @@
           "f",
           [],
           [
-            "block",
             [
+              "return",
               [
-                "return",
-                [
-                  "literal",
-                  "int",
-                  0
-                ]
+                "literal",
+                "int",
+                0
               ]
             ]
           ]
@@ -1474,20 +1297,17 @@
             "x"
           ],
           [
-            "block",
             [
+              "binop",
+              "+",
               [
-                "binop",
-                "+",
-                [
-                  "identifier",
-                  "x"
-                ],
-                [
-                  "literal",
-                  "int",
-                  1
-                ]
+                "identifier",
+                "x"
+              ],
+              [
+                "literal",
+                "int",
+                1
               ]
             ]
           ]
@@ -1499,21 +1319,18 @@
             "['a'].b"
           ],
           [
-            "block",
             [
+              "return",
               [
-                "return",
+                "binop",
+                "+",
                 [
-                  "binop",
-                  "+",
-                  [
-                    "identifier",
-                    "a"
-                  ],
-                  [
-                    "identifier",
-                    "b"
-                  ]
+                  "identifier",
+                  "a"
+                ],
+                [
+                  "identifier",
+                  "b"
                 ]
               ]
             ]
@@ -1524,15 +1341,12 @@
           "yeah",
           [],
           [
-            "block",
             [
+              "return",
               [
-                "return",
-                [
-                  "literal",
-                  "int",
-                  0
-                ]
+                "literal",
+                "int",
+                0
               ]
             ]
           ]
@@ -1542,25 +1356,19 @@
           "C",
           null,
           [
-            "block",
             [
+              "func_def",
+              "m",
               [
-                "func_def",
-                "m",
+                "self"
+              ],
+              [
                 [
-                  "self"
-                ],
-                [
-                  "block",
+                  "return",
                   [
-                    [
-                      "return",
-                      [
-                        "literal",
-                        "int",
-                        42
-                      ]
-                    ]
+                    "literal",
+                    "int",
+                    42
                   ]
                 ]
               ]
@@ -1618,10 +1426,7 @@
       [
         [
           "assignment",
-          [
-            "identifier",
-            "vals"
-          ],
+          "vals",
           [
             "list",
             [
@@ -1640,30 +1445,24 @@
         ],
         [
           "for",
-          [
-            "identifier",
-            "val"
-          ],
+          "val",
           [
             "identifier",
             "vals"
           ],
           [
-            "block",
             [
+              "call",
               [
-                "call",
+                "identifier",
+                "print"
+              ],
+              [
                 [
-                  "identifier",
-                  "print"
-                ],
-                [
+                  "positional_arg",
                   [
-                    "positional_arg",
-                    [
-                      "identifier",
-                      "val"
-                    ]
+                    "identifier",
+                    "val"
                   ]
                 ]
               ]
@@ -1672,10 +1471,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "x"
-          ],
+          "x",
           [
             "literal",
             "int",
@@ -1684,10 +1480,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "y"
-          ],
+          "y",
           [
             "literal",
             "int",
@@ -1699,25 +1492,19 @@
           "f",
           [],
           [
-            "block",
             [
+              "return",
               [
-                "return",
-                [
-                  "literal",
-                  "int",
-                  0
-                ]
+                "literal",
+                "int",
+                0
               ]
             ]
           ]
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "empty"
-          ],
+          "empty",
           [
             "list",
             []
@@ -1725,10 +1512,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "single"
-          ],
+          "single",
           [
             "list",
             [
@@ -1741,10 +1525,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "multi"
-          ],
+          "multi",
           [
             "list",
             [
@@ -1768,10 +1549,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "nested_mix"
-          ],
+          "nested_mix",
           [
             "list",
             [
@@ -1863,10 +1641,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "multi_line"
-          ],
+          "multi_line",
           [
             "list",
             [
@@ -1967,10 +1742,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "spaces"
-          ],
+          "spaces",
           [
             "list",
             [
@@ -1994,10 +1766,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "grouping_vs_tuple"
-          ],
+          "grouping_vs_tuple",
           [
             "list",
             [
@@ -2035,10 +1804,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "comments_and_blanks"
-          ],
+          "comments_and_blanks",
           [
             "list",
             [
@@ -2057,10 +1823,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "trailing1"
-          ],
+          "trailing1",
           [
             "list",
             [
@@ -2074,10 +1837,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "trailing2"
-          ],
+          "trailing2",
           [
             "list",
             [
@@ -2096,10 +1856,7 @@
         ],
         [
           "assignment",
-          [
-            "identifier",
-            "trailing_nested"
-          ],
+          "trailing_nested",
           [
             "list",
             [
@@ -2157,11 +1914,8 @@
             "[\"['a'].b\"].c"
           ],
           [
-            "block",
             [
-              [
-                "pass"
-              ]
+              "pass"
             ]
           ]
         ],
@@ -2170,21 +1924,15 @@
           "C",
           null,
           [
-            "block",
             [
+              "func_def",
+              "m",
               [
-                "func_def",
-                "m",
+                "['self'].x"
+              ],
+              [
                 [
-                  "['self'].x"
-                ],
-                [
-                  "block",
-                  [
-                    [
-                      "pass"
-                    ]
-                  ]
+                  "pass"
                 ]
               ]
             ]
@@ -2195,22 +1943,16 @@
           "C2",
           null,
           [
-            "block",
             [
+              "func_def",
+              "m",
               [
-                "func_def",
-                "m",
+                "self",
+                "self.x"
+              ],
+              [
                 [
-                  "self",
-                  "self.x"
-                ],
-                [
-                  "block",
-                  [
-                    [
-                      "pass"
-                    ]
-                  ]
+                  "pass"
                 ]
               ]
             ]
@@ -2223,11 +1965,8 @@
             "['a', 'obj.attr'].z"
           ],
           [
-            "block",
             [
-              [
-                "pass"
-              ]
+              "pass"
             ]
           ]
         ],
@@ -2235,15 +1974,12 @@
           "func_def",
           "h",
           [
-            "x.<ast_nodes.LiteralNode object at 0x000001FD71109070>",
-            "y.<ast_nodes.LiteralNode object at 0x000001FD71109670>"
+            "x.('literal', 'int', 1)",
+            "y.('literal', 'int', 2)"
           ],
           [
-            "block",
             [
-              [
-                "pass"
-              ]
+              "pass"
             ]
           ]
         ],
@@ -2254,11 +1990,8 @@
             "B.C"
           ],
           [
-            "block",
             [
-              [
-                "pass"
-              ]
+              "pass"
             ]
           ]
         ],
@@ -2417,27 +2150,21 @@
         [
           "try_stmt",
           [
-            "block",
             [
+              "assignment",
+              "x",
               [
-                "assignment",
+                "binop",
+                "/",
                 [
-                  "identifier",
-                  "x"
+                  "literal",
+                  "int",
+                  1
                 ],
                 [
-                  "binop",
-                  "/",
-                  [
-                    "literal",
-                    "int",
-                    1
-                  ],
-                  [
-                    "literal",
-                    "int",
-                    0
-                  ]
+                  "literal",
+                  "int",
+                  0
                 ]
               ]
             ]
@@ -2447,22 +2174,19 @@
               "except",
               "ZeroDivisionError",
               [
-                "block",
                 [
+                  "call",
                   [
-                    "call",
+                    "identifier",
+                    "print"
+                  ],
+                  [
                     [
-                      "identifier",
-                      "print"
-                    ],
-                    [
+                      "positional_arg",
                       [
-                        "positional_arg",
-                        [
-                          "literal",
-                          "string",
-                          "Division by zero!"
-                        ]
+                        "literal",
+                        "string",
+                        "Division by zero!"
                       ]
                     ]
                   ]
@@ -2474,16 +2198,13 @@
         [
           "try_stmt",
           [
-            "block",
             [
+              "call",
               [
-                "call",
-                [
-                  "identifier",
-                  "risky_operation"
-                ],
-                []
-              ]
+                "identifier",
+                "risky_operation"
+              ],
+              []
             ]
           ],
           [
@@ -2491,22 +2212,19 @@
               "except",
               "NetworkError",
               [
-                "block",
                 [
+                  "call",
                   [
-                    "call",
+                    "identifier",
+                    "print"
+                  ],
+                  [
                     [
-                      "identifier",
-                      "print"
-                    ],
-                    [
+                      "positional_arg",
                       [
-                        "positional_arg",
-                        [
-                          "literal",
-                          "string",
-                          "Network failed"
-                        ]
+                        "literal",
+                        "string",
+                        "Network failed"
                       ]
                     ]
                   ]
@@ -2517,22 +2235,19 @@
               "except",
               null,
               [
-                "block",
                 [
+                  "call",
                   [
-                    "call",
+                    "identifier",
+                    "print"
+                  ],
+                  [
                     [
-                      "identifier",
-                      "print"
-                    ],
-                    [
+                      "positional_arg",
                       [
-                        "positional_arg",
-                        [
-                          "literal",
-                          "string",
-                          "Unknown error"
-                        ]
+                        "literal",
+                        "string",
+                        "Unknown error"
                       ]
                     ]
                   ]
@@ -2546,14 +2261,8 @@
           [
             "target_list",
             [
-              [
-                "identifier",
-                "a"
-              ],
-              [
-                "identifier",
-                "b"
-              ]
+              "a",
+              "b"
             ]
           ],
           [
@@ -2592,12 +2301,38 @@
             ]
           ],
           [
-            "block",
             [
+              "try_stmt",
               [
-                "try_stmt",
                 [
-                  "block",
+                  "call",
+                  [
+                    "identifier",
+                    "print"
+                  ],
+                  [
+                    [
+                      "positional_arg",
+                      [
+                        "binop",
+                        "/",
+                        [
+                          "identifier",
+                          "a"
+                        ],
+                        [
+                          "identifier",
+                          "b"
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "except",
+                  "ZeroDivisionError",
                   [
                     [
                       "call",
@@ -2609,44 +2344,9 @@
                         [
                           "positional_arg",
                           [
-                            "binop",
-                            "/",
-                            [
-                              "identifier",
-                              "a"
-                            ],
-                            [
-                              "identifier",
-                              "b"
-                            ]
-                          ]
-                        ]
-                      ]
-                    ]
-                  ]
-                ],
-                [
-                  [
-                    "except",
-                    "ZeroDivisionError",
-                    [
-                      "block",
-                      [
-                        [
-                          "call",
-                          [
-                            "identifier",
-                            "print"
-                          ],
-                          [
-                            [
-                              "positional_arg",
-                              [
-                                "literal",
-                                "string",
-                                "Cannot divide by zero"
-                              ]
-                            ]
+                            "literal",
+                            "string",
+                            "Cannot divide by zero"
                           ]
                         ]
                       ]
@@ -2673,10 +2373,7 @@
       [
         [
           "assignment",
-          [
-            "identifier",
-            "x"
-          ],
+          "x",
           [
             "literal",
             "int",
@@ -2699,22 +2396,19 @@
             ]
           ],
           [
-            "block",
             [
+              "call",
               [
-                "call",
+                "identifier",
+                "print"
+              ],
+              [
                 [
-                  "identifier",
-                  "print"
-                ],
-                [
+                  "positional_arg",
                   [
-                    "positional_arg",
-                    [
-                      "literal",
-                      "string",
-                      "hi"
-                    ]
+                    "literal",
+                    "string",
+                    "hi"
                   ]
                 ]
               ]
@@ -2759,14 +2453,8 @@
           [
             "target_list",
             [
-              [
-                "identifier",
-                "a"
-              ],
-              [
-                "identifier",
-                "b"
-              ]
+              "a",
+              "b"
             ]
           ],
           [
@@ -2805,28 +2493,25 @@
             ]
           ],
           [
-            "block",
             [
+              "call",
               [
-                "call",
+                "identifier",
+                "print"
+              ],
+              [
                 [
-                  "identifier",
-                  "print"
+                  "positional_arg",
+                  [
+                    "identifier",
+                    "a"
+                  ]
                 ],
                 [
+                  "positional_arg",
                   [
-                    "positional_arg",
-                    [
-                      "identifier",
-                      "a"
-                    ]
-                  ],
-                  [
-                    "positional_arg",
-                    [
-                      "identifier",
-                      "b"
-                    ]
+                    "identifier",
+                    "b"
                   ]
                 ]
               ]
@@ -2838,14 +2523,8 @@
           [
             "target_list",
             [
-              [
-                "identifier",
-                "a"
-              ],
-              [
-                "identifier",
-                "b"
-              ]
+              "a",
+              "b"
             ]
           ],
           [
@@ -2869,18 +2548,9 @@
           [
             "target_list",
             [
-              [
-                "identifier",
-                "x"
-              ],
-              [
-                "identifier",
-                "y"
-              ],
-              [
-                "identifier",
-                "z"
-              ]
+              "x",
+              "y",
+              "z"
             ]
           ],
           [
@@ -2909,14 +2579,8 @@
           [
             "target_list",
             [
-              [
-                "identifier",
-                "m"
-              ],
-              [
-                "identifier",
-                "n"
-              ]
+              "m",
+              "n"
             ]
           ],
           [
@@ -2942,18 +2606,12 @@
             [
               [
                 "attribute_access",
-                [
-                  "identifier",
-                  "self"
-                ],
+                "self",
                 "x"
               ],
               [
                 "attribute_access",
-                [
-                  "identifier",
-                  "self"
-                ],
+                "self",
                 "y"
               ]
             ]
@@ -2976,10 +2634,7 @@
         ],
         [
           "for",
-          [
-            "identifier",
-            "i"
-          ],
+          "i",
           [
             "list",
             [
@@ -3001,21 +2656,18 @@
             ]
           ],
           [
-            "block",
             [
+              "call",
               [
-                "call",
+                "identifier",
+                "print"
+              ],
+              [
                 [
-                  "identifier",
-                  "print"
-                ],
-                [
+                  "positional_arg",
                   [
-                    "positional_arg",
-                    [
-                      "identifier",
-                      "i"
-                    ]
+                    "identifier",
+                    "i"
                   ]
                 ]
               ]
@@ -3029,5 +2681,38 @@
     "has_parser_errors": false,
     "uncaught": null,
     "errors_raw": []
+  },
+  {
+    "path": "transpiler_tests/teacher_test.py",
+    "success": false,
+    "result": null,
+    "error_count": 22,
+    "has_lexer_errors": true,
+    "has_parser_errors": true,
+    "uncaught": null,
+    "errors_raw": [
+      "ERROR(LEXER): Expected an indented block at line 28, column 376. On:\nprint (e)\n^",
+      "ERROR(PARSER): Syntax error at token 'print' (PRINT) at line 28, column 381. On:\nprint (e)\n^",
+      "ERROR(PARSER): Syntax error at token '(' (LPAREN) at line 28, column 387. On:\nprint (e)\n      ^",
+      "ERROR(PARSER): Syntax error at token 'e' (ID) at line 28, column 388. On:\nprint (e)\n       ^",
+      "ERROR(PARSER): Syntax error at token ')' (RPAREN) at line 28, column 389. On:\nprint (e)\n        ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 28, column 390. On:\nprint (e)\n         ^",
+      "ERROR(PARSER): Syntax error at token 'a' (ID) at line 30, column 396. On:\na=5\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 30, column 397. On:\na=5\n ^",
+      "ERROR(PARSER): Syntax error at token '5' (INTEGER) at line 30, column 398. On:\na=5\n  ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 30, column 399. On:\na=5\n   ^",
+      "ERROR(PARSER): Syntax error at token 'DEDENT' (DEDENT) at line 31, column 400. On:\nb=10\n^",
+      "ERROR(PARSER): Syntax error at token 'b' (ID) at line 31, column 400. On:\nb=10\n^",
+      "ERROR(PARSER): Syntax error at token '=' (ASSIGN) at line 31, column 401. On:\nb=10\n ^",
+      "ERROR(PARSER): Syntax error at token '10' (INTEGER) at line 31, column 402. On:\nb=10\n  ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 31, column 404. On:\nb=10\n    ^",
+      "ERROR(PARSER): Syntax error at token 'while' (WHILE) at line 32, column 405. On:\nwhile a < b:\n^",
+      "ERROR(PARSER): Syntax error at token 'a' (ID) at line 32, column 411. On:\nwhile a < b:\n      ^",
+      "ERROR(PARSER): Syntax error at token '<' (LESS) at line 32, column 413. On:\nwhile a < b:\n        ^",
+      "ERROR(PARSER): Syntax error at token 'b' (ID) at line 32, column 415. On:\nwhile a < b:\n          ^",
+      "ERROR(PARSER): Syntax error at token ':' (COLON) at line 32, column 416. On:\nwhile a < b:\n           ^",
+      "ERROR(PARSER): Syntax error at token 'NEWLINE' (NEWLINE) at line 32, column 417. On:\nwhile a < b:\n            ^",
+      "ERROR(PARSER): Unexpected end of input at line -1, column -1. On:\nb=c-2\n^"
+    ]
   }
 ]

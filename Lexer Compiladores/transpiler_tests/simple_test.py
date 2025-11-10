@@ -9,6 +9,8 @@ else:
 
 e = c - d
 
+print(a[i])
+
 if e > 0:
     f = e + 1
 elif e == 0:

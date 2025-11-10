@@ -11,6 +11,7 @@ int main() {
         d = (b * 2);
     }
     int e = (c - d);
+    cout << a[i] << endl;
     if ((e > 0)) {
         int f = (e + 1);
     } else if ((e == 0)) {

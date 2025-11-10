@@ -574,6 +574,11 @@ class Parser:
             p[0] = p[1]
 
     # ----- PRIMARIOS -----
+    def p_primary_index(self, p):
+        """primary : primary LBRACKET expression RBRACKET"""
+        node = IndexAccessNode(base=p[1], index=p[3])
+        p[0] = self._setpos(node, p, 1)
+
     def p_primary_call(self, p):
         """primary : ID LPAREN arg_list_opt RPAREN
                    | nested_id LPAREN arg_list_opt RPAREN
