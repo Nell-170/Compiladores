@@ -27,6 +27,7 @@ for i in range(len(a)-1):
 for e in a[3]:
     print (e)
     
+
 a=5
 b=10
 while a < b:

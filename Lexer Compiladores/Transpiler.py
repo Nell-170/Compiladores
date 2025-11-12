@@ -1,17 +1,14 @@
 """ Emmanuel
-    TODO:   Generar el código C++ a partir del AST
-            Generarlo y compilarlo con g++ 
-            Generarlo, compilarlo y ejecutarlo, capturando la salida
-
-            For con print (e)
+    TODO:   Compilar el código generado en c++ 
+            Compilar y ejecutar el código generado en c++
 
     Milton 
-    TODO: while a < b:
-          a = 10
+    TODO: groupNode en transpiler
 
     Valentino 
-    TODO:  b=c-2
+    TODO:  [ERROR] string -> a = "hola" -> linea 16 teacher_test.py
 """
+    
 
 import json
 from ParserAST import Parser
@@ -86,6 +83,10 @@ class Transpiler:
         n.suite.accept(self)  # Usar n.suite en lugar de n.body
         self.indent -= 1
         self.emit("}")
+
+    def visit_ReturnNode(self, n):
+        value = n.value.accept(self)
+        self.emit(f"return {value};")
 
     def visit_AugAssignmentNode(self, n):
         t = n.target.accept(self)
@@ -213,7 +214,7 @@ class Transpiler:
 if __name__ == "__main__":
     transpiler = Transpiler()
     try:
-        cpp_code = transpiler.transpile_file("transpiler_tests/simple_test.py")
+        cpp_code = transpiler.transpile_file("transpiler_tests/teacher_test.py")
 
         # Optionally save to file
         with open("output.cpp", "w", encoding="utf-8") as f:
