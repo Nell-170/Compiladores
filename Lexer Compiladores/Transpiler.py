@@ -154,14 +154,20 @@ class Transpiler:
 
     def visit_ForNode(self, n):
         target = n.target.accept(self)
-        iterable = n.iterable.accept(self)
-        self.emit(f"for (auto {target} : {iterable}) {{")
-        self.indent += 1
-        if isinstance(n.body, BlockNode):
-            n.body.accept(self)
+        iterable_str = n.iterable.accept(self)
+        
+        # Detectar range()
+        if iterable_str.startswith("__RANGE__"):
+            # Extraer el límite
+            limit = iterable_str.replace("__RANGE__", "").replace("__", "")
+            # Generar for tradicional de C++
+            self.emit(f"for (int {target} = 0; {target} < {limit}; {target}++) {{")
         else:
-            for stmt in n.body:
-                stmt.accept(self)
+            # Range-based for normal
+            self.emit(f"for (auto {target} : {iterable_str}) {{")
+        
+        self.indent += 1
+        n.body.accept(self)
         self.indent -= 1
         self.emit("}")
 
@@ -182,3 +188,5 @@ if __name__ == "__main__":
         print("\n[Transpilation successful! Output saved to output.cpp]")
     except Exception as e:
         print(f"[ERROR] {e}")
+
+ 

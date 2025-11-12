@@ -29,10 +29,16 @@ class ASTNode:
         self.lineno, self.col = lineno, col
         return self
 
+    """
+        El método accept() hace:
+            1. Obtiene el nombre de la clase: self.__class__.__name__ → "IfNode"
+            2. Construye el nombre del método: f"visit_{IfNode}" → "visit_IfNode"
+            3. Busca ese método en el transpiler: getattr(transpiler, "visit_IfNode")
+            4. Lo llama: visit_IfNode(if_node) 
+    """
     def accept(self, visitor):
-        m = getattr(visitor, f"visit_{self.__class__.__name__}")
+        m = getattr(visitor, f"visit_{self.__class__.__name__}") # equivalente a visitor.visit_<ClassName>
         return m(self)
-    # TODO(any): def transpile(self):
 
 
 # ============================================================================
