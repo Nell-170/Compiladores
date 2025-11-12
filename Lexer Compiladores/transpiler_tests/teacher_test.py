@@ -23,7 +23,7 @@ print("Fibonacci")
 
 for i in range(len(a)-1):
     print(a[i])
-    
+
 for e in a[3]:
     print (e)
     
