@@ -815,6 +815,7 @@ if __name__ == "__main__":
         "tests/parser_OK_print_try.py",
         "tests/parser_OK_top_level_if.py",
         "tests/parser_OK_tuple_unpacking.py",
+        "transpiler_tests/teacher_test.py",
     ]
 
     # Run all tests

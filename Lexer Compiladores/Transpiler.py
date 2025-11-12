@@ -1,3 +1,18 @@
+""" Emmanuel
+    TODO:   Generar el código C++ a partir del AST
+            Generarlo y compilarlo con g++ 
+            Generarlo, compilarlo y ejecutarlo, capturando la salida
+
+            For con print (e)
+
+    Milton 
+    TODO: while a < b:
+          a = 10
+
+    Valentino 
+    TODO:  b=c-2
+"""
+
 import json
 from ParserAST import Parser
 from utils import Error
@@ -30,7 +45,7 @@ class Transpiler:
         if ast is None:
             raise Exception("Failed to parse file")
 
-        return ast.accept(self)
+        return ast.accept(self) # Aquí comienza el visitor
 
     def visit_ProgramNode(self, n):
         self.emit("#include <bits/stdc++.h>")
