@@ -69,6 +69,24 @@ class Transpiler:
         else:
             self.emit(f"{target.accept(self)} = {rhs};")
 
+    def visit_FuncDefNode(self, n):
+        # Procesar parámetros (pueden ser strings o tuplas)
+        processed_params = []
+        for param in n.params:
+            if isinstance(param, tuple):
+                param_name = param[0]  # Extraer nombre de la tupla
+            else:
+                param_name = param     # Ya es string
+            processed_params.append(f"int {param_name}")
+        
+        params_str = ", ".join(processed_params)
+        
+        self.emit(f"int {n.func_name}({params_str}) {{")  # Usar n.func_name
+        self.indent += 1
+        n.suite.accept(self)  # Usar n.suite en lugar de n.body
+        self.indent -= 1
+        self.emit("}")
+
     def visit_AugAssignmentNode(self, n):
         t = n.target.accept(self)
         r = n.value.accept(self)

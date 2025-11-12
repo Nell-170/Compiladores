@@ -14,6 +14,9 @@ print(a[i])
 for e in a[3]:
     print (e)
 
+for i in range(len(a)-1):
+    print(a[i])
+
 if e > 0:
     f = e + 1
 elif e == 0:

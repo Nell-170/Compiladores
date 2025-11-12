@@ -15,6 +15,9 @@ int main() {
     for (auto e : a[3]) {
         cout << e << endl;
     }
+    for (auto i : range((len(a) - 1))) {
+        cout << a[i] << endl;
+    }
     if ((e > 0)) {
         int f = (e + 1);
     } else if ((e == 0)) {
