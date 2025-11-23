@@ -138,11 +138,11 @@ class Transpiler:
         return n.name
 
     def visit_LiteralNode(self, n):
-        if n.kind == "int":   return str(n.value)
-        if n.kind == "float": return str(n.value)
-        if n.kind == "bool":  return "true" if n.value else "false"
-        if n.kind == "str":   return json.dumps(n.value)
-        raise NotImplementedError(n.kind)
+        if n.kind == "int":     return str(n.value)
+        if n.kind == "float":   return str(n.value)
+        if n.kind == "bool":    return "true" if n.value else "false"
+        if n.kind in ("str", "string"): return json.dumps(n.value)  # Changed from "str" to "string"
+        raise NotImplementedError(f"Unsupported literal kind: {n.kind}")
 
     def visit_BinaryOpNode(self, n):
         left = n.left.accept(self)
@@ -247,9 +247,6 @@ class Transpiler:
         self.symbols[name] = type_
 
 if __name__ == "__main__":
-    if __name__ == "__main__":
-        file_path = "transpiler_tests/simple_test.py"
-        mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
-        build_and_run(file_path, mode)
-
- 
+    file_path = "transpiler_tests/teacher_test.py"
+    mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
+    build_and_run(file_path, mode)
