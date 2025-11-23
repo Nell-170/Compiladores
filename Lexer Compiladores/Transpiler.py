@@ -77,7 +77,7 @@ class Transpiler:
         if ast is None:
             raise Exception("Failed to parse file")
 
-        return ast.accept(self) # Aquí comienza el visitor
+        return ast.accept(self)
 
     def visit_ProgramNode(self, n):
         self.emit("#include <bits/stdc++.h>")
@@ -95,9 +95,27 @@ class Transpiler:
     def visit_AssignmentNode(self, n):
         target = n.target
         rhs = n.value.accept(self)
-        if isinstance(target, IdentifierNode) and not self._is_defined(target.name):
-            self.emit(f"int {target.name} = {rhs};")
-            self._define(target.name, "int")
+        
+        if isinstance(target, IdentifierNode):
+            var_name = target.name
+            
+            # Infer type from the right-hand side
+            inferred_type = self._infer_type(n.value)
+            
+            if not self._is_defined(var_name):
+                # First assignment - declare with inferred type
+                self.emit(f"{inferred_type} {var_name} = {rhs};")
+                self._define(var_name, inferred_type)
+            else:
+                # Variable already exists - check if type changed
+                old_type = self.symbols[var_name]
+                if old_type != inferred_type:
+                    # Type changed! Need to redeclare
+                    self.emit(f"{inferred_type} {var_name} = {rhs};")
+                    self.symbols[var_name] = inferred_type
+                else:
+                    # Same type, just assign
+                    self.emit(f"{var_name} = {rhs};")
         else:
             self.emit(f"{target.accept(self)} = {rhs};")
 
@@ -113,9 +131,9 @@ class Transpiler:
         
         params_str = ", ".join(processed_params)
         
-        self.emit(f"int {n.func_name}({params_str}) {{")  # Usar n.func_name
+        self.emit(f"int {n.func_name}({params_str}) {{")
         self.indent += 1
-        n.suite.accept(self)  # Usar n.suite en lugar de n.body
+        n.suite.accept(self)
         self.indent -= 1
         self.emit("}")
 
@@ -147,6 +165,15 @@ class Transpiler:
     def visit_BinaryOpNode(self, n):
         left = n.left.accept(self)
         right = n.right.accept(self)
+        
+        # Handle string concatenation with +
+        if n.op == "+":
+            left_type = self._infer_type(n.left)
+            right_type = self._infer_type(n.right)
+            # If either operand is a string, this is string concatenation
+            if "string" in left_type or "string" in right_type:
+                return f"({left} + {right})"
+        
         if n.op == "**" or n.op == "pow":
             return f"(int)std::pow({left}, {right})"
         if n.op == "//" or n.op == "floordiv":
@@ -181,9 +208,25 @@ class Transpiler:
     def visit_CallNode(self, n):
         callee = n.callee.accept(self)
         args = ", ".join(arg.accept(self) for arg in n.args) if n.args else ""
+        
+        # Handle built-in functions
         if callee == "print":
             self.emit(f"cout << {args} << endl;")
             return ""
+        elif callee == "str":
+            # Convert to string
+            return f"to_string({args})"
+        elif callee == "len":
+            # Get length of container
+            return f"({args}).size()"
+        elif callee == "range":
+            # Handle range() for for loops
+            if not args:
+                raise Exception("range() requires at least 1 argument")
+            # Mark this as a range call for ForNode to detect
+            return f"__RANGE__{args}__"
+        
+        # Regular function call
         return f"{callee}({args})"
 
     def visit_ArgumentNode(self, n):
@@ -239,14 +282,104 @@ class Transpiler:
         n.body.accept(self)
         self.indent -= 1
         self.emit("}")
+    
+    ## ! SUGERENCIAS, PERO HECHAS MUY RÁPIDAMENTE, SOLO PARA PODER PROBAR STRINGS
+
+    # def visit_WhileNode(self, n):
+    #     """Handle while loops"""
+    #     cond = n.condition.accept(self)
+    #     self.emit(f"while ({cond}) {{")
+    #     self.indent += 1
+    #     n.body.accept(self)
+    #     self.indent -= 1
+    #     self.emit("}")
+    
+    # def visit_ListNode(self, n):
+    #     """Handle list literals like [1, 2, 3]"""
+    #     if not n.elements:
+    #         return "vector<int>{}"
+        
+    #     # Convert all elements
+    #     elements = [elem.accept(self) for elem in n.elements]
+    #     elements_str = ", ".join(elements)
+        
+    #     # For simplicity, use vector<int> or detect if all are same type
+    #     # In production, you'd want better type inference
+    #     return f"vector<int>{{{elements_str}}}"
+    
+    # def visit_DictNode(self, n):
+    #     """Handle dictionary literals like {'a': 1, 'b': 2}"""
+    #     if not n.pairs:
+    #         return "map<string, int>{}"
+        
+    #     # Convert key-value pairs
+    #     pairs = []
+    #     for key, value in n.pairs:
+    #         key_str = key.accept(self)
+    #         val_str = value.accept(self)
+    #         pairs.append(f"{{{key_str}, {val_str}}}")
+        
+    #     pairs_str = ", ".join(pairs)
+    #     return f"map<string, int>{{{pairs_str}}}"
+    
+    # def visit_TupleNode(self, n):
+    #     """Handle tuple literals like (1, 2, 3)"""
+    #     if not n.elements:
+    #         return "tuple<>{}"
+        
+    #     elements = [elem.accept(self) for elem in n.elements]
+    #     elements_str = ", ".join(elements)
+        
+    #     # Use tuple or just braced init for simplicity
+    #     return f"make_tuple({elements_str})"
+    
+    # def visit_GroupNode(self, n):
+    #     """Handle grouped expressions like (x + y)"""
+    #     expr = n.expression.accept(self)
+    #     return f"({expr})"
 
     def _is_defined(self, name: str) -> bool:
         return name in self.symbols
 
     def _define(self, name: str, type_: str):
         self.symbols[name] = type_
+    
+    def _infer_type(self, node):
+        """Infer C++ type from an AST node"""
+        if isinstance(node, LiteralNode):
+            if node.kind == "int":
+                return "int"
+            elif node.kind == "float":
+                return "double"
+            elif node.kind == "string":
+                return "string"
+            elif node.kind == "bool":
+                return "bool"
+        elif isinstance(node, ListNode):
+            return "vector<int>"  # Simplified - would need element type inference
+        elif isinstance(node, DictNode):
+            return "map<string, int>"  # Simplified
+        elif isinstance(node, TupleNode):
+            return "tuple<int, int>"  # Simplified
+        elif isinstance(node, BinaryOpNode) or isinstance(node, BinOpNode):
+            # For binary operations, try to infer from left operand
+            return self._infer_type(node.left)
+        elif isinstance(node, CallNode):
+            callee = node.callee.accept(self) if hasattr(node.callee, 'accept') else str(node.callee)
+            if callee == "str":
+                return "string"
+            elif callee == "len":
+                return "int"
+            # Default for function calls
+            return "int"
+        elif isinstance(node, IdentifierNode):
+            # Look up in symbol table
+            return self.symbols.get(node.name, "int")
+        
+        # Default fallback
+        return "int"
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/teacher_test.py"
+    file_path = "transpiler_tests/simple_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)

@@ -31,3 +31,10 @@ i = g + h
 a += 5
 b -= 2
 c *= 3
+
+a = 4
+print(a)
+b = 5
+a = "hola"
+b = a + (str(b))
+print(b)
