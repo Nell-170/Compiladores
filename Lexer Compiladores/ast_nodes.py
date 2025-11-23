@@ -15,11 +15,11 @@ class ASTNode:
     def printAST(self, indent: int = 0) -> str:
         """Return a formatted string representation of the AST"""
         raise NotImplementedError("Subclasses must implement printAST()")
-    
+
     def to_tuple(self) -> tuple:
         """Convert to the old tuple format for backward compatibility"""
         raise NotImplementedError("Subclasses must implement to_tuple()")
-    
+
     def to_dict(self) -> dict:
         """Convert to dictionary format for JSON serialization"""
         raise NotImplementedError("Subclasses must implement to_dict()")
@@ -37,11 +37,20 @@ class ASTNode:
             4. Lo llama: visit_IfNode(if_node) 
     """
     def accept(self, visitor):
-        m = getattr(visitor, f"visit_{self.__class__.__name__}") # equivalente a visitor.visit_<ClassName> 
-        return m(self)
-
-
-
+        method_name = f"visit_{self.__class__.__name__}"
+        try:
+            method = getattr(visitor, method_name)
+        except AttributeError as exc:
+            location = ""
+            if self.lineno is not None:
+                location = f" (línea {self.lineno}"
+                if self.col is not None:
+                    location += f", columna {self.col}"
+                location += ")"
+            raise AttributeError(
+                f"{visitor.__class__.__name__} no implementa {method_name} para {self.__class__.__name__}{location}"
+            ) from exc
+        return method(self)
 
 
 # ============================================================================
