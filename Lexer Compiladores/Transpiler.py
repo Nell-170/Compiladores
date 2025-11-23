@@ -2,9 +2,7 @@
     El que termina lo suyo que se encargue de hacer el visit list node (para listas literales)
 
     Emmanuel
-    TODO:   Compilar el código generado en c++ 
-            Compilar y ejecutar el código generado en c++
-            while node en transpiler
+    TODO:  while node en transpiler
 
     Milton 
     TODO: groupNode en transpiler
