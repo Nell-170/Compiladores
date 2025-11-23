@@ -1,6 +1,10 @@
-""" Emmanuel
+""" 
+    El que termina lo suyo que se encargue de hacer el visit list node (para listas literales)
+
+    Emmanuel
     TODO:   Compilar el código generado en c++ 
             Compilar y ejecutar el código generado en c++
+            while node en transpiler
 
     Milton 
     TODO: groupNode en transpiler
@@ -8,12 +12,45 @@
     Valentino 
     TODO:  [ERROR] string -> a = "hola" -> linea 16 teacher_test.py
 """
-    
 
 import json
+import subprocess
+import sys
+import os
 from ParserAST import Parser
 from utils import Error
 from ast_nodes import *
+
+def build_and_run(file_path, mode=1):
+    """
+        mode=1: Solo transpilar
+        mode=2: Transpilar y compilar
+        mode=3: Transpilar, compilar y ejecutar
+    """
+    transpiler = Transpiler()
+    try:
+        cpp_code = transpiler.transpile_file(file_path)
+        
+        with open("output.cpp", "w", encoding="utf-8") as f:
+            f.write(cpp_code)
+        print("[Transpilación exitosa! Output guardado en output.cpp]")
+        
+        if mode >= 2:
+            result = subprocess.run(["clang", "-x", "c++", "output.cpp", "-o", "output.exe", "-lstdc++"], 
+                                  capture_output=True, text=True, shell=True)
+            if result.returncode != 0:
+                print(f"[ERROR] Compilación falló:\n{result.stderr}")
+                return
+            print("[Compilación exitosa!]")
+        
+        if mode >= 3:
+            result = subprocess.run(["output.exe"], capture_output=True, text=True)
+            print(f"[Salida del programa]\n{result.stdout}")
+            if result.stderr:
+                print(f"[Errores]\n{result.stderr}")
+                
+    except Exception as e:
+        print(f"[ERROR] {e}")
 
 class Transpiler:
     def __init__(self, options=None, symbols=None):
@@ -212,15 +249,9 @@ class Transpiler:
         self.symbols[name] = type_
 
 if __name__ == "__main__":
-    transpiler = Transpiler()
-    try:
-        cpp_code = transpiler.transpile_file("transpiler_tests/teacher_test.py")
-
-        # Optionally save to file
-        with open("output.cpp", "w", encoding="utf-8") as f:
-            f.write(cpp_code)
-        print("\n[Transpilation successful! Output saved to output.cpp]")
-    except Exception as e:
-        print(f"[ERROR] {e}")
+    if __name__ == "__main__":
+        file_path = "transpiler_tests/simple_test.py"
+        mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
+        build_and_run(file_path, mode)
 
  

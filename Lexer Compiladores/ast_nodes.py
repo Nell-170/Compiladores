@@ -37,7 +37,7 @@ class ASTNode:
             4. Lo llama: visit_IfNode(if_node) 
     """
     def accept(self, visitor):
-        m = getattr(visitor, f"visit_{self.__class__.__name__}") # equivalente a visitor.visit_<ClassName>
+        m = getattr(visitor, f"visit_{self.__class__.__name__}") # equivalente a visitor.visit_<ClassName> 
         return m(self)
 
 
