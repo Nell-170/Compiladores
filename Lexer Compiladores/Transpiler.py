@@ -22,13 +22,13 @@ def build_and_run(file_path, mode=1):
         mode=1: Solo transpilar
         mode=2: Transpilar y compilar
         mode=3: Transpilar, compilar y ejecutar
-        compiler: "g++" o "clang"
+        compiler: "g++" o "clang++"
     """
 
     if mode > 1:
-        compiler_choice = input("Compilador (1: g++ / 2: clang): ").strip()
+        compiler_choice = input("Compilador (1: g++ / 2: clang++): ").strip()
         if compiler_choice == "2":
-            compiler = "clang"
+            compiler = "clang++"
         else:
             compiler = "g++"
 
@@ -91,9 +91,11 @@ class Transpiler:
         return ast.accept(self)
 
     def visit_ProgramNode(self, n):
-        self.emit("#include <bits/stdc++.h>")
+        self.emit("#include <iostream>")
+        self.emit("#include <string>")
+        self.emit("#include <vector>")
+        self.emit("#include <map>")
         self.emit("using namespace std;")
-        self.emit("")
         self.emit("int main() {")
         self.indent += 1
         for stmt in n.statements:
