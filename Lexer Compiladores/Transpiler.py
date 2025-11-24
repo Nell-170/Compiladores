@@ -90,19 +90,228 @@ class Transpiler:
 
         return ast.accept(self)
 
+    def visit_ArgumentNode(self, n):
+        """Handle function arguments (positional or keyword)"""
+        if n.keyword:
+            # Keyword argument: name=value
+            key_name = (
+                n.keyword.accept(self)
+                if isinstance(n.keyword, ASTNode)
+                else str(n.keyword)
+            )
+            value = n.value.accept(self)
+            return f"{key_name}={value}"
+        else:
+            # Positional argument
+            return n.value.accept(self)
+
+    def visit_IfNode(self, n):
+        """Handle if statement with elif and else"""
+        condition = n.condition.accept(self)
+        self.emit(f"if ({condition}) {{")
+        self.indent += 1
+        n.then_body.accept(self)
+        self.indent -= 1
+
+        # Handle elif clauses
+        for elif_clause in n.elif_clauses:
+            elif_clause.accept(self)
+
+        # Handle else clause
+        if n.else_clause:
+            n.else_clause.accept(self)
+
+        self.emit("}")
+
+    def visit_ElifNode(self, n):
+        """Handle elif clause"""
+        condition = n.condition.accept(self)
+        self.emit(f"}} else if ({condition}) {{")
+        self.indent += 1
+        n.body.accept(self)
+        self.indent -= 1
+
+    def visit_ElseNode(self, n):
+        """Handle else clause"""
+        self.emit("} else {")
+        self.indent += 1
+        n.body.accept(self)
+        self.indent -= 1
+
+    def visit_WhileNode(self, n):
+        """Handle while loop"""
+        condition = n.condition.accept(self)
+        self.emit(f"while ({condition}) {{")
+        self.indent += 1
+        n.body.accept(self)
+        self.indent -= 1
+        self.emit("}")
+
+    def visit_ForNode(self, n):
+        """Handle for loop (transpile to range-based for or iterator)"""
+        target_name = (
+            n.target.accept(self) if hasattr(n.target, "accept") else str(n.target)
+        )
+        iterable = n.iterable.accept(self)
+
+        # Check if iterable is a range() call
+        if "RANGE__" in iterable:
+            # Extract range parameters
+            range_str = iterable.replace("__RANGE__", "").replace("__", "")
+            self.emit(
+                f"for (int {target_name} = 0; {target_name} < {range_str}; {target_name}++) {{"
+            )
+        else:
+            # Generic for-each loop
+            self.emit(f"for (auto {target_name} : {iterable}) {{")
+
+        self.indent += 1
+        n.body.accept(self)
+        self.indent -= 1
+        self.emit("}")
+
+    def visit_TryNode(self, n):
+        """Handle try-except block"""
+        self.emit("try {")
+        self.indent += 1
+        n.try_body.accept(self)
+        self.indent -= 1
+        self.emit("}")
+
+        for except_clause in n.except_clauses:
+            except_clause.accept(self)
+
+    def visit_ExceptNode(self, n):
+        """Handle except clause"""
+        if n.exception_type:
+            self.emit(f"catch (const {n.exception_type}& e) {{")
+        else:
+            self.emit("catch (...) {")
+
+        self.indent += 1
+        n.handler_body.accept(self)
+        self.indent -= 1
+        self.emit("}")
+
+    def visit_PassNode(self, n):
+        """Handle pass statement"""
+        self.emit("// pass")
+
+    def visit_BreakNode(self, n):
+        """Handle break statement"""
+        self.emit("break;")
+
+    def visit_ContinueNode(self, n):
+        """Handle continue statement"""
+        self.emit("continue;")
+
+    def visit_PrintNode(self, n):
+        """Handle print statement"""
+        if not n.args:
+            self.emit("cout << endl;")
+            return
+
+        # Check if any arg is a set or dict
+        for arg in n.args:
+            if isinstance(arg, IdentifierNode):
+                var_type = self.symbols.get(arg.name, "")
+                if "set<" in var_type:
+                    self.emit(f"print_set({arg.accept(self)});")
+                    return
+                elif "map<" in var_type:
+                    self.emit(f"print_map({arg.accept(self)});")
+                    return
+
+        # Normal print
+        args_str = " << ".join(arg.accept(self) for arg in n.args)
+        self.emit(f"cout << {args_str} << endl;")
+
+    def visit_TupleNode(self, n):
+        """Handle tuple (convert to C++ tuple or struct)"""
+        elements = [elem.accept(self) for elem in n.elements]
+        return f"make_tuple({', '.join(elements)})"
+
+    def visit_ListNode(self, n):
+        """Handle list literal"""
+        if not n.elements:
+            return "vector<int>{}"
+
+        elements = [elem.accept(self) for elem in n.elements]
+        elements_str = ", ".join(elements)
+        return f"vector<string>{{{elements_str}}}"
+
+    def visit_TargetListNode(self, n):
+        """Handle target list for unpacking"""
+        targets = []
+        for t in n.targets:
+            if isinstance(t, ASTNode):
+                targets.append(t.accept(self))
+            else:
+                targets.append(str(t))
+        return ", ".join(targets)
+
+    def visit_ClassDefNode(self, n):
+        """Handle class definition (basic support)"""
+        parents = ", ".join(f"public {p}" for p in n.parent) if n.parent else ""
+
+        self.emit(f"class {n.class_name}" + (f" : {parents}" if parents else "") + " {")
+        self.emit("public:")
+        self.indent += 1
+        n.body.accept(self)
+        self.indent -= 1
+        self.emit("};")
+
     def visit_ProgramNode(self, n):
         self.emit("#include <iostream>")
         self.emit("#include <string>")
         self.emit("#include <vector>")
         self.emit("#include <map>")
+        self.emit("#include <set>")
+        self.emit("#include <tuple>")
         self.emit("using namespace std;")
         self.emit("")
-        
+
+        # Helper function para imprimir sets
+        self.emit("template<typename T>")
+        self.emit("void print_set(const set<T>& s) {")
+        self.indent += 1
+        self.emit('cout << "{";')
+        self.emit("bool first = true;")
+        self.emit("for (const auto& elem : s) {")
+        self.indent += 1
+        self.emit('if (!first) cout << ", ";')
+        self.emit('cout << "\\"" << elem << "\\"";')  # Agregar comillas a strings
+        self.emit("first = false;")
+        self.indent -= 1
+        self.emit("}")
+        self.emit('cout << "}" << endl;')
+        self.indent -= 1
+        self.emit("}")
+        self.emit("")
+
+        # Helper function para imprimir maps
+        self.emit("template<typename K, typename V>")
+        self.emit("void print_map(const map<K, V>& m) {")
+        self.indent += 1
+        self.emit('cout << "{";')
+        self.emit("bool first = true;")
+        self.emit("for (const auto& pair : m) {")
+        self.indent += 1
+        self.emit('if (!first) cout << ", ";')
+        self.emit('cout << "\\"" << pair.first << "\\": " << pair.second;')
+        self.emit("first = false;")
+        self.indent -= 1
+        self.emit("}")
+        self.emit('cout << "}" << endl;')
+        self.indent -= 1
+        self.emit("}")
+        self.emit("")
+
         # Primero emitir funciones
         for stmt in n.statements:
             if isinstance(stmt, FuncDefNode):
                 stmt.accept(self)
-        
+
         # Luego el main con el resto
         self.emit("int main() {")
         self.indent += 1
@@ -117,6 +326,13 @@ class Transpiler:
     def visit_AssignmentNode(self, n):
         target = n.target
         rhs = n.value.accept(self)
+
+        # Caso especial: asignación a índice (dict["key"] = value)
+        if isinstance(target, IndexAccessNode):
+            base = target.base.accept(self)
+            index = target.index.accept(self)
+            self.emit(f"{base}[{index}] = {rhs};")
+            return
 
         if isinstance(target, IdentifierNode):
             var_name = target.name
@@ -231,133 +447,110 @@ class Transpiler:
         index = n.index.accept(self)
         return f"{base}[{index}]"
 
-    def visit_CallNode(self, n):
-        callee = n.callee.accept(self)
-        args = ", ".join(arg.accept(self) for arg in n.args) if n.args else ""
+    def visit_DictNode(self, n):
+        """Handle dict literals like {"name": "John", "age": 25}"""
+        if not n.pairs:
+            return "map<string, int>{}"
 
-        # Handle built-in functions
-        if callee == "print":
-            self.emit(f"cout << {args} << endl;")
-            return ""
-        elif callee == "str":
-            # Convert to string
-            return f"to_string({args})"
-        elif callee == "len":
-            # Get length of container
-            return f"({args}).size()"
-        elif callee == "range":
-            # Handle range() for for loops
-            if not args:
-                raise Exception("range() requires at least 1 argument")
-            # Mark this as a range call for ForNode to detect
-            return f"__RANGE__{args}__"
+        # Convert all key-value pairs
+        pairs_str = ", ".join(
+            f"{{{k.accept(self)}, {v.accept(self)}}}" for k, v in n.pairs
+        )
 
-        # Regular function call
-        return f"{callee}({args})"
+        # Para simplificar, usar map<string, int>
+        # En producción necesitarías inferencia de tipos más sofisticada
+        return f"map<string, int>{{{pairs_str}}}"
 
-    def visit_ArgumentNode(self, n):
-        return n.value.accept(self)
-
-    def visit_IfNode(self, n):
-        cond = n.condition.accept(self)
-        self.emit(f"if ({cond}) {{")
-        self.indent += 1
-        if isinstance(n.then_body, list):
-            for s in n.then_body: s.accept(self)
-        else:
-            n.then_body.accept(self)
-        self.indent -= 1
-
-        if n.elif_clauses:
-            for elif_node in n.elif_clauses:
-                cond = elif_node.condition.accept(self)
-                self.emit(f"}} else if ({cond}) {{")
-                self.indent += 1
-                if isinstance(elif_node.body, list):
-                    for s in elif_node.body: s.accept(self)
-                else:
-                    elif_node.body.accept(self)
-                self.indent -= 1
-
-        if n.else_clause:
-            self.emit("} else {")
-            self.indent += 1
-            if isinstance(n.else_clause.body, list):
-                for s in n.else_clause.body: s.accept(self)
-            else:
-                n.else_clause.body.accept(self)
-            self.indent -= 1
-
-        self.emit("}")
-
-    def visit_ForNode(self, n):
-        target = n.target.accept(self)
-        iterable_str = n.iterable.accept(self)
-
-        # Detectar range()
-        if iterable_str.startswith("__RANGE__"):
-            # Extraer el límite
-            limit = iterable_str.replace("__RANGE__", "").replace("__", "")
-            # Generar for tradicional de C++
-            self.emit(f"for (ssize_t {target} = 0; {target} < {limit}; {target}++) {{")
-        else:
-            # Range-based for normal
-            self.emit(f"for (auto {target} : {iterable_str}) {{")
-
-        self.indent += 1
-        n.body.accept(self)
-        self.indent -= 1
-        self.emit("}")
-
-    ## ! SUGERENCIAS, PERO HECHAS MUY RÁPIDAMENTE, SOLO PARA PODER PROBAR STRINGS
-
-    def visit_WhileNode(self, n):
-        """Handle while loops"""
-        cond = n.condition.accept(self)
-        self.emit(f"while ({cond}) {{")
-        self.indent += 1
-        n.body.accept(self)
-        self.indent -= 1
-        self.emit("}")
-
-    def visit_ListNode(self, n):
-        """Handle list literals like [1, 2, 3]"""
+    def visit_SetNode(self, n):
+        """Handle set literals like {"a", "b", "c"}"""
         if not n.elements:
-            return "vector<ssize_t>{}"
+            return "set<string>{}"
 
         # Convert all elements
         elements = [elem.accept(self) for elem in n.elements]
         elements_str = ", ".join(elements)
 
-        # For simplicity, use vector<int> or detect if all are same type
-        # In production, you'd want better type inference
-        return f"vector<ssize_t>{{{elements_str}}}" 
+        # Para simplificar, usar set<string>
+        return f"set<string>{{{elements_str}}}"
 
-    def visit_DictNode(self, n):
-        """Handle dictionary literals like {'a': 1, 'b': 2}"""
-        if not n.pairs:
-            return "map<string, ssize_t>{}"
+    def visit_AttributeAccessNode(self, n):
+        """Handle attribute access like obj.attr"""
+        base = n.base.accept(self)
+        attr = n.attribute
+        return f"{base}.{attr}"
 
-        # Convert key-value pairs
-        pairs = []
-        for key, value in n.pairs:
-            key_str = key.accept(self)
-            val_str = value.accept(self)
-            pairs.append(f"{{{key_str}, {val_str}}}")
+    def visit_CallNode(self, n):
+        callee = n.callee.accept(self)
 
-        pairs_str = ", ".join(pairs)
-        return f"map<string, ssize_t>{{{pairs_str}}}"
+        # Manejar métodos de set/list/dict
+        if isinstance(n.callee, AttributeAccessNode):
+            base = n.callee.base.accept(self)
+            method = n.callee.attribute
 
-    def visit_TupleNode(self, n):
-        """Handle tuple literals like (1, 2, 3)"""
-        if not n.elements:
-            return "tuple<>{}"
+            # Métodos de set
+            if method == "add":
+                arg = n.args[0].accept(self) if n.args else ""
+                self.emit(f"{base}.insert({arg});")
+                return ""
+            elif method == "remove":
+                arg = n.args[0].accept(self) if n.args else ""
+                self.emit(f"{base}.erase({arg});")
+                return ""
 
-        elements = [elem.accept(self) for elem in n.elements]
-        elements_str = ", ".join(elements)
+            # Métodos de list
+            elif method == "append":
+                arg = n.args[0].accept(self) if n.args else ""
+                self.emit(f"{base}.push_back({arg});")
+                return ""
+            elif method == "pop":
+                if n.args:
+                    index = n.args[0].accept(self)
+                    return f"{base}.erase({base}.begin() + {index})"
+                else:
+                    self.emit(f"{base}.pop_back();")
+                    return ""
 
-        # Use tuple or just braced init for simplicity
-        return f"make_tuple({elements_str})"
+            # Métodos de dict
+            elif method == "get":
+                key = n.args[0].accept(self) if n.args else ""
+                default = n.args[1].accept(self) if len(n.args) > 1 else "0"
+                return f"({base}.count({key}) ? {base}[{key}] : {default})"
+            elif method == "keys":
+                return f"/* keys() not directly supported in C++ */"
+            elif method == "values":
+                return f"/* values() not directly supported in C++ */"
+
+        args = ", ".join(arg.accept(self) for arg in n.args) if n.args else ""
+
+        # Handle built-in functions
+        if callee == "print":
+            # Detectar si el argumento es un set o dict para usar un helper
+            if n.args and len(n.args) == 1:
+                arg_node = n.args[0]
+                if isinstance(arg_node, IdentifierNode):
+                    var_type = self.symbols.get(arg_node.name, "")
+                    if "set<" in var_type:
+                        # Imprimir set usando helper
+                        self.emit(f"print_set({args});")
+                        return ""
+                    elif "map<" in var_type:
+                        # Imprimir dict usando helper
+                        self.emit(f"print_map({args});")
+                        return ""
+
+            self.emit(f"cout << {args} << endl;")
+            return ""
+        elif callee == "str":
+            return f"to_string({args})"
+        elif callee == "len":
+            return f"({args}).size()"
+        elif callee == "range":
+            if not args:
+                raise Exception("range() requires at least 1 argument")
+            return f"__RANGE__{args}__"
+
+        # Regular function call
+        return f"{callee}({args})"
 
     def _is_defined(self, name: str) -> bool:
         return name in self.symbols
@@ -377,13 +570,14 @@ class Transpiler:
             elif node.kind == "bool":
                 return "bool"
         elif isinstance(node, ListNode):
-            return "vector<int>"  # Simplified - would need element type inference
+            return "vector<string>"  # Simplificado
+        elif isinstance(node, SetNode):
+            return "set<string>"  # Simplificado
         elif isinstance(node, DictNode):
-            return "map<string, int>"  # Simplified
+            return "map<string, ssize_t>"  # Simplificado
         elif isinstance(node, TupleNode):
-            return "tuple<int, int>"  # Simplified
+            return "tuple<int, int>"  # Simplificado
         elif isinstance(node, BinaryOpNode) or isinstance(node, BinOpNode):
-            # For binary operations, try to infer from left operand
             return self._infer_type(node.left)
         elif isinstance(node, GroupNode):
             return self._infer_type(node.expr)
@@ -393,16 +587,14 @@ class Transpiler:
                 return "string"
             elif callee == "len":
                 return "int"
-            # Default for function calls
             return "int"
         elif isinstance(node, IdentifierNode):
-            # Look up in symbol table
             return self.symbols.get(node.name, "int")
 
         # Default fallback
         return "int"
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/teacher_test.py"
+    file_path = "transpiler_tests/dict_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)

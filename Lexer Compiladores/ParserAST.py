@@ -50,7 +50,6 @@ class Parser:
             self._setpos(b, p, i)
         return b
 
-
     # --- diagnostics ---------------------------------------------------------
     def _has_lexer_errors(self) -> bool:
         for e in self.errors:
@@ -221,7 +220,7 @@ class Parser:
                        | ID ASSIGN expression
                        | ID DOT ID
                        | ID"""
-        
+
         if len(p) == 2:
             p[0] = [p[1]]
         elif len(p) == 4:
@@ -282,7 +281,6 @@ class Parser:
             node = IfNode(condition, then_body, [], None)
 
         p[0] = self._setpos(node, p, 1)
-
 
     def p_elif_chain(self, p):
         """elif_chain : elif_chain elif_clause
@@ -413,11 +411,14 @@ class Parser:
     # ----- ASIGNACIONES -----
     def p_assignment(self, p):
         """assignment : target_tuple ASSIGN tuple_expr
-                      | target_tuple ASSIGN_COLON tuple_expr
-                      | nested_id ASSIGN expression
-                      | nested_id ASSIGN_COLON expression
-                      | ID ASSIGN expression
-                      | ID ASSIGN_COLON expression"""
+        | target_tuple ASSIGN_COLON tuple_expr
+        | nested_id ASSIGN expression
+        | nested_id ASSIGN_COLON expression
+        | ID ASSIGN expression
+        | ID ASSIGN_COLON expression
+        | primary ASSIGN expression
+        | primary ASSIGN_COLON expression"""
+        # Aceptar también 'primary' como target para cubrir casos como: dict["key"] = value
         node = AssignmentNode(target=p[1], value=p[3])
         p[0] = self._setpos(node, p, 1)  
 
@@ -455,7 +456,6 @@ class Parser:
         else:
             node = ReturnNode(value=None)
             p[0] = self._setpos(node, p, 1)
-
 
     def p_pass_stmt(self, p):
         """pass_stmt : PASS"""
@@ -647,10 +647,25 @@ class Parser:
                    | LBRACKET expr_list_plain COMMA RBRACKET"""
         p[0] = ListNode(p[2])
 
-    def p_primary_dict(self, p):
+    def p_primary_dict_or_set(self, p):
         """primary : LKEY key_value_list_opt RKEY
-                   | LKEY key_value_list COMMA RKEY"""
-        p[0] = DictNode(p[2])
+        | LKEY key_value_list COMMA RKEY
+        | LKEY expr_list_plain_opt RKEY
+        | LKEY expr_list_plain COMMA RKEY"""
+        # Distinguir entre dict y set
+        # Si p[2] es una lista de pares (key, value), es dict
+        # Si p[2] es una lista de expresiones simples, es set
+        if len(p[2]) == 0:
+            # {} vacío es dict por defecto en Python
+            p[0] = DictNode([])
+        elif isinstance(p[2], list) and len(p[2]) > 0:
+            # Verificar si el primer elemento es una tupla (par key-value)
+            if isinstance(p[2][0], tuple) and len(p[2][0]) == 2:
+                p[0] = DictNode(p[2])
+            else:
+                p[0] = SetNode(p[2])
+        else:
+            p[0] = DictNode([])
 
     # ----- UTILIDADES PARA LISTAS/ARGUMENTOS -----
     def p_arg_list(self, p):
