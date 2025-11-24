@@ -19,13 +19,19 @@ from ParserAST import Parser
 from utils import Error
 from ast_nodes import *
 
-def build_and_run(file_path, mode=1, compiler="g++"):
+def build_and_run(file_path, mode=1):
     """
         mode=1: Solo transpilar
         mode=2: Transpilar y compilar
         mode=3: Transpilar, compilar y ejecutar
         compiler: "g++" o "clang"
     """
+
+    if mode > 1:
+        compiler = input("Compilador (g++/clang): ").strip().lower()
+        if compiler not in ["g++", "clang"]:
+            compiler = "g++"
+
     transpiler = Transpiler()
     try:
         cpp_code = transpiler.transpile_file(file_path)
@@ -393,7 +399,4 @@ class Transpiler:
 if __name__ == "__main__":
     file_path = "transpiler_tests/teacher_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
-    compiler = input("Compilador (g++/clang): ").strip().lower()
-    if compiler not in ["g++", "clang"]:
-        compiler = "g++"
-    build_and_run(file_path, mode, compiler)
+    build_and_run(file_path, mode)
