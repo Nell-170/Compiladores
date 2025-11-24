@@ -31,7 +31,7 @@ void print_map(const map<K, V>& m) {
 }
 
 int main() {
-    map<string, ssize_t> edades = map<string, int>{{"Ana", 20}, {"Luis", 22}};
+    map<string, ssize_t> edades = map<string, ssize_t>{{"Ana", 20}, {"Luis", 22}};
     edades["Milton"] = 21;
     edades["Ana"] = 21;
     cout << edades["Luis"] << endl;

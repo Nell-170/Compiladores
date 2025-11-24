@@ -450,16 +450,16 @@ class Transpiler:
     def visit_DictNode(self, n):
         """Handle dict literals like {"name": "John", "age": 25}"""
         if not n.pairs:
-            return "map<string, int>{}"
+            return "map<string, ssize_t>{}"
 
         # Convert all key-value pairs
         pairs_str = ", ".join(
             f"{{{k.accept(self)}, {v.accept(self)}}}" for k, v in n.pairs
         )
 
-        # Para simplificar, usar map<string, int>
+        # Para simplificar, usar map<string, ssize_t>
         # En producción necesitarías inferencia de tipos más sofisticada
-        return f"map<string, int>{{{pairs_str}}}"
+        return f"map<string, ssize_t>{{{pairs_str}}}"
 
     def visit_SetNode(self, n):
         """Handle set literals like {"a", "b", "c"}"""
