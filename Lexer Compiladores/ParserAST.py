@@ -213,33 +213,29 @@ class Parser:
             p[0] = self._setpos(node, p, 1)
 
     def p_params_list(self, p):
-        """params_list : params_list COMMA ID DOT ID ASSIGN expression
-                       | params_list COMMA ID ASSIGN expression
-                       | params_list COMMA ID DOT ID
-                       | params_list COMMA ID
-                       | ID DOT ID ASSIGN expression
-                       | ID ASSIGN expression
-                       | ID DOT ID
-                       | ID"""
-        
-        if len(p) == 2:
+        """params_list : params_list COMMA param
+                    | param"""
+        if len(p) == 4:  # params_list COMMA param
+            p[0] = p[1] + [p[3]]
+        else:  # param
             p[0] = [p[1]]
-        elif len(p) == 4:
-            p[0] = [f"{p[1]}.{p[3]}"]
+
+    def p_param(self, p):
+        """param : ID DOT ID ASSIGN expression
+                | ID ASSIGN expression
+                | ID DOT ID
+                | ID"""
+        if len(p) == 6:
+            p[0] = (f"{p[1]}.{p[3]}", p[5])
         elif len(p) == 5:
-            if p[2] == '=':
-                p[0] = [(p[1], p[3])]
-            else:
-                p[0] = p[1] + [p[3]]
-        elif len(p) == 6:
-            p[0] = p[1] + [f"{p[3]}.{p[5]}"]
-        elif len(p) == 7:
-            if p[4] == '=':
-                p[0] = [(f"{p[1]}.{p[3]}", p[5])]
-            else:
-                p[0] = p[1] + [(p[3], p[5])]
-        elif len(p) == 8:
-            p[0] = p[1] + [(f"{p[3]}.{p[5]}", p[7])]
+            p[0] = (f"{p[1]}.{p[3]}", p[4])
+        elif len(p) == 4:
+            if p[2] == '.':
+                p[0] = f"{p[1]}.{p[3]}"
+            else:  # p[2] == '='
+                p[0] = (p[1], p[3])
+        elif len(p) == 2:
+            p[0] = p[1]
 
     def p_func_suite_block(self, p):
         """func_suite : NEWLINE INDENT func_body_stmts DEDENT"""
