@@ -31,10 +31,10 @@ void print_map(const map<K, V>& m) {
 }
 
 int main() {
-    map<string, ssize_t> edades = map<string, ssize_t>{{"Ana", 20}, {"Luis", 22}};
-    edades["Milton"] = 21;
-    edades["Ana"] = 21;
-    cout << edades["Luis"] << endl;
-    print_map(edades);
+    set<string> materias = set<string>{"Compiladores", "IA"};
+    materias.insert("Analisis Numerico");
+    materias.insert("IA");
+    materias.erase("IA");
+    print_set(materias);
     return 0;
 }

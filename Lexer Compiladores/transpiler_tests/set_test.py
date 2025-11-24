@@ -2,7 +2,7 @@
 materias = {"Compiladores", "IA"}
 
 # "agregar" (parecido a append)
-materias.add("Análisis Numérico")
+materias.add("Analisis Numerico")
 materias.add("IA")  # no se repite, porque el set es único
 
 # no hay sublist/slice en set (porque no hay orden)
