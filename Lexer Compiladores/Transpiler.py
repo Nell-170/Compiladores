@@ -482,6 +482,17 @@ class Transpiler:
     def visit_CallNode(self, n):
         callee = n.callee.accept(self)
 
+        arg_strings = []
+        value_exprs = []
+        value_strings = []
+        if n.args:
+            for arg in n.args:
+                arg_strings.append(arg.accept(self))
+                expr = arg.value if isinstance(arg, ArgumentNode) else arg
+                value_exprs.append(expr)
+                value_strings.append(expr.accept(self))
+        args = ", ".join(arg_strings)
+
         # Manejar métodos de set/list/dict
         if isinstance(n.callee, AttributeAccessNode):
             base = n.callee.base.accept(self)
@@ -524,21 +535,21 @@ class Transpiler:
 
         # Handle built-in functions
         if callee == "print":
-            # Detectar si el argumento es un set o dict para usar un helper
-            if n.args and len(n.args) == 1:
-                arg_node = n.args[0]
-                if isinstance(arg_node, IdentifierNode):
-                    var_type = self.symbols.get(arg_node.name, "")
+            if not value_exprs:
+                self.emit("cout << endl;")
+                return ""
+            if len(value_exprs) == 1:
+                expr = value_exprs[0]
+                expr_code = value_strings[0]
+                if isinstance(expr, IdentifierNode):
+                    var_type = self.symbols.get(expr.name, "")
                     if "set<" in var_type:
-                        # Imprimir set usando helper
-                        self.emit(f"print_set({args});")
+                        self.emit(f"print_set({expr_code});")
                         return ""
                     elif "map<" in var_type:
-                        # Imprimir dict usando helper
-                        self.emit(f"print_map({args});")
+                        self.emit(f"print_map({expr_code});")
                         return ""
-
-            self.emit(f"cout << {args} << endl;")
+            self.emit(f"cout << {' << '.join(value_strings)} << endl;")
             return ""
         elif callee == "str":
             return f"to_string({args})"

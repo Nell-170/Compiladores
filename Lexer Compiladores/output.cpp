@@ -35,6 +35,6 @@ int main() {
     edades["Milton"] = 21;
     edades["Ana"] = 21;
     cout << edades["Luis"] << endl;
-    cout << edades << endl;
+    print_map(edades);
     return 0;
 }
