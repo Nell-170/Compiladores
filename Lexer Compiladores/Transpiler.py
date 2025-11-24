@@ -1,14 +1,12 @@
 """ 
-    El que termina lo suyo que se encargue de hacer el visit list node (para listas literales)
-
     Emmanuel
-    TODO:  while node en transpiler
+    TODO: Arreglar problemas de compilación y ejecución
 
     Milton 
-    TODO: groupNode en transpiler
+    TODO: Cosas que el profe dijo que había que considerar
 
     Valentino 
-    TODO:  [ERROR] string -> a = "hola" -> linea 16 teacher_test.py
+    TODO: std::any o lo que sea necesario para manejar tipos dinámicos en C++
 """
 
 import json
@@ -28,8 +26,10 @@ def build_and_run(file_path, mode=1):
     """
 
     if mode > 1:
-        compiler = input("Compilador (g++/clang): ").strip().lower()
-        if compiler not in ["g++", "clang"]:
+        compiler_choice = input("Compilador (1: g++ / 2: clang): ").strip()
+        if compiler_choice == "2":
+            compiler = "clang"
+        else:
             compiler = "g++"
 
     transpiler = Transpiler()
@@ -288,7 +288,7 @@ class Transpiler:
             # Extraer el límite
             limit = iterable_str.replace("__RANGE__", "").replace("__", "")
             # Generar for tradicional de C++
-            self.emit(f"for (int {target} = 0; {target} < {limit}; {target}++) {{")
+            self.emit(f"for (ssize_t {target} = 0; {target} < {limit}; {target}++) {{")
         else:
             # Range-based for normal
             self.emit(f"for (auto {target} : {iterable_str}) {{")
@@ -300,58 +300,53 @@ class Transpiler:
 
     ## ! SUGERENCIAS, PERO HECHAS MUY RÁPIDAMENTE, SOLO PARA PODER PROBAR STRINGS
 
-    # def visit_WhileNode(self, n):
-    #     """Handle while loops"""
-    #     cond = n.condition.accept(self)
-    #     self.emit(f"while ({cond}) {{")
-    #     self.indent += 1
-    #     n.body.accept(self)
-    #     self.indent -= 1
-    #     self.emit("}")
+    def visit_WhileNode(self, n):
+        """Handle while loops"""
+        cond = n.condition.accept(self)
+        self.emit(f"while ({cond}) {{")
+        self.indent += 1
+        n.body.accept(self)
+        self.indent -= 1
+        self.emit("}")
 
-    # def visit_ListNode(self, n):
-    #     """Handle list literals like [1, 2, 3]"""
-    #     if not n.elements:
-    #         return "vector<int>{}"
+    def visit_ListNode(self, n):
+        """Handle list literals like [1, 2, 3]"""
+        if not n.elements:
+            return "vector<ssize_t>{}"
 
-    #     # Convert all elements
-    #     elements = [elem.accept(self) for elem in n.elements]
-    #     elements_str = ", ".join(elements)
+        # Convert all elements
+        elements = [elem.accept(self) for elem in n.elements]
+        elements_str = ", ".join(elements)
 
-    #     # For simplicity, use vector<int> or detect if all are same type
-    #     # In production, you'd want better type inference
-    #     return f"vector<int>{{{elements_str}}}"
+        # For simplicity, use vector<int> or detect if all are same type
+        # In production, you'd want better type inference
+        return f"vector<ssize_t>{{{elements_str}}}" 
 
-    # def visit_DictNode(self, n):
-    #     """Handle dictionary literals like {'a': 1, 'b': 2}"""
-    #     if not n.pairs:
-    #         return "map<string, int>{}"
+    def visit_DictNode(self, n):
+        """Handle dictionary literals like {'a': 1, 'b': 2}"""
+        if not n.pairs:
+            return "map<string, ssize_t>{}"
 
-    #     # Convert key-value pairs
-    #     pairs = []
-    #     for key, value in n.pairs:
-    #         key_str = key.accept(self)
-    #         val_str = value.accept(self)
-    #         pairs.append(f"{{{key_str}, {val_str}}}")
+        # Convert key-value pairs
+        pairs = []
+        for key, value in n.pairs:
+            key_str = key.accept(self)
+            val_str = value.accept(self)
+            pairs.append(f"{{{key_str}, {val_str}}}")
 
-    #     pairs_str = ", ".join(pairs)
-    #     return f"map<string, int>{{{pairs_str}}}"
+        pairs_str = ", ".join(pairs)
+        return f"map<string, ssize_t>{{{pairs_str}}}"
 
-    # def visit_TupleNode(self, n):
-    #     """Handle tuple literals like (1, 2, 3)"""
-    #     if not n.elements:
-    #         return "tuple<>{}"
+    def visit_TupleNode(self, n):
+        """Handle tuple literals like (1, 2, 3)"""
+        if not n.elements:
+            return "tuple<>{}"
 
-    #     elements = [elem.accept(self) for elem in n.elements]
-    #     elements_str = ", ".join(elements)
+        elements = [elem.accept(self) for elem in n.elements]
+        elements_str = ", ".join(elements)
 
-    #     # Use tuple or just braced init for simplicity
-    #     return f"make_tuple({elements_str})"
-
-    # def visit_GroupNode(self, n):
-    #     """Handle grouped expressions like (x + y)"""
-    #     expr = n.expression.accept(self)
-    #     return f"({expr})"
+        # Use tuple or just braced init for simplicity
+        return f"make_tuple({elements_str})"
 
     def _is_defined(self, name: str) -> bool:
         return name in self.symbols
