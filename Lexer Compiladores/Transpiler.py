@@ -19,23 +19,24 @@ from ParserAST import Parser
 from utils import Error
 from ast_nodes import *
 
-def build_and_run(file_path, mode=1):
+def build_and_run(file_path, mode=1, compiler="g++"):
     """
         mode=1: Solo transpilar
         mode=2: Transpilar y compilar
         mode=3: Transpilar, compilar y ejecutar
+        compiler: "g++" o "clang"
     """
     transpiler = Transpiler()
     try:
         cpp_code = transpiler.transpile_file(file_path)
-
+        
         with open("output.cpp", "w", encoding="utf-8") as f:
             f.write(cpp_code)
         print("[Transpilación exitosa! Output guardado en output.cpp]")
-
+        
         if mode >= 2:
             result = subprocess.run(
-                ["g++", "-x", "c++", "output.cpp", "-o", "output.exe", "-lstdc++"],
+                [compiler, "-x", "c++", "output.cpp", "-o", "output.exe", "-lstdc++"],
                 capture_output=True,
                 text=True,
                 shell=True,
@@ -44,13 +45,13 @@ def build_and_run(file_path, mode=1):
                 print(f"[ERROR] Compilación falló:\n{result.stderr}")
                 return
             print("[Compilación exitosa!]")
-
+        
         if mode >= 3:
             result = subprocess.run(["output.exe"], capture_output=True, text=True)
             print(f"[Salida del programa]\n{result.stdout}")
             if result.stderr:
                 print(f"[Errores]\n{result.stderr}")
-
+                
     except Exception as e:
         print(f"[ERROR] {e}")
 
@@ -392,4 +393,7 @@ class Transpiler:
 if __name__ == "__main__":
     file_path = "transpiler_tests/teacher_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
-    build_and_run(file_path, mode)
+    compiler = input("Compilador (g++/clang): ").strip().lower()
+    if compiler not in ["g++", "clang"]:
+        compiler = "g++"
+    build_and_run(file_path, mode, compiler)
