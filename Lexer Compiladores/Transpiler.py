@@ -96,10 +96,19 @@ class Transpiler:
         self.emit("#include <vector>")
         self.emit("#include <map>")
         self.emit("using namespace std;")
+        self.emit("")
+        
+        # Primero emitir funciones
+        for stmt in n.statements:
+            if isinstance(stmt, FuncDefNode):
+                stmt.accept(self)
+        
+        # Luego el main con el resto
         self.emit("int main() {")
         self.indent += 1
         for stmt in n.statements:
-            stmt.accept(self)
+            if not isinstance(stmt, FuncDefNode):
+                stmt.accept(self)
         self.emit("return 0;")
         self.indent -= 1
         self.emit("}")

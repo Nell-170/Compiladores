@@ -1,41 +1,45 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
 using namespace std;
 
+int hola(int ['a'].b) {
+    return (a + b);
+}
+int fib(int n) {
+    if (((n == 1) || (n == 2))) {
+        return 1;
+    } else {
+        return (fib((n - 1)) + fib((n - 2)));
+    }
+}
 int main() {
-    ssize_t a = 5;
-    ssize_t b = 10;
-    ssize_t c = (a + b);
-    if ((a < b)) {
-        ssize_t d = (a * 2);
-    } else {
-        d = (b * 2);
-    }
-    ssize_t e = (c - d);
-    cout << a[i] << endl;
-    for (auto e : a[3]) {
-        cout << e << endl;
-    }
-    for (int i = 0; i < ((a).size() - 1); i++) {
-        cout << a[i] << endl;
-    }
-    if ((e > 0)) {
-        ssize_t f = (e + 1);
-    } else if ((e == 0)) {
-        f = 0;
-    } else {
-        f = (e - 1);
-    }
-    ssize_t g = (int)std::pow(a, 2);
-    ssize_t h = floor_div(b, 3);
-    ssize_t i = (g + h);
-    a += 5;
-    b -= 2;
-    c *= 3;
-    a = 4;
+    cout << hola(1, 2) << endl;
+    cout << fib(5) << endl;
+    ssize_t a = 4;
     cout << a << endl;
-    b = 5;
+    ssize_t b = 5;
     string a = "hola";
     string b = (a + (to_string(b)));
     cout << b << endl;
+    vector<int> a = vector<ssize_t>{1, "hola", map<string, ssize_t>{{"z", 1}, {"x", "ECCI"}}, vector<ssize_t>{1, 2, 3, 4}, make_tuple(1, 2, 3, 4)};
+    cout << a << endl;
+    cout << "Fibonacci" << endl;
+    for (ssize_t i = 0; i < ((a).size() - 1); i++) {
+        cout << a[i] << endl;
+    }
+    for (auto e : a[3]) {
+        cout << e << endl;
+        ssize_t a = 5;
+    }
+    ssize_t b = 10;
+    while ((a < b)) {
+        cout << fib((b - 5)) << endl;
+        ssize_t c = b;
+        string b = "hola";
+        ssize_t b = (c - 2);
+    }
+    cout << "Si printeo mis probabilidades de graduarme suben :)" << endl;
     return 0;
 }
