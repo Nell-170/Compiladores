@@ -268,6 +268,7 @@ class Transpiler:
         self.emit("#include <map>")
         self.emit("#include <set>")
         self.emit("#include <tuple>")
+        self.emit("#include <cstddef>")
         self.emit("using namespace std;")
         self.emit("")
 
