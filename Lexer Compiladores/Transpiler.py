@@ -39,8 +39,9 @@ def build_and_run(file_path, mode=1):
         print("[Transpilación exitosa! Output guardado en output.cpp]")
         
         if mode >= 2:
+            # Use C++17 for std::variant support
             result = subprocess.run(
-                [compiler, "-x", "c++", "output.cpp", "-o", "output.exe", "-lstdc++"],
+                [compiler, "-std=c++17", "-x", "c++", "output.cpp", "-o", "output.exe"],
                 capture_output=True,
                 text=True,
                 shell=True,
@@ -89,24 +90,9 @@ class Transpiler:
         return ast.accept(self)
 
     def visit_ProgramNode(self, n):
-        # Add all necessary includes
-        self.emit("#include <iostream>")
-        self.emit("#include <string>")
-        self.emit("#include <vector>")
-        self.emit("#include <map>")
-        self.emit("#include <cstddef>")
-        self.emit("#include <cmath>")  # For std::pow
+        # Include PyObject header
+        self.emit('#include "PyObject.h"')
         self.emit("using namespace std;")
-        self.emit("")
-        
-        # Helper function for floor division
-        self.emit("// Helper function for floor division")
-        self.emit("int floor_div(int a, int b) {")
-        self.emit("    int q = a / b;")
-        self.emit("    int r = a % b;")
-        self.emit("    if ((r != 0) && ((r < 0) != (b < 0))) --q;")
-        self.emit("    return q;")
-        self.emit("}")
         self.emit("")
         
         # Primero emitir funciones
@@ -132,23 +118,13 @@ class Transpiler:
         if isinstance(target, IdentifierNode):
             var_name = target.name
 
-            # Infer type from the right-hand side
-            inferred_type = self._infer_type(n.value)
-
             if not self._is_defined(var_name):
-                # First assignment - declare with inferred type
-                self.emit(f"{inferred_type} {var_name} = {rhs};")
-                self._define(var_name, inferred_type)
+                # First assignment - declare as PyObject
+                self.emit(f"PyObject {var_name} = {rhs};")
+                self._define(var_name, "PyObject")
             else:
-                # Variable already exists - check if type changed
-                old_type = self.symbols[var_name]
-                if old_type != inferred_type:
-                    # Type changed! Need to redeclare
-                    self.emit(f"{inferred_type} {var_name} = {rhs};")
-                    self.symbols[var_name] = inferred_type
-                else:
-                    # Same type, just assign
-                    self.emit(f"{var_name} = {rhs};")
+                # Variable already exists - just assign (no redeclaration needed!)
+                self.emit(f"{var_name} = {rhs};")
         else:
             self.emit(f"{target.accept(self)} = {rhs};")
 
@@ -160,65 +136,67 @@ class Transpiler:
                 param_name = param[0]  # Extraer nombre de la tupla
             else:
                 param_name = param     # Ya es string
-            processed_params.append(f"int {param_name}")
+            processed_params.append(f"PyObject {param_name}")
 
         params_str = ", ".join(processed_params)
 
-        self.emit(f"int {n.func_name}({params_str}) {{")
+        self.emit(f"PyObject {n.func_name}({params_str}) {{")
         self.indent += 1
         n.suite.accept(self)
         self.indent -= 1
         self.emit("}")
 
     def visit_ReturnNode(self, n):
-        value = n.value.accept(self)
-        self.emit(f"return {value};")
+        if n.value:
+            value = n.value.accept(self)
+            self.emit(f"return {value};")
+        else:
+            self.emit("return PyObject();")  # Return None
 
     def visit_AugAssignmentNode(self, n):
         t = n.target.accept(self)
         r = n.value.accept(self)
         op = n.op
         if op == "**=":
-            self.emit(f"{t} = (int)std::pow({t}, {r});")
+            self.emit(f"{t} = py_pow({t}, {r});")
         elif op == "//=":
             self.emit(f"{t} = floor_div({t}, {r});")
         else:
-            self.emit(f"{t} {op} {r};")
+            # Remove the '=' from the operator
+            base_op = op[:-1]
+            self.emit(f"{t} = {t} {base_op} {r};")
 
     def visit_IdentifierNode(self, n):
         return n.name
 
     def visit_LiteralNode(self, n):
-        if n.kind == "int":     return str(n.value)
-        if n.kind == "float":   return str(n.value)
-        if n.kind == "bool":    return "true" if n.value else "false"
-        if n.kind in ("str", "string"): return json.dumps(n.value)
+        # Emit C++ literals and let PyObject constructors handle conversion
+        if n.kind == "int":
+            return str(n.value)
+        if n.kind == "float":
+            return str(n.value)
+        if n.kind == "bool":
+            return "true" if n.value else "false"
+        if n.kind in ("str", "string"):
+            return json.dumps(n.value)  # C++ string literal
         raise NotImplementedError(f"Unsupported literal kind: {n.kind}")
 
     def visit_BinaryOpNode(self, n):
         left = n.left.accept(self)
         right = n.right.accept(self)
 
-        # Handle string concatenation with +
-        if n.op == "+":
-            left_type = self._infer_type(n.left)
-            right_type = self._infer_type(n.right)
-            # If either operand is a string, this is string concatenation
-            if "string" in left_type or "string" in right_type:
-                return f"({left} + {right})"
-
-        # Handle boolean operators (and/or) with proper conversions
-        if n.op in ("and", "or"):
-            left_converted = self._convert_to_bool(n.left, left)
-            right_converted = self._convert_to_bool(n.right, right)
-            cpp_op = "&&" if n.op == "and" else "||"
-            return f"({left_converted} {cpp_op} {right_converted})"
-
+        # Special operators
         if n.op == "**" or n.op == "pow":
-            return f"(int)std::pow({left}, {right})"
+            return f"py_pow({left}, {right})"
         if n.op == "//" or n.op == "floordiv":
             return f"floor_div({left}, {right})"
         
+        # Logical operators (and/or) - use PyObject's operator&& and operator||
+        if n.op in ("and", "or"):
+            cpp_op = "&&" if n.op == "and" else "||"
+            return f"(({left}).to_bool() {cpp_op} ({right}).to_bool())"
+        
+        # All other operators work directly on PyObject
         return f"({left} {n.op} {right})"
 
     def visit_BinOpNode(self, n):
@@ -227,9 +205,8 @@ class Transpiler:
     def visit_UnaryOpNode(self, n):
         expr = n.operand.accept(self)
         if n.op == "not":
-            # Handle "not" with proper conversion to bool
-            expr_converted = self._convert_to_bool(n.operand, expr)
-            return f"(!{expr_converted})"
+            # Use PyObject's truthiness
+            return f"!({expr}).to_bool()"
         return f"({n.op}{expr})"
 
     def visit_GroupNode(self, n):
@@ -260,30 +237,10 @@ class Transpiler:
             return ""
         elif callee == "str":
             # Convert to string
-            return f"to_string({args})"
+            return f"({args}).to_string()"
         elif callee == "len":
-            # Handle len() properly for both variables and literals
-            if n.args and len(n.args) == 1:
-                arg_node = n.args[0]
-                arg_type = self._infer_type(arg_node.value if isinstance(arg_node, ArgumentNode) else arg_node)
-                arg_expr = args
-                
-                # For string literals, use strlen or hard-coded length
-                if isinstance(arg_node, ArgumentNode):
-                    inner = arg_node.value
-                else:
-                    inner = arg_node
-                    
-                if isinstance(inner, LiteralNode) and inner.kind in ("str", "string"):
-                    # String literal - compute length directly
-                    return str(len(inner.value))
-                elif "string" in arg_type:
-                    # String variable - use .size()
-                    return f"({arg_expr}).size()"
-                else:
-                    # Other container - use .size()
-                    return f"({arg_expr}).size()"
-            return f"({args}).size()"
+            # Use PyObject's size() method
+            return f"len({args})"
         elif callee == "range":
             # Handle range() for for loops
             if not args:
@@ -298,11 +255,10 @@ class Transpiler:
         return n.value.accept(self)
 
     def visit_IfNode(self, n):
-        # Convert condition to bool if it's a string
+        # PyObject has truthiness built-in via to_bool()
         cond_expr = n.condition.accept(self)
-        cond_converted = self._convert_to_bool(n.condition, cond_expr)
         
-        self.emit(f"if ({cond_converted}) {{")
+        self.emit(f"if (({cond_expr}).to_bool()) {{")
         self.indent += 1
         if isinstance(n.then_body, list):
             for s in n.then_body: s.accept(self)
@@ -313,8 +269,7 @@ class Transpiler:
         if n.elif_clauses:
             for elif_node in n.elif_clauses:
                 cond_expr = elif_node.condition.accept(self)
-                cond_converted = self._convert_to_bool(elif_node.condition, cond_expr)
-                self.emit(f"}} else if ({cond_converted}) {{")
+                self.emit(f"}} else if (({cond_expr}).to_bool()) {{")
                 self.indent += 1
                 if isinstance(elif_node.body, list):
                     for s in elif_node.body: s.accept(self)
@@ -341,8 +296,8 @@ class Transpiler:
         if iterable_str.startswith("__RANGE__"):
             # Extraer el límite
             limit = iterable_str.replace("__RANGE__", "").replace("__", "")
-            # Generar for tradicional de C++
-            self.emit(f"for (int {target} = 0; {target} < {limit}; {target}++) {{")
+            # Generar for tradicional de C++ con PyObject
+            self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < ({limit}).to_int(); {target} = ({target}).to_int() + 1) {{")
         else:
             # Range-based for normal
             self.emit(f"for (auto {target} : {iterable_str}) {{")
@@ -355,9 +310,8 @@ class Transpiler:
     def visit_WhileNode(self, n):
         """Handle while loops"""
         cond_expr = n.condition.accept(self)
-        cond_converted = self._convert_to_bool(n.condition, cond_expr)
         
-        self.emit(f"while ({cond_converted}) {{")
+        self.emit(f"while (({cond_expr}).to_bool()) {{")
         self.indent += 1
         n.body.accept(self)
         self.indent -= 1
@@ -366,18 +320,18 @@ class Transpiler:
     def visit_ListNode(self, n):
         """Handle list literals like [1, 2, 3]"""
         if not n.elements:
-            return "vector<int>{}"
+            return "vector<PyObject>{}"
 
         # Convert all elements
         elements = [elem.accept(self) for elem in n.elements]
         elements_str = ", ".join(elements)
 
-        return f"vector<int>{{{elements_str}}}" 
+        return f"vector<PyObject>{{{elements_str}}}" 
 
     def visit_DictNode(self, n):
         """Handle dictionary literals like {'a': 1, 'b': 2}"""
         if not n.pairs:
-            return "map<string, int>{}"
+            return "map<PyObject, PyObject>{}"
 
         # Convert key-value pairs
         pairs = []
@@ -387,7 +341,7 @@ class Transpiler:
             pairs.append(f"{{{key_str}, {val_str}}}")
 
         pairs_str = ", ".join(pairs)
-        return f"map<string, int>{{{pairs_str}}}"
+        return f"map<PyObject, PyObject>{{{pairs_str}}}"
 
     def visit_TupleNode(self, n):
         """Handle tuple literals like (1, 2, 3)"""
@@ -397,7 +351,7 @@ class Transpiler:
         elements = [elem.accept(self) for elem in n.elements]
         elements_str = ", ".join(elements)
 
-        # Use tuple or just braced init for simplicity
+        # Use tuple with PyObject
         return f"make_tuple({elements_str})"
 
     def _is_defined(self, name: str) -> bool:
@@ -407,62 +361,16 @@ class Transpiler:
         self.symbols[name] = type_
 
     def _infer_type(self, node):
-        """Infer C++ type from an AST node"""
-        if isinstance(node, LiteralNode):
-            if node.kind == "int":
-                return "int"
-            elif node.kind == "float":
-                return "double"
-            elif node.kind == "string":
-                return "string"
-            elif node.kind == "bool":
-                return "bool"
-        elif isinstance(node, ListNode):
-            return "vector<int>"  # Simplified - would need element type inference
-        elif isinstance(node, DictNode):
-            return "map<string, int>"  # Simplified
-        elif isinstance(node, TupleNode):
-            return "tuple<int, int>"  # Simplified
-        elif isinstance(node, BinaryOpNode) or isinstance(node, BinOpNode):
-            # For binary operations, try to infer from left operand
-            return self._infer_type(node.left)
-        elif isinstance(node, GroupNode):
-            return self._infer_type(node.expr)
-        elif isinstance(node, CallNode):
-            callee = node.callee.accept(self) if hasattr(node.callee, 'accept') else str(node.callee)
-            if callee == "str":
-                return "string"
-            elif callee == "len":
-                return "int"
-            # Default for function calls
-            return "int"
-        elif isinstance(node, IdentifierNode):
-            # Look up in symbol table
-            return self.symbols.get(node.name, "int")
-
-        # Default fallback
-        return "int"
+        """Infer C++ type from an AST node - now everything is PyObject!"""
+        # For now, almost everything is PyObject
+        return "PyObject"
 
     def _convert_to_bool(self, node, cpp_expr):
         """
         Convert an expression to bool for use in conditions.
-        For strings, use !s.empty() instead of just s.
+        With PyObject, this is simple - just call .to_bool()
         """
-        node_type = self._infer_type(node)
-        
-        if "string" in node_type:
-            # For string variables, check if not empty
-            if isinstance(node, IdentifierNode):
-                return f"!{cpp_expr}.empty()"
-            else:
-                # For more complex string expressions, wrap in parens
-                return f"!({cpp_expr}).empty()"
-        elif node_type == "int":
-            # Integers: non-zero is true
-            return f"({cpp_expr} != 0)"
-        else:
-            # For other types (bool, etc), use as-is
-            return cpp_expr
+        return f"({cpp_expr}).to_bool()"
 
 if __name__ == "__main__":
     file_path = "transpiler_tests/teacher_test.py"
