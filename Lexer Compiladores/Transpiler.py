@@ -95,6 +95,7 @@ class Transpiler:
         self.emit("#include <string>")
         self.emit("#include <vector>")
         self.emit("#include <map>")
+        self.emit("#include <cstddef>")
         self.emit("using namespace std;")
         self.emit("")
         
