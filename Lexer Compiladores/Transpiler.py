@@ -92,6 +92,10 @@ class Transpiler:
     def visit_ProgramNode(self, n):
         # Include PyObject header
         self.emit('#include "PyObject.hpp"')
+        self.emit('#include <iostream>')
++       self.emit('#include <vector>')
++       self.emit('#include <map>')
++       self.emit('#include <tuple>')
         self.emit("using namespace std;")
         self.emit("")
         

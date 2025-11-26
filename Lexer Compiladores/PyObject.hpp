@@ -147,24 +147,38 @@ public:
 
     PyObject operator%(const PyObject& other) const {
         if (type == PyType::Float || other.type == PyType::Float) {
+            double divisor = other.to_float();
++           if (divisor == 0.0) {
++                throw std::runtime_error("ZeroDivisionError: float modulo");
++           }
             return PyObject(std::fmod(to_float(), other.to_float()));
         }
-        return PyObject(to_int() % other.to_int());
+        long long divisor = other.to_int();
++       if (divisor == 0) {
+            throw std::runtime_error("ZeroDivisionError: integer modulo");
++       }
+        return PyObject(to_int() % divisor);
     }
 
     // Floor division
     PyObject floor_div(const PyObject& other) const {
         if (type == PyType::Float || other.type == PyType::Float) {
+            double divisor = other.to_float();
+            if (divisor == 0.0) {
+                throw std::runtime_error("ZeroDivisionError: float floor division");
+            }
             return PyObject(std::floor(to_float() / other.to_float()));
         }
         long long a = to_int();
         long long b = other.to_int();
+        if (b == 0) {
+            throw std::runtime_error("ZeroDivisionError: integer floor division");
+        }
         long long q = a / b;
         long long r = a % b;
         if ((r != 0) && ((r < 0) != (b < 0))) --q;
         return PyObject(q);
     }
-
     // Power
     PyObject pow(const PyObject& other) const {
         return PyObject(std::pow(to_float(), other.to_float()));
