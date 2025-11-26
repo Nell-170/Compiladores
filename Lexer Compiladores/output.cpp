@@ -1,40 +1,60 @@
 #include "PyObject.hpp"
+#include <iostream>
+#include <vector>
+#include <map>
+#include <tuple>
 using namespace std;
 
-PyObject hola(PyObject a, PyObject b) {
+PyObject add(PyObject a, PyObject b) {
     return (a + b);
 }
 PyObject fib(PyObject n) {
-    if (((((n == 1)).to_bool() || ((n == 2)).to_bool())).to_bool()) {
-        return 1;
-    } else {
-        return (fib((n - 1)) + fib((n - 2)));
+    if (((n <= 0)).to_bool()) {
+        return PyObject(0);
     }
+    if ((((n == 1) || (n == 2))).to_bool()) {
+        return PyObject(1);
+    }
+    return (fib((n - 1)) + fib((n - 2)));
 }
 int main() {
-    cout << hola(1, 2) << endl;
+    cout << add(1, 2) << endl;
+    cout << add("hello", "world") << endl;
     cout << fib(5) << endl;
+    PyObject s = "hello";
+    cout << s << endl;
+    cout << len(s) << endl;
+    cout << s[0] << endl;
+    cout << (s * 2) << endl;
+    PyObject x = 42;
+    cout << x << endl;
+    x = "world";
+    cout << x << endl;
+    x = 3.14;
+    cout << x << endl;
     PyObject a = 4;
-    cout << a << endl;
     PyObject b = 5;
-    b = (a + ((b).to_string()));
-    cout << b << endl;
-    cout << a << endl;
-    cout << "Fibonacci" << endl;
-    for (PyObject i = 0; (i).to_int() < ((len(a) - 1)).to_int(); i = (i).to_int() + 1) {
-        cout << a[i] << endl;
+    PyObject result = ((a).to_string() + (b).to_string());
+    cout << result << endl;
+    cout << "Loop test:" << endl;
+    for (PyObject i = 0; (i).to_int() < (5).to_int(); i = PyObject((i).to_int() + 1)) {
+        cout << i << endl;
     }
-    for (auto e : a[3]) {
-        cout << e << endl;
-        a = 5;
+    if ((s).to_bool()) {
+        cout << "String is truthy" << endl;
     }
-    b = 10;
-    while (((a < b)).to_bool()) {
-        cout << fib((b - 5)) << endl;
-        PyObject c = b;
-        b = "hola";
-        b = (c - 2);
+    PyObject empty = "";
+    if ((!(empty).to_bool()).to_bool()) {
+        cout << "Empty string is falsy" << endl;
     }
-    cout << "Si printeo mis probabilidades de graduarme suben :)" << endl;
+    if (((a < b)).to_bool()) {
+        cout << "4 < 5" << endl;
+    }
+    PyObject counter = 0;
+    while (((counter < 3)).to_bool()) {
+        cout << counter << endl;
+        counter = (counter + 1);
+    }
+    cout << "All tests passed!" << endl;
     return 0;
 }

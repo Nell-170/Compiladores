@@ -93,9 +93,9 @@ class Transpiler:
         # Include PyObject header
         self.emit('#include "PyObject.hpp"')
         self.emit('#include <iostream>')
-+       self.emit('#include <vector>')
-+       self.emit('#include <map>')
-+       self.emit('#include <tuple>')
+        self.emit('#include <vector>')
+        self.emit('#include <map>')
+        self.emit('#include <tuple>')
         self.emit("using namespace std;")
         self.emit("")
         
@@ -153,7 +153,11 @@ class Transpiler:
     def visit_ReturnNode(self, n):
         if n.value:
             value = n.value.accept(self)
-            self.emit(f"return {value};")
+            # Wrap literals in PyObject() constructor
+            if isinstance(n.value, LiteralNode):
+                self.emit(f"return PyObject({value});")
+            else:
+                self.emit(f"return {value};")
         else:
             self.emit("return PyObject();")  # Return None
 
@@ -195,10 +199,17 @@ class Transpiler:
         if n.op == "//" or n.op == "floordiv":
             return f"floor_div({left}, {right})"
         
-        # Logical operators (and/or) - use PyObject's operator&& and operator||
+        # Logical operators (and/or)
         if n.op in ("and", "or"):
             cpp_op = "&&" if n.op == "and" else "||"
-            return f"(({left}).to_bool() {cpp_op} ({right}).to_bool())"
+            # Check if operands are already boolean expressions (comparisons)
+            left_needs_convert = not self._is_comparison_expr(n.left)
+            right_needs_convert = not self._is_comparison_expr(n.right)
+            
+            left_expr = f"({left}).to_bool()" if left_needs_convert else left
+            right_expr = f"({right}).to_bool()" if right_needs_convert else right
+            
+            return f"({left_expr} {cpp_op} {right_expr})"
         
         # All other operators work directly on PyObject
         return f"({left} {n.op} {right})"
@@ -301,7 +312,8 @@ class Transpiler:
             # Extraer el límite
             limit = iterable_str.replace("__RANGE__", "").replace("__", "")
             # Generar for tradicional de C++ con PyObject
-            self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < ({limit}).to_int(); {target} = ({target}).to_int() + 1) {{")
+            # Use proper PyObject increment
+            self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < ({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{")
         else:
             # Range-based for normal
             self.emit(f"for (auto {target} : {iterable_str}) {{")
@@ -376,7 +388,13 @@ class Transpiler:
         """
         return f"({cpp_expr}).to_bool()"
 
+    def _is_comparison_expr(self, node):
+        """
+        Check if a node represents a comparison expression that already returns bool.
+        """
+        return isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode)
+
 if __name__ == "__main__":
-    file_path = "transpiler_tests/teacher_test.py"
+    file_path = "transpiler_tests/test_working.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)

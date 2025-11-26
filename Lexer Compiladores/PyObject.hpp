@@ -92,7 +92,32 @@ public:
         if (type == PyType::String) {
             return std::get<std::string>(value).size();
         }
-        throw std::runtime_error("Object has no len()");
+        throw std::runtime_error("TypeError: object of type '" + type_name() + "' has no len()");
+    }
+
+    // Indexing support (for strings)
+    PyObject operator[](const PyObject& index) const {
+        if (type == PyType::String) {
+            size_t idx = index.to_int();
+            const std::string& s = std::get<std::string>(value);
+            if (idx >= s.size()) {
+                throw std::runtime_error("IndexError: string index out of range");
+            }
+            return PyObject(std::string(1, s[idx]));
+        }
+        throw std::runtime_error("TypeError: '" + type_name() + "' object is not subscriptable");
+    }
+
+    // Helper to get type name for error messages
+    std::string type_name() const {
+        switch (type) {
+            case PyType::None: return "NoneType";
+            case PyType::Int: return "int";
+            case PyType::Float: return "float";
+            case PyType::Bool: return "bool";
+            case PyType::String: return "str";
+        }
+        return "unknown";
     }
 
     // Arithmetic operators
@@ -142,22 +167,22 @@ public:
 
     PyObject operator/(const PyObject& other) const {
         // Always returns float in Python 3
-        return PyObject(to_float() / other.to_float());
+        double divisor = other.to_float();
+        if (divisor == 0.0) {
+            throw std::runtime_error("ZeroDivisionError: float division");
+        }
+        return PyObject(to_float() / divisor);
     }
 
     PyObject operator%(const PyObject& other) const {
         if (type == PyType::Float || other.type == PyType::Float) {
             double divisor = other.to_float();
-+           if (divisor == 0.0) {
-+                throw std::runtime_error("ZeroDivisionError: float modulo");
-+           }
+            if (divisor == 0.0) {
+                throw std::runtime_error("ZeroDivisionError: float modulo");
+            }
             return PyObject(std::fmod(to_float(), other.to_float()));
         }
-        long long divisor = other.to_int();
-+       if (divisor == 0) {
-            throw std::runtime_error("ZeroDivisionError: integer modulo");
-+       }
-        return PyObject(to_int() % divisor);
+        return PyObject(to_int() % other.to_int());
     }
 
     // Floor division
@@ -179,6 +204,7 @@ public:
         if ((r != 0) && ((r < 0) != (b < 0))) --q;
         return PyObject(q);
     }
+
     // Power
     PyObject pow(const PyObject& other) const {
         return PyObject(std::pow(to_float(), other.to_float()));
