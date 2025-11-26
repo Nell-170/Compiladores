@@ -66,8 +66,51 @@ class Transpiler:
         self.out = []
         self.indent = 0
         self.symbols = symbols or {}
+        # Flags para rastrear características usadas
+        self.uses_set = False
+        self.uses_dict = False
 
     def emit(self, s): self.out.append("    " * self.indent + s)
+
+    def _detect_features(self, node):
+        """Primera pasada para detectar qué características se usan"""
+        if isinstance(node, SetNode):
+            self.uses_set = True
+        elif isinstance(node, DictNode):
+            self.uses_dict = True
+        
+        # Recorre recursivamente
+        if isinstance(node, ProgramNode):
+            for stmt in node.statements:
+                self._detect_features(stmt)
+        elif isinstance(node, BlockNode):
+            for stmt in node.statements:
+                self._detect_features(stmt)
+        elif isinstance(node, FuncDefNode):
+            self._detect_features(node.suite)
+        elif isinstance(node, IfNode):
+            self._detect_features(node.then_body)
+            for elif_clause in node.elif_clauses:
+                self._detect_features(elif_clause.body)
+            if node.else_clause:
+                self._detect_features(node.else_clause.body)
+        elif isinstance(node, WhileNode):
+            self._detect_features(node.body)
+        elif isinstance(node, ForNode):
+            self._detect_features(node.body)
+        elif isinstance(node, TryNode):
+            self._detect_features(node.try_body)
+            for except_clause in node.except_clauses:
+                self._detect_features(except_clause.handler_body)
+        elif isinstance(node, AssignmentNode):
+            self._detect_features(node.value)
+        elif isinstance(node, CallNode):
+            if node.args:
+                for arg in node.args:
+                    if isinstance(arg, ArgumentNode):
+                        self._detect_features(arg.value)
+                    else:
+                        self._detect_features(arg)
 
     def transpile_file(self, file_path: str):
         """Parse a Python file and transpile it to C++."""
@@ -88,6 +131,16 @@ class Transpiler:
         if ast is None:
             raise Exception("Failed to parse file")
 
+        # Reset flags antes de transpilación
+        self.uses_set = False
+        self.uses_dict = False
+        
+        # Primera pasada: detectar características
+        self._detect_features(ast)
+        
+        # Segunda pasada: generar código
+        self.out = []
+        self.indent = 0
         return ast.accept(self)
 
     def visit_ArgumentNode(self, n):
@@ -265,48 +318,55 @@ class Transpiler:
         self.emit("#include <iostream>")
         self.emit("#include <string>")
         self.emit("#include <vector>")
-        self.emit("#include <map>")
-        self.emit("#include <set>")
+        
+        # Incluir solo si se necesita
+        if self.uses_set:
+            self.emit("#include <set>")
+        if self.uses_dict:
+            self.emit("#include <map>")
+        
         self.emit("#include <tuple>")
         self.emit("#include <cstddef>")
         self.emit("using namespace std;")
         self.emit("")
 
-        # Helper function para imprimir sets
-        self.emit("template<typename T>")
-        self.emit("void print_set(const set<T>& s) {")
-        self.indent += 1
-        self.emit('cout << "{";')
-        self.emit("bool first = true;")
-        self.emit("for (const auto& elem : s) {")
-        self.indent += 1
-        self.emit('if (!first) cout << ", ";')
-        self.emit('cout << "\\"" << elem << "\\"";')  # Agregar comillas a strings
-        self.emit("first = false;")
-        self.indent -= 1
-        self.emit("}")
-        self.emit('cout << "}" << endl;')
-        self.indent -= 1
-        self.emit("}")
-        self.emit("")
+        # Helper function para imprimir sets (solo si se necesita)
+        if self.uses_set:
+            self.emit("template<typename T>")
+            self.emit("void print_set(const set<T>& s) {")
+            self.indent += 1
+            self.emit('cout << "{";')
+            self.emit("bool first = true;")
+            self.emit("for (const auto& elem : s) {")
+            self.indent += 1
+            self.emit('if (!first) cout << ", ";')
+            self.emit('cout << "\\"" << elem << "\\"";')  # Agregar comillas a strings
+            self.emit("first = false;")
+            self.indent -= 1
+            self.emit("}")
+            self.emit('cout << "}" << endl;')
+            self.indent -= 1
+            self.emit("}")
+            self.emit("")
 
-        # Helper function para imprimir maps
-        self.emit("template<typename K, typename V>")
-        self.emit("void print_map(const map<K, V>& m) {")
-        self.indent += 1
-        self.emit('cout << "{";')
-        self.emit("bool first = true;")
-        self.emit("for (const auto& pair : m) {")
-        self.indent += 1
-        self.emit('if (!first) cout << ", ";')
-        self.emit('cout << "\\"" << pair.first << "\\": " << pair.second;')
-        self.emit("first = false;")
-        self.indent -= 1
-        self.emit("}")
-        self.emit('cout << "}" << endl;')
-        self.indent -= 1
-        self.emit("}")
-        self.emit("")
+        # Helper function para imprimir maps (solo si se necesita)
+        if self.uses_dict:
+            self.emit("template<typename K, typename V>")
+            self.emit("void print_map(const map<K, V>& m) {")
+            self.indent += 1
+            self.emit('cout << "{";')
+            self.emit("bool first = true;")
+            self.emit("for (const auto& pair : m) {")
+            self.indent += 1
+            self.emit('if (!first) cout << ", ";')
+            self.emit('cout << "\\"" << pair.first << "\\": " << pair.second;')
+            self.emit("first = false;")
+            self.indent -= 1
+            self.emit("}")
+            self.emit('cout << "}" << endl;')
+            self.indent -= 1
+            self.emit("}")
+            self.emit("")
 
         # Primero emitir funciones
         for stmt in n.statements:
