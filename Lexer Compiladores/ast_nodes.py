@@ -404,10 +404,10 @@ class ListNode(ASTNode):
 
 class DictNode(ASTNode):
     """Dictionary literal"""
-    
+
     def __init__(self, pairs: List[Tuple[ASTNode, ASTNode]]):
         self.pairs = pairs
-    
+
     def printAST(self, indent: int = 0) -> str:
         ind = "  " * indent
         lines = [f"{ind}Dict:"]
@@ -417,15 +417,35 @@ class DictNode(ASTNode):
             lines.append(f"{ind}  Value:")
             lines.append(value.printAST(indent + 2))
         return "\n".join(lines)
-    
+
     def to_tuple(self) -> tuple:
         return ("dict", [(k.to_tuple(), v.to_tuple()) for k, v in self.pairs])
-    
+
     def to_dict(self) -> dict:
         return {
             "type": "dict",
             "pairs": [{"key": k.to_dict(), "value": v.to_dict()} for k, v in self.pairs]
         }
+
+
+class SetNode(ASTNode):
+    """Set literal"""
+
+    def __init__(self, elements: List[ASTNode]):
+        self.elements = elements
+
+    def printAST(self, indent: int = 0) -> str:
+        ind = "  " * indent
+        lines = [f"{ind}Set:"]
+        for elem in self.elements:
+            lines.append(elem.printAST(indent + 1))
+        return "\n".join(lines)
+
+    def to_tuple(self) -> tuple:
+        return ("set", [e.to_tuple() for e in self.elements])
+
+    def to_dict(self) -> dict:
+        return {"type": "set", "elements": [e.to_dict() for e in self.elements]}
 
 
 # ============================================================================
