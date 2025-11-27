@@ -1,30 +1,35 @@
 #ifndef PYOBJECT_H
 #define PYOBJECT_H
 
-#include <variant>
-#include <string>
-#include <iostream>
-#include <cmath>
-#include <stdexcept>
 #include <stddef.h>
-#include <vector>
-#include <map>
 
-enum class PyType {
-    None,
-    Int,
-    Float,
-    Bool,
-    String,
-    List
+#include <cmath>
+#include <iostream>
+#include <map>
+#include <set>
+#include <stdexcept>
+#include <string>
+#include <variant>
+#include <vector>
+
+// Forward declaration for comparator
+class PyObject;
+
+// Comparator for PyObject in std::set
+struct PyObjectCompare {
+  bool operator()(const PyObject& a, const PyObject& b) const;
 };
+
+enum class PyType { None, Int, Float, Bool, String, List, Set };
 
 class PyObject {
 private:
     PyType type;
-    std::variant<std::monostate, long long, double, bool, std::string, std::vector<PyObject>> value;
+    std::variant<std::monostate, long long, double, bool, std::string,
+                 std::vector<PyObject>, std::set<PyObject, PyObjectCompare>>
+        value;
 
-public:
+   public:
     // Constructors
     PyObject() : type(PyType::None), value(std::monostate{}) {}
     
@@ -39,6 +44,12 @@ public:
     PyObject(const std::vector<PyObject>& v) : type(PyType::List), value(v) {}
     PyObject(std::vector<PyObject>&& v) : type(PyType::List), value(std::move(v)) {}
 
+    // Constructor for sets
+    PyObject(const std::set<PyObject, PyObjectCompare>& v)
+        : type(PyType::Set), value(v) {}
+    PyObject(std::set<PyObject, PyObjectCompare>&& v)
+        : type(PyType::Set), value(std::move(v)) {}
+
     // Type checking
     PyType get_type() const { return type; }
     bool is_none() const { return type == PyType::None; }
@@ -47,6 +58,7 @@ public:
     bool is_bool() const { return type == PyType::Bool; }
     bool is_string() const { return type == PyType::String; }
     bool is_list() const { return type == PyType::List; }
+    bool is_set() const { return type == PyType::Set; }
 
     // Conversion to bool (Python truthiness)
     bool to_bool() const {
@@ -57,6 +69,9 @@ public:
             case PyType::Bool: return std::get<bool>(value);
             case PyType::String: return !std::get<std::string>(value).empty();
             case PyType::List: return !std::get<std::vector<PyObject>>(value).empty();
+            case PyType::Set:
+              return !std::get<std::set<PyObject, PyObjectCompare>>(value)
+                          .empty();
         }
         return false;
     }
@@ -95,29 +110,48 @@ public:
                 const auto& vec = std::get<std::vector<PyObject>>(value);
                 std::string result = "[";
                 for (size_t i = 0; i < vec.size(); ++i) {
-                    if (i > 0) result += ", ";
-                    // Recursively convert each element
-                    const auto& elem = vec[i];
-                    if (elem.is_string()) {
-                        result += "'" + elem.to_string() + "'";
-                    } else {
-                        result += elem.to_string();
-                    }
+                  if (i > 0) result += ", ";
+                  const auto& elem = vec[i];
+                  if (elem.is_string()) {
+                    result += "'" + elem.to_string() + "'";
+                  } else {
+                    result += elem.to_string();
+                  }
                 }
                 result += "]";
                 return result;
+            }
+            case PyType::Set: {
+              const auto& s =
+                  std::get<std::set<PyObject, PyObjectCompare>>(value);
+              std::string result = "{";
+              bool first = true;
+              for (const auto& elem : s) {
+                if (!first) result += ", ";
+                first = false;
+                if (elem.is_string()) {
+                  result += "'" + elem.to_string() + "'";
+                } else {
+                  result += elem.to_string();
+                }
+              }
+              result += "}";
+              return result;
             }
         }
         return "";
     }
 
-    // Length (for strings, lists, etc.)
+    // Length (for strings, lists, sets, etc.)
     size_t size() const {
         if (type == PyType::String) {
             return std::get<std::string>(value).size();
         }
         if (type == PyType::List) {
             return std::get<std::vector<PyObject>>(value).size();
+        }
+        if (type == PyType::Set) {
+          return std::get<std::set<PyObject, PyObjectCompare>>(value).size();
         }
         throw std::runtime_error("TypeError: object of type '" + type_name() + "' has no len()");
     }
@@ -128,13 +162,11 @@ public:
             long long idx = index.to_int();
             const std::string& s = std::get<std::string>(value);
             long long size = static_cast<long long>(s.size());
-            
-            // Handle Python-style negative indexing
+
             if (idx < 0) {
                 idx += size;
             }
-            
-            // Bounds check with signed index
+
             if (idx < 0 || idx >= size) {
                 throw std::runtime_error("IndexError: string index out of range");
             }
@@ -145,13 +177,11 @@ public:
             long long idx = index.to_int();
             const auto& vec = std::get<std::vector<PyObject>>(value);
             long long size = static_cast<long long>(vec.size());
-            
-            // Handle Python-style negative indexing
+
             if (idx < 0) {
                 idx += size;
             }
-            
-            // Bounds check with signed index
+
             if (idx < 0 || idx >= size) {
                 throw std::runtime_error("IndexError: list index out of range");
             }
@@ -170,21 +200,111 @@ public:
             case PyType::Bool: return "bool";
             case PyType::String: return "str";
             case PyType::List: return "list";
+            case PyType::Set:
+              return "set";
         }
         return "unknown";
     }
 
-    // Arithmetic operators
+    // ==================== SET METHODS ====================
+
+    // Add element to set
+    void add(const PyObject& elem) {
+      if (type != PyType::Set) {
+        throw std::runtime_error("TypeError: '" + type_name() +
+                                 "' object has no attribute 'add'");
+      }
+      std::get<std::set<PyObject, PyObjectCompare>>(value).insert(elem);
+    }
+
+    // Remove element from set (raises error if not found)
+    void remove(const PyObject& elem) {
+      if (type != PyType::Set) {
+        throw std::runtime_error("TypeError: '" + type_name() +
+                                 "' object has no attribute 'remove'");
+      }
+      auto& s = std::get<std::set<PyObject, PyObjectCompare>>(value);
+      auto it = s.find(elem);
+      if (it == s.end()) {
+        throw std::runtime_error("KeyError: " + elem.to_string());
+      }
+      s.erase(it);
+    }
+
+    // Discard element from set (no error if not found)
+    void discard(const PyObject& elem) {
+      if (type != PyType::Set) {
+        throw std::runtime_error("TypeError: '" + type_name() +
+                                 "' object has no attribute 'discard'");
+      }
+      std::get<std::set<PyObject, PyObjectCompare>>(value).erase(elem);
+    }
+
+    // ==================== LIST METHODS ====================
+
+    // Append element to list
+    void append(const PyObject& elem) {
+      if (type != PyType::List) {
+        throw std::runtime_error("TypeError: '" + type_name() +
+                                 "' object has no attribute 'append'");
+      }
+      std::get<std::vector<PyObject>>(value).push_back(elem);
+    }
+
+    // Pop element from list by index (default: last element)
+    PyObject pop(long long idx = -1) {
+      if (type != PyType::List) {
+        throw std::runtime_error("TypeError: '" + type_name() +
+                                 "' object has no attribute 'pop'");
+      }
+      auto& vec = std::get<std::vector<PyObject>>(value);
+      long long size = static_cast<long long>(vec.size());
+
+      if (size == 0) {
+        throw std::runtime_error("IndexError: pop from empty list");
+      }
+
+      if (idx < 0) {
+        idx += size;
+      }
+
+      if (idx < 0 || idx >= size) {
+        throw std::runtime_error("IndexError: pop index out of range");
+      }
+
+      PyObject result = vec[static_cast<size_t>(idx)];
+      vec.erase(vec.begin() + idx);
+      return result;
+    }
+
+    // Get a reference to the underlying vector (for iteration in for loops)
+    const std::vector<PyObject>& get_list() const {
+      if (type != PyType::List) {
+        throw std::runtime_error("TypeError: cannot iterate over '" +
+                                 type_name() + "'");
+      }
+      return std::get<std::vector<PyObject>>(value);
+    }
+
+    // Get a reference to the underlying set (for iteration)
+    const std::set<PyObject, PyObjectCompare>& get_set() const {
+      if (type != PyType::Set) {
+        throw std::runtime_error("TypeError: cannot iterate over '" +
+                                 type_name() + "'");
+      }
+      return std::get<std::set<PyObject, PyObjectCompare>>(value);
+    }
+
+    // ==================== ARITHMETIC OPERATORS ====================
+
     PyObject operator+(const PyObject& other) const {
-        // String concatenation
-        if (type == PyType::String || other.type == PyType::String) {
-            return PyObject(to_string() + other.to_string());
-        }
-        // Numeric addition
-        if (type == PyType::Float || other.type == PyType::Float) {
-            return PyObject(to_float() + other.to_float());
-        }
-        return PyObject(to_int() + other.to_int());
+      if (type == PyType::String || other.type == PyType::String) {
+        return PyObject(to_string() + other.to_string());
+      }
+      if (type == PyType::Float || other.type == PyType::Float) {
+        return PyObject(to_float() + other.to_float());
+      }
+      return PyObject(to_int() + other.to_int());
     }
 
     PyObject operator-(const PyObject& other) const {
@@ -195,37 +315,34 @@ public:
     }
 
     PyObject operator*(const PyObject& other) const {
-        // String repetition
-        if (type == PyType::String && other.is_int()) {
-            std::string result;
-            long long count = other.to_int();
-            for (long long i = 0; i < count; i++) {
-                result += std::get<std::string>(value);
-            }
-            return PyObject(result);
+      if (type == PyType::String && other.is_int()) {
+        std::string result;
+        long long count = other.to_int();
+        for (long long i = 0; i < count; i++) {
+          result += std::get<std::string>(value);
         }
-        if (is_int() && other.type == PyType::String) {
-            std::string result;
-            long long count = to_int();
-            for (long long i = 0; i < count; i++) {
-                result += std::get<std::string>(other.value);
-            }
-            return PyObject(result);
+        return PyObject(result);
+      }
+      if (is_int() && other.type == PyType::String) {
+        std::string result;
+        long long count = to_int();
+        for (long long i = 0; i < count; i++) {
+          result += std::get<std::string>(other.value);
         }
-        // Numeric multiplication
-        if (type == PyType::Float || other.type == PyType::Float) {
-            return PyObject(to_float() * other.to_float());
-        }
-        return PyObject(to_int() * other.to_int());
+        return PyObject(result);
+      }
+      if (type == PyType::Float || other.type == PyType::Float) {
+        return PyObject(to_float() * other.to_float());
+      }
+      return PyObject(to_int() * other.to_int());
     }
 
     PyObject operator/(const PyObject& other) const {
-        // Always returns float in Python 3
-        double divisor = other.to_float();
-        if (divisor == 0.0) {
-            throw std::runtime_error("ZeroDivisionError: float division");
-        }
-        return PyObject(to_float() / divisor);
+      double divisor = other.to_float();
+      if (divisor == 0.0) {
+        throw std::runtime_error("ZeroDivisionError: float division");
+      }
+      return PyObject(to_float() / divisor);
     }
 
     PyObject operator%(const PyObject& other) const {
@@ -239,7 +356,6 @@ public:
         return PyObject(to_int() % other.to_int());
     }
 
-    // Floor division
     PyObject floor_div(const PyObject& other) const {
         if (type == PyType::Float || other.type == PyType::Float) {
             double divisor = other.to_float();
@@ -259,26 +375,31 @@ public:
         return PyObject(q);
     }
 
-    // Power
     PyObject pow(const PyObject& other) const {
         return PyObject(std::pow(to_float(), other.to_float()));
     }
 
-    // Comparison operators
+    // ==================== COMPARISON OPERATORS ====================
+
     bool operator==(const PyObject& other) const {
-        if (type != other.type) {
-            // Try numeric comparison
-            if ((is_int() || is_float()) && (other.is_int() || other.is_float())) {
-                return to_float() == other.to_float();
-            }
-            return false;
+      if (type != other.type) {
+        if ((is_int() || is_float()) && (other.is_int() || other.is_float())) {
+          return to_float() == other.to_float();
         }
+        return false;
+      }
         switch (type) {
             case PyType::None: return true;
             case PyType::Int: return std::get<long long>(value) == std::get<long long>(other.value);
             case PyType::Float: return std::get<double>(value) == std::get<double>(other.value);
             case PyType::Bool: return std::get<bool>(value) == std::get<bool>(other.value);
             case PyType::String: return std::get<std::string>(value) == std::get<std::string>(other.value);
+            case PyType::List:
+              return std::get<std::vector<PyObject>>(value) ==
+                     std::get<std::vector<PyObject>>(other.value);
+            case PyType::Set:
+              return std::get<std::set<PyObject, PyObjectCompare>>(value) ==
+                     std::get<std::set<PyObject, PyObjectCompare>>(other.value);
         }
         return false;
     }
@@ -309,7 +430,8 @@ public:
         return !(*this < other);
     }
 
-    // Logical operators (use truthiness)
+    // ==================== LOGICAL OPERATORS ====================
+
     bool operator&&(const PyObject& other) const {
         return to_bool() && other.to_bool();
     }
@@ -322,7 +444,8 @@ public:
         return !to_bool();
     }
 
-    // Unary operators
+    // ==================== UNARY OPERATORS ====================
+
     PyObject operator-() const {
         if (type == PyType::Float) {
             return PyObject(-std::get<double>(value));
@@ -334,14 +457,6 @@ public:
         return *this;
     }
 
-    // Get a reference to the underlying vector (for iteration in for loops)
-    const std::vector<PyObject>& get_list() const {
-        if (type != PyType::List) {
-            throw std::runtime_error("TypeError: cannot iterate over '" + type_name() + "'");
-        }
-        return std::get<std::vector<PyObject>>(value);
-    }
-
     // Output operator
     friend std::ostream& operator<<(std::ostream& os, const PyObject& obj) {
         os << obj.to_string();
@@ -349,17 +464,32 @@ public:
     }
 };
 
-// Global floor_div function for compatibility
+// Implementation of comparator (must be after PyObject is fully defined)
+inline bool PyObjectCompare::operator()(const PyObject& a,
+                                        const PyObject& b) const {
+  // Compare by type first, then by value
+  if (a.get_type() != b.get_type()) {
+    return static_cast<int>(a.get_type()) < static_cast<int>(b.get_type());
+  }
+  // For same types, use the < operator
+  try {
+    return a < b;
+  } catch (...) {
+    // Fallback: compare string representations
+    return a.to_string() < b.to_string();
+  }
+}
+
+// ==================== GLOBAL HELPER FUNCTIONS ====================
+
 inline PyObject floor_div(const PyObject& a, const PyObject& b) {
     return a.floor_div(b);
 }
 
-// Global pow function
 inline PyObject py_pow(const PyObject& a, const PyObject& b) {
     return a.pow(b);
 }
 
-// Helper for len()
 inline size_t len(const PyObject& obj) {
     return obj.size();
 }

@@ -89,6 +89,22 @@ class Transpiler:
 
         return ast.accept(self)
 
+    def visit_SetNode(self, n):
+        """Handle set literals like {'a', 'b', 'c'}"""
+        if not n.elements:
+            return "set<PyObject, PyObjectCompare>{}"
+
+        # Convert all elements
+        elements = [elem.accept(self) for elem in n.elements]
+        elements_str = ", ".join(elements)
+
+        return f"set<PyObject, PyObjectCompare>{{{elements_str}}}"
+
+    def visit_AttributeAccessNode(self, n):
+        """Handle attribute access like obj.attr"""
+        base = n.base.accept(self)
+        return f"{base}.{n.attribute}"
+
     def visit_ProgramNode(self, n):
         # Include PyObject header
         self.emit('#include "PyObject.hpp"')
@@ -98,12 +114,12 @@ class Transpiler:
         self.emit('#include <tuple>')
         self.emit("using namespace std;")
         self.emit("")
-        
+
         # Primero emitir funciones
         for stmt in n.statements:
             if isinstance(stmt, FuncDefNode):
                 stmt.accept(self)
-        
+
         # Luego el main con el resto
         self.emit("int main() {")
         self.indent += 1
@@ -198,19 +214,19 @@ class Transpiler:
             return f"py_pow({left}, {right})"
         if n.op == "//" or n.op == "floordiv":
             return f"floor_div({left}, {right})"
-        
+
         # Logical operators (and/or)
         if n.op in ("and", "or"):
             cpp_op = "&&" if n.op == "and" else "||"
             # Check if operands are already boolean expressions (comparisons)
             left_needs_convert = not self._is_comparison_expr(n.left)
             right_needs_convert = not self._is_comparison_expr(n.right)
-            
+
             left_expr = f"({left}).to_bool()" if left_needs_convert else left
             right_expr = f"({right}).to_bool()" if right_needs_convert else right
-            
+
             return f"({left_expr} {cpp_op} {right_expr})"
-        
+
         # All other operators work directly on PyObject
         return f"({left} {n.op} {right})"
 
@@ -243,6 +259,36 @@ class Transpiler:
         return f"{base}[{index}]"
 
     def visit_CallNode(self, n):
+        # Handle method calls on objects (e.g., materias.add("x"), lista.append(1))
+        # Check BEFORE calling accept() on callee
+        if isinstance(n.callee, AttributeAccessNode):
+            base = n.callee.base.accept(self)
+            method = n.callee.attribute
+            args = ", ".join(arg.accept(self) for arg in n.args) if n.args else ""
+
+            # Set methods
+            if method == "add":
+                self.emit(f"{base}.add({args});")
+                return ""
+            elif method == "remove":
+                self.emit(f"{base}.remove({args});")
+                return ""
+            elif method == "discard":
+                self.emit(f"{base}.discard({args});")
+                return ""
+            # List methods
+            elif method == "append":
+                self.emit(f"{base}.append({args});")
+                return ""
+            elif method == "pop":
+                if args:
+                    return f"{base}.pop({args})"
+                else:
+                    return f"{base}.pop()"
+            # Generic method call
+            else:
+                return f"{base}.{method}({args})"
+
         callee = n.callee.accept(self)
         args = ", ".join(arg.accept(self) for arg in n.args) if n.args else ""
 
@@ -272,13 +318,13 @@ class Transpiler:
     def visit_IfNode(self, n):
         # PyObject has truthiness built-in via to_bool()
         cond_expr = n.condition.accept(self)
-        
+
         # Solo aplicar .to_bool() si no ya está convertido a bool por UnaryOp o Comparison
         if self._already_bool_expr(n.condition):
             condition_check = cond_expr
         else:
             condition_check = f"({cond_expr}).to_bool()"
-        
+
         self.emit(f"if ({condition_check}) {{")
         self.indent += 1
         if isinstance(n.then_body, list):
@@ -341,13 +387,13 @@ class Transpiler:
     def visit_WhileNode(self, n):
         """Handle while loops"""
         cond_expr = n.condition.accept(self)
-        
+
         # Solo aplicar .to_bool() si no ya está convertido a bool
         if self._already_bool_expr(n.condition):
             condition_check = cond_expr
         else:
             condition_check = f"({cond_expr}).to_bool()"
-        
+
         self.emit(f"while ({condition_check}) {{")
         self.indent += 1
         n.body.accept(self)
@@ -425,6 +471,6 @@ class Transpiler:
                isinstance(node, BinaryOpNode) and node.op in ("and", "or")
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/test_list.py"
+    file_path = "transpiler_tests/set_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
