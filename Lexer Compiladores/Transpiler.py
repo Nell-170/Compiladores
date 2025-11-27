@@ -420,6 +420,6 @@ class Transpiler:
                isinstance(node, BinaryOpNode) and node.op in ("and", "or")
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/test_working.py"
+    file_path = "transpiler_tests/teacher_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)

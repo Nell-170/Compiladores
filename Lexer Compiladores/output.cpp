@@ -5,56 +5,42 @@
 #include <tuple>
 using namespace std;
 
-PyObject add(PyObject a, PyObject b) {
+PyObject hola(PyObject a, PyObject b) {
     return (a + b);
 }
 PyObject fib(PyObject n) {
-    if ((n <= 0)) {
-        return PyObject(0);
-    }
     if (((n == 1) || (n == 2))) {
         return PyObject(1);
+    } else {
+        return (fib((n - 1)) + fib((n - 2)));
     }
-    return (fib((n - 1)) + fib((n - 2)));
 }
 int main() {
-    cout << add(1, 2) << endl;
-    cout << add("hello", "world") << endl;
+    cout << hola(1, 2) << endl;
     cout << fib(5) << endl;
-    PyObject s = "hello";
-    cout << s << endl;
-    cout << len(s) << endl;
-    cout << s[0] << endl;
-    cout << (s * 2) << endl;
-    PyObject x = 42;
-    cout << x << endl;
-    x = "world";
-    cout << x << endl;
-    x = 3.14;
-    cout << x << endl;
     PyObject a = 4;
+    cout << a << endl;
     PyObject b = 5;
-    PyObject result = ((a).to_string() + (b).to_string());
-    cout << result << endl;
-    cout << "Loop test:" << endl;
-    for (PyObject i = 0; (i).to_int() < PyObject(5).to_int(); i = PyObject((i).to_int() + 1)) {
-        cout << i << endl;
+    a = "hola";
+    b = (a + ((b).to_string()));
+    cout << b << endl;
+    a = vector<PyObject>{1, "hola", map<PyObject, PyObject>{{"z", 1}, {"x", "ECCI"}}, vector<PyObject>{1, 2, 3, 4}, make_tuple(1, 2, 3, 4)};
+    cout << a << endl;
+    cout << "Fibonacci" << endl;
+    for (PyObject i = 0; (i).to_int() < PyObject((len(a) - 1)).to_int(); i = PyObject((i).to_int() + 1)) {
+        cout << a[i] << endl;
     }
-    if ((s).to_bool()) {
-        cout << "String is truthy" << endl;
+    for (auto e : a[3]) {
+        cout << e << endl;
     }
-    PyObject empty = "";
-    if (!(empty).to_bool()) {
-        cout << "Empty string is falsy" << endl;
+    a = 5;
+    b = 10;
+    while ((a < b)) {
+        cout << fib((b - 5)) << endl;
+        PyObject c = b;
+        b = "hola";
+        b = (c - 2);
     }
-    if ((a < b)) {
-        cout << "4 < 5" << endl;
-    }
-    PyObject counter = 0;
-    while ((counter < 3)) {
-        cout << counter << endl;
-        counter = (counter + 1);
-    }
-    cout << "All tests passed!" << endl;
+    cout << "Si printeo mis probabilidades de graduarme suben :)" << endl;
     return 0;
 }

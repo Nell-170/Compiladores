@@ -9,7 +9,6 @@ def fib(n):
         return fib(n-1) + fib(n-2)
 print (fib(5))
 
-
 a = 4
 print(a)
 b = 5
@@ -23,10 +22,10 @@ print("Fibonacci")
 
 for i in range(len(a)-1):
     print(a[i])
-    
+
 for e in a[3]:
     print (e)
-    
+
 a=5
 b=10
 while a < b:
