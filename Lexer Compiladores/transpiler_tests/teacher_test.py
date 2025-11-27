@@ -13,15 +13,17 @@ print (fib(5))
 a = 4
 print(a)
 b = 5
+a = "hola"
 b = a + (str(b))
 print(b)
 
+a = [1, "hola", {"z": 1, "x": "ECCI"}, [1,2,3,4], (1,2,3,4)]
 print(a)
 print("Fibonacci")
 
 for i in range(len(a)-1):
     print(a[i])
-
+    
 for e in a[3]:
     print (e)
     
