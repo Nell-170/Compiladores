@@ -28,7 +28,7 @@ int main() {
     PyObject s = "hello";
     cout << s << endl;
     cout << len(s) << endl;
-    cout << s[0] << endl;
+    cout << (static_cast<const PyObject&>(s))[0] << endl;
     cout << (s * 2) << endl;
     PyObject x = 42;
     cout << x << endl;

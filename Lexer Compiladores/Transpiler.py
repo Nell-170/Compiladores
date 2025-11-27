@@ -221,6 +221,13 @@ class Transpiler:
         target = n.target
         rhs = n.value.accept(self)
 
+        if isinstance(target, IndexAccessNode):
+            base_cpp = target.base.accept(self)
+            index_cpp = target.index.accept(self)
+            lhs = self._format_index_access(base_cpp, index_cpp, readonly=False)
+            self.emit(f"{lhs} = {rhs};")
+            return
+
         if isinstance(target, IdentifierNode):
             var_name = target.name
 
@@ -264,7 +271,13 @@ class Transpiler:
             self.emit("return PyObject();")  # Return None
 
     def visit_AugAssignmentNode(self, n):
-        t = n.target.accept(self)
+        target_node = n.target
+        if isinstance(target_node, IndexAccessNode):
+            base_cpp = target_node.base.accept(self)
+            index_cpp = target_node.index.accept(self)
+            t = self._format_index_access(base_cpp, index_cpp, readonly=False)
+        else:
+            t = target_node.accept(self)
         r = n.value.accept(self)
         op = n.op
         if op == "**=":
@@ -378,7 +391,7 @@ class Transpiler:
     def visit_IndexAccessNode(self, n):
         base = n.base.accept(self)
         index = n.index.accept(self)
-        return f"{base}[{index}]"
+        return self._format_index_access(base, index, readonly=True)
 
     def visit_SliceAccessNode(self, n):
         base_expr = f"({n.base.accept(self)})"
@@ -582,6 +595,14 @@ class Transpiler:
         # For now, almost everything is PyObject
         return "PyObject"
 
+    def _format_index_access(
+        self, base_cpp: str, index_cpp: str, readonly: bool
+    ) -> str:
+        """Format index usage, forcing const access when read-only."""
+        if readonly:
+            return f"(static_cast<const PyObject&>({base_cpp}))[{index_cpp}]"
+        return f"({base_cpp})[{index_cpp}]"
+
     def _convert_to_bool(self, node, cpp_expr):
         """
         Convert an expression to bool for use in conditions.
@@ -632,6 +653,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/test_working.py"
+    file_path = "transpiler_tests/dict_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)

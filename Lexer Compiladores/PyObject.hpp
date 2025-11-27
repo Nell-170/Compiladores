@@ -233,8 +233,17 @@ class PyObject {
     }
   }
 
-  // ===== Indexación SOLO LECTURA (strings, lists, tuples, dicts) =====
   PyObject operator[](const PyObject& index) const {
+    if (type == PyType::Dict) {
+      const auto& m =
+          std::get<std::map<PyObject, PyObject, PyObjectCompare>>(value);
+      auto it = m.find(index);
+      if (it == m.end()) {
+        throw std::runtime_error("KeyError: " + index.to_string());
+      }
+      return it->second;
+    }
+
     long long idx = index.to_int();
 
     if (type == PyType::String) {
@@ -252,30 +261,43 @@ class PyObject {
       long long sz = static_cast<long long>(vec.size());
       if (idx < 0) idx += sz;
       if (idx < 0 || idx >= sz) {
-        throw std::runtime_error("IndexError: list index out of range");
+        std::string msg = (type == PyType::List)
+                              ? "IndexError: list index out of range"
+                              : "IndexError: tuple index out of range";
+        throw std::runtime_error(msg);
       }
       return vec[static_cast<size_t>(idx)];
-    }
-
-    if (type == PyType::Dict) {
-      const auto& m =
-          std::get<std::map<PyObject, PyObject, PyObjectCompare>>(value);
-      auto it = m.find(index);
-      if (it == m.end()) {
-        throw std::runtime_error("KeyError: " + index.to_string());
-      }
-      return it->second;
     }
 
     throw std::runtime_error("TypeError: '" + type_name() +
                              "' object is not subscriptable");
   }
 
-  // ===== Versión no const que reutiliza la const (solo lectura) =====
-  // Esto permite hacer s[0] aunque 's' no sea const, pero NO permite
-  // usar s[0] como lvalue (no puedes hacer s[0] = algo).
-  PyObject operator[](const PyObject& index) {
-    return static_cast<const PyObject&>(*this)[index];
+  PyObject& operator[](const PyObject& index) {
+    if (type == PyType::List) {
+      auto& vec = std::get<std::vector<PyObject>>(value);
+      long long idx = index.to_int();
+      long long sz = static_cast<long long>(vec.size());
+      if (idx < 0) idx += sz;
+      if (idx < 0 || idx >= sz) {
+        throw std::runtime_error(
+            "IndexError: list assignment index out of range");
+      }
+      return vec[static_cast<size_t>(idx)];
+    }
+
+    if (type == PyType::Dict) {
+      auto& m = std::get<std::map<PyObject, PyObject, PyObjectCompare>>(value);
+      auto it = m.find(index);
+      if (it == m.end()) {
+        auto inserted = m.emplace(index, PyObject());
+        return inserted.first->second;
+      }
+      return it->second;
+    }
+
+    throw std::runtime_error("TypeError: '" + type_name() +
+                             "' object does not support item assignment");
   }
 
   // Helper to get type name for error messages
