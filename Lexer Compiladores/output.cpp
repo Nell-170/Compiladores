@@ -9,10 +9,10 @@ PyObject add(PyObject a, PyObject b) {
     return (a + b);
 }
 PyObject fib(PyObject n) {
-    if (((n <= 0)).to_bool()) {
+    if ((n <= 0)) {
         return PyObject(0);
     }
-    if ((((n == 1) || (n == 2))).to_bool()) {
+    if (((n == 1) || (n == 2))) {
         return PyObject(1);
     }
     return (fib((n - 1)) + fib((n - 2)));
@@ -44,14 +44,14 @@ int main() {
         cout << "String is truthy" << endl;
     }
     PyObject empty = "";
-    if ((!(empty).to_bool()).to_bool()) {
+    if (!(empty).to_bool()) {
         cout << "Empty string is falsy" << endl;
     }
-    if (((a < b)).to_bool()) {
+    if ((a < b)) {
         cout << "4 < 5" << endl;
     }
     PyObject counter = 0;
-    while (((counter < 3)).to_bool()) {
+    while ((counter < 3)) {
         cout << counter << endl;
         counter = (counter + 1);
     }

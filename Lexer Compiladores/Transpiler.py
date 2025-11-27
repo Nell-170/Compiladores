@@ -273,7 +273,13 @@ class Transpiler:
         # PyObject has truthiness built-in via to_bool()
         cond_expr = n.condition.accept(self)
         
-        self.emit(f"if (({cond_expr}).to_bool()) {{")
+        # Solo aplicar .to_bool() si no ya está convertido a bool por UnaryOp o Comparison
+        if self._already_bool_expr(n.condition):
+            condition_check = cond_expr
+        else:
+            condition_check = f"({cond_expr}).to_bool()"
+        
+        self.emit(f"if ({condition_check}) {{")
         self.indent += 1
         if isinstance(n.then_body, list):
             for s in n.then_body: s.accept(self)
@@ -284,7 +290,11 @@ class Transpiler:
         if n.elif_clauses:
             for elif_node in n.elif_clauses:
                 cond_expr = elif_node.condition.accept(self)
-                self.emit(f"}} else if (({cond_expr}).to_bool()) {{")
+                if self._already_bool_expr(elif_node.condition):
+                    condition_check = cond_expr
+                else:
+                    condition_check = f"({cond_expr}).to_bool()"
+                self.emit(f"}} else if ({condition_check}) {{")
                 self.indent += 1
                 if isinstance(elif_node.body, list):
                     for s in elif_node.body: s.accept(self)
@@ -327,7 +337,13 @@ class Transpiler:
         """Handle while loops"""
         cond_expr = n.condition.accept(self)
         
-        self.emit(f"while (({cond_expr}).to_bool()) {{")
+        # Solo aplicar .to_bool() si no ya está convertido a bool
+        if self._already_bool_expr(n.condition):
+            condition_check = cond_expr
+        else:
+            condition_check = f"({cond_expr}).to_bool()"
+        
+        self.emit(f"while ({condition_check}) {{")
         self.indent += 1
         n.body.accept(self)
         self.indent -= 1
@@ -393,6 +409,15 @@ class Transpiler:
         Check if a node represents a comparison expression that already returns bool.
         """
         return isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode)
+
+    def _already_bool_expr(self, node):
+        """
+        Check if an expression already returns a bool value (no need to call .to_bool()).
+        """
+        return isinstance(node, UnaryOpNode) and node.op == "not" or \
+               isinstance(node, ComparisonNode) or \
+               isinstance(node, ChainedComparisonNode) or \
+               isinstance(node, BinaryOpNode) and node.op in ("and", "or")
 
 if __name__ == "__main__":
     file_path = "transpiler_tests/test_working.py"
