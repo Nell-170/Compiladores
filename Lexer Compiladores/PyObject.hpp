@@ -38,6 +38,7 @@ class PyObject {
   PyObject(long long v) : type(PyType::Int), value(v) {}
   PyObject(double v) : type(PyType::Float), value(v) {}
   PyObject(bool v) : type(PyType::Bool), value(v) {}
+  PyObject(size_t v) : type(PyType::Int), value(static_cast<long long>(v)) {}
   PyObject(const char* v) : type(PyType::String), value(std::string(v)) {}
   PyObject(const std::string& v) : type(PyType::String), value(v) {}
 
@@ -57,6 +58,20 @@ class PyObject {
       : type(PyType::Dict), value(m) {}
   PyObject(std::map<PyObject, PyObject, PyObjectCompare>&& m)
       : type(PyType::Dict), value(std::move(m)) {}
+
+  static PyObject from_tuple(const std::vector<PyObject>& elems) {
+    PyObject obj;
+    obj.type = PyType::Tuple;
+    obj.value = elems;
+    return obj;
+  }
+
+  static PyObject from_tuple(std::vector<PyObject>&& elems) {
+    PyObject obj;
+    obj.type = PyType::Tuple;
+    obj.value = std::move(elems);
+    return obj;
+  }
 
   // Type checking
   PyType get_type() const { return type; }

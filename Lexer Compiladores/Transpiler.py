@@ -103,7 +103,7 @@ class Transpiler:
 
     def _remove_timer_lines(self, code: str) -> str:
         """Remover las líneas relacionadas al cronómetro en Python"""
-        lines = code.split('\n')
+        lines = code.split("\n")
         result = []
         i = 0
         while i < len(lines):
@@ -142,7 +142,7 @@ class Transpiler:
             result.append(line)
             i += 1
 
-        return '\n'.join(result)
+        return "\n".join(result)
 
     def visit_SetNode(self, n):
         """Handle set literals like {'a', 'b', 'c'}"""
@@ -201,7 +201,9 @@ class Transpiler:
             self.emit("auto fin = std::chrono::high_resolution_clock::now();")
             self.emit("")
             self.emit("// Calcular la duración")
-            self.emit("auto duracion = std::chrono::duration_cast<std::chrono::microseconds>(fin - inicio);")
+            self.emit(
+                "auto duracion = std::chrono::duration_cast<std::chrono::microseconds>(fin - inicio);"
+            )
             self.emit("")
             self.emit(
                 'cout << "\\nTiempo de ejecucion: " << duracion.count() << " microsegundos" << endl;'
@@ -507,13 +509,8 @@ class Transpiler:
             # Alternativa no probada al 100%:
             # self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < {limit}; {target} = PyObject(({target}).to_int() + 1)) {{")
         else:
-            # Para iterar sobre PyObject con listas, usa .get_list()
-            if isinstance(n.iterable, IdentifierNode):
-                # Es una variable, probablemente un PyObject con lista
-                self.emit(f"for (auto {target} : ({iterable_str}).get_list()) {{")
-            else:
-                # Es una expresión, asume que es un vector literal
-                self.emit(f"for (auto {target} : {iterable_str}) {{")
+            # Para iterar sobre cualquier PyObject iterable, usa .get_list()
+            self.emit(f"for (auto {target} : ({iterable_str}).get_list()) {{")
 
         self.indent += 1
         n.body.accept(self)
@@ -567,14 +564,9 @@ class Transpiler:
     # TODO(milton): implementar wrapping para DictNode y TupleNode
     def visit_TupleNode(self, n):
         """Handle tuple literals like (1, 2, 3)"""
-        if not n.elements:
-            return "tuple<>{}"
-
-        elements = [elem.accept(self) for elem in n.elements]
+        elements = [elem.accept(self) for elem in n.elements] if n.elements else []
         elements_str = ", ".join(elements)
-
-        # Use tuple with PyObject
-        return f"make_tuple({elements_str})"
+        return f"PyObject::from_tuple(std::vector<PyObject>{{{elements_str}}})"
 
     def _is_defined(self, name: str) -> bool:
         return name in self.symbols
@@ -606,10 +598,12 @@ class Transpiler:
         """
         Check if an expression already returns a bool value (no need to call .to_bool()).
         """
-        return (isinstance(node, UnaryOpNode) and node.op == "not") or \
-               isinstance(node, ComparisonNode) or \
-               isinstance(node, ChainedComparisonNode) or \
-               (isinstance(node, BinaryOpNode) and node.op in ("and", "or"))
+        return (
+            (isinstance(node, UnaryOpNode) and node.op == "not")
+            or isinstance(node, ComparisonNode)
+            or isinstance(node, ChainedComparisonNode)
+            or (isinstance(node, BinaryOpNode) and node.op in ("and", "or"))
+        )
 
     def _returns_bool(self, node):
         """
@@ -635,6 +629,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/dict_test.py"
+    file_path = "transpiler_tests/teacher_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
