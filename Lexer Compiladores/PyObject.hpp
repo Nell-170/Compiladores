@@ -367,6 +367,26 @@ inline PyObject py_or(const PyObject& left, const PyObject& right) {
     return right;
 }
 
+/**
+ * Hash consistency violation: equal objects must have equal hashes.
+
+operator== treats PyObject(1) (Int) and PyObject(1.0) (Float) as equal via numeric comparison, but PyObjectHash produces different hashes for them (std::hash<long long>(1) vs std::hash<double>(1.0)). This violates the hash contract required by std::unordered_map and will cause incorrect lookups.
+
+Consider normalizing numeric types before hashing, or restricting cross-type equality:
+
+ struct PyObjectHash {
+     size_t operator()(const PyObject& obj) const {
+         switch (obj.get_type()) {
+             case PyType::None: return 0x9e3779b97f4a7c15ULL;
+-            case PyType::Int: return std::hash<long long>()(obj.to_int());
+-            case PyType::Float: return std::hash<double>()(obj.to_float());
++            case PyType::Int:
++            case PyType::Float:
++                // Hash as double for consistency with cross-type equality
++                return std::hash<double>()(obj.to_float());
+             case PyType::Bool: return std::hash<bool>()(obj.to_bool());
+Additionally, Python tuples are hashable (if their contents are hashable). Consider supporting PyType::Tuple in the hash function if you want full Python semantics.
+ */
 // Hash and equality functors for unordered_map keys
 struct PyObjectHash {
     size_t operator()(const PyObject& obj) const {
