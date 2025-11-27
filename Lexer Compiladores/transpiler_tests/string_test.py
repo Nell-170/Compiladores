@@ -21,4 +21,4 @@ print(greeting)
 # Detener el cronómetro
 fin = time.time()
 duracion = (fin - inicio) * 1000  # convertir a milisegundos
-print(f"\nTiempo de ejecución: {duracion:.4f} milisegundos")
+print(f"\nTiempo de ejecucion: {duracion:.4f} milisegundos")

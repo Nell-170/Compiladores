@@ -1,6 +1,6 @@
 """
 Emmanuel
-TODO: Arreglar problemas de compilación y ejecución
+TODO: Arreglar problemas de compilación y ejecucion
 
 Milton
 TODO: Cosas que el profe dijo que había que considerar
@@ -83,7 +83,7 @@ class Transpiler:
 
         # Detectar si hay cronómetro (import time + inicio = time.time())
         self.use_timer = "import time" in code and "inicio = time.time()" in code
-        
+
         # Si hay cronómetro, limpiar el código para remover las líneas del cronómetro en Python
         if self.use_timer:
             code = self._remove_timer_lines(code)
@@ -109,36 +109,39 @@ class Transpiler:
         while i < len(lines):
             line = lines[i]
             stripped = line.strip()
-            
+
             # Saltar import time
             if stripped == "import time":
                 i += 1
                 continue
-            
+
             # Saltar inicio = time.time()
             if "inicio = time.time()" in stripped:
                 i += 1
                 continue
-            
+
             # Saltar las líneas de fin del cronómetro (desde fin = time.time() hasta el print final)
             if "fin = time.time()" in stripped:
                 # Saltar hasta encontrar una línea que no sea parte del cronómetro
                 # (que no sea comentario, asignación de duracion, o print de tiempo)
                 while i < len(lines):
                     current_line = lines[i].strip()
-                    if (current_line.startswith("fin = ") or 
-                        current_line.startswith("duracion = ") or
-                        current_line.startswith("print(") and "Tiempo de ejecución" in current_line or
-                        current_line.startswith("# Detener") or
-                        current_line.startswith("# Calcular")):
+                    if (
+                        current_line.startswith("fin = ")
+                        or current_line.startswith("duracion = ")
+                        or current_line.startswith("print(")
+                        and "Tiempo de ejecucion" in current_line
+                        or current_line.startswith("# Detener")
+                        or current_line.startswith("# Calcular")
+                    ):
                         i += 1
                     else:
                         break
                 continue
-            
+
             result.append(line)
             i += 1
-        
+
         return '\n'.join(result)
 
     def visit_SetNode(self, n):
@@ -164,11 +167,11 @@ class Transpiler:
         self.emit("#include <vector>")
         self.emit("#include <map>")
         self.emit("#include <tuple>")
-        
+
         # Incluir chrono solo si se necesita cronómetro
         if self.use_timer:
             self.emit("#include <chrono>")
-        
+
         self.emit("using namespace std;")
         self.emit("")
 
@@ -180,17 +183,17 @@ class Transpiler:
         # Luego el main con el resto
         self.emit("int main() {")
         self.indent += 1
-        
+
         # Emitir inicio del cronómetro si es necesario
         if self.use_timer:
             self.emit("// Iniciar el cronómetro")
             self.emit("auto inicio = std::chrono::high_resolution_clock::now();")
             self.emit("")
-        
+
         for stmt in n.statements:
             if not isinstance(stmt, FuncDefNode):
                 stmt.accept(self)
-        
+
         # Emitir final del cronómetro si es necesario
         if self.use_timer:
             self.emit("")
@@ -200,9 +203,13 @@ class Transpiler:
             self.emit("// Calcular la duración")
             self.emit("auto duracion = std::chrono::duration_cast<std::chrono::microseconds>(fin - inicio);")
             self.emit("")
-            self.emit('cout << "\\nTiempo de ejecución: " << duracion.count() << " microsegundos" << endl;')
-            self.emit('cout << "Tiempo de ejecución: " << duracion.count() / 1000.0 << " milisegundos" << endl;')
-        
+            self.emit(
+                'cout << "\\nTiempo de ejecucion: " << duracion.count() << " microsegundos" << endl;'
+            )
+            self.emit(
+                'cout << "Tiempo de ejecucion: " << duracion.count() / 1000.0 << " milisegundos" << endl;'
+            )
+
         self.emit("return 0;")
         self.indent -= 1
         self.emit("}")
@@ -544,18 +551,18 @@ class Transpiler:
     # TODO(milton): implementar wrapping para DictNode y TupleNode
     def visit_DictNode(self, n):
         """Handle dictionary literals like {'a': 1, 'b': 2}"""
+        map_type = "std::map<PyObject, PyObject, PyObjectCompare>"
         if not n.pairs:
-            return "map<PyObject, PyObject>{}"
+            return f"PyObject({map_type}{{}})"
 
-        # Convert key-value pairs
         pairs = []
         for key, value in n.pairs:
-            key_str = key.accept(self)
-            val_str = value.accept(self)
-            pairs.append(f"{{{key_str}, {val_str}}}")
+            key_cpp = key.accept(self)
+            value_cpp = value.accept(self)
+            pairs.append(f"{{{key_cpp}, {value_cpp}}}")
 
         pairs_str = ", ".join(pairs)
-        return f"map<PyObject, PyObject>{{{pairs_str}}}"
+        return f"PyObject({map_type}{{{pairs_str}}})"
 
     # TODO(milton): implementar wrapping para DictNode y TupleNode
     def visit_TupleNode(self, n):
@@ -628,6 +635,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/teacher_test.py"
+    file_path = "transpiler_tests/dict_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)

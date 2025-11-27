@@ -72,8 +72,8 @@ int main() {
     // Calcular la duración
     auto duracion = std::chrono::duration_cast<std::chrono::microseconds>(fin - inicio);
     
-    std::cout << "\nTiempo de ejecución: " << duracion.count() << " microsegundos" << std::endl;
-    std::cout << "Tiempo de ejecución: " << duracion.count() / 1000.0 << " milisegundos" << std::endl;
+    std::cout << "\nTiempo de ejecucion: " << duracion.count() << " microsegundos" << std::endl;
+    std::cout << "Tiempo de ejecucion: " << duracion.count() / 1000.0 << " milisegundos" << std::endl;
 
     return 0;
 }
