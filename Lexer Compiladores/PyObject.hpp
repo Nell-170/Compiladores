@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
+#include <stddef.h>
 #include <vector>
 #include <map>
 
@@ -20,7 +21,7 @@ enum class PyType {
 class PyObject {
 private:
     PyType type;
-    std::variant<std::monostate, long long, double, bool, std::string> value;
+    std::variant<std::monostate, long long, double, bool, /*std::ssize_t,*/ std::string> value;
 
 public:
     // Constructors
@@ -98,12 +99,21 @@ public:
     // Indexing support (for strings)
     PyObject operator[](const PyObject& index) const {
         if (type == PyType::String) {
-            size_t idx = index.to_int();
+            long long idx = index.to_int();
             const std::string& s = std::get<std::string>(value);
-            if (idx >= s.size()) {
+            long long size = static_cast<long long>(s.size());
+            
+            // Handle Python-style negative indexing
+            if (idx < 0) {
+                idx += size;
+            }
+            
+            // Bounds check with signed index
+            if (idx < 0 || idx >= size) {
                 throw std::runtime_error("IndexError: string index out of range");
             }
-            return PyObject(std::string(1, s[idx]));
+            
+            return PyObject(std::string(1, s[static_cast<size_t>(idx)]));
         }
         throw std::runtime_error("TypeError: '" + type_name() + "' object is not subscriptable");
     }

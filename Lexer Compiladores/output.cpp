@@ -37,7 +37,7 @@ int main() {
     PyObject result = ((a).to_string() + (b).to_string());
     cout << result << endl;
     cout << "Loop test:" << endl;
-    for (PyObject i = 0; (i).to_int() < (5).to_int(); i = PyObject((i).to_int() + 1)) {
+    for (PyObject i = 0; (i).to_int() < PyObject(5).to_int(); i = PyObject((i).to_int() + 1)) {
         cout << i << endl;
     }
     if ((s).to_bool()) {

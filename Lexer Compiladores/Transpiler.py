@@ -313,7 +313,7 @@ class Transpiler:
             limit = iterable_str.replace("__RANGE__", "").replace("__", "")
             # Generar for tradicional de C++ con PyObject
             # Use proper PyObject increment
-            self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < ({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{")
+            self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < PyObject({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{")
         else:
             # Range-based for normal
             self.emit(f"for (auto {target} : {iterable_str}) {{")
