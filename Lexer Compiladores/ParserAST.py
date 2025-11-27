@@ -326,8 +326,7 @@ class Parser:
                       | return_stmt
                       | pass_stmt
                       | break_stmt
-                      | continue_stmt
-                      | print_stmt"""
+                      | continue_stmt"""
         p[0] = p[1]
 
     # ----- TARGET LIST (para unpacking) -----
@@ -360,17 +359,6 @@ class Parser:
             p[0] = TargetListNode([p[2]])
         else:
             p[0] = p[1]
-
-    # ----- SENTENCIA PRINT -----
-    def p_print_stmt(self, p):
-        """print_stmt : PRINT LPAREN expr_list_plain_opt RPAREN
-                      | PRINT LPAREN RPAREN"""
-        if len(p) == 5:
-            node = PrintNode(p[3])
-            p[0] = self._setpos(node, p, 1)
-        else:
-            node = PrintNode([])
-            p[0] = self._setpos(node, p, 1)
 
     # ----- BLOQUE TRY-EXCEPT -----
     def p_try_stmt(self, p):

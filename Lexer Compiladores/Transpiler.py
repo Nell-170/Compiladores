@@ -65,8 +65,14 @@ class Transpiler:
         self.out = []
         self.indent = 0
         self.symbols = symbols or {}
+        self.temp_counter = 0
 
     def emit(self, s): self.out.append("    " * self.indent + s)
+    
+    def fresh_temp(self) -> str:
+        """Generate a unique temporary variable name."""
+        self.temp_counter += 1
+        return f"__tmp_{self.temp_counter}"
 
     def transpile_file(self, file_path: str):
         """Parse a Python file and transpile it to C++."""
@@ -94,7 +100,7 @@ class Transpiler:
         self.emit('#include "PyObject.hpp"')
         self.emit('#include <iostream>')
         self.emit('#include <vector>')
-        self.emit('#include <map>')
+        self.emit('#include <unordered_map>')
         self.emit('#include <tuple>')
         self.emit("using namespace std;")
         self.emit("")
@@ -251,21 +257,35 @@ class Transpiler:
         Parser gives us:
             left  = a
             chain = [("<", b), ("<", c)]
-        We emit:
-            (a < b) && (b < c)
+        We emit temps for each right operand to avoid re-evaluation:
+            __tmp_1 = b
+            __tmp_2 = c
+        Then return: (a < __tmp_1) && (__tmp_1 < __tmp_2)
         """
-        # First comparison uses the original left
+        # Evaluate the left operand once
         left_cpp = n.left.accept(self)
-
-        parts = []
+        
+        # Generate temps for each right operand and collect them
+        temps = []  # List of (temp_name, op, temp_for_next_left)
         current_left = left_cpp
-
-        for op, right_node in n.chain:
+        
+        for i, (op, right_node) in enumerate(n.chain):
+            # Generate a fresh temp for this right operand
+            temp_name = self.fresh_temp()
             right_cpp = right_node.accept(self)
-            # Reuse the previous right as the next left (a < b && b < c && c < d ...)
-            parts.append(f"({current_left} {op} {right_cpp})")
-            current_left = right_cpp
-
+            
+            # Emit declaration and initialization of the temp
+            self.emit(f"PyObject {temp_name} = {right_cpp};")
+            
+            # Store the temp and operator for building comparisons
+            temps.append((current_left, op, temp_name))
+            
+            # Next iteration uses this temp as the left operand
+            current_left = temp_name
+        
+        # Build the comparison expression string from the temps
+        parts = [f"({left} {op} {right})" for left, op, right in temps]
+        
         # For safety, wrap the whole thing in parentheses
         return "(" + " && ".join(parts) + ")"
 
@@ -407,7 +427,7 @@ class Transpiler:
     def visit_DictNode(self, n):
         """Handle dictionary literals like {'a': 1, 'b': 2}"""
         if not n.pairs:
-            return "map<PyObject, PyObject>{}"
+            return "std::unordered_map<PyObject, PyObject, PyObjectHash, PyObjectEq>{}"
 
         # Convert key-value pairs
         pairs = []
@@ -417,7 +437,7 @@ class Transpiler:
             pairs.append(f"{{{key_str}, {val_str}}}")
 
         pairs_str = ", ".join(pairs)
-        return f"map<PyObject, PyObject>{{{pairs_str}}}"
+        return f"std::unordered_map<PyObject, PyObject, PyObjectHash, PyObjectEq>{{{pairs_str}}}"
 
     # TODO(milton): implementar wrapping para DictNode y TupleNode  
     def visit_TupleNode(self, n):

@@ -7,7 +7,8 @@
 #include <cmath>
 #include <stdexcept>
 #include <vector>
-#include <map>
+#include <unordered_map>
+#include <functional>
 
 enum class PyType {
     None,
@@ -20,10 +21,15 @@ enum class PyType {
     Tuple,   // optional if we want to support tuples separately??
 };
 
+// forward-declare hasher/equality functors so we can use them in the unordered_map
+class PyObject;
+struct PyObjectHash;
+struct PyObjectEq;
+
 class PyObject {
 private:
     PyType type;
-    std::variant<std::monostate, long long, double, bool, /*std::ssize_t,*/ std::string, std::vector<PyObject>, std::map<PyObject, PyObject>> value;
+    std::variant<std::monostate, long long, double, bool, /*std::ssize_t,*/ std::string, std::vector<PyObject>, std::unordered_map<PyObject, PyObject, PyObjectHash, PyObjectEq>> value;
 
 public:
     // Constructors
@@ -41,9 +47,9 @@ public:
         : type(as_tuple ? PyType::Tuple : PyType::List), value(v) {}
     PyObject(std::vector<PyObject>&& v, bool as_tuple = false)
         : type(as_tuple ? PyType::Tuple : PyType::List), value(std::move(v)) {}
-    PyObject(const std::map<PyObject, PyObject>& m)
+    PyObject(const std::unordered_map<PyObject, PyObject, PyObjectHash, PyObjectEq>& m)
         : type(PyType::Dict), value(m) {}
-    PyObject(std::map<PyObject, PyObject>&& m)
+    PyObject(std::unordered_map<PyObject, PyObject, PyObjectHash, PyObjectEq>&& m)
         : type(PyType::Dict), value(std::move(m)) {}
 
     // Type checking
@@ -68,7 +74,7 @@ public:
             // TODO(milton): implement truthiness for lists, dicts, tuples (revise que la logica es correcta)
             case PyType::List:
             case PyType::Tuple:  return !std::get<std::vector<PyObject>>(value).empty();
-            case PyType::Dict:   return !std::get<std::map<PyObject, PyObject>>(value).empty();
+            case PyType::Dict:   return !std::get<std::unordered_map<PyObject, PyObject, PyObjectHash, PyObjectEq>>(value).empty();
         }
         return false;
     }
@@ -112,12 +118,9 @@ public:
     size_t size() const {
         if (type == PyType::String) {
             return std::get<std::string>(value).size();
-        }
-        throw std::runtime_error("TypeError: object of type '" + type_name() + "' has no len()");
-    }
-
-    // TODO(milton): implementar indexing para listas, dicts, tuplas
-    // Indexing support (for strings)
+    PyObject operator[](const PyObject& index) const {
+        if (type == PyType::String) {
+            long long idx = index.to_int();    // Indexing support (for strings)
     PyObject operator[](const PyObject& index) const {
         long long idx = index.to_int();
 
@@ -363,5 +366,26 @@ inline PyObject py_or(const PyObject& left, const PyObject& right) {
     }
     return right;
 }
+
+// Hash and equality functors for unordered_map keys
+struct PyObjectHash {
+    size_t operator()(const PyObject& obj) const {
+        switch (obj.get_type()) {
+            case PyType::None: return 0x9e3779b97f4a7c15ULL;
+            case PyType::Int: return std::hash<long long>()(obj.to_int());
+            case PyType::Float: return std::hash<double>()(obj.to_float());
+            case PyType::Bool: return std::hash<bool>()(obj.to_bool());
+            case PyType::String: return std::hash<std::string>()(obj.to_string());
+            default:
+                throw std::runtime_error(std::string("TypeError: unhashable type: '") + obj.type_name() + "'");
+        }
+    }
+};
+
+struct PyObjectEq {
+    bool operator()(const PyObject& a, const PyObject& b) const {
+        return a == b;
+    }
+};
 
 #endif // PYOBJECT_H
