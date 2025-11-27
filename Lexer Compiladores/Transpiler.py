@@ -202,15 +202,15 @@ class Transpiler:
         # Logical operators (and/or)
         if n.op in ("and", "or"):
             cpp_op = "&&" if n.op == "and" else "||"
-            # Check if operands are already boolean expressions (comparisons)
-            left_needs_convert = not self._is_comparison_expr(n.left)
-            right_needs_convert = not self._is_comparison_expr(n.right)
-            
+            # Check if operands already return bool
+            left_needs_convert = not self._returns_bool(n.left)
+            right_needs_convert = not self._returns_bool(n.right)
+
             left_expr = f"({left}).to_bool()" if left_needs_convert else left
             right_expr = f"({right}).to_bool()" if right_needs_convert else right
-            
+
             return f"({left_expr} {cpp_op} {right_expr})"
-        
+
         # All other operators work directly on PyObject
         return f"({left} {n.op} {right})"
 
@@ -270,10 +270,15 @@ class Transpiler:
         return n.value.accept(self)
 
     def visit_IfNode(self, n):
-        # PyObject has truthiness built-in via to_bool()
+        # Check if condition already returns bool (comparison, logical op)
         cond_expr = n.condition.accept(self)
+
+        # Only add .to_bool() if the expression doesn't already return bool
+        if self._returns_bool(n.condition):
+            self.emit(f"if ({cond_expr}) {{")
+        else:
+            self.emit(f"if (({cond_expr}).to_bool()) {{")
         
-        self.emit(f"if (({cond_expr}).to_bool()) {{")
         self.indent += 1
         if isinstance(n.then_body, list):
             for s in n.then_body: s.accept(self)
@@ -284,7 +289,10 @@ class Transpiler:
         if n.elif_clauses:
             for elif_node in n.elif_clauses:
                 cond_expr = elif_node.condition.accept(self)
-                self.emit(f"}} else if (({cond_expr}).to_bool()) {{")
+                if self._returns_bool(elif_node.condition):
+                    self.emit(f"}} else if ({cond_expr}) {{")
+                else:
+                    self.emit(f"}} else if (({cond_expr}).to_bool()) {{")
                 self.indent += 1
                 if isinstance(elif_node.body, list):
                     for s in elif_node.body: s.accept(self)
@@ -314,6 +322,8 @@ class Transpiler:
             # Generar for tradicional de C++ con PyObject
             # Use proper PyObject increment
             self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < PyObject({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{")
+            # Alternativa no probada al 100%:
+            # self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < {limit}; {target} = PyObject(({target}).to_int() + 1)) {{")
         else:
             # Range-based for normal
             self.emit(f"for (auto {target} : {iterable_str}) {{")
@@ -327,7 +337,12 @@ class Transpiler:
         """Handle while loops"""
         cond_expr = n.condition.accept(self)
         
-        self.emit(f"while (({cond_expr}).to_bool()) {{")
+        # Only add .to_bool() if the expression doesn't already return bool
+        if self._returns_bool(n.condition):
+            self.emit(f"while ({cond_expr}) {{")
+        else:
+            self.emit(f"while (({cond_expr}).to_bool()) {{")
+        
         self.indent += 1
         n.body.accept(self)
         self.indent -= 1
@@ -393,6 +408,29 @@ class Transpiler:
         Check if a node represents a comparison expression that already returns bool.
         """
         return isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode)
+    
+    def _returns_bool(self, node):
+        """
+        Check if a node's generated C++ code already returns a bool (not PyObject).
+        This includes:
+        - Comparison operators (==, !=, <, >, <=, >=)
+        - Logical operators combining comparisons (and, or with comparisons)
+        - Unary not operator
+        """
+        if isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode):
+            return True
+        
+        if isinstance(node, BinaryOpNode):
+            # and/or operations return bool when at least one operand is a comparison
+            if node.op in ("and", "or"):
+                return True
+        
+        if isinstance(node, UnaryOpNode):
+            # not operator returns bool
+            if node.op == "not":
+                return True
+        
+        return False
 
 if __name__ == "__main__":
     file_path = "transpiler_tests/test_working.py"
