@@ -575,6 +575,12 @@ class Parser:
         node = IndexAccessNode(base=p[1], index=p[3])
         p[0] = self._setpos(node, p, 1)
 
+    def p_primary_slice(self, p):
+        """primary : primary LBRACKET slice_spec RBRACKET"""
+        start, end = p[3]
+        node = SliceAccessNode(base=p[1], start=start, end=end)
+        p[0] = self._setpos(node, p, 1)
+
     def p_primary_call(self, p):
         """primary : ID LPAREN arg_list_opt RPAREN
                    | nested_id LPAREN arg_list_opt RPAREN
@@ -586,6 +592,18 @@ class Parser:
         else:
             callee = p[1]
         p[0] = CallNode(callee=callee, args=p[3])
+
+    def p_slice_spec(self, p):
+        """slice_spec : slice_expr_opt COLON slice_expr_opt"""
+        p[0] = (p[1], p[3])
+
+    def p_slice_expr_opt(self, p):
+        """slice_expr_opt : expression
+        | empty"""
+        if len(p) == 2:
+            p[0] = p[1]
+        else:
+            p[0] = None
 
     def p_primary_atoms(self, p):
         """primary : nested_id
