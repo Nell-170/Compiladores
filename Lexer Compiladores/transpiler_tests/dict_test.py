@@ -1,3 +1,8 @@
+import time
+
+# Iniciar el cronómetro
+inicio = time.time()
+
 # diccionario básico
 edades = {"Ana": 20, "Luis": 22}
 
@@ -14,3 +19,8 @@ print(edades["Luis"])  # 22
 del edades["Luis"]
 
 print(edades)  # {'Ana': 21, 'Milton': 21}
+
+# Detener el cronómetro
+fin = time.time()
+duracion = (fin - inicio) * 1000  # convertir a milisegundos
+print(f"\nTiempo de ejecución: {duracion:.4f} milisegundos")

@@ -1,3 +1,8 @@
+import time
+
+# Iniciar el cronómetro
+inicio = time.time()
+
 # This test file contains VALID Python code that should transpile and run correctly
 
 # Function with proper return types
@@ -153,3 +158,8 @@ print("")
 print("All and/or tests complete!")
 
 print("All tests passed!")
+
+# Detener el cronómetro
+fin = time.time()
+duracion = (fin - inicio) * 1000  # convertir a milisegundos
+print(f"\nTiempo de ejecución: {duracion:.4f} milisegundos")

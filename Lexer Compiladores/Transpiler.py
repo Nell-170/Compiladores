@@ -67,6 +67,8 @@ class Transpiler:
         self.out = []
         self.indent = 0
         self.symbols = symbols or {}
+        # Flag para rastrear si se necesita el cronómetro
+        self.use_timer = False
 
     def emit(self, s):
         self.out.append("    " * self.indent + s)
@@ -78,6 +80,13 @@ class Transpiler:
 
         with open(file_path, "r", encoding="utf-8") as f:
             code = f.read()
+
+        # Detectar si hay cronómetro (import time + inicio = time.time())
+        self.use_timer = "import time" in code and "inicio = time.time()" in code
+        
+        # Si hay cronómetro, limpiar el código para remover las líneas del cronómetro en Python
+        if self.use_timer:
+            code = self._remove_timer_lines(code)
 
         parser.lexer.data = code
         parser.lexer.lex.lineno = 1
@@ -91,6 +100,46 @@ class Transpiler:
             raise Exception("Failed to parse file")
 
         return ast.accept(self)
+
+    def _remove_timer_lines(self, code: str) -> str:
+        """Remover las líneas relacionadas al cronómetro en Python"""
+        lines = code.split('\n')
+        result = []
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.strip()
+            
+            # Saltar import time
+            if stripped == "import time":
+                i += 1
+                continue
+            
+            # Saltar inicio = time.time()
+            if "inicio = time.time()" in stripped:
+                i += 1
+                continue
+            
+            # Saltar las líneas de fin del cronómetro (desde fin = time.time() hasta el print final)
+            if "fin = time.time()" in stripped:
+                # Saltar hasta encontrar una línea que no sea parte del cronómetro
+                # (que no sea comentario, asignación de duracion, o print de tiempo)
+                while i < len(lines):
+                    current_line = lines[i].strip()
+                    if (current_line.startswith("fin = ") or 
+                        current_line.startswith("duracion = ") or
+                        current_line.startswith("print(") and "Tiempo de ejecución" in current_line or
+                        current_line.startswith("# Detener") or
+                        current_line.startswith("# Calcular")):
+                        i += 1
+                    else:
+                        break
+                continue
+            
+            result.append(line)
+            i += 1
+        
+        return '\n'.join(result)
 
     def visit_SetNode(self, n):
         """Handle set literals like {'a', 'b', 'c'}"""
@@ -115,6 +164,11 @@ class Transpiler:
         self.emit("#include <vector>")
         self.emit("#include <map>")
         self.emit("#include <tuple>")
+        
+        # Incluir chrono solo si se necesita cronómetro
+        if self.use_timer:
+            self.emit("#include <chrono>")
+        
         self.emit("using namespace std;")
         self.emit("")
 
@@ -126,9 +180,29 @@ class Transpiler:
         # Luego el main con el resto
         self.emit("int main() {")
         self.indent += 1
+        
+        # Emitir inicio del cronómetro si es necesario
+        if self.use_timer:
+            self.emit("// Iniciar el cronómetro")
+            self.emit("auto inicio = std::chrono::high_resolution_clock::now();")
+            self.emit("")
+        
         for stmt in n.statements:
             if not isinstance(stmt, FuncDefNode):
                 stmt.accept(self)
+        
+        # Emitir final del cronómetro si es necesario
+        if self.use_timer:
+            self.emit("")
+            self.emit("// Detener el cronómetro")
+            self.emit("auto fin = std::chrono::high_resolution_clock::now();")
+            self.emit("")
+            self.emit("// Calcular la duración")
+            self.emit("auto duracion = std::chrono::duration_cast<std::chrono::microseconds>(fin - inicio);")
+            self.emit("")
+            self.emit('cout << "\\nTiempo de ejecución: " << duracion.count() << " microsegundos" << endl;')
+            self.emit('cout << "Tiempo de ejecución: " << duracion.count() / 1000.0 << " milisegundos" << endl;')
+        
         self.emit("return 0;")
         self.indent -= 1
         self.emit("}")
@@ -513,6 +587,15 @@ class Transpiler:
             node, ChainedComparisonNode
         )
 
+    def _already_bool_expr(self, node):
+        """
+        Check if an expression already returns a bool value (no need to call .to_bool()).
+        """
+        return (isinstance(node, UnaryOpNode) and node.op == "not") or \
+               isinstance(node, ComparisonNode) or \
+               isinstance(node, ChainedComparisonNode) or \
+               (isinstance(node, BinaryOpNode) and node.op in ("and", "or"))
+
     def _returns_bool(self, node):
         """
         Check if a node's generated C++ code already returns a bool (not PyObject).
@@ -537,6 +620,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/set_test.py"
+    file_path = "transpiler_tests/teacher_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
