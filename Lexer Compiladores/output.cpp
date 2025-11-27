@@ -10,7 +10,6 @@ PyObject add(PyObject a, PyObject b) {
 }
 PyObject fib(PyObject n) {
     if ((n <= 0)) {
-    if ((n <= 0)) {
         return PyObject(0);
     }
     if ((py_or((n == 1), (n == 2))).to_bool()) {
@@ -46,15 +45,12 @@ int main() {
     }
     PyObject empty = "";
     if (!(empty).to_bool()) {
-    if (!(empty).to_bool()) {
         cout << "Empty string is falsy" << endl;
     }
-    if ((a < b)) {
     if ((a < b)) {
         cout << "4 < 5" << endl;
     }
     PyObject counter = 0;
-    while ((counter < 3)) {
     while ((counter < 3)) {
         cout << counter << endl;
         counter = (counter + 1);
