@@ -6,7 +6,6 @@
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
-#include <stddef.h>
 #include <vector>
 #include <map>
 
@@ -99,7 +98,7 @@ public:
     // Indexing support (for strings)
     PyObject operator[](const PyObject& index) const {
         if (type == PyType::String) {
-            long long idx = index.to_int();
+            size_t idx = index.to_int();
             const std::string& s = std::get<std::string>(value);
             long long size = static_cast<long long>(s.size());
             
@@ -112,8 +111,7 @@ public:
             if (idx < 0 || idx >= size) {
                 throw std::runtime_error("IndexError: string index out of range");
             }
-            
-            return PyObject(std::string(1, s[static_cast<size_t>(idx)]));
+            return PyObject(std::string(1, s[idx]));
         }
         throw std::runtime_error("TypeError: '" + type_name() + "' object is not subscriptable");
     }
@@ -310,6 +308,23 @@ inline PyObject py_pow(const PyObject& a, const PyObject& b) {
 // Helper for len()
 inline size_t len(const PyObject& obj) {
     return obj.size();
+}
+
+// Python-faithful and/or operators (return operands, not bool)
+inline PyObject py_and(const PyObject& left, const PyObject& right) {
+    // Python semantics: if left is falsy, return left; else return right
+    if (!left.to_bool()) {
+        return left;
+    }
+    return right;
+}
+
+inline PyObject py_or(const PyObject& left, const PyObject& right) {
+    // Python semantics: if left is truthy, return left; else return right
+    if (left.to_bool()) {
+        return left;
+    }
+    return right;
 }
 
 #endif // PYOBJECT_H

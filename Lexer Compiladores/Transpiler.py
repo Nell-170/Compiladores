@@ -199,18 +199,22 @@ class Transpiler:
         if n.op == "//" or n.op == "floordiv":
             return f"floor_div({left}, {right})"
         
-        # Logical operators (and/or)
+        # Logical operators (and/or) - Python returns operands, not bool!
         if n.op in ("and", "or"):
-            cpp_op = "&&" if n.op == "and" else "||"
-            # Check if operands already return bool
-            left_needs_convert = not self._returns_bool(n.left)
-            right_needs_convert = not self._returns_bool(n.right)
-
-            left_expr = f"({left}).to_bool()" if left_needs_convert else left
-            right_expr = f"({right}).to_bool()" if right_needs_convert else right
-
-            return f"({left_expr} {cpp_op} {right_expr})"
-
+            # TODO(val):
+            # We need to check the CONTEXT - are we in a boolean context?
+            # If in boolean context (if/while), use C++ &&/||
+            # If in value context (assignment/expression), use Python semantics
+            
+            # For now, always use Python semantics (return operands)
+            # This is implemented via helper functions
+            if n.op == "and":
+                # Python: if left is falsy, return left; else return right
+                return f"py_and({left}, {right})"
+            else:  # or
+                # Python: if left is truthy, return left; else return right
+                return f"py_or({left}, {right})"
+        
         # All other operators work directly on PyObject
         return f"({left} {n.op} {right})"
 
@@ -270,13 +274,14 @@ class Transpiler:
         return n.value.accept(self)
 
     def visit_IfNode(self, n):
-        # Check if condition already returns bool (comparison, logical op)
+        # Check if condition already returns bool (comparison, not)
         cond_expr = n.condition.accept(self)
-
+        
         # Only add .to_bool() if the expression doesn't already return bool
         if self._returns_bool(n.condition):
             self.emit(f"if ({cond_expr}) {{")
         else:
+            # This includes and/or expressions since they return PyObject
             self.emit(f"if (({cond_expr}).to_bool()) {{")
         
         self.indent += 1
@@ -414,16 +419,13 @@ class Transpiler:
         Check if a node's generated C++ code already returns a bool (not PyObject).
         This includes:
         - Comparison operators (==, !=, <, >, <=, >=)
-        - Logical operators combining comparisons (and, or with comparisons)
         - Unary not operator
+        
+        Note: and/or do NOT return bool in Python! They return operands.
         """
         if isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode):
             return True
         
-        if isinstance(node, BinaryOpNode):
-            # and/or operations return bool when at least one operand is a comparison
-            if node.op in ("and", "or"):
-                return True
         
         if isinstance(node, UnaryOpNode):
             # not operator returns bool
