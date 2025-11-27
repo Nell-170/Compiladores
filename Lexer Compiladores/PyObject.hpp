@@ -233,7 +233,7 @@ class PyObject {
     }
   }
 
-  // Indexing support (for strings, lists, tuples)
+  // ===== Indexación SOLO LECTURA (strings, lists, tuples, dicts) =====
   PyObject operator[](const PyObject& index) const {
     long long idx = index.to_int();
 
@@ -271,31 +271,11 @@ class PyObject {
                              "' object is not subscriptable");
   }
 
-  PyObject& operator[](const PyObject& index) {
-    if (type == PyType::List) {
-      auto& vec = std::get<std::vector<PyObject>>(value);
-      long long idx = index.to_int();
-      long long sz = static_cast<long long>(vec.size());
-      if (idx < 0) idx += sz;
-      if (idx < 0 || idx >= sz) {
-        throw std::runtime_error(
-            "IndexError: list assignment index out of range");
-      }
-      return vec[static_cast<size_t>(idx)];
-    }
-
-    if (type == PyType::Dict) {
-      auto& m = std::get<std::map<PyObject, PyObject, PyObjectCompare>>(value);
-      auto it = m.find(index);
-      if (it == m.end()) {
-        auto inserted = m.emplace(index, PyObject());
-        return inserted.first->second;
-      }
-      return it->second;
-    }
-
-    throw std::runtime_error("TypeError: '" + type_name() +
-                             "' object does not support item assignment");
+  // ===== Versión no const que reutiliza la const (solo lectura) =====
+  // Esto permite hacer s[0] aunque 's' no sea const, pero NO permite
+  // usar s[0] como lvalue (no puedes hacer s[0] = algo).
+  PyObject operator[](const PyObject& index) {
+    return static_cast<const PyObject&>(*this)[index];
   }
 
   // Helper to get type name for error messages
@@ -451,7 +431,8 @@ class PyObject {
     return result;
   }
 
-  const std::vector<PyObject>& get_list() const {
+  // Get list for iteration - returns a copy to avoid reference to temporary
+  std::vector<PyObject> get_list() const {
     if (type != PyType::List && type != PyType::Tuple) {
       throw std::runtime_error("TypeError: cannot iterate over '" +
                                type_name() + "'");
@@ -459,7 +440,8 @@ class PyObject {
     return std::get<std::vector<PyObject>>(value);
   }
 
-  const std::set<PyObject, PyObjectCompare>& get_set() const {
+  // Get set for iteration - returns a copy to avoid reference to temporary
+  std::set<PyObject, PyObjectCompare> get_set() const {
     if (type != PyType::Set) {
       throw std::runtime_error("TypeError: cannot iterate over '" +
                                type_name() + "'");
