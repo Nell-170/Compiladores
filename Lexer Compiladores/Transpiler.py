@@ -1,12 +1,12 @@
-""" 
-    Emmanuel
-    TODO: Arreglar problemas de compilación y ejecución
+"""
+Emmanuel
+TODO: Arreglar problemas de compilación y ejecución
 
-    Milton 
-    TODO: Cosas que el profe dijo que había que considerar
+Milton
+TODO: Cosas que el profe dijo que había que considerar
 
-    Valentino 
-    TODO: std::any o lo que sea necesario para manejar tipos dinámicos en C++
+Valentino
+TODO: std::any o lo que sea necesario para manejar tipos dinámicos en C++
 """
 
 import json
@@ -15,12 +15,13 @@ from ParserAST import Parser
 from utils import Error
 from ast_nodes import *
 
+
 def build_and_run(file_path, mode=1):
     """
-        mode=1: Solo transpilar
-        mode=2: Transpilar y compilar
-        mode=3: Transpilar, compilar y ejecutar
-        compiler: "g++" o "clang++"
+    mode=1: Solo transpilar
+    mode=2: Transpilar y compilar
+    mode=3: Transpilar, compilar y ejecutar
+    compiler: "g++" o "clang++"
     """
 
     if mode > 1:
@@ -33,11 +34,11 @@ def build_and_run(file_path, mode=1):
     transpiler = Transpiler()
     try:
         cpp_code = transpiler.transpile_file(file_path)
-        
+
         with open("output.cpp", "w", encoding="utf-8") as f:
             f.write(cpp_code)
         print("[Transpilación exitosa! Output guardado en output.cpp]")
-        
+
         if mode >= 2:
             # Use C++17 for std::variant support
             result = subprocess.run(
@@ -50,15 +51,16 @@ def build_and_run(file_path, mode=1):
                 print(f"[ERROR] Compilación falló:\n{result.stderr}")
                 return
             print("[Compilación exitosa!]")
-        
+
         if mode >= 3:
             result = subprocess.run(["output.exe"], capture_output=True, text=True)
             print(f"[Salida del programa]\n{result.stdout}")
             if result.stderr:
                 print(f"[Errores]\n{result.stderr}")
-                
+
     except Exception as e:
         print(f"[ERROR] {e}")
+
 
 class Transpiler:
     def __init__(self, options=None, symbols=None):
@@ -66,7 +68,8 @@ class Transpiler:
         self.indent = 0
         self.symbols = symbols or {}
 
-    def emit(self, s): self.out.append("    " * self.indent + s)
+    def emit(self, s):
+        self.out.append("    " * self.indent + s)
 
     def transpile_file(self, file_path: str):
         """Parse a Python file and transpile it to C++."""
@@ -108,10 +111,10 @@ class Transpiler:
     def visit_ProgramNode(self, n):
         # Include PyObject header
         self.emit('#include "PyObject.hpp"')
-        self.emit('#include <iostream>')
-        self.emit('#include <vector>')
-        self.emit('#include <map>')
-        self.emit('#include <tuple>')
+        self.emit("#include <iostream>")
+        self.emit("#include <vector>")
+        self.emit("#include <map>")
+        self.emit("#include <tuple>")
         self.emit("using namespace std;")
         self.emit("")
 
@@ -155,7 +158,7 @@ class Transpiler:
             if isinstance(param, tuple):
                 param_name = param[0]  # Extraer nombre de la tupla
             else:
-                param_name = param     # Ya es string
+                param_name = param  # Ya es string
             processed_params.append(f"PyObject {param_name}")
 
         params_str = ", ".join(processed_params)
@@ -236,8 +239,16 @@ class Transpiler:
     def visit_UnaryOpNode(self, n):
         expr = n.operand.accept(self)
         if n.op == "not":
-            # Use PyObject's truthiness
-            return f"!({expr}).to_bool()"
+            # If operand is a comparison or another 'not', expr is already bool
+            if self._returns_bool(n.operand):
+                return f"!({expr})"
+            else:
+                return f"!(({expr}).to_bool())"
+        return f"({n.op}{expr})"
+
+    def visit_UnaryOpArithmeticNode(self, n):
+        expr = n.operand.accept(self)
+        # n.op is '+' or '-'
         return f"({n.op}{expr})"
 
     def visit_GroupNode(self, n):
@@ -248,6 +259,31 @@ class Transpiler:
         left = n.left.accept(self)
         right = n.right.accept(self)
         return f"({left} {n.op} {right})"
+
+    def visit_ChainedComparisonNode(self, n):
+        """
+        Transpile a chained comparison like: a < b < c
+
+        Parser gives us:
+            left  = a
+            chain = [("<", b), ("<", c)]
+        We emit:
+            (a < b) && (b < c)
+        """
+        # First comparison uses the original left
+        left_cpp = n.left.accept(self)
+
+        parts = []
+        current_left = left_cpp
+
+        for op, right_node in n.chain:
+            right_cpp = right_node.accept(self)
+            # Reuse the previous right as the next left (a < b && b < c && c < d ...)
+            parts.append(f"({current_left} {op} {right_cpp})")
+            current_left = right_cpp
+
+        # For safety, wrap the whole thing in parentheses
+        return "(" + " && ".join(parts) + ")"
 
     def visit_BlockNode(self, n):
         for stmt in n.statements:
@@ -294,11 +330,16 @@ class Transpiler:
 
         # Handle built-in functions
         if callee == "print":
-            self.emit(f"cout << {args} << endl;")
+            if not n.args:
+                self.emit("cout << endl;")
+            else:
+                parts = [arg.accept(self) for arg in n.args]
+                joined = ' << " " << '.join(parts)
+                self.emit(f"cout << {joined} << endl;")
             return ""
         elif callee == "str":
-            # Convert to string
-            return f"({args}).to_string()"
+            # Wrap in PyObject so type matches the rest
+            return f"PyObject(({args}).to_string())"
         elif callee == "len":
             # Use PyObject's size() method
             return f"len({args})"
@@ -316,7 +357,7 @@ class Transpiler:
         return n.value.accept(self)
 
     def visit_IfNode(self, n):
-        # PyObject has truthiness built-in via to_bool()
+        # Check if condition already returns bool (comparison, not)
         cond_expr = n.condition.accept(self)
 
         # Solo aplicar .to_bool() si no ya está convertido a bool por UnaryOp o Comparison
@@ -328,7 +369,8 @@ class Transpiler:
         self.emit(f"if ({condition_check}) {{")
         self.indent += 1
         if isinstance(n.then_body, list):
-            for s in n.then_body: s.accept(self)
+            for s in n.then_body:
+                s.accept(self)
         else:
             n.then_body.accept(self)
         self.indent -= 1
@@ -336,14 +378,14 @@ class Transpiler:
         if n.elif_clauses:
             for elif_node in n.elif_clauses:
                 cond_expr = elif_node.condition.accept(self)
-                if self._already_bool_expr(elif_node.condition):
-                    condition_check = cond_expr
+                if self._returns_bool(elif_node.condition):
+                    self.emit(f"}} else if ({cond_expr}) {{")
                 else:
-                    condition_check = f"({cond_expr}).to_bool()"
-                self.emit(f"}} else if ({condition_check}) {{")
+                    self.emit(f"}} else if (({cond_expr}).to_bool()) {{")
                 self.indent += 1
                 if isinstance(elif_node.body, list):
-                    for s in elif_node.body: s.accept(self)
+                    for s in elif_node.body:
+                        s.accept(self)
                 else:
                     elif_node.body.accept(self)
                 self.indent -= 1
@@ -352,7 +394,8 @@ class Transpiler:
             self.emit("} else {")
             self.indent += 1
             if isinstance(n.else_clause.body, list):
-                for s in n.else_clause.body: s.accept(self)
+                for s in n.else_clause.body:
+                    s.accept(self)
             else:
                 n.else_clause.body.accept(self)
             self.indent -= 1
@@ -369,7 +412,11 @@ class Transpiler:
             limit = iterable_str.replace("__RANGE__", "").replace("__", "")
             # Generar for tradicional de C++ con PyObject
             # Use proper PyObject increment
-            self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < PyObject({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{")
+            self.emit(
+                f"for (PyObject {target} = 0; ({target}).to_int() < PyObject({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{"
+            )
+            # Alternativa no probada al 100%:
+            # self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < {limit}; {target} = PyObject(({target}).to_int() + 1)) {{")
         else:
             # Para iterar sobre PyObject con listas, usa .get_list()
             if isinstance(n.iterable, IdentifierNode):
@@ -400,17 +447,19 @@ class Transpiler:
         self.indent -= 1
         self.emit("}")
 
+    # ! Ejemplo de como hacer wrapping
     def visit_ListNode(self, n):
         """Handle list literals like [1, 2, 3]"""
         if not n.elements:
-            return "vector<PyObject>{}"
+            return "PyObject(std::vector<PyObject>{})"
 
         # Convert all elements
         elements = [elem.accept(self) for elem in n.elements]
         elements_str = ", ".join(elements)
 
-        return f"vector<PyObject>{{{elements_str}}}" 
+        return f"PyObject(std::vector<PyObject>{{{elements_str}}})"
 
+    # TODO(milton): implementar wrapping para DictNode y TupleNode
     def visit_DictNode(self, n):
         """Handle dictionary literals like {'a': 1, 'b': 2}"""
         if not n.pairs:
@@ -426,6 +475,7 @@ class Transpiler:
         pairs_str = ", ".join(pairs)
         return f"map<PyObject, PyObject>{{{pairs_str}}}"
 
+    # TODO(milton): implementar wrapping para DictNode y TupleNode
     def visit_TupleNode(self, n):
         """Handle tuple literals like (1, 2, 3)"""
         if not n.elements:
@@ -459,16 +509,32 @@ class Transpiler:
         """
         Check if a node represents a comparison expression that already returns bool.
         """
-        return isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode)
+        return isinstance(node, ComparisonNode) or isinstance(
+            node, ChainedComparisonNode
+        )
 
-    def _already_bool_expr(self, node):
+    def _returns_bool(self, node):
         """
-        Check if an expression already returns a bool value (no need to call .to_bool()).
+        Check if a node's generated C++ code already returns a bool (not PyObject).
+        This includes:
+        - Comparison operators (==, !=, <, >, <=, >=)
+        - Unary not operator
+
+        Note: and/or do NOT return bool in Python! They return operands.
         """
-        return isinstance(node, UnaryOpNode) and node.op == "not" or \
-               isinstance(node, ComparisonNode) or \
-               isinstance(node, ChainedComparisonNode) or \
-               isinstance(node, BinaryOpNode) and node.op in ("and", "or")
+        if isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode):
+            return True
+
+        if isinstance(node, BinaryOpNode) and node.op in ("and", "or"):
+            return True
+
+        if isinstance(node, UnaryOpNode):
+            # not operator returns bool
+            if node.op == "not":
+                return True
+
+        return False
+
 
 if __name__ == "__main__":
     file_path = "transpiler_tests/set_test.py"

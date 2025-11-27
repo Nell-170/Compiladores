@@ -61,6 +61,7 @@
     "cmath": "cpp",
     "cstddef": "cpp",
     "cstring": "cpp",
-    "ctime": "cpp"
+    "ctime": "cpp",
+    "vector": "cpp"
   }
 }
