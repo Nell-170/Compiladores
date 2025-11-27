@@ -312,6 +312,72 @@ class PyObject {
     std::get<std::vector<PyObject>>(value).push_back(elem);
   }
 
+  // Slice honoring optional boundaries from Python's semantics.
+  PyObject slice(const PyObject& start_obj, const PyObject& end_obj,
+                 bool has_start, bool has_end) const {
+    if (type != PyType::List && type != PyType::Tuple &&
+        type != PyType::String) {
+      throw std::runtime_error("TypeError: '" + type_name() +
+                               "' object is not sliceable");
+    }
+
+    const auto container_size = [&]() -> long long {
+      if (type == PyType::String) {
+        return static_cast<long long>(std::get<std::string>(value).size());
+      }
+      return static_cast<long long>(
+          std::get<std::vector<PyObject>>(value).size());
+    };
+
+    const auto normalize = [&](const PyObject& idx_obj, bool provided,
+                               long long fallback,
+                               long long size) -> long long {
+      if (!provided || idx_obj.is_none()) {
+        return fallback;
+      }
+      long long idx = idx_obj.to_int();
+      if (idx < 0) idx += size;
+      if (idx < 0) idx = 0;
+      if (idx > size) idx = size;
+      return idx;
+    };
+
+    const long long size = container_size();
+    long long start = normalize(start_obj, has_start, 0, size);
+    long long end = normalize(end_obj, has_end, size, size);
+    if (start > end) {
+      start = end;  // Python produces empty slice when start overtakes end
+    }
+
+    if (type == PyType::String) {
+      const auto& s = std::get<std::string>(value);
+      return PyObject(s.substr(static_cast<size_t>(start),
+                               static_cast<size_t>(end - start)));
+    }
+
+    const auto& vec = std::get<std::vector<PyObject>>(value);
+    const auto slice_begin = vec.begin() + static_cast<size_t>(start);
+    const auto slice_end = vec.begin() + static_cast<size_t>(end);
+    std::vector<PyObject> sliced(slice_begin, slice_end);
+
+    if (type == PyType::Tuple) {
+      PyObject result;
+      result.type = PyType::Tuple;
+      result.value = sliced;
+      return result;
+    }
+    return PyObject(sliced);
+  }
+
+  // Backwards-compatible helpers when both indices are positional ints.
+  PyObject slice(long long start, long long end) const {
+    return slice(PyObject(start), PyObject(end), true, true);
+  }
+
+  PyObject slice(long long start) const {
+    return slice(PyObject(start), PyObject(), true, false);
+  }
+
   PyObject pop(long long idx = -1) {
     if (type != PyType::List) {
       throw std::runtime_error("TypeError: '" + type_name() +

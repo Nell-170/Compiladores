@@ -178,6 +178,47 @@ class IndexAccessNode(ASTNode):
         }
 
 
+class SliceAccessNode(ASTNode):
+    """Represents slice access (arr[start:end])"""
+
+    def __init__(self, base: ASTNode, start: Optional[ASTNode], end: Optional[ASTNode]):
+        self.base = base
+        self.start = start
+        self.end = end
+
+    def printAST(self, indent: int = 0) -> str:
+        ind = "  " * indent
+        lines = [f"{ind}SliceAccess:"]
+        lines.append(self.base.printAST(indent + 1))
+        lines.append(f"{ind}  Start:")
+        if self.start:
+            lines.append(self.start.printAST(indent + 2))
+        else:
+            lines.append(f"{ind}  None")
+        lines.append(f"{ind}  End:")
+        if self.end:
+            lines.append(self.end.printAST(indent + 2))
+        else:
+            lines.append(f"{ind}  None")
+        return "\n".join(lines)
+
+    def to_tuple(self) -> tuple:
+        return (
+            "slice_access",
+            self.base.to_tuple(),
+            self.start.to_tuple() if self.start else None,
+            self.end.to_tuple() if self.end else None,
+        )
+
+    def to_dict(self) -> dict:
+        return {
+            "type": "slice_access",
+            "base": self.base.to_dict(),
+            "start": self.start.to_dict() if self.start else None,
+            "end": self.end.to_dict() if self.end else None,
+        }
+
+
 # ============================================================================
 # EXPRESSION NODES
 # ============================================================================

@@ -294,6 +294,14 @@ class Transpiler:
         index = n.index.accept(self)
         return f"{base}[{index}]"
 
+    def visit_SliceAccessNode(self, n):
+        base_expr = f"({n.base.accept(self)})"
+        start_expr = f"({n.start.accept(self)})" if n.start else "PyObject()"
+        end_expr = f"({n.end.accept(self)})" if n.end else "PyObject()"
+        has_start = "true" if n.start else "false"
+        has_end = "true" if n.end else "false"
+        return f"{base_expr}.slice({start_expr}, {end_expr}, {has_start}, {has_end})"
+
     def visit_CallNode(self, n):
         # Handle method calls on objects (e.g., materias.add("x"), lista.append(1))
         # Check BEFORE calling accept() on callee
@@ -537,6 +545,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/set_test.py"
+    file_path = "transpiler_tests/list_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
