@@ -6,121 +6,44 @@
 #include <chrono>
 using namespace std;
 
-PyObject add(PyObject a, PyObject b) {
-    return (a + b);
-}
-PyObject fib(PyObject n) {
-    if ((n <= 0)) {
-        return PyObject(0);
-    }
-    if (py_or((n == 1), (n == 2))) {
-        return PyObject(1);
-    }
-    return (fib((n - 1)) + fib((n - 2)));
-}
 int main() {
     // Iniciar el cronómetro
     auto inicio = std::chrono::high_resolution_clock::now();
     
-    cout << add(1, 2) << endl;
-    cout << add("hello", "world") << endl;
-    cout << fib(5) << endl;
-    PyObject s = "hello";
-    cout << s << endl;
-    cout << len(s) << endl;
-    cout << (static_cast<const PyObject&>(s))[0] << endl;
-    cout << (s * 2) << endl;
-    PyObject x = 42;
-    cout << x << endl;
-    x = "world";
-    cout << x << endl;
-    x = 3.14;
-    cout << x << endl;
-    PyObject a = 4;
-    PyObject b = 5;
-    PyObject result = (PyObject((a).to_string()) + PyObject((b).to_string()));
-    cout << result << endl;
-    cout << "Loop test:" << endl;
-    for (PyObject i = 0; (i).to_int() < PyObject(5).to_int(); i = PyObject((i).to_int() + 1)) {
-        cout << i << endl;
-    }
-    if ((s).to_bool()) {
-        cout << "String is truthy" << endl;
-    }
-    PyObject empty = "";
-    if (!((empty).to_bool())) {
-        cout << "Empty string is falsy" << endl;
-    }
+    PyObject a = 5;
+    PyObject b = 10;
+    PyObject c = (a + b);
     if ((a < b)) {
-        cout << "4 < 5" << endl;
-    }
-    PyObject counter = 0;
-    while ((counter < 3)) {
-        cout << counter << endl;
-        counter = (counter + 1);
-    }
-    cout << "=== Testing 'and' operator ===" << endl;
-    PyObject result1 = py_and(5, 10);
-    cout << result1 << endl;
-    PyObject result2 = py_and(0, 10);
-    cout << result2 << endl;
-    PyObject result3 = py_and(5, 0);
-    cout << result3 << endl;
-    PyObject result4 = py_and("", "hello");
-    cout << result4 << endl;
-    PyObject result5 = py_and("hello", "world");
-    cout << result5 << endl;
-    cout << "" << endl;
-    cout << "=== Testing 'or' operator ===" << endl;
-    PyObject result6 = py_or(5, 10);
-    cout << result6 << endl;
-    PyObject result7 = py_or(0, 10);
-    cout << result7 << endl;
-    PyObject result8 = py_or(0, 0);
-    cout << result8 << endl;
-    PyObject result9 = py_or("", "hello");
-    cout << result9 << endl;
-    PyObject result10 = py_or("hello", "world");
-    cout << result10 << endl;
-    cout << "" << endl;
-    cout << "=== Testing in conditionals ===" << endl;
-    if (py_and(5, 10)) {
-        cout << "5 and 10 is truthy" << endl;
-    }
-    if (py_and(0, 10)) {
-        cout << "0 and 10 is truthy" << endl;
+        PyObject d = (a * 2);
     } else {
-        cout << "0 and 10 is falsy" << endl;
+        d = (b * 2);
     }
-    if (py_or(5, 0)) {
-        cout << "5 or 0 is truthy" << endl;
+    PyObject e = (c - d);
+    for (auto e : ((static_cast<const PyObject&>(a))[3]).get_list()) {
+        cout << e << endl;
     }
-    if (py_or(0, "")) {
-        cout << "0 or empty string is truthy" << endl;
+    for (PyObject i = 0; (i).to_int() < PyObject((len(a) - 1)).to_int(); i = PyObject((i).to_int() + 1)) {
+        cout << (static_cast<const PyObject&>(a))[i] << endl;
+    }
+    if ((e > 0)) {
+        PyObject f = (e + 1);
+    } else if ((e == 0)) {
+        f = 0;
     } else {
-        cout << "0 or empty string is falsy" << endl;
+        f = (e - 1);
     }
-    cout << "" << endl;
-    cout << "=== Testing chained and/or ===" << endl;
-    PyObject result11 = py_and(py_and(1, 2), 3);
-    cout << result11 << endl;
-    PyObject result12 = py_and(py_and(1, 0), 3);
-    cout << result12 << endl;
-    PyObject result13 = py_or(py_or(0, 0), 5);
-    cout << result13 << endl;
-    PyObject result14 = py_or(py_or(1, 2), 3);
-    cout << result14 << endl;
-    cout << "" << endl;
-    cout << "=== Testing with different types ===" << endl;
-    PyObject result15 = py_and(42, "hello");
-    cout << result15 << endl;
-    PyObject result16 = py_or("", 42);
-    cout << result16 << endl;
-    PyObject result17 = py_and("hello", 123);
-    cout << result17 << endl;
-    cout << "" << endl;
-    cout << "All and/or tests complete!" << endl;
-    cout << "All tests passed!" << endl;
+    PyObject g = py_pow(a, 2);
+    PyObject h = floor_div(b, 3);
+    PyObject i = (g + h);
+    a = a + 5;
+    b = b - 2;
+    c = c * 3;
+    a = 4;
+    cout << a << endl;
+    b = 5;
+    a = "hola";
+    b = (a + (PyObject((b).to_string())));
+    cout << b << endl;
     
     // Detener el cronómetro
     auto fin = std::chrono::high_resolution_clock::now();

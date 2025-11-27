@@ -1,4 +1,4 @@
-# TIMER_START
+import time
 
 # lista básica
 numeros = [1, 2, 3]
@@ -21,5 +21,8 @@ print(numeros)  # [2, 3, 4, 5]
 numeros.pop(2)
 print(numeros)  # [2, 3, 5]
 
-# TIMER_END
+# Detener el cronómetro
+fin = time.time()
+duracion = (fin - inicio) * 1000  # convertir a milisegundos
+print(f"\nTiempo de ejecucion: {duracion:.4f} milisegundos")
 
