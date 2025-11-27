@@ -98,7 +98,7 @@ public:
     // Indexing support (for strings)
     PyObject operator[](const PyObject& index) const {
         if (type == PyType::String) {
-            size_t idx = index.to_int();
+            long long idx = index.to_int();
             const std::string& s = std::get<std::string>(value);
             long long size = static_cast<long long>(s.size());
             
@@ -111,7 +111,7 @@ public:
             if (idx < 0 || idx >= size) {
                 throw std::runtime_error("IndexError: string index out of range");
             }
-            return PyObject(std::string(1, s[idx]));
+            return PyObject(std::string(1, s[static_cast<size_t>(idx)]));
         }
         throw std::runtime_error("TypeError: '" + type_name() + "' object is not subscriptable");
     }
@@ -305,6 +305,8 @@ inline PyObject py_pow(const PyObject& a, const PyObject& b) {
     return a.pow(b);
 }
 
+// TODO(milton): handle len() for things other than strings
+// TODO(milton): once lists/dicts live inside PyObject, this becomes much cleaner and you can just return len({args}).
 // Helper for len()
 inline size_t len(const PyObject& obj) {
     return obj.size();

@@ -223,8 +223,11 @@ class Transpiler:
     def visit_UnaryOpNode(self, n):
         expr = n.operand.accept(self)
         if n.op == "not":
-            # Use PyObject's truthiness
-            return f"!({expr}).to_bool()"
+            # If operand is a comparison or another 'not', expr is already bool
+            if self._returns_bool(n.operand):
+                return f"!({expr})"
+            else:
+                return f"!(({expr}).to_bool())"
         return f"({n.op}{expr})"
 
     def visit_GroupNode(self, n):
@@ -254,8 +257,8 @@ class Transpiler:
             self.emit(f"cout << {args} << endl;")
             return ""
         elif callee == "str":
-            # Convert to string
-            return f"({args}).to_string()"
+            # Wrap in PyObject so type matches the rest
+            return f"PyObject(({args}).to_string())"
         elif callee == "len":
             # Use PyObject's size() method
             return f"len({args})"
