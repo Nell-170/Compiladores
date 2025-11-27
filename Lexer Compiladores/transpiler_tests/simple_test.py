@@ -1,3 +1,8 @@
+import time
+
+# Iniciar el cronómetro
+inicio = time.time()
+
 a = 5
 b = 10
 c = a + b
@@ -38,3 +43,8 @@ b = 5
 a = "hola"
 b = a + (str(b))
 print(b)
+
+# Detener el cronómetro
+fin = time.time()
+duracion = (fin - inicio) * 1000  # convertir a milisegundos
+print(f"\nTiempo de ejecución: {duracion:.4f} milisegundos")

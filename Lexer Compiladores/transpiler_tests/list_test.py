@@ -1,3 +1,5 @@
+# TIMER_START
+
 # lista básica
 numeros = [1, 2, 3]
 
@@ -18,3 +20,6 @@ print(numeros)  # [2, 3, 4, 5]
 # remove por index usando pop
 numeros.pop(2)
 print(numeros)  # [2, 3, 5]
+
+# TIMER_END
+

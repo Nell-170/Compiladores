@@ -1,3 +1,8 @@
+import time
+
+# Iniciar el cronómetro
+inicio = time.time()
+
 # Inicializando con un literal de cadena (similar a std::string greeting)
 greeting = "Hello, World!"
 
@@ -12,3 +17,8 @@ name = "Alice"
 print(greeting)
 
 # En Python, el programa termina automáticamente sin necesidad de 'return 0'
+
+# Detener el cronómetro
+fin = time.time()
+duracion = (fin - inicio) * 1000  # convertir a milisegundos
+print(f"\nTiempo de ejecución: {duracion:.4f} milisegundos")
