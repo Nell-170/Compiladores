@@ -14,13 +14,16 @@ enum class PyType {
     Int,
     Float,
     Bool,
-    String
+    String,
+    List,
+    Dict,
+    Tuple,   // optional if we want to support tuples separately??
 };
 
 class PyObject {
 private:
     PyType type;
-    std::variant<std::monostate, long long, double, bool, /*std::ssize_t,*/ std::string> value;
+    std::variant<std::monostate, long long, double, bool, /*std::ssize_t,*/ std::string, std::vector<PyObject>, std::map<PyObject, PyObject>> value;
 
 public:
     // Constructors
@@ -33,6 +36,16 @@ public:
     PyObject(const char* v) : type(PyType::String), value(std::string(v)) {}
     PyObject(const std::string& v) : type(PyType::String), value(v) {}
 
+    // Constructors for list and dict
+    PyObject(const std::vector<PyObject>& v, bool as_tuple = false)
+        : type(as_tuple ? PyType::Tuple : PyType::List), value(v) {}
+    PyObject(std::vector<PyObject>&& v, bool as_tuple = false)
+        : type(as_tuple ? PyType::Tuple : PyType::List), value(std::move(v)) {}
+    PyObject(const std::map<PyObject, PyObject>& m)
+        : type(PyType::Dict), value(m) {}
+    PyObject(std::map<PyObject, PyObject>&& m)
+        : type(PyType::Dict), value(std::move(m)) {}
+
     // Type checking
     PyType get_type() const { return type; }
     bool is_none() const { return type == PyType::None; }
@@ -40,6 +53,9 @@ public:
     bool is_float() const { return type == PyType::Float; }
     bool is_bool() const { return type == PyType::Bool; }
     bool is_string() const { return type == PyType::String; }
+    bool is_list()  const { return type == PyType::List; }
+    bool is_tuple() const { return type == PyType::Tuple; }
+    bool is_dict()  const { return type == PyType::Dict; }
 
     // Conversion to bool (Python truthiness)
     bool to_bool() const {
@@ -49,6 +65,10 @@ public:
             case PyType::Float: return std::get<double>(value) != 0.0;
             case PyType::Bool: return std::get<bool>(value);
             case PyType::String: return !std::get<std::string>(value).empty();
+            // TODO(milton): implement truthiness for lists, dicts, tuples (revise que la logica es correcta)
+            case PyType::List:
+            case PyType::Tuple:  return !std::get<std::vector<PyObject>>(value).empty();
+            case PyType::Dict:   return !std::get<std::map<PyObject, PyObject>>(value).empty();
         }
         return false;
     }
@@ -88,6 +108,7 @@ public:
     }
 
     // Length (for strings, lists, etc.)
+    // TODO(milton): expand to lists, dicts, tuples
     size_t size() const {
         if (type == PyType::String) {
             return std::get<std::string>(value).size();
@@ -95,8 +116,11 @@ public:
         throw std::runtime_error("TypeError: object of type '" + type_name() + "' has no len()");
     }
 
+    // TODO(milton): implementar indexing para listas, dicts, tuplas
     // Indexing support (for strings)
     PyObject operator[](const PyObject& index) const {
+        long long idx = index.to_int();
+
         if (type == PyType::String) {
             long long idx = index.to_int();
             const std::string& s = std::get<std::string>(value);
@@ -113,6 +137,17 @@ public:
             }
             return PyObject(std::string(1, s[static_cast<size_t>(idx)]));
         }
+
+        if (type == PyType::List || type == PyType::Tuple) {
+            // ! Revisar esta parte
+            // const auto& vec = std::get<std::vector<PyObject>>(value);
+            // long long size = static_cast<long long>(vec.size());
+            // if (idx < 0) idx += size;
+            // if (idx < 0 || idx >= size)
+            //     throw std::runtime_error("IndexError: list index out of range");
+            // return vec[static_cast<size_t>(idx)];
+        }
+
         throw std::runtime_error("TypeError: '" + type_name() + "' object is not subscriptable");
     }
 

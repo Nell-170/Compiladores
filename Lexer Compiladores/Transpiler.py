@@ -230,6 +230,11 @@ class Transpiler:
                 return f"!(({expr}).to_bool())"
         return f"({n.op}{expr})"
 
+    def visit_UnaryOpArithmeticNode(self, n):
+        expr = n.operand.accept(self)
+        # n.op is '+' or '-'
+        return f"({n.op}{expr})"
+
     def visit_GroupNode(self, n):
         expr = n.expr.accept(self)
         return f"({expr})"
@@ -238,6 +243,32 @@ class Transpiler:
         left = n.left.accept(self)
         right = n.right.accept(self)
         return f"({left} {n.op} {right})"
+    
+    def visit_ChainedComparisonNode(self, n):
+        """
+        Transpile a chained comparison like: a < b < c
+
+        Parser gives us:
+            left  = a
+            chain = [("<", b), ("<", c)]
+        We emit:
+            (a < b) && (b < c)
+        """
+        # First comparison uses the original left
+        left_cpp = n.left.accept(self)
+
+        parts = []
+        current_left = left_cpp
+
+        for op, right_node in n.chain:
+            right_cpp = right_node.accept(self)
+            # Reuse the previous right as the next left (a < b && b < c && c < d ...)
+            parts.append(f"({current_left} {op} {right_cpp})")
+            current_left = right_cpp
+
+        # For safety, wrap the whole thing in parentheses
+        return "(" + " && ".join(parts) + ")"
+
 
     def visit_BlockNode(self, n):
         for stmt in n.statements:
@@ -254,7 +285,12 @@ class Transpiler:
 
         # Handle built-in functions
         if callee == "print":
-            self.emit(f"cout << {args} << endl;")
+            if not n.args:
+                self.emit("cout << endl;")
+            else:
+                parts = [arg.accept(self) for arg in n.args]
+                joined = " << \" \" << ".join(parts)
+                self.emit(f"cout << {joined} << endl;")
             return ""
         elif callee == "str":
             # Wrap in PyObject so type matches the rest
@@ -355,17 +391,19 @@ class Transpiler:
         self.indent -= 1
         self.emit("}")
 
+    # ! Ejemplo de como hacer wrapping
     def visit_ListNode(self, n):
         """Handle list literals like [1, 2, 3]"""
         if not n.elements:
-            return "vector<PyObject>{}"
+            return "PyObject(std::vector<PyObject>{})"
 
         # Convert all elements
         elements = [elem.accept(self) for elem in n.elements]
         elements_str = ", ".join(elements)
 
-        return f"vector<PyObject>{{{elements_str}}}" 
+        return f"PyObject(std::vector<PyObject>{{{elements_str}}})"
 
+    # TODO(milton): implementar wrapping para DictNode y TupleNode
     def visit_DictNode(self, n):
         """Handle dictionary literals like {'a': 1, 'b': 2}"""
         if not n.pairs:
@@ -381,6 +419,7 @@ class Transpiler:
         pairs_str = ", ".join(pairs)
         return f"map<PyObject, PyObject>{{{pairs_str}}}"
 
+    # TODO(milton): implementar wrapping para DictNode y TupleNode  
     def visit_TupleNode(self, n):
         """Handle tuple literals like (1, 2, 3)"""
         if not n.elements:
@@ -427,13 +466,15 @@ class Transpiler:
         """
         if isinstance(node, ComparisonNode) or isinstance(node, ChainedComparisonNode):
             return True
-        
-        
+
+        if isinstance(node, BinaryOpNode) and node.op in ("and", "or"):
+            return True
+
         if isinstance(node, UnaryOpNode):
             # not operator returns bool
             if node.op == "not":
                 return True
-        
+
         return False
 
 if __name__ == "__main__":
