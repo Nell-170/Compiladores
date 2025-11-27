@@ -1,5 +1,8 @@
 import time
 
+# Iniciar el cronómetro
+inicio = time.time()
+
 # lista básica
 numeros = [1, 2, 3]
 

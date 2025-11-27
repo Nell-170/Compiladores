@@ -653,6 +653,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/simple_test.py"
+    file_path = "transpiler_tests/list_test.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
