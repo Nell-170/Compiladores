@@ -301,17 +301,20 @@ class Transpiler:
         if n.op == "//" or n.op == "floordiv":
             return f"floor_div({left}, {right})"
 
-        # Logical operators (and/or)
+        # Logical operators (and/or) - Python returns operands, not bool!
         if n.op in ("and", "or"):
-            cpp_op = "&&" if n.op == "and" else "||"
-            # Check if operands are already boolean expressions (comparisons)
-            left_needs_convert = not self._is_comparison_expr(n.left)
-            right_needs_convert = not self._is_comparison_expr(n.right)
+            # TODO(val): We need to check the CONTEXT - are we in a boolean context?
+            # If in boolean context (if/while), use C++ &&/||
+            # If in value context (assignment/expression), use Python semantics
 
-            left_expr = f"({left}).to_bool()" if left_needs_convert else left
-            right_expr = f"({right}).to_bool()" if right_needs_convert else right
-
-            return f"({left_expr} {cpp_op} {right_expr})"
+            # For now, always use Python semantics (return operands)
+            # This is implemented via helper functions
+            if n.op == "and":
+                # Python: if left is falsy, return left; else return right
+                return f"py_and({left}, {right})"
+            else:  # or
+                # Python: if left is truthy, return left; else return right
+                return f"py_or({left}, {right})"
 
         # All other operators work directly on PyObject
         return f"({left} {n.op} {right})"
@@ -629,6 +632,6 @@ class Transpiler:
 
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/teacher_test.py"
+    file_path = "transpiler_tests/test_working.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
