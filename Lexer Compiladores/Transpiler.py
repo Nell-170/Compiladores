@@ -201,8 +201,7 @@ class Transpiler:
         
         # Logical operators (and/or) - Python returns operands, not bool!
         if n.op in ("and", "or"):
-            # TODO(val):
-            # We need to check the CONTEXT - are we in a boolean context?
+            # TODO(val): We need to check the CONTEXT - are we in a boolean context?
             # If in boolean context (if/while), use C++ &&/||
             # If in value context (assignment/expression), use Python semantics
             
