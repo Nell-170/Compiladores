@@ -15,13 +15,14 @@ enum class PyType {
     Int,
     Float,
     Bool,
-    String
+    String,
+    List
 };
 
 class PyObject {
 private:
     PyType type;
-    std::variant<std::monostate, long long, double, bool, /*std::ssize_t,*/ std::string> value;
+    std::variant<std::monostate, long long, double, bool, std::string, std::vector<PyObject>> value;
 
 public:
     // Constructors
@@ -33,6 +34,10 @@ public:
     PyObject(bool v) : type(PyType::Bool), value(v) {}
     PyObject(const char* v) : type(PyType::String), value(std::string(v)) {}
     PyObject(const std::string& v) : type(PyType::String), value(v) {}
+    
+    // Constructor for vectors/lists
+    PyObject(const std::vector<PyObject>& v) : type(PyType::List), value(v) {}
+    PyObject(std::vector<PyObject>&& v) : type(PyType::List), value(std::move(v)) {}
 
     // Type checking
     PyType get_type() const { return type; }
@@ -41,6 +46,7 @@ public:
     bool is_float() const { return type == PyType::Float; }
     bool is_bool() const { return type == PyType::Bool; }
     bool is_string() const { return type == PyType::String; }
+    bool is_list() const { return type == PyType::List; }
 
     // Conversion to bool (Python truthiness)
     bool to_bool() const {
@@ -50,6 +56,7 @@ public:
             case PyType::Float: return std::get<double>(value) != 0.0;
             case PyType::Bool: return std::get<bool>(value);
             case PyType::String: return !std::get<std::string>(value).empty();
+            case PyType::List: return !std::get<std::vector<PyObject>>(value).empty();
         }
         return false;
     }
@@ -84,6 +91,22 @@ public:
             case PyType::Float: return std::to_string(std::get<double>(value));
             case PyType::Bool: return std::get<bool>(value) ? "True" : "False";
             case PyType::String: return std::get<std::string>(value);
+            case PyType::List: {
+                const auto& vec = std::get<std::vector<PyObject>>(value);
+                std::string result = "[";
+                for (size_t i = 0; i < vec.size(); ++i) {
+                    if (i > 0) result += ", ";
+                    // Recursively convert each element
+                    const auto& elem = vec[i];
+                    if (elem.is_string()) {
+                        result += "'" + elem.to_string() + "'";
+                    } else {
+                        result += elem.to_string();
+                    }
+                }
+                result += "]";
+                return result;
+            }
         }
         return "";
     }
@@ -93,10 +116,13 @@ public:
         if (type == PyType::String) {
             return std::get<std::string>(value).size();
         }
+        if (type == PyType::List) {
+            return std::get<std::vector<PyObject>>(value).size();
+        }
         throw std::runtime_error("TypeError: object of type '" + type_name() + "' has no len()");
     }
 
-    // Indexing support (for strings)
+    // Indexing support (for strings and lists)
     PyObject operator[](const PyObject& index) const {
         if (type == PyType::String) {
             long long idx = index.to_int();
@@ -115,6 +141,23 @@ public:
             
             return PyObject(std::string(1, s[static_cast<size_t>(idx)]));
         }
+        if (type == PyType::List) {
+            long long idx = index.to_int();
+            const auto& vec = std::get<std::vector<PyObject>>(value);
+            long long size = static_cast<long long>(vec.size());
+            
+            // Handle Python-style negative indexing
+            if (idx < 0) {
+                idx += size;
+            }
+            
+            // Bounds check with signed index
+            if (idx < 0 || idx >= size) {
+                throw std::runtime_error("IndexError: list index out of range");
+            }
+            
+            return vec[static_cast<size_t>(idx)];
+        }
         throw std::runtime_error("TypeError: '" + type_name() + "' object is not subscriptable");
     }
 
@@ -126,6 +169,7 @@ public:
             case PyType::Float: return "float";
             case PyType::Bool: return "bool";
             case PyType::String: return "str";
+            case PyType::List: return "list";
         }
         return "unknown";
     }
@@ -288,6 +332,14 @@ public:
 
     PyObject operator+() const {
         return *this;
+    }
+
+    // Get a reference to the underlying vector (for iteration in for loops)
+    const std::vector<PyObject>& get_list() const {
+        if (type != PyType::List) {
+            throw std::runtime_error("TypeError: cannot iterate over '" + type_name() + "'");
+        }
+        return std::get<std::vector<PyObject>>(value);
     }
 
     // Output operator

@@ -325,8 +325,13 @@ class Transpiler:
             # Use proper PyObject increment
             self.emit(f"for (PyObject {target} = 0; ({target}).to_int() < PyObject({limit}).to_int(); {target} = PyObject(({target}).to_int() + 1)) {{")
         else:
-            # Range-based for normal
-            self.emit(f"for (auto {target} : {iterable_str}) {{")
+            # Para iterar sobre PyObject con listas, usa .get_list()
+            if isinstance(n.iterable, IdentifierNode):
+                # Es una variable, probablemente un PyObject con lista
+                self.emit(f"for (auto {target} : ({iterable_str}).get_list()) {{")
+            else:
+                # Es una expresión, asume que es un vector literal
+                self.emit(f"for (auto {target} : {iterable_str}) {{")
 
         self.indent += 1
         n.body.accept(self)
@@ -420,6 +425,6 @@ class Transpiler:
                isinstance(node, BinaryOpNode) and node.op in ("and", "or")
 
 if __name__ == "__main__":
-    file_path = "transpiler_tests/teacher_test.py"
+    file_path = "transpiler_tests/test_list.py"
     mode = int(input("Modo (1=transpilar, 2=compilar, 3=ejecutar): "))
     build_and_run(file_path, mode)
