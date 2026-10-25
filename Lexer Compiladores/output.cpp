@@ -10,7 +10,7 @@ int main() {
     // Iniciar el cronómetro
     auto inicio = std::chrono::high_resolution_clock::now();
     
-    PyObject numeros = PyObject(std::vector<PyObject>{1, 2, 3});
+    PyObject numeros = (PyObject(std::vector<PyObject>{1, 2, 3}) + PyObject(std::vector<PyObject>{4, 5}));
     numeros.append(4);
     numeros.append(5);
     cout << numeros << endl;

@@ -1,13 +1,4 @@
-"""
-Emmanuel
-TODO: Arreglar problemas de compilación y ejecucion
 
-Milton
-TODO: Cosas que el profe dijo que había que considerar
-
-Valentino
-TODO: std::any o lo que sea necesario para manejar tipos dinámicos en C++
-"""
 
 import json
 import subprocess
